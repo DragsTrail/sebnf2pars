@@ -1,0 +1,3122 @@
+(*=============================================================*)
+
+(* This EBNF file represents STEP Part 21 files based on       *)
+(* Parts 10 and 11 of ISO 14649. About three-quarters of Parts *)
+(* 10 and 11 is covered.                                       *)
+
+(* The following things in Parts 10 and 11 of ISO 14649 have   *)
+(* been omitted:                                               *)
+(* booleanExpression                                           *)
+(* programStructures other than workplan                       *)
+(* splines of all sorts                                        *)
+(* surfaceTextureParameter                                     *)
+(* toolDirectionForMilling                                     *)
+(* topology of all sorts                                       *)
+
+(* The following things in Parts 10 and 11 of ISO 14649 have   *)
+(* been abbreviated:                                           *)
+(* advancedBrepShapeRepresentation                             *)
+(* approachRetractStrategy                                     *)
+(* date                                                        *)
+(* drill                                                       *)
+(* drillingTypeOperation                                       *)
+(* machiningFeature                                            *)
+(* millingCutter                                               *)
+(* millingToolBody                                             *)
+(* personAndAddress                                            *)
+(* region                                                      *)
+(* representations                                             *)
+(* toolpath                                                    *)
+(* trajectory                                                  *)
+(* two5DmillingStrategy                                        *)
+
+(*=============================================================*)
+(*                                                             *)
+(* The language used in this file to describe Part 21 input    *)
+(* conforms to the ISO 14977 standard for EBNF (Extended       *)
+(* Backus-Naur Form), with the following conventions.          *)
+(*                                                             *)
+(* 1. Words spelled here with all upper case letters are       *)
+(*    keywords. The actual spelling of these words in an input *)
+(*    file may use upper or lower case letters. If a keyword   *)
+(*    is not spelled as it appears, the spelling is given      *)
+(*    here. Otherwise, its spelling is not given.              *)
+(*                                                             *)
+(* 2. Words spelled here starting with an upper case letter    *)
+(*    and containing lower case letters may be defined in      *)
+(*    terms of characters alone but are not defined here.      *)
+(*    They are listed separately below with dummy definitions. *)
+(*                                                             *)
+(* 3. Words spelled here starting with a lower case letter     *)
+(*    are non-terminal symbols. Every one of them appears      *)
+(*    exactly once as the symbol being defined (i.e. the       *)
+(*    symbol on the left side of the equal sign).              *)
+(*                                                             *)
+(* Meanings of the standard EBNF symbols used here are:        *)
+(*   |        ... alternative expression                       *)
+(*   (  )     ... group (the usual meaning of parentheses)     *)
+(*   '  '     ... literal text (one or more characters)        *)
+(*   =        ... assignment                                   *)
+(*   ,        ... separates terms not otherwise separated      *)
+(*   ;        ... end of statement                             *)
+(*                                                             *)
+(* Since EBNF and part 21 both use commas profusely, the Part  *)
+(* 21 comma is defined here as "c" rather than shown as ',' .  *)
+(*                                                             *)
+(*=============================================================*)
+
+(*=============================================================*)
+(* starting symbol                                             *)
+(*=============================================================*)
+
+inputFile =
+	  fileStart , headerSection , dataSection , fileEnd
+	;
+
+(*=============================================================*)
+(* comma *)
+(*=============================================================*)
+
+c = ','
+	;
+
+(*=============================================================*)
+(* nonterminals for all Part 21 files                          *)
+(*=============================================================*)
+
+dataSection =
+	  dataStarter , instanceList , endSection
+	;
+
+dataStarter =
+	  DATA , ';'
+	;
+
+endSection =
+	  ENDSEC , ';'
+	;
+
+fileDescription =
+	  FILEDESCRIPTION , '(' , parenStringListFull , c ,
+          CharString , ')' , ';'
+	;
+
+FILEDESCRIPTION =
+	  'F','I','L','E','_','D','E','S','C','R','I','P','T','I','O','N'
+	;
+
+fileEnd =
+	  FILEEND , ';'
+	;
+
+FILEEND =
+	  'E','N','D','-','I','S','O','-','1','0','3','0','3','-','2','1'
+	;
+
+fileName =
+	  FILENAME , '(' , CharString , c , CharString , c ,
+	  parenStringListFull , c , parenStringListFull , c ,
+	  CharString , c , CharString , c , CharString , ')' , ';'
+	;
+
+FILENAME =
+	  'F','I','L','E','_','N','A','M','E'
+	;
+
+fileSchema = FILESCHEMA , '(' , parenStringList , ')' , ';'
+	;
+
+FILESCHEMA =
+	  'F','I','L','E','_','S','C','H','E','M','A'
+	;
+
+fileStart =
+	  FILESTART , ';'
+	;
+
+FILESTART =
+	  'I','S','O','-','1','0','3','0','3','-','2','1'
+	;
+
+headerSection =
+	  headerStarter , fileDescription , fileName , fileSchema , endSection
+	;
+
+headerStarter =
+	  HEADER , ';'
+	;
+
+instanceId =
+	  '#' , IntString
+	;
+
+instanceList =
+	  instancePlus
+	| instanceList , instancePlus
+	;
+
+instancePlus =
+	  instanceId , '=' , instance , ';'
+	;
+
+optReal =
+	  real
+	| '$'
+	;
+
+parenRealListFull =
+	  '(' , realList , ')'
+	;
+
+parenStringList =
+	  '(' , stringList , ')'
+	| '(' , ')'
+	;
+
+parenStringListFull =
+	  '(' , stringList , ')'
+	;
+
+real =
+	  RealString
+	;
+
+realList =
+	  real
+	| realList , c , real
+	;
+
+stringList =
+	  CharString
+	| stringList , c , CharString
+	;
+
+(*=============================================================*)
+(* undefined non-terminals *)
+(*=============================================================*)
+
+(* This section provides dummy definitions for undefined non-terminals *)
+(* so that the file may be parsed without error by EBNF parsers.       *)
+
+CharString = 'Not defined here'
+	;
+
+IntString = 'Not defined here'
+	;
+
+RealString = 'Not defined here' 
+
+	;
+
+(*=============================================================*)
+(* schema-specific spellings                                   *)
+(*=============================================================*)
+
+ADVANCEDBREPSHAPEREPRESENTATION =
+	  'A','D','V','A','N','C','E','D','_',
+	  'B','R','E','P','_','S','H','A','P','E','_',
+	  'R','E','P','R','E','S','E','N','T','A','T','I','O','N'
+	;
+
+ANGLETAPER =
+	  'A','N','G','L','E','_','T','A','P','E','R'
+	;
+
+APPROACH =
+	  '.','A','P','P','R','O','A','C','H','.'
+	;
+
+APPROVALSTATUS =
+	  'A','P','P','R','O','V','A','L','_','S','T','A','T','U','S'
+	;
+
+AXIS1PLACEMENT =
+	  'A','X','I','S','1','_','P','L','A','C','E','M','E','N','T'
+	;
+
+AXIS2PLACEMENT3D =
+	  'A','X','I','S','2','_','P','L','A','C','E','M','E','N','T','_',
+	  '3','D'
+	;
+
+BACKBORING =
+	  'B','A','C','K','_','B','O','R','I','N','G'
+	;
+
+BACKSIDECOUNTERBORE =
+	  'B','A','C','K','S','I','D','E','_',
+          'C','O','U','N','T','E','R','B','O','R','E'
+	;
+
+BACKSIDECOUNTERSINK =
+	  'B','A','C','K','S','I','D','E','_',
+          'C','O','U','N','T','E','R','S','I','N','K'
+	;
+
+BALLENDMILL =
+	  'B','A','L','L','_','E','N','D','M','I','L','L'
+	;
+
+BIDIRECTIONALMILLING =
+	  'B','I','D','I','R','E','C','T','I','O','N','A','L','_',
+	  'M','I','L','L','I','N','G'
+	;
+
+BOTTOMANDSIDEFINISHMILLING =
+	  'B','O','T','T','O','M','_','A','N','D','_','S','I','D','E','_',
+	  'F','I','N','I','S','H','_','M','I','L','L','I','N','G'
+	;
+
+BOTTOMANDSIDEROUGHMILLING =
+	  'B','O','T','T','O','M','_','A','N','D','_','S','I','D','E','_',
+	  'R','O','U','G','H','_','M','I','L','L','I','N','G'
+	;
+
+BULLNOSEENDMILL =
+	  'B','U','L','L','N','O','S','E','_','E','N','D','M','I','L','L'
+	;
+
+CALENDARDATE =
+	  'C','A','L','E','N','D','A','R','_','D','A','T','E'
+	;
+
+CARTESIAN =
+	  '.','C','A','R','T','E','S','I','A','N','.'
+	;
+
+CARTESIANPOINT =
+	  'C','A','R','T','E','S','I','A','N','_','P','O','I','N','T'
+	;
+
+CCP =
+	  '.','C','C','P','.'
+	;
+
+CCW =
+	  '.','C','C','W','.'
+	;
+
+CENTERDRILL =
+	  'C','E','N','T','E','R','_','D','R','I','L','L'
+	;
+
+CENTERDRILLING =
+	  'C','E','N','T','E','R','_','D','R','I','L','L','I','N','G'
+	;
+
+CIRCULAROFFSET =
+	  'C','I','R','C','U','L','A','R','_','O','F','F','S','E','T'
+	;
+
+CIRCULAROMIT =
+	  'C','I','R','C','U','L','A','R','_','O','M','I','T'
+	;
+
+CIRCULARPATTERN =
+	  'C','I','R','C','U','L','A','R','_','P','A','T','T','E','R','N'
+	;
+
+CLIMB =
+	  '.','C','L','I','M','B','.'
+	;
+
+CLOSEDPOCKET =
+	  'C','L','O','S','E','D','_','P','O','C','K','E','T'
+	;
+
+COMBINEDDRILLANDREAMER =
+	  'C','O','M','B','I','N','E','D','_','D','R','I','L','L','_',
+	  'A','N','D','_','R','E','A','M','E','R'
+	;
+
+COMPLETECIRCULARPATH =
+	  'C','O','M','P','L','E','T','E','_',
+          'C','I','R','C','U','L','A','R','_','P','A','T','H'
+	;
+
+COMPOSITECURVE =
+	  'C','O','M','P','O','S','I','T','E','_','C','U','R','V','E'
+	;
+
+COMPOSITECURVESEGMENT =
+	  'C','O','M','P','O','S','I','T','E','_',
+          'C','U','R','V','E','_','S','E','G','M','E','N','T'
+	;
+
+CONICALHOLEBOTTOM =
+	  'C','O','N','I','C','A','L','_',
+	  'H','O','L','E','_','B','O','T','T','O','M'
+	;
+
+CONNECT =
+	  '.','C','O','N','N','E','C','T','.'
+	;
+
+CONTACT =
+	  '.','C','O','N','T','A','C','T','.'
+	;
+
+CONTINUOUS =
+	  '.','C','O','N','T','I','N','U','O','U','S','.'
+	;
+
+CONTOURPARALLEL =
+	  'C','O','N','T','O','U','R','_','P','A','R','A','L','L','E','L'
+	;
+
+CONTSAMEGRADIENT =
+	  '.','C','O','N','T','_','S','A','M','E','_',
+          'G','R','A','D','I','E','N','T','.'
+	;
+
+CONTSAMEGRADIENTSAMECURVATURE =
+	  '.','C','O','N','T','_','S','A','M','E','_',
+          'G','R','A','D','I','E','N','T','_','S','A','M','E','_',
+          'C','U','R','V','A','T','U','R','E','.'
+	;
+
+CONVENTIONAL =
+	  '.','C','O','N','V','E','N','T','I','O','N','A','L','.'
+	;
+
+COUNTERBOREHOLE =
+	  'C','O','U','N','T','E','R','B','O','R','E','_','H','O','L','E'
+	;
+
+COUNTERSINKING =
+	  'C','O','U','N','T','E','R','_','S','I','N','K','I','N','G'
+	;
+
+COUNTERSUNKHOLE =
+	  'C','O','U','N','T','E','R','S','U','N','K','_','H','O','L','E'
+	;
+
+CUTTERLOCATIONTRAJECTORY =
+	  'C','U','T','T','E','R','_','L','O','C','A','T','I','O','N','_',
+          'T','R','A','J','E','C','T','O','R','Y'
+	;
+
+CUTTINGCOMPONENT=
+	  'C','U','T','T','I','N','G','_','C','O','M','P','O','N','E','N','T'
+	;
+
+CUTTINGEDGETECHNOLOGICALDATA =
+	  'C','U','T','T','I','N','G','_','E','D','G','E','_',
+	  'T','E','C','H','N','O','L','O','G','I','C','A','L','_',
+	  'D','A','T','A'
+	;
+
+CW =
+	  '.','C','W','.'
+	;
+
+DATEANDTIME =
+	  'D','A','T','E','_','A','N','D','_','T','I','M','E'
+	;
+
+DESCRIPTIVEPARAMETER =
+	  'D','E','S','C','R','I','P','T','I','V','E','_',
+	  'P','A','R','A','M','E','T','E','R'
+	;
+
+DIAMETERTAPER =
+	  'D','I','A','M','E','T','E','R','_','T','A','P','E','R'
+	;
+
+DISCONTINUOUS =
+	  '.','D','I','S','C','O','N','T','I','N','U','O','U','S','.'
+	;
+
+DISPLAYMESSAGE =
+	  'D','I','S','P','L','A','Y','_','M','E','S','S','A','G','E'
+	;
+
+DRILLINGTYPESTRATEGY =
+	  'D','R','I','L','L','I','N','G','_','T','Y','P','E','_',
+	  'S','T','R','A','T','E','G','Y'
+	;
+
+EDGEROUND =
+	  'E','D','G','E','_','R','O','U','N','D'
+	;
+
+EXCHANGEPALLET =
+	  'E','X','C','H','A','N','G','E','_','P','A','L','L','E','T'
+	;
+
+FALSE =
+	  '.','F','.'
+	;
+
+FLATHOLEBOTTOM =
+	  'F','L','A','T','_','H','O','L','E','_','B','O','T','T','O','M'
+	;
+
+FLATSLOTENDTYPE =
+	  'F','L','A','T','_','S','L','O','T','_',
+          'E','N','D','_','T','Y','P','E'
+	;
+
+FLATWITHRADIUSHOLEBOTTOM =
+	  'F','L','A','T','_','W','I','T','H','_','R','A','D','I','U','S','_',
+	  'H','O','L','E','_','B','O','T','T','O','M'
+	;
+
+FORWARD =
+	  '.','F','O','R','W','A','R','D','.'
+	;
+
+FREEFORMOPERATION =
+	  'F','R','E','E','F','O','R','M','_',
+	  'O','P','E','R','A','T','I','O','N'
+	;
+
+GENERALPATH =
+	  'G','E','N','E','R','A','L','_','P','A','T','H'
+	;
+
+GENERALPATTERN =
+	  'G','E','N','E','R','A','L','_','P','A','T','T','E','R','N'
+	;
+
+GENERALPOCKETBOTTOMCONDITION =
+	  'G','E','N','E','R','A','L','_','P','O','C','K','E','T','_',
+	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+HOLE =
+	  '.','H','O','L','E','.'
+	;
+
+INDEXPALLET =
+	  'I','N','D','E','X','_','P','A','L','L','E','T'
+	;
+
+INDEXTABLE =
+	  'I','N','D','E','X','_','T','A','B','L','E'
+	;
+
+INPROCESSGEOMETRY =
+	  'I','N','_','P','R','O','C','E','S','S','_',
+	  'G','E','O','M','E','T','R','Y'
+	;
+
+LEADINGLINESTRATEGY =
+	  'L','E','A','D','I','N','G','_','L','I','N','E','_',
+          'S','T','R','A','T','E','G','Y'
+	;
+
+LEFT =
+	  '.','L','E','F','T','.'
+	;
+
+LIFT =
+	  '.','L','I','F','T','.'
+	;
+
+LIFTSHIFTPLUNGE =
+	  'L','I','F','T','_','S','H','I','F','T','_','P','L','U','N','G','E'
+	;
+
+LINEARPATH =
+	  'L','I','N','E','A','R','_','P','A','T','H'
+	;
+
+LINEARPROFILE =
+	  'L','I','N','E','A','R','_','P','R','O','F','I','L','E'
+	;
+
+LOADTOOL =
+	  'L','O','A','D','_','T','O','O','L'
+	;
+
+LOOPBACK =
+	  'L','O','O','P','_','B','A','C','K'
+	;
+
+LOOPSLOTENDTYPE =
+	  'L','O','O','P','_','S','L','O','T','_',
+          'E','N','D','_','T','Y','P','E'
+	;
+
+MACHININGWORKINGSTEP =
+	  'M','A','C','H','I','N','I','N','G','_',
+	  'W','O','R','K','I','N','G','S','T','E','P'
+	;
+
+MILLINGCUTTINGTOOL =
+	  'M','I','L','L','I','N','G','_',
+	  'C','U','T','T','I','N','G','_','T','O','O','L'
+	;
+
+MILLINGMACHINEFUNCTIONS =
+	  'M','I','L','L','I','N','G','_','M','A','C','H','I','N','E','_',
+	  'F','U','N','C','T','I','O','N','S'
+	;
+
+MILLINGTECHNOLOGY =
+	  'M','I','L','L','I','N','G','_',
+	  'T','E','C','H','N','O','L','O','G','Y'
+	;
+
+MILLINGTOOLDIMENSION =
+	  'M','I','L','L','I','N','G','_','T','O','O','L','_',
+	  'D','I','M','E','N','S','I','O','N'
+	;
+
+MULTISTEPDRILLING =
+	  'M','U','L','T','I','S','T','E','P','_',
+	  'D','R','I','L','L','I','N','G'
+	;
+
+NCVARIABLE =
+	  'N','C','_','V','A','R','I','A','B','L','E'
+	;
+
+NONCONTACT =
+	  '.','N','O','N','C','O','N','T','A','C','T','.'
+	;
+
+NUMERICPARAMETER =
+	  'N','U','M','E','R','I','C','_','P','A','R','A','M','E','T','E','R'
+	;
+
+OFFSETVECTOR =
+	  'O','F','F','S','E','T','_','V','E','C','T','O','R'
+	;
+
+OPENSLOTENDTYPE =
+	  'O','P','E','N','_','S','L','O','T','_',
+          'E','N','D','_','T','Y','P','E'
+	;
+
+OPTIONALSTOP =
+	  'O','P','T','I','O','N','A','L','_','S','T','O','P'
+	;
+
+PARAMETER =
+	  '.','P','A','R','A','M','E','T','E','R','.'
+	;
+
+PARTIALCIRCULARPATH =
+	  'P','A','R','T','I','A','L','_',
+          'C','I','R','C','U','L','A','R','_','P','A','T','H'
+	;
+
+PERSONANDADDRESS =
+	  'P','E','R','S','O','N','_','A','N','D','_',
+	  'A','D','D','R','E','S','S'
+	;
+
+PLANARFACE =
+	  'P','L','A','N','A','R','_','F','A','C','E'
+	;
+
+PLANARPOCKETBOTTOMCONDITION =
+	  'P','L','A','N','A','R','_','P','O','C','K','E','T','_',
+	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+PLANECCSTRATEGY =
+	  'P','L','A','N','E','_',
+	  'C','C','_','S','T','R','A','T','E','G','Y'
+	;
+
+PLANECLSTRATEGY =
+	  'P','L','A','N','E','_',
+	  'C','L','_','S','T','R','A','T','E','G','Y'
+	;
+
+PLANEFINISHMILLING =
+	  'P','L','A','N','E','_',
+	  'F','I','N','I','S','H','_','M','I','L','L','I','N','G'
+	;
+
+PLANEROUGHMILLING =
+	  'P','L','A','N','E','_',
+	  'R','O','U','G','H','_','M','I','L','L','I','N','G'
+	;
+
+PLUNGEHELIX =
+	  'P','L','U','N','G','E','_','H','E','L','I','X'
+	;
+
+PLUNGERAMP =
+	  'P','L','U','N','G','E','_','R','A','M','P'
+	;
+
+PLUNGETOOLAXIS =
+	  'P','L','U','N','G','E','_','T','O','O','L','A','X','I','S'
+	;
+
+PLUNGEZIGZAG =
+	  'P','L','U','N','G','E','_','Z','I','G','Z','A','G'
+	;
+
+PLUSMINUSVALUE =
+	  'P','L','U','S','_','M','I','N','U','S',
+          '_','V','A','L','U','E'
+	;
+
+PROCESSMODEL =
+	  'P','R','O','C','E','S','S','_','M','O','D','E','L'
+	;
+
+PROCESSMODELLIST =
+	  'P','R','O','C','E','S','S','_',
+	  'M','O','D','E','L','_','L','I','S','T'
+	;
+
+PROGRAMSTOP =
+	  'P','R','O','G','R','A','M','_','S','T','O','P'
+	;
+
+RADIUSEDPOCKETBOTTOMCONDITION =
+	  'R','A','D','I','U','S','E','D','_','P','O','C','K','E','T','_',
+	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+RADIUSEDSLOTENDTYPE =
+	  'R','A','D','I','U','S','E','D','_','S','L','O','T','_',
+          'E','N','D','_','T','Y','P','E'
+	;
+
+RAPID =
+	  '.','R','A','P','I','D','.'
+	;
+
+RAPIDMOVEMENT =
+	  'R','A','P','I','D','_','M','O','V','E','M','E','N','T'
+	;
+
+RECTANGULARCLOSEDPROFILE =
+	  'R','E','C','T','A','N','G','U','L','A','R','_',
+	  'C','L','O','S','E','D','_','P','R','O','F','I','L','E'
+	;
+
+RECTANGULAROFFSET =
+	  'R','E','C','T','A','N','G','U','L','A','R','_',
+          'O','F','F','S','E','T'
+	;
+
+RECTANGULARPATTERN =
+	  'R','E','C','T','A','N','G','U','L','A','R','_',
+          'P','A','T','T','E','R','N'
+	;
+
+REGIONPROJECTION =
+	  'R','E','G','I','O','N','_',
+	  'P','R','O','J','E','C','T','I','O','N'
+	;
+
+RIGHT =
+	  '.','R','I','G','H','T','.'
+	;
+
+RIGHTCIRCULARCYLINDER =
+	  'R','I','G','H','T','_','C','I','R','C','U','L','A','R','_',
+          'C','Y','L','I','N','D','E','R'
+	;
+
+ROUNDEDUPROFILE =
+	  'R','O','U','N','D','E','D','_','U','_','P','R','O','F','I','L','E'
+	;
+
+ROUNDHOLE =
+	  'R','O','U','N','D','_','H','O','L','E'
+	;
+
+SETMARK =
+	  'S','E','T','_','M','A','R','K'
+	;
+
+SETUPINSTRUCTION =
+	  'S','E','T','U','P','_','I','N','S','T','R','U','C','T','I','O','N'
+	;
+
+SHAFT =
+	  '.','S','H','A','F','T','.'
+	;
+
+SIDEFINISHMILLING =
+	  'S','I','D','E','_','F','I','N','I','S','H','_',
+	  'M','I','L','L','I','N','G'
+	;
+
+SIDEROUGHMILLING =
+	  'S','I','D','E','_','R','O','U','G','H','_',
+	  'M','I','L','L','I','N','G'
+	;
+
+SPHERICALCAP =
+	  'S','P','H','E','R','I','C','A','L','_','C','A','P'
+	;
+
+SPHERICALHOLEBOTTOM =
+	  'S','P','H','E','R','I','C','A','L','_',
+	  'H','O','L','E','_','B','O','T','T','O','M'
+	;
+
+SPHERICALSURFACE =
+	  'S','P','H','E','R','I','C','A','L','_',
+	  'S','U','R','F','A','C','E'
+	;
+
+SQUAREUPROFILE =
+	  'S','Q','U','A','R','E','_','U','_','P','R','O','F','I','L','E'
+	;
+
+TAPEREDENDMILL =
+	  'T','A','P','E','R','E','D','_','E','N','D','M','I','L','L'
+	;
+
+TAPEREDREAMER =
+	  'T','A','P','E','R','E','D','_','R','E','A','M','E','R'
+	;
+
+TCP =
+	  '.','T','C','P','.'
+	;
+
+THREADDRILLING =
+	  'T','H','R','E','A','D','_','D','R','I','L','L','I','N','G'
+	;
+
+THREEAXES =
+	  'T','H','R','E','E','_','A','X','E','S'
+	;
+
+THROUGHBOTTOMCONDITION =
+	  'T','H','R','O','U','G','H','_',
+	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+THROUGHPOCKETBOTTOMCONDITION =
+	  'T','H','R','O','U','G','H','_','P','O','C','K','E','T','_',
+	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+TOLERANCEDLENGTHMEASURE =
+	  'T','O','L','E','R','A','N','C','E','D','_',
+	  'L','E','N','G','T','H','_','M','E','A','S','U','R','E'
+	;
+
+TOOLPATHFEATURE =
+	  'T','O','O','L','P','A','T','H','_','F','E','A','T','U','R','E'
+	;
+
+TOOLPATHLIST =
+	  'T','O','O','L','P','A','T','H','_','L','I','S','T'
+	;
+
+TOOLPROBING =
+	  'T','O','O','L','_','P','R','O','B','I','N','G'
+	;
+
+TOUCHPROBE =
+	  'T','O','U','C','H','_','P','R','O','B','E'
+	;
+
+TRAJECTORYPATH =
+	  '.','T','R','A','J','E','C','T','O','R','Y','_','P','A','T','H','.'
+	;
+
+TRIMMEDCURVE =
+	  'T','R','I','M','M','E','D','_','C','U','R','V','E'
+	;
+
+TRUE =
+	  '.','T','.'
+	;
+
+TWISTDRILL =
+	  'T','W','I','S','T','_','D','R','I','L','L'
+	;
+
+TWOAXES =
+	  'T','W','O','_','A','X','E','S'
+	;
+
+UNIDIRECTIONALMILLING =
+	  'U','N','I','D','I','R','E','C','T','I','O','N','A','L','_',
+	  'M','I','L','L','I','N','G'
+	;
+
+UNKNOWN =
+	  '.','U','.'
+	;
+
+UNLOADTOOL =
+	  'U','N','L','O','A','D','_','T','O','O','L'
+	;
+
+UNSPECIFIED =
+	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+	;
+
+UVSTRATEGY =
+	  'U','V','_','S','T','R','A','T','E','G','Y'
+	;
+
+VEEPROFILE =
+	  'V','E','E','_','P','R','O','F','I','L','E'
+	;
+
+WAITFORMARK =
+	  'W','A','I','T','_','F','O','R','_','M','A','R','K'
+	;
+
+WOODRUFFSLOTENDTYPE =
+	  'W','O','O','D','R','U','F','F','_','S','L','O','T','_',
+          'E','N','D','_','T','Y','P','E'
+	;
+
+WORKPIECECOMPLETEPROBING =
+	  'W','O','R','K','P','I','E','C','E','_',
+          'C','O','M','P','L','E','T','E','_','P','R','O','B','I','N','G'
+	;
+
+WORKPIECEPROBING =
+	  'W','O','R','K','P','I','E','C','E','_','P','R','O','B','I','N','G'
+	;
+
+WORKPIECESETUP =
+	  'W','O','R','K','P','I','E','C','E','_','S','E','T','U','P'
+	;
+
+ZIGZAG =
+	  '.','Z','I','G','Z','A','G','.'
+	;
+
+(*=============================================================*)
+(* schema-specific nonterminals                                *)
+(*=============================================================*)
+
+instance =
+	  angleTaper
+	| approval
+	| approvalStatus
+	| axis1placement
+	| axis2placement3d
+	| backBoring
+	| backsideCounterbore
+	| backsideCountersink
+	| ballEndmill
+	| bidirectionalMilling
+	| block
+	| boring
+	| boss
+	| bottomAndSideFinishMilling
+	| bottomAndSideRoughMilling
+	| bullnoseEndmill
+	| calendarDate
+	| cartesianPoint
+	| centerDrill
+	| centerDrilling
+	| chamfer
+	| channel
+	| circle
+	| circularOffset
+	| circularOmit
+	| circularPattern
+	| closedPocket
+	| combinedDrillAndReamer
+	| completeCircularPath
+	| compositeCurve
+	| compositeCurveSegment
+	| conicalHoleBottom
+	| contourParallel
+	| counterbore
+	| counterboreHole
+	| countersink
+	| counterSinking
+	| countersunkHole
+	| cutterLocationTrajectory
+	| cuttingComponent
+	| cuttingEdgeTechnologicalData
+	| dateAndTime
+	| descriptiveParameter
+	| diameterTaper
+	| displayMessage
+	| drilling
+	| drillingTypeStrategy
+	| direction
+	| edgeRound
+	| ellipse
+	| exchangePallet
+	| feedstop
+	| facemill
+	| flatHoleBottom
+	| flatSlotEndType
+	| flatWithRadiusHoleBottom
+	| freeformOperation
+	| generalPath
+	| generalPattern
+	| generalPocketBottomCondition
+	| helix
+	| hyperbola
+	| indexPallet
+	| indexTable
+	| leadingLineStrategy
+	| limitsAndFits
+	| line
+	| linearPath
+	| linearProfile
+	| loadTool
+	| loopSlotEndType
+	| machiningWorkingstep
+	| material
+	| millingCuttingTool
+	| millingMachineFunctions
+	| millingTechnology
+	| millingToolDimension
+	| multistepDrilling
+	| ncVariable
+	| numericParameter
+	| openSlotEndType
+	| optionalStop
+	| parabola
+	| partialCircularPath
+	| personAndAddress
+	| planarFace
+	| planarPocketBottomCondition
+	| plane
+	| planeCcStrategy
+	| planeClStrategy
+	| planeFinishMilling
+	| planeRoughMilling
+	| plungeHelix
+	| plungeRamp
+	| plungeToolaxis
+	| plungeZigzag
+	| plusMinusValue
+	| polyline
+	| processModel
+	| processModelList
+	| programStop
+	| project
+	| radiusedPocketBottomCondition
+	| radiusedSlotEndType
+	| rapidMovement
+	| reaming
+	| rectangularClosedProfile
+	| rectangularPattern
+	| rectangularOffset
+	| rectangularOmit
+	| regionProjection
+	| rightCircularCylinder
+	| roundedUProfile
+	| roundHole
+	| setMark
+	| setup
+	| setupInstruction
+	| sideFinishMilling
+	| sideRoughMilling
+	| slot
+	| sphericalCap
+	| sphericalHoleBottom
+	| sphericalSurface
+	| squareUProfile
+	| step
+	| taperedEndmill
+	| taperedReamer
+	| tapping
+	| threadDrilling
+	| threeAxes
+	| throughBottomCondition
+	| throughPocketBottomCondition
+	| tolerancedLengthMeasure
+	| tolerances
+	| toolpathFeature
+	| toolpathList
+	| toolProbing
+	| touchProbe
+	| trimmedCurve
+	| twistDrill
+	| twoAxes
+	| unidirectionalMilling
+	| unloadTool
+	| uvStrategy
+	| vector
+	| veeProfile
+	| waitForMark
+	| woodruffSlotEndType
+	| workpiece
+	| workpieceCompleteProbing
+	| workpieceProbing
+	| workpieceSetup
+	| workplan
+	;
+
+(* this is a stub *)
+advancedBrepShapeRepresentation =
+	  ADVANCEDBREPSHAPEREPRESENTATION , '(' , ')'
+	;
+
+angleTaper =
+	  ANGLETAPER , '(' , real , ')'
+	;
+
+approach =
+	  APPROACH
+	;
+
+approachRetractStrategy =
+	  plungeStrategy
+	;
+
+approval =
+	  APPROVAL , '(' , approvalStatus , c , CharString , ')'
+	;
+
+approvalStatus =
+	  APPROVALSTATUS , '(' , CharString , ')'
+	;
+
+axis1placement =
+	  AXIS1PLACEMENT , '(' , CharString , c , 
+          cartesianPoint , c , direction , ')'
+	;
+
+axis2placement3d =
+	  AXIS2PLACEMENT3D , '(' , CharString , c , 
+          cartesianPoint , c , direction , c , optDirection , ')'
+	;
+
+axis2placement3dList =
+	  axis2placement3d
+	| axis2placement3dList , c , axis2placement3d
+	;
+
+backBoring = 
+	  BACKBORING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , ')'
+	;
+
+backsideCounterbore =
+	  BACKSIDECOUNTERBORE , '(' , millingToolDimension , c ,
+          optInteger , c , optHand , c , optBoolean , c , optReal , ')'
+	;
+
+backsideCountersink =
+	  BACKSIDECOUNTERSINK , '(' , millingToolDimension , c ,
+          optInteger , c , optHand , c , optBoolean , c , optReal , c ,
+          optReal , ')'
+	;
+
+ballEndmill =
+	  BALLENDMILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+bidirectionalMilling = 
+	  BIDIRECTIONALMILLING , '(' , optReal , c , optBoolean , c ,
+	  optDirection , c , optLeftOrRight , c ,
+	  optStrokeConnectionStrategy , ')'
+	;
+
+blindBottomCondition =
+	  flatHoleBottom
+	| flatWithRadiusHoleBottom
+	| sphericalHoleBottom
+	| conicalHoleBottom
+	;
+
+block =
+	  BLOCK , '(' , CharString , c , axis2placement3d , c ,
+          RealString , c , RealString , c , RealString , ')'
+	;
+
+boolean =
+	  booleanTrue
+	| booleanFalse
+	;
+
+booleanTrue =
+	  TRUE
+	;
+
+booleanFalse =
+	  FALSE
+	;
+
+boring =
+	  BORING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , c , boolean , c ,
+	  optReal , c , optCartesianPoint , ')'
+	;
+
+boringOperation =
+	  boring
+	| reaming
+	;
+
+boss =
+	  BOSS , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , closedProfile , c , optReal , ')'
+	;
+
+bossList =
+	  boss
+	| bossList , c , boss
+	;
+
+bottomAndSideFinishMilling =
+	  BOTTOMANDSIDEFINISHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	;
+
+bottomAndSideMilling =
+	  bottomAndSideFinishMilling
+	| bottomAndSideRoughMilling
+	;
+
+bottomAndSideRoughMilling =
+	  BOTTOMANDSIDEROUGHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	;
+
+(* boundedCurve also has subtypes bSplineCurve and boundedPcurve *)
+boundedCurve =
+	  polyline
+	| trimmedCurve
+	| compositeCurve
+	;
+
+boundingGeometrySelect =
+	  advancedBrepShapeRepresentation
+	| block
+	| rightCircularCylinder
+	;
+
+bullnoseEndmill =
+	  BULLNOSEENDMILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+calendarDate =
+	  CALENDARDATE , '(' , IntString , c , IntString , c , IntString , ')'
+	;
+
+cartesian =
+	  CARTESIAN
+	;
+
+cartesianPoint =
+	  CARTESIANPOINT , '(' , CharString , c , parenRealListFull , ')'
+	;
+
+cartesianPointList =
+	  cartesianPoint
+	| cartesianPointList , c , cartesianPoint
+	;
+
+centerDrill =
+	  CENTERDRILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+centerDrilling = 
+	  CENTERDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , ')'
+	;
+
+chamfer =
+	  CHAMFER , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , machiningFeature , c ,
+	  machiningFeature , c , RealString , c , tolerancedLengthMeasure , ')'
+	;
+
+channel =
+	  CHANNEL , '(' , CharString , ')'
+	;
+
+circle =
+	  CIRCLE , '(' , CharString , c , axis2placement3d  , c ,
+          RealString , ')'
+	;
+
+circularOffset =
+	  CIRCULAROFFSET , '(' , RealString , c , IntString , ')'
+	;
+
+circularOmit =
+	  CIRCULAROMIT , '(' , IntString , ')'
+	;
+
+circularOffsetList =
+	  circularOffset
+	| circularOffsetList , c , circularOffset
+	;
+
+circularOmitList =
+	  circularOmit
+	| circularOmitList , c , circularOmit
+	;
+
+circularPath =
+	  completeCircularPath
+	| partialCircularPath
+	;
+
+circularPattern =
+	  CIRCULARPATTERN , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  two5DmanufacturingFeature , c , RealString , c , IntString , c ,
+          parenCircularOffsetList , c , parenCircularOmitList , c ,
+          optTolerancedLengthMeasure , c , RealString , ')'
+	;
+
+closedPocket =
+	  CLOSEDPOCKET , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , parenBossList , c , optReal , c , 
+	  pocketBottomCondition , c , optTolerancedLengthMeasure , c ,
+	  optTolerancedLengthMeasure , c , closedProfile , ')'
+	;
+
+closedProfile =
+	  rectangularClosedProfile
+	  ;
+
+combinedDrillAndReamer =
+	  COMBINEDDRILLANDREAMER , '(' , millingToolDimension , c ,
+	  optInteger , c , optHand , c , optBoolean , c , optReal , c ,
+	  optReal , ')'
+	;
+
+completeCircularPath =
+	  COMPLETECIRCULARPATH , '(' , optAxis2placement3d , c ,
+	  tolerancedLengthMeasure , ')'
+	;
+
+compositeCurve =
+	  COMPOSITECURVE , '(' , CharString , c ,
+          parenCompositeCurveSegmentListFull , c , logical , ')'
+	;
+
+compositeCurveSegment =
+	  COMPOSITECURVESEGMENT , '(' , transitionCode , c , boolean , c ,
+          curve , ')'
+	;
+
+compositeCurveSegmentList =
+	  compositeCurveSegment
+	| compositeCurveSegmentList , c , compositeCurveSegment
+	;
+
+compoundFeature =
+	  counterboreHole
+	| countersunkHole
+	;
+
+compoundFeatureSelect =
+	  machiningFeature
+	| transitionFeature
+	;
+
+compoundFeatureSelectList =
+	  compoundFeatureSelect
+	| compoundFeatureSelectList , c , compoundFeatureSelect
+	;
+
+conic =
+	  circle
+	| ellipse
+	| hyperbola
+	| parabola
+	;
+
+conicalHoleBottom =
+	  CONICALHOLEBOTTOM , '(' , real , c , optTolerancedLengthMeasure , ')'
+	;
+
+connect =
+	  CONNECT
+	;
+
+contact =
+	  CONTACT
+	;
+
+continuous =
+	  CONTINUOUS
+	;
+
+contSameGradient =
+	  CONTSAMEGRADIENT
+	;
+
+contSameGradientSameCurvature =
+	  CONTSAMEGRADIENTSAMECURVATURE
+	;
+
+contourParallel =
+	  CONTOURPARALLEL , '(' , optReal , c , optBoolean , c ,
+	  rotDirection , c , optCutmodeType , ')'
+	;
+
+counterbore =
+	  COUNTERBORE , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+counterboreHole =
+	  COUNTERBOREHOLE , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  parenCompoundFeatureSelectListFull , ')'
+	;
+
+counterboreParent =
+	  counterbore
+	| backsideCounterbore
+	;
+
+countersink =
+	  COUNTERSINK , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	;
+
+counterSinking = 
+	  COUNTERSINKING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , ')'
+	;
+
+countersinkParent =
+	  countersink
+	| backsideCountersink
+	;
+
+countersunkHole =
+	  COUNTERSUNKHOLE , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  parenCompoundFeatureSelectListFull , ')'
+	;
+
+(* curve also has subtype pcurve and helix has been added *)
+curve =
+	  line
+	| conic
+	| helix
+	| boundedCurve
+	;
+
+cutmodeType =
+	  cutmodeTypeClimb
+	| cutmodeTypeConventional
+	;
+
+cutmodeTypeClimb =
+	  CLIMB
+	;
+
+cutmodeTypeConventional =
+	  CONVENTIONAL
+	;
+
+cutterLocationTrajectory =
+	  CUTTERLOCATIONTRAJECTORY , '(' , boolean , c , toolpathType , c ,
+          optToolpathSpeedprofile , c , optTechnology , c ,
+          optMachineFunctions , c , optBoolean , c , boundedCurve , c ,
+          optBoundedCurve , c , optBoundedCurve , ')'
+	;
+
+cuttingComponent =
+	  CUTTINGCOMPONENT , '(' , RealString , c , optMaterial , c ,
+          optCuttingEdgeTechnologicalData , c , optReal , c ,
+	  optMillingTechnology , ')'
+	;
+
+cuttingComponentList =
+	  cuttingComponent
+	| cuttingComponentList , c , cuttingComponent
+	;
+
+cuttingEdgeTechnologicalData =
+	  CUTTINGEDGETECHNOLOGICALDATA ,
+	  '(' , optReal , c , optReal , c , optReal , ')'
+	;
+
+cuttingTool =
+	  millingCuttingTool
+	;
+
+(* date also has subtypes ordinalDate and weekOfYearAndDayDate *)
+date =
+	  calendarDate
+	;
+
+(* in dateAndTime, CHARSTRING should be local_time *)
+dateAndTime =
+	  DATEANDTIME , '(' , date , c , CharString , ')'
+	;
+
+degouge =
+	  DEGOUGE
+	;
+
+descriptiveParameter =
+	  DESCRIPTIVEPARAMETER , '(' , CharString , c , CharString , ')'
+	;
+
+diameterTaper =
+	  DIAMETERTAPER , '(' , tolerancedLengthMeasure , ')'
+	;
+
+direction =
+	  DIRECTION , '(' , CharString , c , parenRealListFull , ')'
+	;
+
+discontinuous =
+	  DISCONTINUOUS
+	;
+
+displayMessage =
+	  DISPLAYMESSAGE , '(' , CharString , c , CharString , ')'
+	;
+
+(* drill also has subtype spadeDrill *)
+drill =
+	  twistDrill
+	;
+
+drilling = 
+	  DRILLING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , ')'
+	;
+
+drillingOperation =
+	  centerDrilling
+	| counterSinking
+	| drilling
+	| multistepDrilling
+	;
+
+drillingTypeOperation =
+	  backBoring
+	| drillingOperation
+	| boringOperation
+	| tapping
+	| threadDrilling
+	;
+
+drillingTypeStrategy =
+	  DRILLINGTYPESTRATEGY , '(' , optReal , c , optReal , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	;
+
+edgeRound =
+	  EDGEROUND , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , machiningFeature , c ,
+	  machiningFeature , c , tolerancedLengthMeasure , c ,
+	  optTolerancedLengthMeasure , c , optTolerancedLengthMeasure , ')'
+	;
+
+elementarySurface =
+	  plane
+	| sphericalSurface
+	;
+
+ellipse =
+	  ELLIPSE , '(' , CharString , c , axis2placement3d , c ,
+          RealString , c , RealString , ')'
+	;
+
+endmill =
+	  ballEndmill
+	| bullnoseEndmill
+	| taperedEndmill
+	;
+
+exchangePallet =
+	  EXCHANGEPALLET , '(' , CharString ,  ')'
+	;
+
+executable =
+	  ncFunction
+	| programStructure
+	| workingstep
+	;
+
+executableList =
+	  executable
+	| executableList , c , executable
+	;
+
+facemill =
+	  FACEMILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+
+
+feedstop =
+	  FEEDSTOP , '(' , boolean , c , toolpathType , c ,
+          optToolpathSpeedprofile , c , optTechnology , c ,
+          optMachineFunctions , c , RealString , ')'
+	;
+
+fittingType =
+	  fittingTypeShaft
+	| fittingTypeHole
+	;
+
+fittingTypeHole =
+	  HOLE
+	;
+
+fittingTypeShaft =
+	  SHAFT
+	;
+
+flatHoleBottom =
+	  FLATHOLEBOTTOM , '(' , ')'
+	;
+
+flatSlotEndType =
+	  FLATSLOTENDTYPE, '(' , tolerancedLengthMeasure , c ,
+          tolerancedLengthMeasure , ')'
+	;
+
+flatWithRadiusHoleBottom =
+	  FLATWITHRADIUSHOLEBOTTOM , '(' , tolerancedLengthMeasure , ')'
+	;
+
+freeformOperation =
+	  FREEFORMOPERATION , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optFreeformStrategy , ')'
+	;
+
+freeformStrategy =
+	  uvStrategy
+	| planeCcStrategy
+	| planeClStrategy
+	| leadingLineStrategy
+	;
+
+generalPath =
+	  GENERALPATH , '(' , optAxis2placement3d , c , boundedCurve , ')'
+	;
+
+generalPattern =
+	  GENERALPATTERN , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  two5DmanufacturingFeature , c , parenAxis2placement3dListFull , ')'
+	;
+
+generalPocketBottomCondition =
+	  GENERALPOCKETBOTTOMCONDITION , '(' , region , ')'
+	;
+
+hand =
+	  handRight
+	| handLeft
+	;
+
+handRight =
+	  RIGHT
+	;
+
+handLeft =
+	  LEFT
+	;
+
+(* helix is added. The last RealString (pitch) is axial travel per     *)
+(* revolution. It is positive if the helix turns counterclockwise in   *)
+(* the direction of the axis of the axis2placement3d and negative      *)
+(* otherwise. The pitch must not be zero.                              *)
+(* A helix passes through the point on its refDirection axis that is   *)
+(* a distance radius from the origin, (radius,0,0) in the coordinate   *)
+(* system of the helix.                                                *)
+helix =
+	  HELIX , '(' , CharString , c , axis2placement3d  , c ,
+          RealString , c , RealString , ')'
+	;
+
+holeBottomCondition =
+	  blindBottomCondition
+	| throughBottomCondition
+	;
+
+hyperbola =
+	  HYPERBOLA , '(' , CharString , c , axis2placement3d , c ,
+          RealString , c , RealString , ')'
+	;
+
+indexPallet =
+	  INDEXPALLET , '(' , CharString , c , IntString , ')'
+	;
+
+indexTable =
+	  INDEXTABLE , '(' , CharString , c , IntString , ')'
+	;
+
+inProcessGeometry =
+	  INPROCESSGEOMETRY , '(' , optAdvancedBrepShapeRepresentation , c ,
+	  optAdvancedBrepShapeRepresentation , c ,
+	  optAdvancedBrepShapeRepresentation , ')'
+	;
+
+integer =
+	  IntString
+	;
+
+leadingLineStrategy =
+	  LEADINGLINESTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
+          tolerances , c , optReal , c , boundedCurve , ')'
+	;
+
+leftOrRight =
+	  leftOrRightLeft
+	| leftOrRightRight
+	;
+
+leftOrRightLeft =
+	  LEFT
+	;
+
+leftOrRightRight =
+	  RIGHT
+	;
+
+lift =
+	  LIFT
+	;
+
+liftShiftPlunge =
+	  LIFTSHIFTPLUNGE
+	;
+
+limitsAndFits =
+	  LIMITSANDFITS , '(' , RealString , c , RealString , c ,
+          optFittingType , ')'
+	;
+
+line =
+	  LINE , '(' , CharString , c , cartesianPoint , c , vector , ')'
+	;
+
+linearPath =
+	  LINEARPATH , '(' , optAxis2placement3d , c ,
+	  tolerancedLengthMeasure , c , direction , ')'
+	;
+
+linearProfile =
+	  LINEARPROFILE ,
+	  '(' , optAxis2placement3d , c , numericParameter , ')'
+	;
+
+loadTool =
+	  LOADTOOL , '(' , CharString , c , machiningTool , ')'
+	;
+
+logical =
+	  booleanTrue
+	| booleanFalse
+	| logicalUnknown
+	;
+
+logicalUnknown =
+	  UNKNOWN
+	;
+
+loopBack =
+	  LOOPBACK
+	;
+
+loopSlotEndType =
+	  LOOPSLOTENDTYPE, '(' , ')'
+	;
+
+machineFunctions =
+	  millingMachineFunctions
+	;	  
+
+(* machiningFeature also has subtypes profileFeature, roundedEnd, thread *)
+machiningFeature =
+	  boss
+	| planarFace
+	| pocket
+	| roundHole
+	| slot
+	| sphericalCap
+	| step
+ 	| toolpathFeature
+	;	  
+
+machiningOperation =
+	  millingMachiningOperation
+	;	  
+
+machiningOperationList =
+	  machiningOperation
+	| machiningOperationList , c , machiningOperation
+	;	  
+
+machiningTool =
+	  cuttingTool
+	;
+
+machiningWorkingstep =
+	  MACHININGWORKINGSTEP , '(' , CharString , c , elementarySurface , c ,
+	  manufacturingFeature , c , machiningOperation , c ,
+	  optInProcessGeometry , ')'
+	;
+
+manufacturingFeature =
+	  region
+	| two5DmanufacturingFeature
+	| transitionFeature
+	;
+
+material =
+	  MATERIAL , '(' , CharString , c , CharString , c ,
+	  parenPropertyParameterList , ')'
+	;
+
+(* millingCutter also has subtypes tSlotMill, dovetailMill,  *)
+(* woodruffKeyseatMill, sideMill, threadMill                 *)
+millingCutter =
+	  endmill
+	| facemill
+	;
+
+millingCuttingTool =
+	  MILLINGCUTTINGTOOL , '(' , CharString , c , toolBody , c ,
+	  parenCuttingComponentListFull , c , optReal , c ,
+	  optDirection , c , optReal , ')'
+	;
+
+millingMachineFunctions =
+	  MILLINGMACHINEFUNCTIONS , '(' , boolean , c , optReal , c ,
+	  optBoolean , c , boolean , c , optReal , c , parenStringList , c ,
+	  boolean , c , optDirection , c , optProcessModelList , c ,
+	  parenPropertyParameterList , ')'
+	;
+
+millingMachiningOperation =
+	  drillingTypeOperation
+	| millingTypeOperation
+	;
+
+millingTechnology =
+	  MILLINGTECHNOLOGY , '(' , optReal , c , toolReferencePoint , c ,
+	  optReal , c , optReal , c , optReal , c , boolean , c ,
+	  boolean , c , boolean , c , optBoolean , ')'
+	;
+
+(* millingToolBody also has subtypes tap, millingThreadingTool, boringTool, *)
+(* and userDefinedTool *)
+millingToolBody =
+	  centerDrill
+	| counterboreParent
+	| countersinkParent
+	| drill
+	| millingCutter
+	| reamer
+	;
+
+millingToolDimension =
+	  MILLINGTOOLDIMENSION , '(' , RealString , c , optReal , c , optReal ,
+	  c , optReal , c , optReal , c , optReal , c , optReal , ')'
+	;
+
+millingTypeOperation =
+	  freeformOperation
+	| two5DmillingOperation
+	;
+
+multistepDrilling =
+	  MULTISTEPDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , c , RealString , c ,
+	  RealString , c , RealString , c , optReal , ')'
+	;
+
+ncFunction =
+	  displayMessage
+	| exchangePallet
+	| indexPallet
+	| indexTable
+	| loadTool
+	| optionalStop
+	| programStop
+	| setMark
+	| unloadTool
+	| waitForMark
+	;
+
+ncVariable =
+	  NCVARIABLE , '(' , CharString , c , optReal , ')'
+	;
+
+ncVariableList =
+	  ncVariable
+	| ncVariableList , c , ncVariable
+	;
+
+nonContact =
+	  NONCONTACT
+	;
+
+numericParameter =
+	  NUMERICPARAMETER,
+	  '(' , CharString , c , RealString , c , CharString , ')'
+	;
+
+offsetVector =
+	  OFFSETVECTOR ,
+	  '(' , parenNcVariableListFull , c , optParenNcVariableListFull , ')'
+	;
+
+(* openProfile also has subtypes partialCircularProfile, teeProfile,  *)
+(* and generalProfile.                                                *)
+openProfile =
+	  linearProfile
+	| squareUProfile
+	| roundedUProfile
+	| veeProfile
+	;
+
+openSlotEndType =
+	  OPENSLOTENDTYPE, '(' , ')'
+	;
+
+operation =
+	  machiningOperation
+	| rapidMovement
+	| touchProbing
+	;
+
+optAdvancedBrepShapeRepresentation =
+	  advancedBrepShapeRepresentation
+	| '$'
+	;
+
+optApproachRetractStrategy =
+	  approachRetractStrategy
+	| '$'
+	;
+
+optApproval =
+	  approval
+	| '$'
+	;
+
+optAxis2placement3d =
+	  axis2placement3d
+	| '$'
+	;
+
+optBoolean =
+	  boolean
+	| '$'
+	;
+
+optBoundedCurve =
+	  boundedCurve
+	| '$'
+	;
+
+optBoundingGeometrySelect =
+	  boundingGeometrySelect
+	| '$'
+	;
+
+optCartesianPoint = 
+	  cartesianPoint
+	| '$'
+	;
+
+optChannel = 
+	  channel
+	| '$'
+	;
+
+optClosedProfile = 
+	  closedProfile
+	| '$'
+	;
+
+optCutmodeType =
+	  cutmodeType
+	| '$'
+	;
+
+optCuttingEdgeTechnologicalData =
+	  cuttingEdgeTechnologicalData
+	| '$'
+	;
+
+optDateAndTime =
+	  dateAndTime
+	| '$'
+	;
+
+optDirection = 
+	  direction
+	| '$'
+	;
+
+optDrillingTypeStrategy =
+	  drillingTypeStrategy
+	| '$'
+	;
+
+optFittingType =
+	  fittingType
+	| '$'
+	;
+
+optFreeformStrategy =
+	  freeformStrategy
+	| '$'
+	;
+
+optHand =
+	  hand
+	| '$'
+	;
+
+optInProcessGeometry =
+	  inProcessGeometry
+	| '$'
+	;
+
+optInteger =
+	  integer
+	| '$'
+	;
+
+optionalStop =
+	  OPTIONALSTOP , '(' , CharString , ')'
+	;
+
+optLeftOrRight =
+	  leftOrRight
+	| '$'
+	;
+
+optMachineFunctions =
+	  machineFunctions
+	| '$'
+	;
+
+optMachiningTool =
+	  machiningTool
+	| '$'
+	;
+
+optMaterial =
+	  material
+	| '$'
+	;
+
+optMillingTechnology =
+	  millingTechnology
+	| '$'
+	;
+
+optOffsetVector =
+	  offsetVector
+	| '$'
+	;
+
+optParenNcVariableListFull =
+	  parenNcVariableListFull
+	| '$'
+	;
+
+optPersonAndAddress =
+	  personAndAddress
+	| '$'
+	;
+
+optProcessModelList =
+	  processModelList
+	| '$'
+	;
+
+optRestrictedAreaSelect =
+	  restrictedAreaSelect
+	| '$'
+	;
+
+optSetup =
+	  setup
+	| '$'
+	;
+
+optStrokeConnectionStrategy =
+	  strokeConnectionStrategy
+	| '$'
+	;
+
+optTaperSelect =
+	  taperSelect
+	| '$'
+	;
+
+optTechnology =
+	  technology
+	| '$'
+	;
+
+optTolerancedLengthMeasure =
+	  tolerancedLengthMeasure
+	| '$'
+	;
+
+optToolDirection =
+	  toolDirection
+	| '$'
+	;
+
+optToolpathList =
+	  toolpathList
+	| '$'
+	;
+
+optToolpathSpeedprofile =
+	  toolpathSpeedprofile
+	| '$'
+	;
+
+optTwo5DmillingStrategy =
+	  two5DmillingStrategy
+	| '$'
+	;
+
+optVeeProfile =
+	  veeProfile
+	| '$'
+	;
+
+optWorkpiece =
+	  workpiece
+	| '$'
+	;
+
+parabola =
+	  PARABOLA , '(' , CharString , c , axis2placement3d , c ,
+          RealString , ')'
+	;
+
+parameter =
+	  PARAMETER
+	;
+
+parenAxis2placement3dListFull =
+	  '(' , axis2placement3dList , ')'
+	;
+
+parenBossList =
+	  '(' , bossList , ')'
+	| '('  , ')'
+	;
+
+parenCartesianPointList =
+	  '(' , cartesianPointList , ')'
+	| '('  , ')'
+	;
+
+parenCartesianPointListFull =
+	  '(' , cartesianPointList , ')'
+	;
+
+parenCircularOffsetList =
+	  '(' , circularOffsetList , ')'
+	| '('  , ')'
+	;
+
+parenCircularOmitList =
+	  '(' , circularOmitList , ')'
+	| '('  , ')'
+	;
+
+parenCompositeCurveSegmentListFull =
+	  '(' , compositeCurveSegmentList , ')'
+	;
+
+parenCompoundFeatureSelectListFull =
+	  '(' , compoundFeatureSelectList , ')'
+	;
+
+parenCuttingComponentListFull =
+	  '(' , cuttingComponentList , ')'
+	;
+
+parenExecutableList =
+	  '(' , executableList , ')'
+	| '('  , ')'
+	;
+
+(*
+parenMachiningFeatureListFull =
+	  '(' , machiningFeatureList , ')'
+	;
+*)
+
+parenMachiningOperationList =
+	  '(' , machiningOperationList , ')'
+	| '('  , ')'
+	;
+
+parenNcVariableListFull =
+	  '(' , ncVariableList , ')'
+	;
+
+parenProcessModelLiszt =
+	  '(' , processModelLiszt , ')'
+	;
+
+parenPropertyParameterList =
+	  '(' , propertyParameterList , ')'
+	| '('  , ')'
+	;
+
+parenRectangularOffsetList =
+	  '(' , rectangularOffsetList , ')'
+	| '('  , ')'
+	;
+
+parenRectangularOmitList =
+	  '(' , rectangularOmitList , ')'
+	| '('  , ')'
+	;
+
+parenSetupInstructionList =
+	  '(' , setupInstructionList , ')'
+	| '('  , ')'
+	;
+
+parenSlotEndTypeList =
+	  '(' , slotEndTypeList , ')'
+	| '('  , ')'
+	;
+
+parenToolpathLisztFull =
+	  '(' , toolpathLiszt , ')'
+	;
+
+parenTrimmingSelectListFull =
+	  '(' , trimmingSelectList , ')'
+	;
+
+parenWorkpieceList =
+	  '(' , workpieceList , ')'
+	| '('  , ')'
+	;
+
+parenWorkpieceSetupList =
+	  '(' , workpieceSetupList , ')'
+	| '('  , ')'
+	;
+
+partialCircularPath =
+	  PARTIALCIRCULARPATH , '(' , optAxis2placement3d , c ,
+	  tolerancedLengthMeasure , c , RealString , ')'
+	;
+
+pathmodeType =
+	  pathmodeTypeForward
+	| pathmodeTypeZigzag
+	;
+
+pathmodeTypeForward =
+	  FORWARD
+	;
+
+pathmodeTypeZigzag =
+	  ZIGZAG
+	;
+
+(* in personAndAddress the types should be person and optAddress *)
+personAndAddress =
+	  PERSONANDADDRESS , '(' , CharString , c , CharString , ')'
+	;
+
+placement =
+	  axis1placement
+	| axis2placement3d
+	;
+
+planarFace =
+	  PLANARFACE , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , linearPath , c , linearProfile , c ,
+	  optClosedProfile , c , parenBossList , ')'
+	;
+
+planarPocketBottomCondition =
+	  PLANARPOCKETBOTTOMCONDITION , '(' , ')'
+	;
+
+plane =
+	  PLANE , '(' , CharString , c , axis2placement3d , ')'
+	;
+
+planeCcStrategy =
+	  PLANECCSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
+          tolerances , c , optReal , c , direction , ')'
+	;
+
+planeClStrategy =
+	  PLANECLSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
+          tolerances , c , optReal , c , direction , ')'
+	;
+
+planeFinishMilling =
+	  PLANEFINISHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , ')'
+	;
+
+planeMilling =
+	  planeFinishMilling
+	| planeRoughMilling
+	;
+
+planeRoughMilling =
+	  PLANEROUGHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , ')'
+	;
+
+plungeStrategy =
+	  plungeHelix
+	| plungeRamp
+	| plungeToolaxis
+	| plungeZigzag
+	;
+
+plungeHelix =
+	  PLUNGEHELIX , '(' , optDirection , c , RealString , c ,
+          RealString , ')'
+	;
+
+plungeRamp =
+	  PLUNGERAMP , '(' , optDirection , c , RealString , ')'
+	;
+
+plungeToolaxis =
+	  PLUNGETOOLAXIS , '(' , optDirection , ')'
+	;
+
+plungeZigzag =
+	  PLUNGEZIGZAG , '(' , optDirection , c , RealString , c ,
+          RealString , ')'
+	;
+
+plusMinusValue =
+	  PLUSMINUSVALUE ,
+          '(' , RealString , c , RealString , c , IntString , ')'
+	;
+
+pocket =
+	  closedPocket
+	;
+
+pocketBottomCondition =
+	  throughPocketBottomCondition
+	| planarPocketBottomCondition
+	| radiusedPocketBottomCondition
+	| generalPocketBottomCondition
+	;
+
+polyline =
+	  POLYLINE , '(' , CharString , c , parenCartesianPointListFull , ')'
+	;
+
+processModel =
+	  PROCESSMODEL , '(' , CharString , c , CharString , ')'
+	;
+
+processModelList =
+	  PROCESSMODELLIST , '(' , parenProcessModelLiszt , ')'
+	;
+
+processModelLiszt =
+	  processModel
+	| processModelLiszt , c , processModel
+	;
+
+profile =
+	  closedProfile
+	| openProfile 
+	;
+
+programStructure =
+	  workplan
+	;
+
+programStop =
+	  PROGRAMSTOP , '(' , CharString , ')'
+	;
+
+project =
+	  PROJECT , '(' , CharString , c , workplan , c ,
+	  parenWorkpieceList , c , optPersonAndAddress , c ,
+	  optDateAndTime , c , optApproval , ')'
+	;
+
+propertyParameter =
+	  descriptiveParameter
+	| numericParameter
+	;
+
+propertyParameterList =
+	  propertyParameter
+	| propertyParameterList , c , propertyParameter
+	;
+
+radiusedPocketBottomCondition =
+	  RADIUSEDPOCKETBOTTOMCONDITION , '(' , cartesianPoint , c ,
+          tolerancedLengthMeasure , ')'
+	;
+
+radiusedSlotEndType =
+	  RADIUSEDSLOTENDTYPE , '(' , ')'
+	;
+
+rapidMovement =
+	  RAPIDMOVEMENT , '(' , CharString , c , elementarySurface , c ,
+	  optToolpathList , c , optToolDirection , ')'
+	;
+
+reamer =
+	  combinedDrillAndReamer
+	| taperedReamer
+	;
+
+reaming =
+	  REAMING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , c , boolean , c ,
+	  optReal , c , optCartesianPoint , ')'
+	;
+
+rectangularClosedProfile =
+	  RECTANGULARCLOSEDPROFILE , '(' , optAxis2placement3d , c ,
+	  tolerancedLengthMeasure , c , tolerancedLengthMeasure , ')'
+	;
+
+rectangularOffset =
+	  RECTANGULAROFFSET , '(' , direction , c , RealString , c ,
+          IntString , c , IntString , ')'
+	;
+
+rectangularOffsetList =
+	  rectangularOffset
+	| rectangularOffsetList , c , rectangularOffset
+	;
+
+rectangularOmit =
+	  RECTANGULAROMIT , '(' , IntString , c , IntString , ')'
+	;
+
+rectangularOmitList =
+	  rectangularOmit
+	| rectangularOmitList , c , rectangularOmit
+	;
+
+rectangularPattern =
+	  RECTANGULARPATTERN , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  two5DmanufacturingFeature , tolerancedLengthMeasure , c ,
+          direction , c , optInteger , c , IntString , c ,
+          optTolerancedLengthMeasure , c , optDirection , c ,
+	  parenRectangularOffsetList , c , parenRectangularOmitList , ')'
+	;
+
+region =
+	  regionProjection
+	;
+
+regionProjection =
+	  REGIONPROJECTION , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , optAxis2placement3d , c ,
+	  boundedCurve , c , direction , c , tolerancedLengthMeasure , ')'
+	;
+
+replicateFeature=
+	  rectangularPattern
+	| circularPattern
+	| generalPattern
+	;
+
+(* subtypes here are a subset of subtypes of geometricRepresentationItem *)
+representationItem =
+	  block
+	| cartesianPoint
+	| curve
+	| direction
+	| elementarySurface
+	| placement
+	| rightCircularCylinder
+	| vector
+	;
+
+restrictedAreaSelect =
+	  boundingGeometrySelect
+	;
+
+rightCircularCylinder =
+	  RIGHTCIRCULARCYLINDER , '(' , CharString , c , axis1placement , c ,
+          RealString , c , RealString , ')'
+	;
+
+rotDirection =
+	  rotDirectionCw
+	| rotDirectionCcw
+	;
+
+rotDirectionCw =
+	  CW
+	;
+
+rotDirectionCcw =
+	  CCW
+	;
+
+roundedUProfile =
+	  ROUNDEDUPROFILE , '(' , optAxis2placement3d , c ,
+          tolerancedLengthMeasure ,  ')'
+	;
+
+roundHole =
+	  ROUNDHOLE , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , tolerancedLengthMeasure , c ,
+	  optTaperSelect , c , holeBottomCondition , ')'
+	;
+
+setMark =
+	  SETMARK , '(' , CharString , ')'
+	;
+
+setup =
+	  SETUP , '(' , CharString , c , optAxis2placement3d , c ,
+	  elementarySurface , c , parenWorkpieceSetupList , ')'
+	;
+
+setupInstruction =
+	  SETUPINSTRUCTION , '(' , CharString , c , CharString , ')'
+	;
+
+setupInstructionList =
+	  setupInstruction
+	| setupInstructionList , c , setupInstruction
+	;
+
+sideMilling =
+	  sideFinishMilling
+	| sideRoughMilling
+	;
+
+sideFinishMilling =
+	  SIDEFINISHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , c , optReal , ')'
+	;
+
+sideRoughMilling =
+	  SIDEROUGHMILLING , '(' , optToolpathList , c ,
+          optToolDirection , c , CharString , c , optReal , c ,
+	  optCartesianPoint , c , machiningTool , c , technology , c ,
+	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
+	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
+	  optReal , c , optReal , c , optReal , ')'
+	;
+
+slot =
+	  SLOT , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , travelPath , c , openProfile , c ,
+          parenSlotEndTypeList , ')'
+	;
+
+slotEndType =
+	  flatSlotEndType
+	| loopSlotEndType
+	| openSlotEndType
+	| radiusedSlotEndType
+	| woodruffSlotEndType
+	;
+
+slotEndTypeList =
+	  slotEndType
+	| slotEndTypeList , c , slotEndType
+	;
+
+speedName =
+	  RAPID
+	;
+
+sphericalCap =
+	  SPHERICALCAP , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , numericParameter , c , numericParameter , ')'
+	;
+
+sphericalHoleBottom =
+	  SPHERICALHOLEBOTTOM , '(' , tolerancedLengthMeasure , ')'
+	;
+
+sphericalSurface =
+	  SPHERICALSURFACE , '(' , CharString , c , axis2placement3d , c ,
+          RealString , ')'
+	;
+
+squareUProfile =
+	  SQUAREUPROFILE , '(' , optAxis2placement3d , c ,
+          tolerancedLengthMeasure , c , tolerancedLengthMeasure , c ,
+          RealString , c , tolerancedLengthMeasure , c , RealString , ')'
+	;
+
+step =
+	  STEP , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface , c , linearPath , c , optVeeProfile , c ,
+          parenBossList , ')'
+	;
+
+straightline =
+	  STRAIGHTLINE
+	;
+
+strokeConnectionStrategy =
+	  straightline
+	| liftShiftPlunge
+	| degouge
+	| loopBack
+	;
+
+taperedEndmill =
+	  TAPEREDENDMILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	;
+
+taperedReamer =
+	  TAPEREDREAMER , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	;
+
+taperSelect =
+	  diameterTaper
+	| angleTaper
+	;
+
+tapping = 
+	  TAPPING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , boolean , ')'
+	;
+
+technology =
+	  millingTechnology
+	;
+
+threadDrilling = 
+	  THREADDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
+	  CharString , c , optReal , c , optCartesianPoint , c ,
+	  machiningTool , c , technology , c , machineFunctions , c ,
+	  optReal , c , optReal , c , optReal , c , optReal , c ,
+	  optReal , c , optDrillingTypeStrategy , boolean , ')'
+	;
+
+threeAxes =
+	  THREEAXES , '(' , ')'
+	;
+
+throughBottomCondition =
+	  THROUGHBOTTOMCONDITION , '(' , ')'
+	;
+
+throughPocketBottomCondition =
+	  THROUGHPOCKETBOTTOMCONDITION , '(' , ')'
+	;
+
+tolerancedLengthMeasure =
+	  TOLERANCEDLENGTHMEASURE , '(' , RealString , c , plusMinusValue , ')'
+	;
+
+tolerances =
+	  TOLERANCES , '(' , RealString , c , RealString , ')'
+	;
+
+toleranceSelect=
+	  plusMinusValue
+	| limitsAndFits
+	;
+
+toolBody =
+	  millingToolBody
+	;
+
+toolDirection =
+	  twoAxes
+	| threeAxes
+	;
+
+toolpath =
+	  feedstop
+	| trajectory
+	;
+
+toolpathFeature =
+	  TOOLPATHFEATURE , '(' , CharString , c , workpiece , c ,
+	  parenMachiningOperationList , c , axis2placement3d , c ,
+	  elementarySurface ,  ')'
+	;
+
+toolpathList =
+	  TOOLPATHLIST , '(' , parenToolpathLisztFull , ')'
+	;
+
+toolpathLiszt =
+	  toolpath
+	| toolpathLiszt , c , toolpath
+	;
+
+(* toolpathSpeedprofile also has toolpathSpeed *)
+toolpathSpeedprofile =
+	  real
+	| speedName
+	;
+
+toolpathType =
+	  approach
+	| lift
+	| connect
+	| nonContact
+	| contact
+	| trajectoryPath
+	;
+
+toolProbing =
+	  TOOLPROBING , '(' , CharString , c , elementarySurface , c ,
+	  optToolpathList , c , optToolDirection , c , ncVariable , c ,
+          cartesianPoint , c , RealString , c , machiningTool , ')'
+	;
+
+toolReferencePoint =
+	  toolReferencePointCcp
+	| toolReferencePointTcp
+	;
+
+toolReferencePointCcp =
+	  CCP
+	;
+
+toolReferencePointTcp =
+	  TCP
+	;
+
+touchProbe =
+	  TOUCHPROBE , '(' , CharString , ')'
+	;
+
+touchProbing =
+	  workpieceProbing
+	| workpieceCompleteProbing
+	| toolProbing
+	;
+
+trajectory =
+	  cutterLocationTrajectory
+	;
+
+trajectoryPath =
+	  TRAJECTORYPATH
+	;
+
+transitionCode =
+	  discontinuous
+	| continuous
+	| contSameGradient
+	| contSameGradientSameCurvature
+	;
+
+transitionFeature =
+	  chamfer
+	| edgeRound
+	;
+
+travelPath =
+	  linearPath
+	| circularPath
+	| generalPath
+	;
+
+trimmedCurve =
+	  TRIMMEDCURVE , '(' , CharString , c , curve  , c ,
+          parenTrimmingSelectListFull , c , parenTrimmingSelectListFull , c ,
+          boolean , c , trimmingPreference , ')'
+	;
+
+trimmingPreference =
+	  cartesian
+	| parameter
+	| unspecified
+	;
+
+trimmingSelect =
+	  cartesianPoint
+	| real
+	;
+
+trimmingSelectList =
+	  trimmingSelect
+	| trimmingSelectList , c , trimmingSelect
+	;
+
+twistDrill =
+	  TWISTDRILL , '(' , millingToolDimension , c , optInteger , c ,
+	  optHand , c , optBoolean , c , optReal , ')'
+	;
+
+twoAxes =
+	  TWOAXES , '(' , ')'
+	;
+
+two5DmanufacturingFeature =
+	  compoundFeature
+	| machiningFeature
+	| replicateFeature
+	;
+
+two5DmillingOperation =
+	  bottomAndSideMilling
+	| planeMilling
+	| sideMilling
+	;
+
+(* two5DmillingStrategy also has subtypes bidirectionalContour,         *)
+(* contourBidirectional, contourSpiral, centerMilling, explicitStrategy *)
+two5DmillingStrategy =
+	  contourParallel
+	| bidirectionalMilling
+	| unidirectionalMilling
+	;
+
+unidirectionalMilling = 
+	  UNIDIRECTIONALMILLING , '(' , optReal , c , optBoolean , c ,
+	  optDirection , c , optCutmodeType , ')'
+	;
+
+unloadTool =
+	  UNLOADTOOL , '(' , CharString , c , optMachiningTool , ')'
+	;
+
+unspecified =
+	  UNSPECIFIED
+	;
+
+uvStrategy =
+	  UVSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
+          tolerances , c , optReal , c , direction , c , direction , ')'
+	;
+
+vector =
+	  VECTOR , '(' , CharString , c , direction , c , RealString , ')'
+	;
+
+veeProfile =
+	  VEEPROFILE , '(' , optAxis2placement3d , c ,
+          tolerancedLengthMeasure , c , RealString , c , RealString , ')'
+	;
+
+waitForMark =
+	  WAITFORMARK , '(' , CharString , c , channel , ')'
+	;
+
+woodruffSlotEndType =
+	  WOODRUFFSLOTENDTYPE, '(' , tolerancedLengthMeasure , ')'
+	;
+
+workingstep =
+	  machiningWorkingstep
+	| rapidMovement
+	| touchProbing
+	;
+
+workpiece =
+	  WORKPIECE , '(' , CharString , c , optMaterial , c , optReal , c ,
+	  optWorkpiece , c , optAdvancedBrepShapeRepresentation , c ,
+	  optBoundingGeometrySelect , c , parenCartesianPointList , ')'
+	;
+
+workpieceCompleteProbing =
+	  WORKPIECECOMPLETEPROBING , '(' , CharString , c ,
+          elementarySurface , c , optToolpathList , c , optToolDirection , c ,
+          ncVariable , c , workpiece , c , tolerancedLengthMeasure , c ,
+          touchProbe , c , offsetVector , ')'
+	;
+
+workpieceList =
+	  workpiece
+	| workpieceList , c , workpiece
+	;
+
+workpieceProbing =
+	  WORKPIECEPROBING , '(' , CharString , c , elementarySurface , c ,
+	  optToolpathList , c , optToolDirection , c , ncVariable , c ,
+          axis2placement3d , c , workpiece , c , direction , c ,
+          tolerancedLengthMeasure , c , touchProbe , ')'
+	;
+
+workpieceSetup =
+	  WORKPIECESETUP , '(' , workpiece , c , axis2placement3d , c ,
+	  optOffsetVector , c , optRestrictedAreaSelect , c , 
+	  parenSetupInstructionList , ')'
+	;
+
+workpieceSetupList =
+	  workpieceSetup
+	| workpieceSetupList , c , workpieceSetup
+	;
+
+workplan =
+	  WORKPLAN , '(' , CharString , c , parenExecutableList , c ,
+	  optChannel , c , optSetup , c , optInProcessGeometry , ')'
+	;
+
+(*=============================================================*)
+(* End of productions                                          *)
+(*=============================================================*)
+
+(* Start attributes *)
+(* angleTaper : angle *)
+(* approachRetractStrategy : toolOrientation *)
+(* approval : status level *)
+(* approvalStatus : name *)
+(* axis1placement : axis *)
+(* axis2placement3d : axis refDirection *)
+(* backsideCountersink : countersinkRadius *)
+(* bidirectionalMilling : feedDirection stepoverDirection itsStrokeConnectionStrategy *)
+(* block : position x y z *)
+(* boringOperation : spindleStopAtBottom depthOfTestcut waitingPosition *)
+(* boss : itsBoundary slope *)
+(* bottomAndSideMilling : axialCuttingDepth radialCuttingDepth allowanceSide allowanceBottom *)
+(* calendarDate : yearComponent dayComponent monthComponent *)
+(* cartesianPoint : coordinates *)
+(* chamfer : angleToPlane firstOffsetAmount *)
+(* channel : itsId *)
+(* circle : radius *)
+(* circularOffset : angularOffset index *)
+(* circularOmit : index *)
+(* circularPath : radius *)
+(* circularPattern : angleIncrement numberOfFeature relocatedBaseFeature missingBaseFeature baseFeatureDiameter baseFeatureRotation *)
+(* closedPocket : featureBoundary *)
+(* combinedDrillAndReamer : drillLength *)
+(* compositeCurve : segments selfIntersect *)
+(* compositeCurveSegment : transition sameSense parentCurve *)
+(* compoundFeature : elements *)
+(* conic : position *)
+(* conicalHoleBottom : tipAngle tipRadius *)
+(* contourParallel : rotationDirection cutmode *)
+(* countersink : countersinkRadius *)
+(* cutterLocationTrajectory : basiccurve itsToolaxis surfaceNormal *)
+(* cuttingComponent : toolOffsetLength itsMaterial technologicalData expectedToolLife itsTechnology *)
+(* cuttingEdgeTechnologicalData : cuttingAngle freeAngle auxAngle *)
+(* cuttingTool : itsToolBody itsCuttingEdge overallAssemblyLength *)
+(* dataSection : dataStart items sectionEnd *)
+(* dateAndTime : dateComponent timeComponent *)
+(* descriptiveParameter : descriptiveString *)
+(* diameterTaper : finalDiameter *)
+(* direction : directionRatios *)
+(* displayMessage : itsText *)
+(* drillingTypeOperation : cuttingDepth previousDiameter dwellTimeBottom feedOnRetract itsMachiningStrategy *)
+(* drillingTypeStrategy : reducedCutAtStart reducedFeedAtStart depthOfStart reducedCutAtEnd reducedFeedAtEnd depthOfEnd *)
+(* edgeRound : radius firstOffsetAmount secondOffsetAmount *)
+(* elementarySurface : position *)
+(* ellipse : semiAxis1 semiAxis2 *)
+(* executable : itsId *)
+(* feedstop : dwell *)
+(* fileDescription : description implementationLevel *)
+(* fileName : name timeStamp author organization preprocessorVersion originatingSystem authorization *)
+(* fileSchema : schemaIdentifiers *)
+(* flatSlotEndType : cornerRadius1 cornerRadius2 *)
+(* flatWithRadiusHoleBottom : cornerRadius *)
+(* freeformOperation : itsMachiningStrategy *)
+(* freeformStrategy : pathmode cutmode itsMillingTolerances stepover *)
+(* generalPath : sweptPath *)
+(* generalPattern : replicateLocations *)
+(* generalPocketBottomCondition : shape *)
+(* headerSection : headerStart headerDescription headerName headerSchema sectionEnd *)
+(* helix : position radius pitch *)
+(* hyperbola : semiAxis semiImagAxis *)
+(* indexPallet : its_index *)
+(* indexTable : its_index *)
+(* inProcessGeometry : asIs toBe removal *)
+(* inputFile : inputStart inputHeader inputData inputEnd *)
+(* instanceId : val *)
+(* integer : val *)
+(* leadingLineStrategy : itsLine *)
+(* limitsAndFits : deviation grade itsFittingType *)
+(* line : pnt dir *)
+(* linearPath : distance itsDirection *)
+(* linearProfile : profileLength *)
+(* loadTool : itsTool *)
+(* machiningFeature : depth : itsId itsWorkpiece itsOperations featurePlacement depth *)
+(* machiningOperation : itsId retractPlane startPoint itsTool itsTechnology itsMachineFunctions *)
+(* machiningTool : itsId *)
+(* machiningWorkingstep : itsFeature itsOperation itsEffect *)
+(* manufacturingFeature : itsId itsWorkpiece itsOperations *)
+(* material : standardIdentifier materialIdentifier materialProperty *)
+(* millingMachineFunctions : coolant coolantPressure mist throughSpindleCoolant throughPressure axisClamping chipRemoval orientedSpindleStop itsProcessModel otherFunctions *)
+(* millingCuttingTool : directionForSpindleOrientation toolHolderDiameterForSpindleOrientation *)
+(* millingMachiningOperation : overcutLength *)
+(* millingTechnology : cutspeed spindle feedratePerTooth synchronizeSpindleWithFeed inhibitFeedrateOverride inhibitSpindleOverride itsAdaptiveControl *)
+(* millingToolBody : dimension numberOfTeeth handOfCut coolantThroughTool pilotLength *)
+(* millingToolDimension : diameter toolTopAngle toolCircumferenceAngle cuttingEdgeLength edgeRadius edgeCenterVertical edgeCenterHorizontal *)
+(* millingTypeOperation : approach retract *)
+(* multistepDrilling : retractDistance firstDepth depthOfStep dwellTimeStep *)
+(* ncVariable : itsName initialValue *)
+(* numericParameter : itsParameterValue itsParameterUnit *)
+(* offsetVector : translate rotate *)
+(* operation : itsToolpath itsToolDirection *)
+(* parabola : focalDist *)
+(* parenAxis2placement3dListFull : theList *)
+(* parenBossList : theList *)
+(* parenCartesianPointList : theList *)
+(* parenCartesianPointListFull : theList *)
+(* parenCircularOffsetList : theList *)
+(* parenCircularOmitList : theList *)
+(* parenCompositeCurveSegmentListFull : theList *)
+(* parenCompoundFeatureSelectListFull : theList *)
+(* parenCuttingComponentListFull : theList *)
+(* parenExecutableList : theList *)
+(* parenMachiningOperationList : theList *)
+(* parenNcVariableListFull : theList *)
+(* parenProcessModelLiszt : theList *)
+(* parenPropertyParameterList : theList *)
+(* parenRealListFull : theList *)
+(* parenRectangularOffsetList : theList *)
+(* parenRectangularOmitList : theList *)
+(* parenSetupInstructionList : theList *)
+(* parenSlotEndTypeList : theList *)
+(* parenStringList : theList *)
+(* parenStringListFull : theList *)
+(* parenToolpathLisztFull : theList *)
+(* parenTrimmingSelectListFull : theList *)
+(* parenWorkpieceList : theList *)
+(* parenWorkpieceSetupList : theList *)
+(* partialCircularPath : sweepAngle *)
+(* personAndAddress : itsPerson itsAddress *)
+(* placement : location *)
+(* planarFace : courseOfTravel removalBoundary faceBoundary itsBoss *)
+(* planeCcStrategy : itsPlaneNormal *)
+(* planeClStrategy : itsPlaneNormal *)
+(* planeMilling : axialCuttingDepth allowanceBottom *)
+(* plusMinusValue : upperLimit lowerLimit significantDigits *)
+(* plungeHelix : radius angle *)
+(* plungeRamp : angle *)
+(* plungeZigzag : angle width *)
+(* pocket : itsBoss slope bottomCondition planarRadius orthogonalRadius *)
+(* polyline : points *)
+(* processModel : iniDataFile itsType *)
+(* processModelList : itsList *)
+(* profile : placement *)
+(* project : itsId mainWorkplan itsWorkpieces itsOwner itsRelease itsStatus *)
+(* propertyParameter : parameterName *)
+(* radiusedPocketBottomCondition : floorRadiusCenter floorRadius *)
+(* rapidMovement : : itsId itsSecplane itsToolpath itsToolDirection *)
+(* real : val *)
+(* rectangularClosedProfile : profileWidth profileLength *)
+(* rectangularOffset : offsetDirection offsetDistance rowIndex columnIndex *)
+(* rectangularOmit :  rowIndex columnIndex *)
+(* rectangularPattern : spacing itsDirection numberOfRows numberOfColumns rowSpacing rowLayoutDirection relocatedBaseFeature missingBaseFeature *)
+(* region : featurePlacement *)
+(* regionProjection : projCurve projDir depth *)
+(* replicateFeature : replicateBaseFeature *)
+(* representationItem : name *)
+(* rightCircularCylinder : position height radius *)
+(* roundedUProfile : width *)
+(* roundHole : diameter changeInDiameter bottomCondition *)
+(* setup : itsId itsOrigin itsSecplane itsWorkpieceSetup *)
+(* setupInstruction : description externalDocument *)
+(* sideMilling : axialCuttingDepth radialCuttingDepth allowanceSide *)
+(* slot : courseOfTravel sweptShape endConditions *)
+(* sphericalCap : internalAngle radius *)
+(* sphericalHoleBottom : radius *)
+(* sphericalSurface : radius *)
+(* squareUProfile : width firstRadius firstAngle secondRadius secondAngle *)
+(* step : openBoundary wallBoundary itsBoss *)
+(* taperedEndmill : taperAngle *)
+(* taperedReamer : taperAngle *)
+(* tapping : compensationChuck *)
+(* threadDrilling : helicalMovementOnForward *)
+(* technology : feedrate feedrateReference *)
+(* tolerancedLengthMeasure : theoreticalSize implicitTolerance *)
+(* tolerances : chordalTolerance scallopHeight *)
+(* toolpath : itsPriority itsType itsSpeed itsTechnology itsMachineFunctions *)
+(* toolpathList : itsList *)
+(* toolProbing : offset maxWear itsTool : itsId itsSecplane itsToolpath itsToolDirection measuredOffset offset maxWear itsTool *)
+(* touchProbe : itsId *)
+(* touchProbing : measuredOffset : itsId itsSecplane itsToolpath itsToolDirection measuredOffset *)
+(* trajectory : itsDirection *)
+(* transitionFeature : firstFeature secondFeature : itsId itsWorkpiece itsOperations firstFeature secondFeature *)
+(* travelPath : placement *)
+(* trimmedCurve : basisCurve trim1 trim2 senseAgreement masterRepresentation *)
+(* two5DmanufacturingFeature : featurePlacement *)
+(* two5DmillingOperation : itsMachiningStrategy *)
+(* two5DmillingStrategy : overlap allowMultiplePasses *)
+(* unidirectionalMilling : feedDirection cutmode *)
+(* unloadTool : itsTool *)
+(* uvStrategy : forwardDirection sidewardDirection *)
+(* vector : orientation magnitude *)
+(* veeProfile : profileRadius profileAngle tiltAngle *)
+(* waitForMark : itsChannel *)
+(* woodruffSlotEndType : radius *)
+(* workingstep : itsSecplane *)
+(* workpiece : itsId itsMaterial globalTolerance itsRawpiece itsGeometry itsBoundingGeometry clampingPositions *)
+(* workpieceCompleteProbing : itsWorkpiece probingDistance itsProbe computedOffset : itsId itsSecplane itsToolpath itsToolDirection measuredOffset itsWorkpiece probingDistance itsProbe computedOffset *)
+(* workpieceProbing : startPosition itsWorkpiece itsDirection expectedValue itsProbe : itsId itsSecplane itsToolpath itsToolDirection measuredOffset startPosition itsWorkpiece itsDirection expectedValue itsProbe *)
+(* workpieceSetup : itsWorkpiece itsOrigin itsOffset itsRestrictedArea itsInstructions *)
+(* workplan : itsElements itsChannel itsSetup itsEffect *)
+(* End attributes *)
+
