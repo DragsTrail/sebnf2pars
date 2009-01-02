@@ -99,20 +99,21 @@ http://code.google.com/p/iso-14649-toolkit
 The directory structure of this directory is as follows; indentation levels
 indicate subdirectories. Parenthetical comments say what is included.
 
-ebnf (only one file: iso14649.ebnf)
-generator
-   Makefile
-   bin (empty - intended for binary files)
-   ofiles (empty - intended for object files)
-   source (seven files in C++, YACC, and Lex)
-parsers
-   iso14649 (only one example)
-      Makefile
-      bin (empty - intended for binary files)
-      data (four test files)
-      include (two header files)
-      ofiles (empty - intended for object files)
-      source (six files in C++, YACC, and Lex)
+  * ebnf (only one file: iso14649.ebnf)
+  * generator
+    * Makefile
+    * bin (empty - intended for binary files)
+    * ofiles (empty - intended for object files)
+    * source (seven files in C++, YACC, and Lex)
+  * parsers
+    * iso14649 (only one example)
+      *  Makefile
+      *  bin (empty - intended for binary files)
+      *  data (four test files)
+      *  include (two header files)
+      *  ofiles (empty - intended for object files)
+      *  source (six files in C++, YACC, and Lex)
+
 
 
 == COMPILING ==
@@ -126,7 +127,7 @@ If you have a Linux or Unix system, to compile everything, change the the defini
 2. from the parsers/iso14649 directory:
    make bin/iso14649parser
 
-If you have a Windows system you are on your own.
+*If you have a Windows system you are on your own.*
 
 If you want to use sebnf2pars, you will need bison and flex. Those
 are both free GNU software available on the web.
