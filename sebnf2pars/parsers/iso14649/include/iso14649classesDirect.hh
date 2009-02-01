@@ -39,13 +39,6 @@ Classes are not defined for optional parents. If there is an optional
 attribute, its value is a pointer to the optional child, but the
 pointer may be NULL. No pointer to a non-optional attribute may be NULL.
 
-For each data member of a C++ class, there is a function to get the data
-member, and a function to set it. The name of each function is the name of
-the data member preceded by either "get_" or "set_". The get function
-has no arguments and returns the type of data in the data member. The set
-function has an argument whose type is the type of the data member and
-returns nothing.
-
 Each class from which no other class is derived has two constructors
 and a destructor. One of the constructors takes no arguments, and sets
 nothing. The other constructor takes as many arguments as there are
@@ -1134,15 +1127,6 @@ public:
   ~inputFile();
   int isA(int aType);
   void printSelf();
-  fileStart * get_inputStart();
-  void set_inputStart(fileStart * inputStartIn);
-  headerSection * get_inputHeader();
-  void set_inputHeader(headerSection * inputHeaderIn);
-  dataSection * get_inputData();
-  void set_inputData(dataSection * inputDataIn);
-  fileEnd * get_inputEnd();
-  void set_inputEnd(fileEnd * inputEndIn);
-private:
   fileStart * inputStart;
   headerSection * inputHeader;
   dataSection * inputData;
@@ -1166,9 +1150,6 @@ public:
   ~instance();
   int isA(int aType) = 0;
   void printSelf() = 0;
-  instanceId * get_iId();
-  void set_iId(instanceId * iIdIn);
-private:
   instanceId * iId;
 };
 
@@ -1186,7 +1167,6 @@ ADDRESS '(' optString ',' optString ',' optString ',' optString ',' optString ',
 class address :
   public instance
 {
-  friend int yyparse();
 public:
   address();
   address(
@@ -1205,31 +1185,6 @@ public:
   ~address();
   int isA(int aType);
   void printSelf();
-  aString * get_internalLocation();
-  void set_internalLocation(aString * internalLocationIn);
-  aString * get_streetNumber();
-  void set_streetNumber(aString * streetNumberIn);
-  aString * get_street();
-  void set_street(aString * streetIn);
-  aString * get_postalBox();
-  void set_postalBox(aString * postalBoxIn);
-  aString * get_town();
-  void set_town(aString * townIn);
-  aString * get_region();
-  void set_region(aString * regionIn);
-  aString * get_postalCode();
-  void set_postalCode(aString * postalCodeIn);
-  aString * get_country();
-  void set_country(aString * countryIn);
-  aString * get_facsimileNumber();
-  void set_facsimileNumber(aString * facsimileNumberIn);
-  aString * get_telephoneNumber();
-  void set_telephoneNumber(aString * telephoneNumberIn);
-  aString * get_electronicMailAddress();
-  void set_electronicMailAddress(aString * electronicMailAddressIn);
-  aString * get_telexNumber();
-  void set_telexNumber(aString * telexNumberIn);
-private:
   aString * internalLocation;
   aString * streetNumber;
   aString * street;
@@ -1336,7 +1291,6 @@ This is a parent class.
 class approachRetractStrategy :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   approachRetractStrategy();
   approachRetractStrategy(
@@ -1344,9 +1298,6 @@ public:
   ~approachRetractStrategy();
   int isA(int aType);
   void printSelf() = 0;
-  direction * get_toolOrientation();
-  void set_toolOrientation(direction * toolOrientationIn);
-private:
   direction * toolOrientation;
 };
 
@@ -1364,7 +1315,6 @@ APPROVAL '(' approvalStatus ',' CHARSTRING ')'
 class approval :
   public instance
 {
-  friend int yyparse();
 public:
   approval();
   approval(
@@ -1373,11 +1323,6 @@ public:
   ~approval();
   int isA(int aType);
   void printSelf();
-  approvalStatus * get_status();
-  void set_status(approvalStatus * statusIn);
-  char * get_level();
-  void set_level(char * levelIn);
-private:
   approvalStatus * status;
   char * level;
 };
@@ -1396,7 +1341,6 @@ APPROVALSTATUS '(' CHARSTRING ')'
 class approvalStatus :
   public instance
 {
-  friend int yyparse();
 public:
   approvalStatus();
   approvalStatus(
@@ -1404,9 +1348,6 @@ public:
   ~approvalStatus();
   int isA(int aType);
   void printSelf();
-  char * get_name();
-  void set_name(char * nameIn);
-private:
   char * name;
 };
 
@@ -1431,9 +1372,6 @@ public:
   ~aString();
   int isA(int aType);
   void printSelf();
-  char * get_theString();
-  void set_theString(char * theStringIn);
-private:
   char * theString;
 };
 
@@ -1466,7 +1404,6 @@ This is a parent class.
 class booleanExpression :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   booleanExpression();
   ~booleanExpression();
@@ -2004,7 +1941,6 @@ CHANNEL '(' CHARSTRING ')'
 class channel :
   public instance
 {
-  friend int yyparse();
 public:
   channel();
   channel(
@@ -2012,9 +1948,6 @@ public:
   ~channel();
   int isA(int aType);
   void printSelf();
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-private:
   char * itsId;
 };
 
@@ -2032,7 +1965,6 @@ CIRCULAROFFSET '(' REALSTRING ',' INTSTRING ')'
 class circularOffset :
   public instance
 {
-  friend int yyparse();
 public:
   circularOffset();
   circularOffset(
@@ -2041,11 +1973,6 @@ public:
   ~circularOffset();
   int isA(int aType);
   void printSelf();
-  double get_angularOffset();
-  void set_angularOffset(double angularOffsetIn);
-  int get_index();
-  void set_index(int indexIn);
-private:
   double angularOffset;
   int index;
 };
@@ -2064,7 +1991,6 @@ CIRCULAROMIT '(' INTSTRING ')'
 class circularOmit :
   public instance
 {
-  friend int yyparse();
 public:
   circularOmit();
   circularOmit(
@@ -2072,9 +1998,6 @@ public:
   ~circularOmit();
   int isA(int aType);
   void printSelf();
-  int get_index();
-  void set_index(int indexIn);
-private:
   int index;
 };
 
@@ -2089,7 +2012,6 @@ This is a parent class.
 class comparisonExpression :
   public booleanExpression
 {
-  friend int yyparse();
 public:
   comparisonExpression();
   comparisonExpression(
@@ -2098,11 +2020,6 @@ public:
   ~comparisonExpression();
   int isA(int aType);
   void printSelf() = 0;
-  ncVariable * get_operand1();
-  void set_operand1(ncVariable * operand1In);
-  rvalue * get_operand2();
-  void set_operand2(rvalue * operand2In);
-private:
   ncVariable * operand1;
   rvalue * operand2;
 };
@@ -2121,7 +2038,6 @@ COMPOSITECURVESEGMENT '(' transitionCode ',' boolean ',' curve ')'
 class compositeCurveSegment :
   public instance
 {
-  friend int yyparse();
 public:
   compositeCurveSegment();
   compositeCurveSegment(
@@ -2131,13 +2047,6 @@ public:
   ~compositeCurveSegment();
   int isA(int aType);
   void printSelf();
-  transitionCode * get_transition();
-  void set_transition(transitionCode * transitionIn);
-  boolean * get_sameSense();
-  void set_sameSense(boolean * sameSenseIn);
-  curve * get_parentCurve();
-  void set_parentCurve(curve * parentCurveIn);
-private:
   transitionCode * transition;
   boolean * sameSense;
   curve * parentCurve;
@@ -2154,7 +2063,6 @@ This is a parent class.
 class compoundFeatureSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   compoundFeatureSelect();
   ~compoundFeatureSelect();
@@ -2236,7 +2144,6 @@ COORDINATEDUNIVERSALTIMEOFFSET '(' INTSTRING optInteger aheadOrBehind ')'
 class coordinatedUniversalTimeOffset :
   public instance
 {
-  friend int yyparse();
 public:
   coordinatedUniversalTimeOffset();
   coordinatedUniversalTimeOffset(
@@ -2246,13 +2153,6 @@ public:
   ~coordinatedUniversalTimeOffset();
   int isA(int aType);
   void printSelf();
-  int get_hourOffset();
-  void set_hourOffset(int hourOffsetIn);
-  integer * get_minuteOffset();
-  void set_minuteOffset(integer * minuteOffsetIn);
-  aheadOrBehind * get_sense();
-  void set_sense(aheadOrBehind * senseIn);
-private:
   int hourOffset;
   integer * minuteOffset;
   aheadOrBehind * sense;
@@ -2269,7 +2169,6 @@ This is a parent class.
 class curveWithSurfaceNormalSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   curveWithSurfaceNormalSelect();
   ~curveWithSurfaceNormalSelect();
@@ -2351,7 +2250,6 @@ CUTTERCONTACTTRAJECTORY '(' boolean ',' toolpathType ',' optToolpathSpeedprofile
 class cutterContactTrajectory :
   public instance
 {
-  friend int yyparse();
 public:
   cutterContactTrajectory();
   cutterContactTrajectory(
@@ -2367,25 +2265,6 @@ public:
   ~cutterContactTrajectory();
   int isA(int aType);
   void printSelf();
-  boolean * get_itsPriority();
-  void set_itsPriority(boolean * itsPriorityIn);
-  toolpathType * get_itsType();
-  void set_itsType(toolpathType * itsTypeIn);
-  toolpathSpeedprofile * get_itsSpeed();
-  void set_itsSpeed(toolpathSpeedprofile * itsSpeedIn);
-  technology * get_itsTechnology();
-  void set_itsTechnology(technology * itsTechnologyIn);
-  machineFunctions * get_itsMachineFunctions();
-  void set_itsMachineFunctions(machineFunctions * itsMachineFunctionsIn);
-  boolean * get_itsDirection();
-  void set_itsDirection(boolean * itsDirectionIn);
-  curveWithSurfaceNormalSelect * get_basiccurve();
-  void set_basiccurve(curveWithSurfaceNormalSelect * basiccurveIn);
-  boundedCurve * get_itsToolaxis();
-  void set_itsToolaxis(boundedCurve * itsToolaxisIn);
-  contactType * get_itsContactType();
-  void set_itsContactType(contactType * itsContactTypeIn);
-private:
   boolean * itsPriority;
   toolpathType * itsType;
   toolpathSpeedprofile * itsSpeed;
@@ -2411,7 +2290,6 @@ CUTTINGCOMPONENT '(' REALSTRING ',' optMaterial ',' optCuttingEdgeTechnologicalD
 class cuttingComponent :
   public instance
 {
-  friend int yyparse();
 public:
   cuttingComponent();
   cuttingComponent(
@@ -2423,17 +2301,6 @@ public:
   ~cuttingComponent();
   int isA(int aType);
   void printSelf();
-  double get_toolOffsetLength();
-  void set_toolOffsetLength(double toolOffsetLengthIn);
-  material * get_itsMaterial();
-  void set_itsMaterial(material * itsMaterialIn);
-  cuttingEdgeTechnologicalData * get_technologicalData();
-  void set_technologicalData(cuttingEdgeTechnologicalData * technologicalDataIn);
-  real * get_expectedToolLife();
-  void set_expectedToolLife(real * expectedToolLifeIn);
-  millingTechnology * get_itsTechnology();
-  void set_itsTechnology(millingTechnology * itsTechnologyIn);
-private:
   double toolOffsetLength;
   material * itsMaterial;
   cuttingEdgeTechnologicalData * technologicalData;
@@ -2455,7 +2322,6 @@ CUTTINGEDGETECHNOLOGICALDATA '(' optReal ',' optReal ',' optReal ')'
 class cuttingEdgeTechnologicalData :
   public instance
 {
-  friend int yyparse();
 public:
   cuttingEdgeTechnologicalData();
   cuttingEdgeTechnologicalData(
@@ -2465,13 +2331,6 @@ public:
   ~cuttingEdgeTechnologicalData();
   int isA(int aType);
   void printSelf();
-  real * get_cuttingAngle();
-  void set_cuttingAngle(real * cuttingAngleIn);
-  real * get_freeAngle();
-  void set_freeAngle(real * freeAngleIn);
-  real * get_auxAngle();
-  void set_auxAngle(real * auxAngleIn);
-private:
   real * cuttingAngle;
   real * freeAngle;
   real * auxAngle;
@@ -2500,13 +2359,6 @@ public:
   ~dataSection();
   int isA(int aType);
   void printSelf();
-  dataStarter * get_dataStart();
-  void set_dataStart(dataStarter * dataStartIn);
-  std::list<instance *> * get_items();
-  void set_items(std::list<instance *> * itemsIn);
-  endSection * get_sectionEnd();
-  void set_sectionEnd(endSection * sectionEndIn);
-private:
   dataStarter * dataStart;
   std::list<instance *> * items;
   endSection * sectionEnd;
@@ -2544,7 +2396,6 @@ This is a parent class.
 class date :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   date();
   date(
@@ -2552,9 +2403,6 @@ public:
   ~date();
   int isA(int aType);
   void printSelf() = 0;
-  int get_yearComponent();
-  void set_yearComponent(int yearComponentIn);
-private:
   int yearComponent;
 };
 
@@ -2572,7 +2420,6 @@ DATEANDTIME '(' date ',' localTime ')'
 class dateAndTime :
   public instance
 {
-  friend int yyparse();
 public:
   dateAndTime();
   dateAndTime(
@@ -2581,11 +2428,6 @@ public:
   ~dateAndTime();
   int isA(int aType);
   void printSelf();
-  date * get_dateComponent();
-  void set_dateComponent(date * dateComponentIn);
-  localTime * get_timeComponent();
-  void set_timeComponent(localTime * timeComponentIn);
-private:
   date * dateComponent;
   localTime * timeComponent;
 };
@@ -2604,7 +2446,6 @@ DRILLINGTYPESTRATEGY '(' optReal ',' optReal ',' optReal ',' optReal ',' optReal
 class drillingTypeStrategy :
   public instance
 {
-  friend int yyparse();
 public:
   drillingTypeStrategy();
   drillingTypeStrategy(
@@ -2617,19 +2458,6 @@ public:
   ~drillingTypeStrategy();
   int isA(int aType);
   void printSelf();
-  real * get_reducedCutAtStart();
-  void set_reducedCutAtStart(real * reducedCutAtStartIn);
-  real * get_reducedFeedAtStart();
-  void set_reducedFeedAtStart(real * reducedFeedAtStartIn);
-  real * get_depthOfStart();
-  void set_depthOfStart(real * depthOfStartIn);
-  real * get_reducedCutAtEnd();
-  void set_reducedCutAtEnd(real * reducedCutAtEndIn);
-  real * get_reducedFeedAtEnd();
-  void set_reducedFeedAtEnd(real * reducedFeedAtEndIn);
-  real * get_depthOfEnd();
-  void set_depthOfEnd(real * depthOfEndIn);
-private:
   real * reducedCutAtStart;
   real * reducedFeedAtStart;
   real * depthOfStart;
@@ -2670,7 +2498,6 @@ This is a parent class.
 class executable :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   executable();
   executable(
@@ -2678,9 +2505,6 @@ public:
   ~executable();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-private:
   char * itsId;
 };
 
@@ -2706,11 +2530,6 @@ public:
   ~fileDescription();
   int isA(int aType);
   void printSelf();
-  parenStringListFull * get_description();
-  void set_description(parenStringListFull * descriptionIn);
-  char * get_implementationLevel();
-  void set_implementationLevel(char * implementationLevelIn);
-private:
   parenStringListFull * description;
   char * implementationLevel;
 };
@@ -2763,21 +2582,6 @@ public:
   ~fileName();
   int isA(int aType);
   void printSelf();
-  char * get_name();
-  void set_name(char * nameIn);
-  char * get_timeStamp();
-  void set_timeStamp(char * timeStampIn);
-  parenStringListFull * get_author();
-  void set_author(parenStringListFull * authorIn);
-  parenStringListFull * get_organization();
-  void set_organization(parenStringListFull * organizationIn);
-  char * get_preprocessorVersion();
-  void set_preprocessorVersion(char * preprocessorVersionIn);
-  char * get_originatingSystem();
-  void set_originatingSystem(char * originatingSystemIn);
-  char * get_authorization();
-  void set_authorization(char * authorizationIn);
-private:
   char * name;
   char * timeStamp;
   parenStringListFull * author;
@@ -2808,9 +2612,6 @@ public:
   ~fileSchema();
   int isA(int aType);
   void printSelf();
-  parenStringList * get_schemaIdentifiers();
-  void set_schemaIdentifiers(parenStringList * schemaIdentifiersIn);
-private:
   parenStringList * schemaIdentifiers;
 };
 
@@ -2906,7 +2707,6 @@ This is a parent class.
 class freeformStrategy :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   freeformStrategy();
   freeformStrategy(
@@ -2917,15 +2717,6 @@ public:
   ~freeformStrategy();
   int isA(int aType);
   void printSelf() = 0;
-  pathmodeType * get_pathmode();
-  void set_pathmode(pathmodeType * pathmodeIn);
-  cutmodeType * get_cutmode();
-  void set_cutmode(cutmodeType * cutmodeIn);
-  tolerances * get_itsMillingTolerances();
-  void set_itsMillingTolerances(tolerances * itsMillingTolerancesIn);
-  real * get_stepover();
-  void set_stepover(real * stepoverIn);
-private:
   pathmodeType * pathmode;
   cutmodeType * cutmode;
   tolerances * itsMillingTolerances;
@@ -3038,17 +2829,6 @@ public:
   ~headerSection();
   int isA(int aType);
   void printSelf();
-  headerStarter * get_headerStart();
-  void set_headerStart(headerStarter * headerStartIn);
-  fileDescription * get_headerDescription();
-  void set_headerDescription(fileDescription * headerDescriptionIn);
-  fileName * get_headerName();
-  void set_headerName(fileName * headerNameIn);
-  fileSchema * get_headerSchema();
-  void set_headerSchema(fileSchema * headerSchemaIn);
-  endSection * get_sectionEnd();
-  void set_sectionEnd(endSection * sectionEndIn);
-private:
   headerStarter * headerStart;
   fileDescription * headerDescription;
   fileName * headerName;
@@ -3088,7 +2868,6 @@ This is a parent class.
 class holeBottomCondition :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   holeBottomCondition();
   ~holeBottomCondition();
@@ -3110,7 +2889,6 @@ INPROCESSGEOMETRY '(' optAdvancedBrepShapeRepresentation ',' optAdvancedBrepShap
 class inProcessGeometry :
   public instance
 {
-  friend int yyparse();
 public:
   inProcessGeometry();
   inProcessGeometry(
@@ -3120,13 +2898,6 @@ public:
   ~inProcessGeometry();
   int isA(int aType);
   void printSelf();
-  advancedBrepShapeRepresentation * get_asIs();
-  void set_asIs(advancedBrepShapeRepresentation * asIsIn);
-  advancedBrepShapeRepresentation * get_toBe();
-  void set_toBe(advancedBrepShapeRepresentation * toBeIn);
-  advancedBrepShapeRepresentation * get_removal();
-  void set_removal(advancedBrepShapeRepresentation * removalIn);
-private:
   advancedBrepShapeRepresentation * asIs;
   advancedBrepShapeRepresentation * toBe;
   advancedBrepShapeRepresentation * removal;
@@ -3153,9 +2924,6 @@ public:
   ~instanceId();
   int isA(int aType);
   void printSelf();
-  int get_val();
-  void set_val(int valIn);
-private:
   int val;
 };
 
@@ -3180,9 +2948,6 @@ public:
   ~integer();
   int isA(int aType);
   void printSelf();
-  int get_val();
-  void set_val(int valIn);
-private:
   int val;
 };
 
@@ -3303,7 +3068,6 @@ class leadingLineStrategy :
   public instance,
   public freeformStrategy
 {
-  friend int yyparse();
 public:
   leadingLineStrategy();
   leadingLineStrategy(
@@ -3315,9 +3079,6 @@ public:
   ~leadingLineStrategy();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_itsLine();
-  void set_itsLine(boundedCurve * itsLineIn);
-private:
   boundedCurve * itsLine;
 };
 
@@ -3395,7 +3156,6 @@ LOCALTIME '(' INTSTRING optInteger optReal coordinatedUniversalTimeOffset ')'
 class localTime :
   public instance
 {
-  friend int yyparse();
 public:
   localTime();
   localTime(
@@ -3406,15 +3166,6 @@ public:
   ~localTime();
   int isA(int aType);
   void printSelf();
-  int get_hourComponent();
-  void set_hourComponent(int hourComponentIn);
-  integer * get_minuteComponent();
-  void set_minuteComponent(integer * minuteComponentIn);
-  real * get_secondComponent();
-  void set_secondComponent(real * secondComponentIn);
-  coordinatedUniversalTimeOffset * get_zone();
-  void set_zone(coordinatedUniversalTimeOffset * zoneIn);
-private:
   int hourComponent;
   integer * minuteComponent;
   real * secondComponent;
@@ -3516,7 +3267,6 @@ MACHINEDSURFACE '(' machiningFeature ',' bottomOrSide ')'
 class machinedSurface :
   public instance
 {
-  friend int yyparse();
 public:
   machinedSurface();
   machinedSurface(
@@ -3525,11 +3275,6 @@ public:
   ~machinedSurface();
   int isA(int aType);
   void printSelf();
-  machiningFeature * get_itsMachiningFeature();
-  void set_itsMachiningFeature(machiningFeature * itsMachiningFeatureIn);
-  bottomOrSide * get_surfaceElement();
-  void set_surfaceElement(bottomOrSide * surfaceElementIn);
-private:
   machiningFeature * itsMachiningFeature;
   bottomOrSide * surfaceElement;
 };
@@ -3545,7 +3290,6 @@ This is a parent class.
 class machineFunctions :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   machineFunctions();
   ~machineFunctions();
@@ -3564,7 +3308,6 @@ This is a parent class.
 class machiningTool :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   machiningTool();
   machiningTool(
@@ -3572,9 +3315,6 @@ public:
   ~machiningTool();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-private:
   char * itsId;
 };
 
@@ -3589,7 +3329,6 @@ This is a parent class.
 class manufacturingFeature :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   manufacturingFeature();
   manufacturingFeature(
@@ -3599,13 +3338,6 @@ public:
   ~manufacturingFeature();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-  workpiece * get_itsWorkpiece();
-  void set_itsWorkpiece(workpiece * itsWorkpieceIn);
-  parenMachiningOperationList * get_itsOperations();
-  void set_itsOperations(parenMachiningOperationList * itsOperationsIn);
-private:
   char * itsId;
   workpiece * itsWorkpiece;
   parenMachiningOperationList * itsOperations;
@@ -3625,7 +3357,6 @@ MATERIAL '(' CHARSTRING ',' CHARSTRING ',' parenPropertyParameterList ')'
 class material :
   public instance
 {
-  friend int yyparse();
 public:
   material();
   material(
@@ -3635,13 +3366,6 @@ public:
   ~material();
   int isA(int aType);
   void printSelf();
-  char * get_standardIdentifier();
-  void set_standardIdentifier(char * standardIdentifierIn);
-  char * get_materialIdentifier();
-  void set_materialIdentifier(char * materialIdentifierIn);
-  parenPropertyParameterList * get_materialProperty();
-  void set_materialProperty(parenPropertyParameterList * materialPropertyIn);
-private:
   char * standardIdentifier;
   char * materialIdentifier;
   parenPropertyParameterList * materialProperty;
@@ -3662,7 +3386,6 @@ class millingMachineFunctions :
   public instance,
   public machineFunctions
 {
-  friend int yyparse();
 public:
   millingMachineFunctions();
   millingMachineFunctions(
@@ -3679,27 +3402,6 @@ public:
   ~millingMachineFunctions();
   int isA(int aType);
   void printSelf();
-  boolean * get_coolant();
-  void set_coolant(boolean * coolantIn);
-  real * get_coolantPressure();
-  void set_coolantPressure(real * coolantPressureIn);
-  boolean * get_mist();
-  void set_mist(boolean * mistIn);
-  boolean * get_throughSpindleCoolant();
-  void set_throughSpindleCoolant(boolean * throughSpindleCoolantIn);
-  real * get_throughPressure();
-  void set_throughPressure(real * throughPressureIn);
-  parenStringList * get_axisClamping();
-  void set_axisClamping(parenStringList * axisClampingIn);
-  boolean * get_chipRemoval();
-  void set_chipRemoval(boolean * chipRemovalIn);
-  direction * get_orientedSpindleStop();
-  void set_orientedSpindleStop(direction * orientedSpindleStopIn);
-  processModelList * get_itsProcessModel();
-  void set_itsProcessModel(processModelList * itsProcessModelIn);
-  parenPropertyParameterList * get_otherFunctions();
-  void set_otherFunctions(parenPropertyParameterList * otherFunctionsIn);
-private:
   boolean * coolant;
   real * coolantPressure;
   boolean * mist;
@@ -3726,7 +3428,6 @@ MILLINGTOOLDIMENSION '(' REALSTRING ',' optReal ',' optReal ',' optReal ',' optR
 class millingToolDimension :
   public instance
 {
-  friend int yyparse();
 public:
   millingToolDimension();
   millingToolDimension(
@@ -3740,21 +3441,6 @@ public:
   ~millingToolDimension();
   int isA(int aType);
   void printSelf();
-  double get_diameter();
-  void set_diameter(double diameterIn);
-  real * get_toolTopAngle();
-  void set_toolTopAngle(real * toolTopAngleIn);
-  real * get_toolCircumferenceAngle();
-  void set_toolCircumferenceAngle(real * toolCircumferenceAngleIn);
-  real * get_cuttingEdgeLength();
-  void set_cuttingEdgeLength(real * cuttingEdgeLengthIn);
-  real * get_edgeRadius();
-  void set_edgeRadius(real * edgeRadiusIn);
-  real * get_edgeCenterVertical();
-  void set_edgeCenterVertical(real * edgeCenterVerticalIn);
-  real * get_edgeCenterHorizontal();
-  void set_edgeCenterHorizontal(real * edgeCenterHorizontalIn);
-private:
   double diameter;
   real * toolTopAngle;
   real * toolCircumferenceAngle;
@@ -3775,7 +3461,6 @@ This is a parent class.
 class multipleArityBooleanExpression :
   public booleanExpression
 {
-  friend int yyparse();
 public:
   multipleArityBooleanExpression();
   multipleArityBooleanExpression(
@@ -3783,9 +3468,6 @@ public:
   ~multipleArityBooleanExpression();
   int isA(int aType);
   void printSelf() = 0;
-  parenBooleanExpressionListFull * get_operands();
-  void set_operands(parenBooleanExpressionListFull * operandsIn);
-private:
   parenBooleanExpressionListFull * operands;
 };
 
@@ -3800,7 +3482,6 @@ This is a parent class.
 class ncFunction :
   public executable
 {
-  friend int yyparse();
 public:
   ncFunction();
   ncFunction(
@@ -3832,11 +3513,6 @@ public:
   ~offsetVector();
   int isA(int aType);
   void printSelf();
-  parenNcVariableListFull * get_translate();
-  void set_translate(parenNcVariableListFull * translateIn);
-  parenNcVariableListFull * get_rotate();
-  void set_rotate(parenNcVariableListFull * rotateIn);
-private:
   parenNcVariableListFull * translate;
   parenNcVariableListFull * rotate;
 };
@@ -3852,7 +3528,6 @@ This is a parent class.
 class operation :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   operation();
   operation(
@@ -3861,11 +3536,6 @@ public:
   ~operation();
   int isA(int aType);
   void printSelf() = 0;
-  toolpathList * get_itsToolpath();
-  void set_itsToolpath(toolpathList * itsToolpathIn);
-  toolDirection * get_itsToolDirection();
-  void set_itsToolDirection(toolDirection * itsToolDirectionIn);
-private:
   toolpathList * itsToolpath;
   toolDirection * itsToolDirection;
 };
@@ -3885,7 +3555,6 @@ class optionalStop :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   optionalStop();
   optionalStop(
@@ -3910,7 +3579,6 @@ class orExpression :
   public instance,
   public multipleArityBooleanExpression
 {
-  friend int yyparse();
 public:
   orExpression();
   orExpression(
@@ -3935,7 +3603,6 @@ class ordinalDate :
   public instance,
   public date
 {
-  friend int yyparse();
 public:
   ordinalDate();
   ordinalDate(
@@ -3944,9 +3611,6 @@ public:
   ~ordinalDate();
   int isA(int aType);
   void printSelf();
-  int get_dayComponent();
-  void set_dayComponent(int dayComponentIn);
-private:
   int dayComponent;
 };
 
@@ -3971,9 +3635,6 @@ public:
   ~parenAxis2placement3dListFull();
   int isA(int aType);
   void printSelf();
-  std::list<axis2placement3d *> * get_theList();
-  void set_theList(std::list<axis2placement3d *> * theListIn);
-private:
   std::list<axis2placement3d *> * theList;
 };
 
@@ -3998,9 +3659,6 @@ public:
   ~parenBooleanExpressionListFull();
   int isA(int aType);
   void printSelf();
-  std::list<booleanExpression *> * get_theList();
-  void set_theList(std::list<booleanExpression *> * theListIn);
-private:
   std::list<booleanExpression *> * theList;
 };
 
@@ -4027,9 +3685,6 @@ public:
   ~parenBossList();
   int isA(int aType);
   void printSelf();
-  std::list<boss *> * get_theList();
-  void set_theList(std::list<boss *> * theListIn);
-private:
   std::list<boss *> * theList;
 };
 
@@ -4054,9 +3709,6 @@ public:
   ~parenBoundedCurveListFull();
   int isA(int aType);
   void printSelf();
-  std::list<boundedCurve *> * get_theList();
-  void set_theList(std::list<boundedCurve *> * theListIn);
-private:
   std::list<boundedCurve *> * theList;
 };
 
@@ -4081,9 +3733,6 @@ public:
   ~parenBoundedSurfaceListFull();
   int isA(int aType);
   void printSelf();
-  std::list<boundedSurface *> * get_theList();
-  void set_theList(std::list<boundedSurface *> * theListIn);
-private:
   std::list<boundedSurface *> * theList;
 };
 
@@ -4110,9 +3759,6 @@ public:
   ~parenCartesianPointList();
   int isA(int aType);
   void printSelf();
-  std::list<cartesianPoint *> * get_theList();
-  void set_theList(std::list<cartesianPoint *> * theListIn);
-private:
   std::list<cartesianPoint *> * theList;
 };
 
@@ -4137,9 +3783,6 @@ public:
   ~parenCartesianPointListFull();
   int isA(int aType);
   void printSelf();
-  std::list<cartesianPoint *> * get_theList();
-  void set_theList(std::list<cartesianPoint *> * theListIn);
-private:
   std::list<cartesianPoint *> * theList;
 };
 
@@ -4166,9 +3809,6 @@ public:
   ~parenCircularOffsetList();
   int isA(int aType);
   void printSelf();
-  std::list<circularOffset *> * get_theList();
-  void set_theList(std::list<circularOffset *> * theListIn);
-private:
   std::list<circularOffset *> * theList;
 };
 
@@ -4195,9 +3835,6 @@ public:
   ~parenCircularOmitList();
   int isA(int aType);
   void printSelf();
-  std::list<circularOmit *> * get_theList();
-  void set_theList(std::list<circularOmit *> * theListIn);
-private:
   std::list<circularOmit *> * theList;
 };
 
@@ -4222,9 +3859,6 @@ public:
   ~parenCompositeCurveSegmentListFull();
   int isA(int aType);
   void printSelf();
-  std::list<compositeCurveSegment *> * get_theList();
-  void set_theList(std::list<compositeCurveSegment *> * theListIn);
-private:
   std::list<compositeCurveSegment *> * theList;
 };
 
@@ -4249,9 +3883,6 @@ public:
   ~parenCompoundFeatureSelectListFull();
   int isA(int aType);
   void printSelf();
-  std::list<compoundFeatureSelect *> * get_theList();
-  void set_theList(std::list<compoundFeatureSelect *> * theListIn);
-private:
   std::list<compoundFeatureSelect *> * theList;
 };
 
@@ -4276,9 +3907,6 @@ public:
   ~parenCuttingComponentListFull();
   int isA(int aType);
   void printSelf();
-  std::list<cuttingComponent *> * get_theList();
-  void set_theList(std::list<cuttingComponent *> * theListIn);
-private:
   std::list<cuttingComponent *> * theList;
 };
 
@@ -4305,9 +3933,6 @@ public:
   ~parenExecutableList();
   int isA(int aType);
   void printSelf();
-  std::list<executable *> * get_theList();
-  void set_theList(std::list<executable *> * theListIn);
-private:
   std::list<executable *> * theList;
 };
 
@@ -4332,9 +3957,6 @@ public:
   ~parenExecutableListFull();
   int isA(int aType);
   void printSelf();
-  std::list<executable *> * get_theList();
-  void set_theList(std::list<executable *> * theListIn);
-private:
   std::list<executable *> * theList;
 };
 
@@ -4359,9 +3981,6 @@ public:
   ~parenFaceBoundListFull();
   int isA(int aType);
   void printSelf();
-  std::list<faceBound *> * get_theList();
-  void set_theList(std::list<faceBound *> * theListIn);
-private:
   std::list<faceBound *> * theList;
 };
 
@@ -4386,9 +4005,6 @@ public:
   ~parenFaceListFull();
   int isA(int aType);
   void printSelf();
-  std::list<face *> * get_theList();
-  void set_theList(std::list<face *> * theListIn);
-private:
   std::list<face *> * theList;
 };
 
@@ -4413,9 +4029,6 @@ public:
   ~parenIntegerListFull();
   int isA(int aType);
   void printSelf();
-  std::list<integer *> * get_theList();
-  void set_theList(std::list<integer *> * theListIn);
-private:
   std::list<integer *> * theList;
 };
 
@@ -4440,9 +4053,6 @@ public:
   ~parenMachinedSurfaceListFull();
   int isA(int aType);
   void printSelf();
-  std::list<machinedSurface *> * get_theList();
-  void set_theList(std::list<machinedSurface *> * theListIn);
-private:
   std::list<machinedSurface *> * theList;
 };
 
@@ -4467,9 +4077,6 @@ public:
   ~parenMachiningFeatureListFull();
   int isA(int aType);
   void printSelf();
-  std::list<machiningFeature *> * get_theList();
-  void set_theList(std::list<machiningFeature *> * theListIn);
-private:
   std::list<machiningFeature *> * theList;
 };
 
@@ -4496,9 +4103,6 @@ public:
   ~parenMachiningOperationList();
   int isA(int aType);
   void printSelf();
-  std::list<machiningOperation *> * get_theList();
-  void set_theList(std::list<machiningOperation *> * theListIn);
-private:
   std::list<machiningOperation *> * theList;
 };
 
@@ -4523,9 +4127,6 @@ public:
   ~parenNcVariableListFull();
   int isA(int aType);
   void printSelf();
-  std::list<ncVariable *> * get_theList();
-  void set_theList(std::list<ncVariable *> * theListIn);
-private:
   std::list<ncVariable *> * theList;
 };
 
@@ -4550,9 +4151,6 @@ public:
   ~parenOrientedEdgeListFull();
   int isA(int aType);
   void printSelf();
-  std::list<orientedEdge *> * get_theList();
-  void set_theList(std::list<orientedEdge *> * theListIn);
-private:
   std::list<orientedEdge *> * theList;
 };
 
@@ -4577,9 +4175,6 @@ public:
   ~parenParenCartesianPointListFullListFull();
   int isA(int aType);
   void printSelf();
-  std::list<parenCartesianPointListFull *> * get_theList();
-  void set_theList(std::list<parenCartesianPointListFull *> * theListIn);
-private:
   std::list<parenCartesianPointListFull *> * theList;
 };
 
@@ -4604,9 +4199,6 @@ public:
   ~parenParenRealListFullListFull();
   int isA(int aType);
   void printSelf();
-  std::list<parenRealListFull *> * get_theList();
-  void set_theList(std::list<parenRealListFull *> * theListIn);
-private:
   std::list<parenRealListFull *> * theList;
 };
 
@@ -4631,9 +4223,6 @@ public:
   ~parenProcessModelLiszt();
   int isA(int aType);
   void printSelf();
-  std::list<processModel *> * get_theList();
-  void set_theList(std::list<processModel *> * theListIn);
-private:
   std::list<processModel *> * theList;
 };
 
@@ -4660,9 +4249,6 @@ public:
   ~parenPropertyParameterList();
   int isA(int aType);
   void printSelf();
-  std::list<propertyParameter *> * get_theList();
-  void set_theList(std::list<propertyParameter *> * theListIn);
-private:
   std::list<propertyParameter *> * theList;
 };
 
@@ -4687,9 +4273,6 @@ public:
   ~parenRealListFull();
   int isA(int aType);
   void printSelf();
-  std::list<real *> * get_theList();
-  void set_theList(std::list<real *> * theListIn);
-private:
   std::list<real *> * theList;
 };
 
@@ -4716,9 +4299,6 @@ public:
   ~parenRectangularOffsetList();
   int isA(int aType);
   void printSelf();
-  std::list<rectangularOffset *> * get_theList();
-  void set_theList(std::list<rectangularOffset *> * theListIn);
-private:
   std::list<rectangularOffset *> * theList;
 };
 
@@ -4745,9 +4325,6 @@ public:
   ~parenRectangularOmitList();
   int isA(int aType);
   void printSelf();
-  std::list<rectangularOmit *> * get_theList();
-  void set_theList(std::list<rectangularOmit *> * theListIn);
-private:
   std::list<rectangularOmit *> * theList;
 };
 
@@ -4772,9 +4349,6 @@ public:
   ~parenRepresentationItemListFull();
   int isA(int aType);
   void printSelf();
-  std::list<representationItem *> * get_theList();
-  void set_theList(std::list<representationItem *> * theListIn);
-private:
   std::list<representationItem *> * theList;
 };
 
@@ -4801,9 +4375,6 @@ public:
   ~parenSetupInstructionList();
   int isA(int aType);
   void printSelf();
-  std::list<setupInstruction *> * get_theList();
-  void set_theList(std::list<setupInstruction *> * theListIn);
-private:
   std::list<setupInstruction *> * theList;
 };
 
@@ -4830,9 +4401,6 @@ public:
   ~parenSlotEndTypeList();
   int isA(int aType);
   void printSelf();
-  std::list<slotEndType *> * get_theList();
-  void set_theList(std::list<slotEndType *> * theListIn);
-private:
   std::list<slotEndType *> * theList;
 };
 
@@ -4859,9 +4427,6 @@ public:
   ~parenSpecificationUsageConstraintList();
   int isA(int aType);
   void printSelf();
-  std::list<specificationUsageConstraint *> * get_theList();
-  void set_theList(std::list<specificationUsageConstraint *> * theListIn);
-private:
   std::list<specificationUsageConstraint *> * theList;
 };
 
@@ -4888,9 +4453,6 @@ public:
   ~parenStringList();
   int isA(int aType);
   void printSelf();
-  std::list<char *> * get_theList();
-  void set_theList(std::list<char *> * theListIn);
-private:
   std::list<char *> * theList;
 };
 
@@ -4915,9 +4477,6 @@ public:
   ~parenStringListFull();
   int isA(int aType);
   void printSelf();
-  std::list<char *> * get_theList();
-  void set_theList(std::list<char *> * theListIn);
-private:
   std::list<char *> * theList;
 };
 
@@ -4942,9 +4501,6 @@ public:
   ~parenToolpathLisztFull();
   int isA(int aType);
   void printSelf();
-  std::list<toolpath *> * get_theList();
-  void set_theList(std::list<toolpath *> * theListIn);
-private:
   std::list<toolpath *> * theList;
 };
 
@@ -4969,9 +4525,6 @@ public:
   ~parenTrimmingSelectListFull();
   int isA(int aType);
   void printSelf();
-  std::list<trimmingSelect *> * get_theList();
-  void set_theList(std::list<trimmingSelect *> * theListIn);
-private:
   std::list<trimmingSelect *> * theList;
 };
 
@@ -4998,9 +4551,6 @@ public:
   ~parenWorkpieceList();
   int isA(int aType);
   void printSelf();
-  std::list<workpiece *> * get_theList();
-  void set_theList(std::list<workpiece *> * theListIn);
-private:
   std::list<workpiece *> * theList;
 };
 
@@ -5027,9 +4577,6 @@ public:
   ~parenWorkpieceSetupList();
   int isA(int aType);
   void printSelf();
-  std::list<workpieceSetup *> * get_theList();
-  void set_theList(std::list<workpieceSetup *> * theListIn);
-private:
   std::list<workpieceSetup *> * theList;
 };
 
@@ -5047,7 +4594,6 @@ PARTIALAREADEFINITION '(' REALSTRING ',' axis2placement3d ',' optReal ')'
 class partialAreaDefinition :
   public instance
 {
-  friend int yyparse();
 public:
   partialAreaDefinition();
   partialAreaDefinition(
@@ -5057,13 +4603,6 @@ public:
   ~partialAreaDefinition();
   int isA(int aType);
   void printSelf();
-  double get_effectiveLength();
-  void set_effectiveLength(double effectiveLengthIn);
-  axis2placement3d * get_placement();
-  void set_placement(axis2placement3d * placementIn);
-  real * get_maximumLength();
-  void set_maximumLength(real * maximumLengthIn);
-private:
   double effectiveLength;
   axis2placement3d * placement;
   real * maximumLength;
@@ -5143,7 +4682,6 @@ PERSON '(' CHARSTRING ',' optString ',' optString ',' optParenStringListFull ','
 class person :
   public instance
 {
-  friend int yyparse();
 public:
   person();
   person(
@@ -5156,19 +4694,6 @@ public:
   ~person();
   int isA(int aType);
   void printSelf();
-  char * get_id();
-  void set_id(char * idIn);
-  aString * get_lastName();
-  void set_lastName(aString * lastNameIn);
-  aString * get_firstName();
-  void set_firstName(aString * firstNameIn);
-  parenStringListFull * get_middleNames();
-  void set_middleNames(parenStringListFull * middleNamesIn);
-  parenStringListFull * get_prefixTitles();
-  void set_prefixTitles(parenStringListFull * prefixTitlesIn);
-  parenStringListFull * get_suffixTitles();
-  void set_suffixTitles(parenStringListFull * suffixTitlesIn);
-private:
   char * id;
   aString * lastName;
   aString * firstName;
@@ -5191,7 +4716,6 @@ PERSONANDADDRESS '(' person ',' optAddress ')'
 class personAndAddress :
   public instance
 {
-  friend int yyparse();
 public:
   personAndAddress();
   personAndAddress(
@@ -5200,11 +4724,6 @@ public:
   ~personAndAddress();
   int isA(int aType);
   void printSelf();
-  person * get_itsPerson();
-  void set_itsPerson(person * itsPersonIn);
-  address * get_itsAddress();
-  void set_itsAddress(address * itsAddressIn);
-private:
   person * itsPerson;
   address * itsAddress;
 };
@@ -5224,7 +4743,6 @@ class planeCcStrategy :
   public instance,
   public freeformStrategy
 {
-  friend int yyparse();
 public:
   planeCcStrategy();
   planeCcStrategy(
@@ -5236,9 +4754,6 @@ public:
   ~planeCcStrategy();
   int isA(int aType);
   void printSelf();
-  direction * get_itsPlaneNormal();
-  void set_itsPlaneNormal(direction * itsPlaneNormalIn);
-private:
   direction * itsPlaneNormal;
 };
 
@@ -5257,7 +4772,6 @@ class planeClStrategy :
   public instance,
   public freeformStrategy
 {
-  friend int yyparse();
 public:
   planeClStrategy();
   planeClStrategy(
@@ -5269,9 +4783,6 @@ public:
   ~planeClStrategy();
   int isA(int aType);
   void printSelf();
-  direction * get_itsPlaneNormal();
-  void set_itsPlaneNormal(direction * itsPlaneNormalIn);
-private:
   direction * itsPlaneNormal;
 };
 
@@ -5286,7 +4797,6 @@ This is a parent class.
 class plungeStrategy :
   public approachRetractStrategy
 {
-  friend int yyparse();
 public:
   plungeStrategy();
   plungeStrategy(
@@ -5311,7 +4821,6 @@ class plungeHelix :
   public instance,
   public plungeStrategy
 {
-  friend int yyparse();
 public:
   plungeHelix();
   plungeHelix(
@@ -5321,11 +4830,6 @@ public:
   ~plungeHelix();
   int isA(int aType);
   void printSelf();
-  double get_radius();
-  void set_radius(double radiusIn);
-  double get_angle();
-  void set_angle(double angleIn);
-private:
   double radius;
   double angle;
 };
@@ -5345,7 +4849,6 @@ class plungeRamp :
   public instance,
   public plungeStrategy
 {
-  friend int yyparse();
 public:
   plungeRamp();
   plungeRamp(
@@ -5354,9 +4857,6 @@ public:
   ~plungeRamp();
   int isA(int aType);
   void printSelf();
-  double get_angle();
-  void set_angle(double angleIn);
-private:
   double angle;
 };
 
@@ -5375,7 +4875,6 @@ class plungeToolaxis :
   public instance,
   public plungeStrategy
 {
-  friend int yyparse();
 public:
   plungeToolaxis();
   plungeToolaxis(
@@ -5400,7 +4899,6 @@ class plungeZigzag :
   public instance,
   public plungeStrategy
 {
-  friend int yyparse();
 public:
   plungeZigzag();
   plungeZigzag(
@@ -5410,11 +4908,6 @@ public:
   ~plungeZigzag();
   int isA(int aType);
   void printSelf();
-  double get_angle();
-  void set_angle(double angleIn);
-  double get_width();
-  void set_width(double widthIn);
-private:
   double angle;
   double width;
 };
@@ -5430,7 +4923,6 @@ This is a parent class.
 class pocketBottomCondition :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   pocketBottomCondition();
   ~pocketBottomCondition();
@@ -5452,7 +4944,6 @@ PROCESSMODEL '(' CHARSTRING ',' CHARSTRING ')'
 class processModel :
   public instance
 {
-  friend int yyparse();
 public:
   processModel();
   processModel(
@@ -5461,11 +4952,6 @@ public:
   ~processModel();
   int isA(int aType);
   void printSelf();
-  char * get_iniDataFile();
-  void set_iniDataFile(char * iniDataFileIn);
-  char * get_itsType();
-  void set_itsType(char * itsTypeIn);
-private:
   char * iniDataFile;
   char * itsType;
 };
@@ -5484,7 +4970,6 @@ PROCESSMODELLIST '(' parenProcessModelLiszt ')'
 class processModelList :
   public instance
 {
-  friend int yyparse();
 public:
   processModelList();
   processModelList(
@@ -5492,9 +4977,6 @@ public:
   ~processModelList();
   int isA(int aType);
   void printSelf();
-  parenProcessModelLiszt * get_itsList();
-  void set_itsList(parenProcessModelLiszt * itsListIn);
-private:
   parenProcessModelLiszt * itsList;
 };
 
@@ -5509,7 +4991,6 @@ This is a parent class.
 class profile :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   profile();
   profile(
@@ -5517,9 +4998,6 @@ public:
   ~profile();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_placement();
-  void set_placement(axis2placement3d * placementIn);
-private:
   axis2placement3d * placement;
 };
 
@@ -5534,7 +5012,6 @@ This is a parent class.
 class profileSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   profileSelect();
   ~profileSelect();
@@ -5553,7 +5030,6 @@ This is a parent class.
 class programStructure :
   public executable
 {
-  friend int yyparse();
 public:
   programStructure();
   programStructure(
@@ -5578,7 +5054,6 @@ class programStop :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   programStop();
   programStop(
@@ -5602,7 +5077,6 @@ PROJECT '(' CHARSTRING ',' workplan ',' parenWorkpieceList ',' optPersonAndAddre
 class project :
   public instance
 {
-  friend int yyparse();
 public:
   project();
   project(
@@ -5615,19 +5089,6 @@ public:
   ~project();
   int isA(int aType);
   void printSelf();
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-  workplan * get_mainWorkplan();
-  void set_mainWorkplan(workplan * mainWorkplanIn);
-  parenWorkpieceList * get_itsWorkpieces();
-  void set_itsWorkpieces(parenWorkpieceList * itsWorkpiecesIn);
-  personAndAddress * get_itsOwner();
-  void set_itsOwner(personAndAddress * itsOwnerIn);
-  dateAndTime * get_itsRelease();
-  void set_itsRelease(dateAndTime * itsReleaseIn);
-  approval * get_itsStatus();
-  void set_itsStatus(approval * itsStatusIn);
-private:
   char * itsId;
   workplan * mainWorkplan;
   parenWorkpieceList * itsWorkpieces;
@@ -5647,7 +5108,6 @@ This is a parent class.
 class propertyParameter :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   propertyParameter();
   propertyParameter(
@@ -5655,9 +5115,6 @@ public:
   ~propertyParameter();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_parameterName();
-  void set_parameterName(char * parameterNameIn);
-private:
   char * parameterName;
 };
 
@@ -5676,7 +5133,6 @@ class radiusedPocketBottomCondition :
   public instance,
   public pocketBottomCondition
 {
-  friend int yyparse();
 public:
   radiusedPocketBottomCondition();
   radiusedPocketBottomCondition(
@@ -5685,11 +5141,6 @@ public:
   ~radiusedPocketBottomCondition();
   int isA(int aType);
   void printSelf();
-  cartesianPoint * get_floorRadiusCenter();
-  void set_floorRadiusCenter(cartesianPoint * floorRadiusCenterIn);
-  tolerancedLengthMeasure * get_floorRadius();
-  void set_floorRadius(tolerancedLengthMeasure * floorRadiusIn);
-private:
   cartesianPoint * floorRadiusCenter;
   tolerancedLengthMeasure * floorRadius;
 };
@@ -5708,7 +5159,6 @@ RECTANGULAROFFSET '(' direction ',' REALSTRING ',' INTSTRING ',' INTSTRING ')'
 class rectangularOffset :
   public instance
 {
-  friend int yyparse();
 public:
   rectangularOffset();
   rectangularOffset(
@@ -5719,15 +5169,6 @@ public:
   ~rectangularOffset();
   int isA(int aType);
   void printSelf();
-  direction * get_offsetDirection();
-  void set_offsetDirection(direction * offsetDirectionIn);
-  double get_offsetDistance();
-  void set_offsetDistance(double offsetDistanceIn);
-  int get_rowIndex();
-  void set_rowIndex(int rowIndexIn);
-  int get_columnIndex();
-  void set_columnIndex(int columnIndexIn);
-private:
   direction * offsetDirection;
   double offsetDistance;
   int rowIndex;
@@ -5748,7 +5189,6 @@ RECTANGULAROMIT '(' INTSTRING ',' INTSTRING ')'
 class rectangularOmit :
   public instance
 {
-  friend int yyparse();
 public:
   rectangularOmit();
   rectangularOmit(
@@ -5757,11 +5197,6 @@ public:
   ~rectangularOmit();
   int isA(int aType);
   void printSelf();
-  int get_rowIndex();
-  void set_rowIndex(int rowIndexIn);
-  int get_columnIndex();
-  void set_columnIndex(int columnIndexIn);
-private:
   int rowIndex;
   int columnIndex;
 };
@@ -5777,7 +5212,6 @@ This is a parent class.
 class region :
   public manufacturingFeature
 {
-  friend int yyparse();
 public:
   region();
   region(
@@ -5788,9 +5222,6 @@ public:
   ~region();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_featurePlacement();
-  void set_featurePlacement(axis2placement3d * featurePlacementIn);
-private:
   axis2placement3d * featurePlacement;
 };
 
@@ -5809,7 +5240,6 @@ class regionProjection :
   public instance,
   public region
 {
-  friend int yyparse();
 public:
   regionProjection();
   regionProjection(
@@ -5823,13 +5253,6 @@ public:
   ~regionProjection();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_projCurve();
-  void set_projCurve(boundedCurve * projCurveIn);
-  direction * get_projDir();
-  void set_projDir(direction * projDirIn);
-  tolerancedLengthMeasure * get_depth();
-  void set_depth(tolerancedLengthMeasure * depthIn);
-private:
   boundedCurve * projCurve;
   direction * projDir;
   tolerancedLengthMeasure * depth;
@@ -5850,7 +5273,6 @@ class regionSurfaceList :
   public instance,
   public region
 {
-  friend int yyparse();
 public:
   regionSurfaceList();
   regionSurfaceList(
@@ -5862,9 +5284,6 @@ public:
   ~regionSurfaceList();
   int isA(int aType);
   void printSelf();
-  parenBoundedSurfaceListFull * get_surfaceList();
-  void set_surfaceList(parenBoundedSurfaceListFull * surfaceListIn);
-private:
   parenBoundedSurfaceListFull * surfaceList;
 };
 
@@ -5879,7 +5298,6 @@ This is a parent class.
 class representationParent :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   representationParent();
   representationParent(
@@ -5889,13 +5307,6 @@ public:
   ~representationParent();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_name();
-  void set_name(char * nameIn);
-  parenRepresentationItemListFull * get_items();
-  void set_items(parenRepresentationItemListFull * itemsIn);
-  representationContext * get_contextOfItems();
-  void set_contextOfItems(representationContext * contextOfItemsIn);
-private:
   char * name;
   parenRepresentationItemListFull * items;
   representationContext * contextOfItems;
@@ -5916,7 +5327,6 @@ class representation :
   public instance,
   public representationParent
 {
-  friend int yyparse();
 public:
   representation();
   representation(
@@ -5950,11 +5360,6 @@ public:
   ~representationContext();
   int isA(int aType);
   void printSelf();
-  char * get_contextIdentifier();
-  void set_contextIdentifier(char * contextIdentifierIn);
-  char * get_contextType();
-  void set_contextType(char * contextTypeIn);
-private:
   char * contextIdentifier;
   char * contextType;
 };
@@ -5970,7 +5375,6 @@ This is a parent class.
 class representationItem :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   representationItem();
   representationItem(
@@ -5978,9 +5382,6 @@ public:
   ~representationItem();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_name();
-  void set_name(char * nameIn);
-private:
   char * name;
 };
 
@@ -5995,7 +5396,6 @@ This is a parent class.
 class restrictedAreaSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   restrictedAreaSelect();
   ~restrictedAreaSelect();
@@ -6074,7 +5474,6 @@ This is a parent class.
 class rvalue :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   rvalue();
   ~rvalue();
@@ -6097,7 +5496,6 @@ class selective :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   selective();
   selective(
@@ -6106,9 +5504,6 @@ public:
   ~selective();
   int isA(int aType);
   void printSelf();
-  parenExecutableListFull * get_itsElements();
-  void set_itsElements(parenExecutableListFull * itsElementsIn);
-private:
   parenExecutableListFull * itsElements;
 };
 
@@ -6127,7 +5522,6 @@ class setMark :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   setMark();
   setMark(
@@ -6151,7 +5545,6 @@ SETUP '(' CHARSTRING ',' optAxis2placement3d ',' elementarySurface ',' parenWork
 class setup :
   public instance
 {
-  friend int yyparse();
 public:
   setup();
   setup(
@@ -6162,15 +5555,6 @@ public:
   ~setup();
   int isA(int aType);
   void printSelf();
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-  axis2placement3d * get_itsOrigin();
-  void set_itsOrigin(axis2placement3d * itsOriginIn);
-  elementarySurface * get_itsSecplane();
-  void set_itsSecplane(elementarySurface * itsSecplaneIn);
-  parenWorkpieceSetupList * get_itsWorkpieceSetup();
-  void set_itsWorkpieceSetup(parenWorkpieceSetupList * itsWorkpieceSetupIn);
-private:
   char * itsId;
   axis2placement3d * itsOrigin;
   elementarySurface * itsSecplane;
@@ -6191,7 +5575,6 @@ SETUPINSTRUCTION '(' optString ',' optString ')'
 class setupInstruction :
   public instance
 {
-  friend int yyparse();
 public:
   setupInstruction();
   setupInstruction(
@@ -6200,11 +5583,6 @@ public:
   ~setupInstruction();
   int isA(int aType);
   void printSelf();
-  aString * get_description();
-  void set_description(aString * descriptionIn);
-  aString * get_externalDocument();
-  void set_externalDocument(aString * externalDocumentIn);
-private:
   aString * description;
   aString * externalDocument;
 };
@@ -6220,7 +5598,6 @@ This is a parent class.
 class shapeRepresentationParent :
   public representationParent
 {
-  friend int yyparse();
 public:
   shapeRepresentationParent();
   shapeRepresentationParent(
@@ -6247,7 +5624,6 @@ class shapeRepresentation :
   public instance,
   public shapeRepresentationParent
 {
-  friend int yyparse();
 public:
   shapeRepresentation();
   shapeRepresentation(
@@ -6270,7 +5646,6 @@ This is a parent class.
 class slotEndType :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   slotEndType();
   ~slotEndType();
@@ -6292,7 +5667,6 @@ SPECIFICATION '(' parenSpecificationUsageConstraintList ',' CHARSTRING ',' optSt
 class specification :
   public instance
 {
-  friend int yyparse();
 public:
   specification();
   specification(
@@ -6303,15 +5677,6 @@ public:
   ~specification();
   int isA(int aType);
   void printSelf();
-  parenSpecificationUsageConstraintList * get_constraint();
-  void set_constraint(parenSpecificationUsageConstraintList * constraintIn);
-  char * get_specificationId();
-  void set_specificationId(char * specificationIdIn);
-  aString * get_specificationDescription();
-  void set_specificationDescription(aString * specificationDescriptionIn);
-  aString * get_specificationClass();
-  void set_specificationClass(aString * specificationClassIn);
-private:
   parenSpecificationUsageConstraintList * constraint;
   char * specificationId;
   aString * specificationDescription;
@@ -6332,7 +5697,6 @@ SPECIFICATIONUSAGECONSTRAINT '(' ',' CHARSTRING ',' CHARSTRING ')'
 class specificationUsageConstraint :
   public instance
 {
-  friend int yyparse();
 public:
   specificationUsageConstraint();
   specificationUsageConstraint(
@@ -6341,11 +5705,6 @@ public:
   ~specificationUsageConstraint();
   int isA(int aType);
   void printSelf();
-  char * get_element();
-  void set_element(char * elementIn);
-  char * get_classId();
-  void set_classId(char * classIdIn);
-private:
   char * element;
   char * classId;
 };
@@ -6466,7 +5825,6 @@ SURFACETEXTUREPARAMETER '(' REALSTRING ',' CHARSTRING ',' CHARSTRING ',' optStri
 class surfaceTextureParameter :
   public instance
 {
-  friend int yyparse();
 public:
   surfaceTextureParameter();
   surfaceTextureParameter(
@@ -6478,17 +5836,6 @@ public:
   ~surfaceTextureParameter();
   int isA(int aType);
   void printSelf();
-  double get_itsValue();
-  void set_itsValue(double itsValueIn);
-  char * get_parameterName();
-  void set_parameterName(char * parameterNameIn);
-  char * get_measuringMethod();
-  void set_measuringMethod(char * measuringMethodIn);
-  aString * get_parameterIndex();
-  void set_parameterIndex(aString * parameterIndexIn);
-  parenMachinedSurfaceListFull * get_appliedSurfaces();
-  void set_appliedSurfaces(parenMachinedSurfaceListFull * appliedSurfacesIn);
-private:
   double itsValue;
   char * parameterName;
   char * measuringMethod;
@@ -6507,7 +5854,6 @@ This is a parent class.
 class taperSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   taperSelect();
   ~taperSelect();
@@ -6526,7 +5872,6 @@ This is a parent class.
 class technology :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   technology();
   technology(
@@ -6535,11 +5880,6 @@ public:
   ~technology();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_feedrate();
-  void set_feedrate(real * feedrateIn);
-  toolReferencePoint * get_feedrateReference();
-  void set_feedrateReference(toolReferencePoint * feedrateReferenceIn);
-private:
   real * feedrate;
   toolReferencePoint * feedrateReference;
 };
@@ -6559,7 +5899,6 @@ class throughBottomCondition :
   public instance,
   public holeBottomCondition
 {
-  friend int yyparse();
 public:
   throughBottomCondition();
   ~throughBottomCondition();
@@ -6582,7 +5921,6 @@ class throughPocketBottomCondition :
   public instance,
   public pocketBottomCondition
 {
-  friend int yyparse();
 public:
   throughPocketBottomCondition();
   ~throughPocketBottomCondition();
@@ -6605,7 +5943,6 @@ class throughProfileFloor :
   public instance,
   public profileSelect
 {
-  friend int yyparse();
 public:
   throughProfileFloor();
   ~throughProfileFloor();
@@ -6627,7 +5964,6 @@ TOLERANCEDLENGTHMEASURE '(' REALSTRING ',' plusMinusValue ')'
 class tolerancedLengthMeasure :
   public instance
 {
-  friend int yyparse();
 public:
   tolerancedLengthMeasure();
   tolerancedLengthMeasure(
@@ -6636,11 +5972,6 @@ public:
   ~tolerancedLengthMeasure();
   int isA(int aType);
   void printSelf();
-  double get_theoreticalSize();
-  void set_theoreticalSize(double theoreticalSizeIn);
-  plusMinusValue * get_implicitTolerance();
-  void set_implicitTolerance(plusMinusValue * implicitToleranceIn);
-private:
   double theoreticalSize;
   plusMinusValue * implicitTolerance;
 };
@@ -6659,7 +5990,6 @@ TOLERANCES '(' REALSTRING ',' REALSTRING ')'
 class tolerances :
   public instance
 {
-  friend int yyparse();
 public:
   tolerances();
   tolerances(
@@ -6668,11 +5998,6 @@ public:
   ~tolerances();
   int isA(int aType);
   void printSelf();
-  double get_chordalTolerance();
-  void set_chordalTolerance(double chordalToleranceIn);
-  double get_scallopHeight();
-  void set_scallopHeight(double scallopHeightIn);
-private:
   double chordalTolerance;
   double scallopHeight;
 };
@@ -6688,7 +6013,6 @@ This is a parent class.
 class toleranceSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toleranceSelect();
   ~toleranceSelect();
@@ -6707,7 +6031,6 @@ This is a parent class.
 class toolBody :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toolBody();
   ~toolBody();
@@ -6726,7 +6049,6 @@ This is a parent class.
 class toolDirection :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toolDirection();
   ~toolDirection();
@@ -6745,7 +6067,6 @@ This is a parent class.
 class toolDirectionForMilling :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toolDirectionForMilling();
   ~toolDirectionForMilling();
@@ -6764,7 +6085,6 @@ This is a parent class.
 class toolpath :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toolpath();
   toolpath(
@@ -6776,17 +6096,6 @@ public:
   ~toolpath();
   int isA(int aType);
   void printSelf() = 0;
-  boolean * get_itsPriority();
-  void set_itsPriority(boolean * itsPriorityIn);
-  toolpathType * get_itsType();
-  void set_itsType(toolpathType * itsTypeIn);
-  toolpathSpeedprofile * get_itsSpeed();
-  void set_itsSpeed(toolpathSpeedprofile * itsSpeedIn);
-  technology * get_itsTechnology();
-  void set_itsTechnology(technology * itsTechnologyIn);
-  machineFunctions * get_itsMachineFunctions();
-  void set_itsMachineFunctions(machineFunctions * itsMachineFunctionsIn);
-private:
   boolean * itsPriority;
   toolpathType * itsType;
   toolpathSpeedprofile * itsSpeed;
@@ -6808,7 +6117,6 @@ TOOLPATHLIST '(' parenToolpathLisztFull ')'
 class toolpathList :
   public instance
 {
-  friend int yyparse();
 public:
   toolpathList();
   toolpathList(
@@ -6816,9 +6124,6 @@ public:
   ~toolpathList();
   int isA(int aType);
   void printSelf();
-  parenToolpathLisztFull * get_itsList();
-  void set_itsList(parenToolpathLisztFull * itsListIn);
-private:
   parenToolpathLisztFull * itsList;
 };
 
@@ -6833,7 +6138,6 @@ This is a mixed parent class.
 class toolpathSpeedprofile :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   toolpathSpeedprofile();
   ~toolpathSpeedprofile();
@@ -7056,7 +6360,6 @@ This is a parent class.
 class topologicalRepresentationItem :
   public representationItem
 {
-  friend int yyparse();
 public:
   topologicalRepresentationItem();
   topologicalRepresentationItem(
@@ -7080,7 +6383,6 @@ TOUCHPROBE '(' CHARSTRING ')'
 class touchProbe :
   public instance
 {
-  friend int yyparse();
 public:
   touchProbe();
   touchProbe(
@@ -7088,9 +6390,6 @@ public:
   ~touchProbe();
   int isA(int aType);
   void printSelf();
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-private:
   char * itsId;
 };
 
@@ -7105,7 +6404,6 @@ This is a parent class.
 class trajectory :
   public toolpath
 {
-  friend int yyparse();
 public:
   trajectory();
   trajectory(
@@ -7118,9 +6416,6 @@ public:
   ~trajectory();
   int isA(int aType);
   void printSelf() = 0;
-  boolean * get_itsDirection();
-  void set_itsDirection(boolean * itsDirectionIn);
-private:
   boolean * itsDirection;
 };
 
@@ -7238,7 +6533,6 @@ class transitionFeature :
   public compoundFeatureSelect,
   public manufacturingFeature
 {
-  friend int yyparse();
 public:
   transitionFeature();
   transitionFeature(
@@ -7250,11 +6544,6 @@ public:
   ~transitionFeature();
   int isA(int aType);
   void printSelf() = 0;
-  machiningFeature * get_firstFeature();
-  void set_firstFeature(machiningFeature * firstFeatureIn);
-  machiningFeature * get_secondFeature();
-  void set_secondFeature(machiningFeature * secondFeatureIn);
-private:
   machiningFeature * firstFeature;
   machiningFeature * secondFeature;
 };
@@ -7270,7 +6559,6 @@ This is a parent class.
 class travelPath :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   travelPath();
   travelPath(
@@ -7278,9 +6566,6 @@ public:
   ~travelPath();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_placement();
-  void set_placement(axis2placement3d * placementIn);
-private:
   axis2placement3d * placement;
 };
 
@@ -7376,7 +6661,6 @@ This is a mixed parent class.
 class trimmingSelect :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   trimmingSelect();
   ~trimmingSelect();
@@ -7399,7 +6683,6 @@ class twoAxes :
   public instance,
   public toolDirection
 {
-  friend int yyparse();
 public:
   twoAxes();
   ~twoAxes();
@@ -7418,7 +6701,6 @@ This is a parent class.
 class two5DmanufacturingFeature :
   public manufacturingFeature
 {
-  friend int yyparse();
 public:
   two5DmanufacturingFeature();
   two5DmanufacturingFeature(
@@ -7429,9 +6711,6 @@ public:
   ~two5DmanufacturingFeature();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_featurePlacement();
-  void set_featurePlacement(axis2placement3d * featurePlacementIn);
-private:
   axis2placement3d * featurePlacement;
 };
 
@@ -7446,7 +6725,6 @@ This is a parent class.
 class two5DmillingStrategy :
   public iso14649CppBase
 {
-  friend int yyparse();
 public:
   two5DmillingStrategy();
   two5DmillingStrategy(
@@ -7455,11 +6733,6 @@ public:
   ~two5DmillingStrategy();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_overlap();
-  void set_overlap(real * overlapIn);
-  boolean * get_allowMultiplePasses();
-  void set_allowMultiplePasses(boolean * allowMultiplePassesIn);
-private:
   real * overlap;
   boolean * allowMultiplePasses;
 };
@@ -7475,7 +6748,6 @@ This is a parent class.
 class unaryBooleanExpression :
   public booleanExpression
 {
-  friend int yyparse();
 public:
   unaryBooleanExpression();
   unaryBooleanExpression(
@@ -7483,9 +6755,6 @@ public:
   ~unaryBooleanExpression();
   int isA(int aType);
   void printSelf() = 0;
-  booleanExpression * get_operand();
-  void set_operand(booleanExpression * operandIn);
-private:
   booleanExpression * operand;
 };
 
@@ -7504,7 +6773,6 @@ class unidirectionalMilling :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   unidirectionalMilling();
   unidirectionalMilling(
@@ -7515,11 +6783,6 @@ public:
   ~unidirectionalMilling();
   int isA(int aType);
   void printSelf();
-  direction * get_feedDirection();
-  void set_feedDirection(direction * feedDirectionIn);
-  cutmodeType * get_cutmode();
-  void set_cutmode(cutmodeType * cutmodeIn);
-private:
   direction * feedDirection;
   cutmodeType * cutmode;
 };
@@ -7539,7 +6802,6 @@ class unloadTool :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   unloadTool();
   unloadTool(
@@ -7548,9 +6810,6 @@ public:
   ~unloadTool();
   int isA(int aType);
   void printSelf();
-  machiningTool * get_itsTool();
-  void set_itsTool(machiningTool * itsToolIn);
-private:
   machiningTool * itsTool;
 };
 
@@ -7569,7 +6828,6 @@ class uvStrategy :
   public instance,
   public freeformStrategy
 {
-  friend int yyparse();
 public:
   uvStrategy();
   uvStrategy(
@@ -7582,11 +6840,6 @@ public:
   ~uvStrategy();
   int isA(int aType);
   void printSelf();
-  direction * get_forwardDirection();
-  void set_forwardDirection(direction * forwardDirectionIn);
-  direction * get_sidewardDirection();
-  void set_sidewardDirection(direction * sidewardDirectionIn);
-private:
   direction * forwardDirection;
   direction * sidewardDirection;
 };
@@ -7602,7 +6855,6 @@ This is a parent class.
 class vertex :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   vertex();
   vertex(
@@ -7627,7 +6879,6 @@ class vertexPoint :
   public instance,
   public vertex
 {
-  friend int yyparse();
 public:
   vertexPoint();
   vertexPoint(
@@ -7636,9 +6887,6 @@ public:
   ~vertexPoint();
   int isA(int aType);
   void printSelf();
-  point * get_vertexGeometry();
-  void set_vertexGeometry(point * vertexGeometryIn);
-private:
   point * vertexGeometry;
 };
 
@@ -7657,7 +6905,6 @@ class waitForMark :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   waitForMark();
   waitForMark(
@@ -7666,9 +6913,6 @@ public:
   ~waitForMark();
   int isA(int aType);
   void printSelf();
-  channel * get_itsChannel();
-  void set_itsChannel(channel * itsChannelIn);
-private:
   channel * itsChannel;
 };
 
@@ -7687,7 +6931,6 @@ class weekOfYearAndDayDate :
   public instance,
   public date
 {
-  friend int yyparse();
 public:
   weekOfYearAndDayDate();
   weekOfYearAndDayDate(
@@ -7697,11 +6940,6 @@ public:
   ~weekOfYearAndDayDate();
   int isA(int aType);
   void printSelf();
-  int get_weekComponent();
-  void set_weekComponent(int weekComponentIn);
-  integer * get_dayComponent();
-  void set_dayComponent(integer * dayComponentIn);
-private:
   int weekComponent;
   integer * dayComponent;
 };
@@ -7721,7 +6959,6 @@ class whileStatement :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   whileStatement();
   whileStatement(
@@ -7731,11 +6968,6 @@ public:
   ~whileStatement();
   int isA(int aType);
   void printSelf();
-  booleanExpression * get_condition();
-  void set_condition(booleanExpression * conditionIn);
-  executable * get_body();
-  void set_body(executable * bodyIn);
-private:
   booleanExpression * condition;
   executable * body;
 };
@@ -7755,7 +6987,6 @@ class woodruffSlotEndType :
   public instance,
   public slotEndType
 {
-  friend int yyparse();
 public:
   woodruffSlotEndType();
   woodruffSlotEndType(
@@ -7763,9 +6994,6 @@ public:
   ~woodruffSlotEndType();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-private:
   tolerancedLengthMeasure * radius;
 };
 
@@ -7780,7 +7008,6 @@ This is a parent class.
 class workingstep :
   public executable
 {
-  friend int yyparse();
 public:
   workingstep();
   workingstep(
@@ -7789,9 +7016,6 @@ public:
   ~workingstep();
   int isA(int aType);
   void printSelf() = 0;
-  elementarySurface * get_itsSecplane();
-  void set_itsSecplane(elementarySurface * itsSecplaneIn);
-private:
   elementarySurface * itsSecplane;
 };
 
@@ -7809,7 +7033,6 @@ WORKPIECE '(' CHARSTRING ',' optMaterial ',' optReal ',' optWorkpiece ',' optAdv
 class workpiece :
   public instance
 {
-  friend int yyparse();
 public:
   workpiece();
   workpiece(
@@ -7823,21 +7046,6 @@ public:
   ~workpiece();
   int isA(int aType);
   void printSelf();
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-  material * get_itsMaterial();
-  void set_itsMaterial(material * itsMaterialIn);
-  real * get_globalTolerance();
-  void set_globalTolerance(real * globalToleranceIn);
-  workpiece * get_itsRawpiece();
-  void set_itsRawpiece(workpiece * itsRawpieceIn);
-  advancedBrepShapeRepresentation * get_itsGeometry();
-  void set_itsGeometry(advancedBrepShapeRepresentation * itsGeometryIn);
-  boundingGeometrySelect * get_itsBoundingGeometry();
-  void set_itsBoundingGeometry(boundingGeometrySelect * itsBoundingGeometryIn);
-  parenCartesianPointList * get_clampingPositions();
-  void set_clampingPositions(parenCartesianPointList * clampingPositionsIn);
-private:
   char * itsId;
   material * itsMaterial;
   real * globalTolerance;
@@ -7861,7 +7069,6 @@ WORKPIECESETUP '(' workpiece ',' axis2placement3d ',' optOffsetVector ',' optRes
 class workpieceSetup :
   public instance
 {
-  friend int yyparse();
 public:
   workpieceSetup();
   workpieceSetup(
@@ -7873,17 +7080,6 @@ public:
   ~workpieceSetup();
   int isA(int aType);
   void printSelf();
-  workpiece * get_itsWorkpiece();
-  void set_itsWorkpiece(workpiece * itsWorkpieceIn);
-  axis2placement3d * get_itsOrigin();
-  void set_itsOrigin(axis2placement3d * itsOriginIn);
-  offsetVector * get_itsOffset();
-  void set_itsOffset(offsetVector * itsOffsetIn);
-  restrictedAreaSelect * get_itsRestrictedArea();
-  void set_itsRestrictedArea(restrictedAreaSelect * itsRestrictedAreaIn);
-  parenSetupInstructionList * get_itsInstructions();
-  void set_itsInstructions(parenSetupInstructionList * itsInstructionsIn);
-private:
   workpiece * itsWorkpiece;
   axis2placement3d * itsOrigin;
   offsetVector * itsOffset;
@@ -7906,7 +7102,6 @@ class workplan :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   workplan();
   workplan(
@@ -7918,15 +7113,6 @@ public:
   ~workplan();
   int isA(int aType);
   void printSelf();
-  parenExecutableList * get_itsElements();
-  void set_itsElements(parenExecutableList * itsElementsIn);
-  channel * get_itsChannel();
-  void set_itsChannel(channel * itsChannelIn);
-  setup * get_itsSetup();
-  void set_itsSetup(setup * itsSetupIn);
-  inProcessGeometry * get_itsEffect();
-  void set_itsEffect(inProcessGeometry * itsEffectIn);
-private:
   parenExecutableList * itsElements;
   channel * itsChannel;
   setup * itsSetup;
@@ -7944,7 +7130,6 @@ This is a parent class.
 class airStrategy :
   public approachRetractStrategy
 {
-  friend int yyparse();
 public:
   airStrategy();
   airStrategy(
@@ -7969,7 +7154,6 @@ class alongPath :
   public instance,
   public approachRetractStrategy
 {
-  friend int yyparse();
 public:
   alongPath();
   alongPath(
@@ -7978,9 +7162,6 @@ public:
   ~alongPath();
   int isA(int aType);
   void printSelf();
-  toolpathList * get_path();
-  void set_path(toolpathList * pathIn);
-private:
   toolpathList * path;
 };
 
@@ -7999,7 +7180,6 @@ class andExpression :
   public instance,
   public multipleArityBooleanExpression
 {
-  friend int yyparse();
 public:
   andExpression();
   andExpression(
@@ -8024,7 +7204,6 @@ class angleTaper :
   public instance,
   public taperSelect
 {
-  friend int yyparse();
 public:
   angleTaper();
   angleTaper(
@@ -8032,9 +7211,6 @@ public:
   ~angleTaper();
   int isA(int aType);
   void printSelf();
-  real * get_angle();
-  void set_angle(real * angleIn);
-private:
   real * angle;
 };
 
@@ -8053,7 +7229,6 @@ class apRetractAngle :
   public instance,
   public airStrategy
 {
-  friend int yyparse();
 public:
   apRetractAngle();
   apRetractAngle(
@@ -8063,11 +7238,6 @@ public:
   ~apRetractAngle();
   int isA(int aType);
   void printSelf();
-  double get_angle();
-  void set_angle(double angleIn);
-  double get_travelLength();
-  void set_travelLength(double travelLengthIn);
-private:
   double angle;
   double travelLength;
 };
@@ -8087,7 +7257,6 @@ class apRetractTangent :
   public instance,
   public airStrategy
 {
-  friend int yyparse();
 public:
   apRetractTangent();
   apRetractTangent(
@@ -8096,9 +7265,6 @@ public:
   ~apRetractTangent();
   int isA(int aType);
   void printSelf();
-  double get_radius();
-  void set_radius(double radiusIn);
-private:
   double radius;
 };
 
@@ -8117,7 +7283,6 @@ class assignment :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   assignment();
   assignment(
@@ -8127,11 +7292,6 @@ public:
   ~assignment();
   int isA(int aType);
   void printSelf();
-  ncVariable * get_itsLvalue();
-  void set_itsLvalue(ncVariable * itsLvalueIn);
-  rvalue * get_itsRvalue();
-  void set_itsRvalue(rvalue * itsRvalueIn);
-private:
   ncVariable * itsLvalue;
   rvalue * itsRvalue;
 };
@@ -8151,7 +7311,6 @@ class axisTrajectory :
   public instance,
   public trajectory
 {
-  friend int yyparse();
 public:
   axisTrajectory();
   axisTrajectory(
@@ -8166,11 +7325,6 @@ public:
   ~axisTrajectory();
   int isA(int aType);
   void printSelf();
-  parenStringListFull * get_axisList();
-  void set_axisList(parenStringListFull * axisListIn);
-  parenBoundedCurveListFull * get_commands();
-  void set_commands(parenBoundedCurveListFull * commandsIn);
-private:
   parenStringListFull * axisList;
   parenBoundedCurveListFull * commands;
 };
@@ -8190,7 +7344,6 @@ class bidirectionalContour :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   bidirectionalContour();
   bidirectionalContour(
@@ -8203,15 +7356,6 @@ public:
   ~bidirectionalContour();
   int isA(int aType);
   void printSelf();
-  direction * get_feedDirection();
-  void set_feedDirection(direction * feedDirectionIn);
-  leftOrRight * get_stepoverDirection();
-  void set_stepoverDirection(leftOrRight * stepoverDirectionIn);
-  rotDirection * get_rotationDirection();
-  void set_rotationDirection(rotDirection * rotationDirectionIn);
-  cutmodeType * get_spiralCutmode();
-  void set_spiralCutmode(cutmodeType * spiralCutmodeIn);
-private:
   direction * feedDirection;
   leftOrRight * stepoverDirection;
   rotDirection * rotationDirection;
@@ -8233,7 +7377,6 @@ class bidirectionalMilling :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   bidirectionalMilling();
   bidirectionalMilling(
@@ -8245,13 +7388,6 @@ public:
   ~bidirectionalMilling();
   int isA(int aType);
   void printSelf();
-  direction * get_feedDirection();
-  void set_feedDirection(direction * feedDirectionIn);
-  leftOrRight * get_stepoverDirection();
-  void set_stepoverDirection(leftOrRight * stepoverDirectionIn);
-  strokeConnectionStrategy * get_itsStrokeConnectionStrategy();
-  void set_itsStrokeConnectionStrategy(strokeConnectionStrategy * itsStrokeConnectionStrategyIn);
-private:
   direction * feedDirection;
   leftOrRight * stepoverDirection;
   strokeConnectionStrategy * itsStrokeConnectionStrategy;
@@ -8268,7 +7404,6 @@ This is a parent class.
 class binaryBooleanExpression :
   public booleanExpression
 {
-  friend int yyparse();
 public:
   binaryBooleanExpression();
   binaryBooleanExpression(
@@ -8277,11 +7412,6 @@ public:
   ~binaryBooleanExpression();
   int isA(int aType);
   void printSelf() = 0;
-  booleanExpression * get_operand1();
-  void set_operand1(booleanExpression * operand1In);
-  booleanExpression * get_operand2();
-  void set_operand2(booleanExpression * operand2In);
-private:
   booleanExpression * operand1;
   booleanExpression * operand2;
 };
@@ -8297,7 +7427,6 @@ This is a parent class.
 class blindBottomCondition :
   public holeBottomCondition
 {
-  friend int yyparse();
 public:
   blindBottomCondition();
   ~blindBottomCondition();
@@ -8316,7 +7445,6 @@ This is a parent class.
 class boundingGeometrySelect :
   public restrictedAreaSelect
 {
-  friend int yyparse();
 public:
   boundingGeometrySelect();
   ~boundingGeometrySelect();
@@ -8339,7 +7467,6 @@ class calendarDate :
   public instance,
   public date
 {
-  friend int yyparse();
 public:
   calendarDate();
   calendarDate(
@@ -8349,11 +7476,6 @@ public:
   ~calendarDate();
   int isA(int aType);
   void printSelf();
-  int get_dayComponent();
-  void set_dayComponent(int dayComponentIn);
-  int get_monthComponent();
-  void set_monthComponent(int monthComponentIn);
-private:
   int dayComponent;
   int monthComponent;
 };
@@ -8373,7 +7495,6 @@ class centerMilling :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   centerMilling();
   centerMilling(
@@ -8399,7 +7520,6 @@ class chamfer :
   public instance,
   public transitionFeature
 {
-  friend int yyparse();
 public:
   chamfer();
   chamfer(
@@ -8413,11 +7533,6 @@ public:
   ~chamfer();
   int isA(int aType);
   void printSelf();
-  double get_angleToPlane();
-  void set_angleToPlane(double angleToPlaneIn);
-  tolerancedLengthMeasure * get_firstOffsetAmount();
-  void set_firstOffsetAmount(tolerancedLengthMeasure * firstOffsetAmountIn);
-private:
   double angleToPlane;
   tolerancedLengthMeasure * firstOffsetAmount;
 };
@@ -8433,7 +7548,6 @@ This is a parent class.
 class circularPath :
   public travelPath
 {
-  friend int yyparse();
 public:
   circularPath();
   circularPath(
@@ -8442,9 +7556,6 @@ public:
   ~circularPath();
   int isA(int aType);
   void printSelf() = 0;
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-private:
   tolerancedLengthMeasure * radius;
 };
 
@@ -8459,7 +7570,6 @@ This is a parent class.
 class closedProfile :
   public profile
 {
-  friend int yyparse();
 public:
   closedProfile();
   closedProfile(
@@ -8484,7 +7594,6 @@ class comparisonEqual :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonEqual();
   comparisonEqual(
@@ -8510,7 +7619,6 @@ class comparisonGreater :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonGreater();
   comparisonGreater(
@@ -8536,7 +7644,6 @@ class comparisonGreaterEqual :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonGreaterEqual();
   comparisonGreaterEqual(
@@ -8562,7 +7669,6 @@ class comparisonLess :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonLess();
   comparisonLess(
@@ -8588,7 +7694,6 @@ class comparisonLessEqual :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonLessEqual();
   comparisonLessEqual(
@@ -8614,7 +7719,6 @@ class comparisonNotEqual :
   public instance,
   public comparisonExpression
 {
-  friend int yyparse();
 public:
   comparisonNotEqual();
   comparisonNotEqual(
@@ -8640,7 +7744,6 @@ class completeCircularPath :
   public instance,
   public circularPath
 {
-  friend int yyparse();
 public:
   completeCircularPath();
   completeCircularPath(
@@ -8662,7 +7765,6 @@ This is a parent class.
 class compoundFeature :
   public two5DmanufacturingFeature
 {
-  friend int yyparse();
 public:
   compoundFeature();
   compoundFeature(
@@ -8674,9 +7776,6 @@ public:
   ~compoundFeature();
   int isA(int aType);
   void printSelf() = 0;
-  parenCompoundFeatureSelectListFull * get_elements();
-  void set_elements(parenCompoundFeatureSelectListFull * elementsIn);
-private:
   parenCompoundFeatureSelectListFull * elements;
 };
 
@@ -8695,7 +7794,6 @@ class conicalHoleBottom :
   public instance,
   public blindBottomCondition
 {
-  friend int yyparse();
 public:
   conicalHoleBottom();
   conicalHoleBottom(
@@ -8704,11 +7802,6 @@ public:
   ~conicalHoleBottom();
   int isA(int aType);
   void printSelf();
-  real * get_tipAngle();
-  void set_tipAngle(real * tipAngleIn);
-  tolerancedLengthMeasure * get_tipRadius();
-  void set_tipRadius(tolerancedLengthMeasure * tipRadiusIn);
-private:
   real * tipAngle;
   tolerancedLengthMeasure * tipRadius;
 };
@@ -8724,7 +7817,6 @@ This is a parent class.
 class connectedFaceSet :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   connectedFaceSet();
   connectedFaceSet(
@@ -8733,9 +7825,6 @@ public:
   ~connectedFaceSet();
   int isA(int aType);
   void printSelf() = 0;
-  parenFaceListFull * get_cfsFaces();
-  void set_cfsFaces(parenFaceListFull * cfsFacesIn);
-private:
   parenFaceListFull * cfsFaces;
 };
 
@@ -8754,7 +7843,6 @@ class contourBidirectional :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   contourBidirectional();
   contourBidirectional(
@@ -8767,15 +7855,6 @@ public:
   ~contourBidirectional();
   int isA(int aType);
   void printSelf();
-  direction * get_feedDirection();
-  void set_feedDirection(direction * feedDirectionIn);
-  leftOrRight * get_stepoverDirection();
-  void set_stepoverDirection(leftOrRight * stepoverDirectionIn);
-  rotDirection * get_rotationDirection();
-  void set_rotationDirection(rotDirection * rotationDirectionIn);
-  cutmodeType * get_spiralCutmode();
-  void set_spiralCutmode(cutmodeType * spiralCutmodeIn);
-private:
   direction * feedDirection;
   leftOrRight * stepoverDirection;
   rotDirection * rotationDirection;
@@ -8797,7 +7876,6 @@ class contourParallel :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   contourParallel();
   contourParallel(
@@ -8808,11 +7886,6 @@ public:
   ~contourParallel();
   int isA(int aType);
   void printSelf();
-  rotDirection * get_rotationDirection();
-  void set_rotationDirection(rotDirection * rotationDirectionIn);
-  cutmodeType * get_cutmode();
-  void set_cutmode(cutmodeType * cutmodeIn);
-private:
   rotDirection * rotationDirection;
   cutmodeType * cutmode;
 };
@@ -8832,7 +7905,6 @@ class contourSpiral :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   contourSpiral();
   contourSpiral(
@@ -8843,11 +7915,6 @@ public:
   ~contourSpiral();
   int isA(int aType);
   void printSelf();
-  rotDirection * get_rotationDirection();
-  void set_rotationDirection(rotDirection * rotationDirectionIn);
-  cutmodeType * get_cutmode();
-  void set_cutmode(cutmodeType * cutmodeIn);
-private:
   rotDirection * rotationDirection;
   cutmodeType * cutmode;
 };
@@ -8867,7 +7934,6 @@ class counterboreHole :
   public instance,
   public compoundFeature
 {
-  friend int yyparse();
 public:
   counterboreHole();
   counterboreHole(
@@ -8896,7 +7962,6 @@ class countersunkHole :
   public instance,
   public compoundFeature
 {
-  friend int yyparse();
 public:
   countersunkHole();
   countersunkHole(
@@ -8925,7 +7990,6 @@ class curveWithNormalVector :
   public instance,
   public curveWithSurfaceNormalSelect
 {
-  friend int yyparse();
 public:
   curveWithNormalVector();
   curveWithNormalVector(
@@ -8934,11 +7998,6 @@ public:
   ~curveWithNormalVector();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_basiccurve();
-  void set_basiccurve(boundedCurve * basiccurveIn);
-  boundedCurve * get_surfaceNormal();
-  void set_surfaceNormal(boundedCurve * surfaceNormalIn);
-private:
   boundedCurve * basiccurve;
   boundedCurve * surfaceNormal;
 };
@@ -8958,7 +8017,6 @@ class cutterLocationTrajectory :
   public instance,
   public trajectory
 {
-  friend int yyparse();
 public:
   cutterLocationTrajectory();
   cutterLocationTrajectory(
@@ -8974,13 +8032,6 @@ public:
   ~cutterLocationTrajectory();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_basiccurve();
-  void set_basiccurve(boundedCurve * basiccurveIn);
-  boundedCurve * get_itsToolaxis();
-  void set_itsToolaxis(boundedCurve * itsToolaxisIn);
-  boundedCurve * get_surfaceNormal();
-  void set_surfaceNormal(boundedCurve * surfaceNormalIn);
-private:
   boundedCurve * basiccurve;
   boundedCurve * itsToolaxis;
   boundedCurve * surfaceNormal;
@@ -8997,7 +8048,6 @@ This is a parent class.
 class cuttingTool :
   public machiningTool
 {
-  friend int yyparse();
 public:
   cuttingTool();
   cuttingTool(
@@ -9008,13 +8058,6 @@ public:
   ~cuttingTool();
   int isA(int aType);
   void printSelf() = 0;
-  toolBody * get_itsToolBody();
-  void set_itsToolBody(toolBody * itsToolBodyIn);
-  parenCuttingComponentListFull * get_itsCuttingEdge();
-  void set_itsCuttingEdge(parenCuttingComponentListFull * itsCuttingEdgeIn);
-  real * get_overallAssemblyLength();
-  void set_overallAssemblyLength(real * overallAssemblyLengthIn);
-private:
   toolBody * itsToolBody;
   parenCuttingComponentListFull * itsCuttingEdge;
   real * overallAssemblyLength;
@@ -9035,7 +8078,6 @@ class definitionalRepresentation :
   public instance,
   public representationParent
 {
-  friend int yyparse();
 public:
   definitionalRepresentation();
   definitionalRepresentation(
@@ -9062,7 +8104,6 @@ class descriptiveParameter :
   public instance,
   public propertyParameter
 {
-  friend int yyparse();
 public:
   descriptiveParameter();
   descriptiveParameter(
@@ -9071,9 +8112,6 @@ public:
   ~descriptiveParameter();
   int isA(int aType);
   void printSelf();
-  char * get_descriptiveString();
-  void set_descriptiveString(char * descriptiveStringIn);
-private:
   char * descriptiveString;
 };
 
@@ -9092,7 +8130,6 @@ class diameterTaper :
   public instance,
   public taperSelect
 {
-  friend int yyparse();
 public:
   diameterTaper();
   diameterTaper(
@@ -9100,9 +8137,6 @@ public:
   ~diameterTaper();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_finalDiameter();
-  void set_finalDiameter(tolerancedLengthMeasure * finalDiameterIn);
-private:
   tolerancedLengthMeasure * finalDiameter;
 };
 
@@ -9121,7 +8155,6 @@ class displayMessage :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   displayMessage();
   displayMessage(
@@ -9130,9 +8163,6 @@ public:
   ~displayMessage();
   int isA(int aType);
   void printSelf();
-  char * get_itsText();
-  void set_itsText(char * itsTextIn);
-private:
   char * itsText;
 };
 
@@ -9147,7 +8177,6 @@ This is a parent class.
 class edge :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   edge();
   edge(
@@ -9157,11 +8186,6 @@ public:
   ~edge();
   int isA(int aType);
   void printSelf() = 0;
-  vertex * get_edgeStart();
-  void set_edgeStart(vertex * edgeStartIn);
-  vertex * get_edgeEnd();
-  void set_edgeEnd(vertex * edgeEndIn);
-private:
   vertex * edgeStart;
   vertex * edgeEnd;
 };
@@ -9181,7 +8205,6 @@ class edgeCurve :
   public instance,
   public edge
 {
-  friend int yyparse();
 public:
   edgeCurve();
   edgeCurve(
@@ -9193,11 +8216,6 @@ public:
   ~edgeCurve();
   int isA(int aType);
   void printSelf();
-  curve * get_edgeGeometry();
-  void set_edgeGeometry(curve * edgeGeometryIn);
-  boolean * get_sameSense();
-  void set_sameSense(boolean * sameSenseIn);
-private:
   curve * edgeGeometry;
   boolean * sameSense;
 };
@@ -9217,7 +8235,6 @@ class edgeRound :
   public instance,
   public transitionFeature
 {
-  friend int yyparse();
 public:
   edgeRound();
   edgeRound(
@@ -9232,13 +8249,6 @@ public:
   ~edgeRound();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-  tolerancedLengthMeasure * get_firstOffsetAmount();
-  void set_firstOffsetAmount(tolerancedLengthMeasure * firstOffsetAmountIn);
-  tolerancedLengthMeasure * get_secondOffsetAmount();
-  void set_secondOffsetAmount(tolerancedLengthMeasure * secondOffsetAmountIn);
-private:
   tolerancedLengthMeasure * radius;
   tolerancedLengthMeasure * firstOffsetAmount;
   tolerancedLengthMeasure * secondOffsetAmount;
@@ -9259,7 +8269,6 @@ class exchangePallet :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   exchangePallet();
   exchangePallet(
@@ -9284,7 +8293,6 @@ class explicitStrategy :
   public instance,
   public two5DmillingStrategy
 {
-  friend int yyparse();
 public:
   explicitStrategy();
   explicitStrategy(
@@ -9306,7 +8314,6 @@ This is a parent class.
 class face :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   face();
   face(
@@ -9315,9 +8322,6 @@ public:
   ~face();
   int isA(int aType);
   void printSelf() = 0;
-  parenFaceBoundListFull * get_bounds();
-  void set_bounds(parenFaceBoundListFull * boundsIn);
-private:
   parenFaceBoundListFull * bounds;
 };
 
@@ -9332,7 +8336,6 @@ This is a parent class.
 class faceBoundParent :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   faceBoundParent();
   faceBoundParent(
@@ -9342,11 +8345,6 @@ public:
   ~faceBoundParent();
   int isA(int aType);
   void printSelf() = 0;
-  loop * get_bound();
-  void set_bound(loop * boundIn);
-  boolean * get_orientation();
-  void set_orientation(boolean * orientationIn);
-private:
   loop * bound;
   boolean * orientation;
 };
@@ -9366,7 +8364,6 @@ class faceBound :
   public instance,
   public faceBoundParent
 {
-  friend int yyparse();
 public:
   faceBound();
   faceBound(
@@ -9393,7 +8390,6 @@ class faceOuterBound :
   public instance,
   public faceBoundParent
 {
-  friend int yyparse();
 public:
   faceOuterBound();
   faceOuterBound(
@@ -9416,7 +8412,6 @@ This is a parent class.
 class faceSurface :
   public face
 {
-  friend int yyparse();
 public:
   faceSurface();
   faceSurface(
@@ -9427,11 +8422,6 @@ public:
   ~faceSurface();
   int isA(int aType);
   void printSelf() = 0;
-  surface * get_faceGeometry();
-  void set_faceGeometry(surface * faceGeometryIn);
-  boolean * get_sameSense();
-  void set_sameSense(boolean * sameSenseIn);
-private:
   surface * faceGeometry;
   boolean * sameSense;
 };
@@ -9451,7 +8441,6 @@ class feedstop :
   public instance,
   public toolpath
 {
-  friend int yyparse();
 public:
   feedstop();
   feedstop(
@@ -9464,9 +8453,6 @@ public:
   ~feedstop();
   int isA(int aType);
   void printSelf();
-  double get_dwell();
-  void set_dwell(double dwellIn);
-private:
   double dwell;
 };
 
@@ -9485,7 +8471,6 @@ class fiveAxesVarTiltYaw :
   public instance,
   public toolDirectionForMilling
 {
-  friend int yyparse();
 public:
   fiveAxesVarTiltYaw();
   ~fiveAxesVarTiltYaw();
@@ -9508,7 +8493,6 @@ class fiveAxesConstTiltYaw :
   public instance,
   public toolDirectionForMilling
 {
-  friend int yyparse();
 public:
   fiveAxesConstTiltYaw();
   fiveAxesConstTiltYaw(
@@ -9517,11 +8501,6 @@ public:
   ~fiveAxesConstTiltYaw();
   int isA(int aType);
   void printSelf();
-  double get_tiltAngle();
-  void set_tiltAngle(double tiltAngleIn);
-  double get_yawAngle();
-  void set_yawAngle(double yawAngleIn);
-private:
   double tiltAngle;
   double yawAngle;
 };
@@ -9541,7 +8520,6 @@ class flatHoleBottom :
   public instance,
   public blindBottomCondition
 {
-  friend int yyparse();
 public:
   flatHoleBottom();
   ~flatHoleBottom();
@@ -9564,7 +8542,6 @@ class flatSlotEndType :
   public instance,
   public slotEndType
 {
-  friend int yyparse();
 public:
   flatSlotEndType();
   flatSlotEndType(
@@ -9573,11 +8550,6 @@ public:
   ~flatSlotEndType();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_cornerRadius1();
-  void set_cornerRadius1(tolerancedLengthMeasure * cornerRadius1In);
-  tolerancedLengthMeasure * get_cornerRadius2();
-  void set_cornerRadius2(tolerancedLengthMeasure * cornerRadius2In);
-private:
   tolerancedLengthMeasure * cornerRadius1;
   tolerancedLengthMeasure * cornerRadius2;
 };
@@ -9597,7 +8569,6 @@ class flatWithRadiusHoleBottom :
   public instance,
   public blindBottomCondition
 {
-  friend int yyparse();
 public:
   flatWithRadiusHoleBottom();
   flatWithRadiusHoleBottom(
@@ -9605,9 +8576,6 @@ public:
   ~flatWithRadiusHoleBottom();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_cornerRadius();
-  void set_cornerRadius(tolerancedLengthMeasure * cornerRadiusIn);
-private:
   tolerancedLengthMeasure * cornerRadius;
 };
 
@@ -9626,7 +8594,6 @@ class generalClosedProfile :
   public instance,
   public closedProfile
 {
-  friend int yyparse();
 public:
   generalClosedProfile();
   generalClosedProfile(
@@ -9635,9 +8602,6 @@ public:
   ~generalClosedProfile();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_closedProfileShape();
-  void set_closedProfileShape(boundedCurve * closedProfileShapeIn);
-private:
   boundedCurve * closedProfileShape;
 };
 
@@ -9656,7 +8620,6 @@ class generalPath :
   public instance,
   public travelPath
 {
-  friend int yyparse();
 public:
   generalPath();
   generalPath(
@@ -9665,9 +8628,6 @@ public:
   ~generalPath();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_sweptPath();
-  void set_sweptPath(boundedCurve * sweptPathIn);
-private:
   boundedCurve * sweptPath;
 };
 
@@ -9686,7 +8646,6 @@ class generalPocketBottomCondition :
   public instance,
   public pocketBottomCondition
 {
-  friend int yyparse();
 public:
   generalPocketBottomCondition();
   generalPocketBottomCondition(
@@ -9694,9 +8653,6 @@ public:
   ~generalPocketBottomCondition();
   int isA(int aType);
   void printSelf();
-  region * get_shape();
-  void set_shape(region * shapeIn);
-private:
   region * shape;
 };
 
@@ -9711,7 +8667,6 @@ This is a parent class.
 class geometricRepresentationItem :
   public representationItem
 {
-  friend int yyparse();
 public:
   geometricRepresentationItem();
   geometricRepresentationItem(
@@ -9736,7 +8691,6 @@ class ifStatement :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   ifStatement();
   ifStatement(
@@ -9747,13 +8701,6 @@ public:
   ~ifStatement();
   int isA(int aType);
   void printSelf();
-  booleanExpression * get_condition();
-  void set_condition(booleanExpression * conditionIn);
-  executable * get_trueBranch();
-  void set_trueBranch(executable * trueBranchIn);
-  executable * get_falseBranch();
-  void set_falseBranch(executable * falseBranchIn);
-private:
   booleanExpression * condition;
   executable * trueBranch;
   executable * falseBranch;
@@ -9774,7 +8721,6 @@ class indexPallet :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   indexPallet();
   indexPallet(
@@ -9783,9 +8729,6 @@ public:
   ~indexPallet();
   int isA(int aType);
   void printSelf();
-  int get_its_index();
-  void set_its_index(int its_indexIn);
-private:
   int its_index;
 };
 
@@ -9804,7 +8747,6 @@ class indexTable :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   indexTable();
   indexTable(
@@ -9813,9 +8755,6 @@ public:
   ~indexTable();
   int isA(int aType);
   void printSelf();
-  int get_its_index();
-  void set_its_index(int its_indexIn);
-private:
   int its_index;
 };
 
@@ -9834,7 +8773,6 @@ class limitsAndFits :
   public instance,
   public toleranceSelect
 {
-  friend int yyparse();
 public:
   limitsAndFits();
   limitsAndFits(
@@ -9844,13 +8782,6 @@ public:
   ~limitsAndFits();
   int isA(int aType);
   void printSelf();
-  double get_deviation();
-  void set_deviation(double deviationIn);
-  double get_grade();
-  void set_grade(double gradeIn);
-  fittingType * get_itsFittingType();
-  void set_itsFittingType(fittingType * itsFittingTypeIn);
-private:
   double deviation;
   double grade;
   fittingType * itsFittingType;
@@ -9871,7 +8802,6 @@ class linearPath :
   public instance,
   public travelPath
 {
-  friend int yyparse();
 public:
   linearPath();
   linearPath(
@@ -9881,11 +8811,6 @@ public:
   ~linearPath();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_distance();
-  void set_distance(tolerancedLengthMeasure * distanceIn);
-  direction * get_itsDirection();
-  void set_itsDirection(direction * itsDirectionIn);
-private:
   tolerancedLengthMeasure * distance;
   direction * itsDirection;
 };
@@ -9905,7 +8830,6 @@ class loadTool :
   public instance,
   public ncFunction
 {
-  friend int yyparse();
 public:
   loadTool();
   loadTool(
@@ -9914,9 +8838,6 @@ public:
   ~loadTool();
   int isA(int aType);
   void printSelf();
-  machiningTool * get_itsTool();
-  void set_itsTool(machiningTool * itsToolIn);
-private:
   machiningTool * itsTool;
 };
 
@@ -9931,7 +8852,6 @@ This is a parent class.
 class loop :
   public topologicalRepresentationItem
 {
-  friend int yyparse();
 public:
   loop();
   loop(
@@ -9956,7 +8876,6 @@ class loopSlotEndType :
   public instance,
   public slotEndType
 {
-  friend int yyparse();
 public:
   loopSlotEndType();
   ~loopSlotEndType();
@@ -9976,7 +8895,6 @@ class machiningFeature :
   public compoundFeatureSelect,
   public two5DmanufacturingFeature
 {
-  friend int yyparse();
 public:
   machiningFeature();
   machiningFeature(
@@ -9988,9 +8906,6 @@ public:
   ~machiningFeature();
   int isA(int aType);
   void printSelf() = 0;
-  elementarySurface * get_depth();
-  void set_depth(elementarySurface * depthIn);
-private:
   elementarySurface * depth;
 };
 
@@ -10005,7 +8920,6 @@ This is a parent class.
 class machiningOperation :
   public operation
 {
-  friend int yyparse();
 public:
   machiningOperation();
   machiningOperation(
@@ -10020,19 +8934,6 @@ public:
   ~machiningOperation();
   int isA(int aType);
   void printSelf() = 0;
-  char * get_itsId();
-  void set_itsId(char * itsIdIn);
-  real * get_retractPlane();
-  void set_retractPlane(real * retractPlaneIn);
-  cartesianPoint * get_startPoint();
-  void set_startPoint(cartesianPoint * startPointIn);
-  machiningTool * get_itsTool();
-  void set_itsTool(machiningTool * itsToolIn);
-  technology * get_itsTechnology();
-  void set_itsTechnology(technology * itsTechnologyIn);
-  machineFunctions * get_itsMachineFunctions();
-  void set_itsMachineFunctions(machineFunctions * itsMachineFunctionsIn);
-private:
   char * itsId;
   real * retractPlane;
   cartesianPoint * startPoint;
@@ -10056,7 +8957,6 @@ class machiningWorkingstep :
   public instance,
   public workingstep
 {
-  friend int yyparse();
 public:
   machiningWorkingstep();
   machiningWorkingstep(
@@ -10068,13 +8968,6 @@ public:
   ~machiningWorkingstep();
   int isA(int aType);
   void printSelf();
-  manufacturingFeature * get_itsFeature();
-  void set_itsFeature(manufacturingFeature * itsFeatureIn);
-  machiningOperation * get_itsOperation();
-  void set_itsOperation(machiningOperation * itsOperationIn);
-  inProcessGeometry * get_itsEffect();
-  void set_itsEffect(inProcessGeometry * itsEffectIn);
-private:
   manufacturingFeature * itsFeature;
   machiningOperation * itsOperation;
   inProcessGeometry * itsEffect;
@@ -10095,7 +8988,6 @@ class millingCuttingTool :
   public instance,
   public cuttingTool
 {
-  friend int yyparse();
 public:
   millingCuttingTool();
   millingCuttingTool(
@@ -10108,11 +9000,6 @@ public:
   ~millingCuttingTool();
   int isA(int aType);
   void printSelf();
-  direction * get_directionForSpindleOrientation();
-  void set_directionForSpindleOrientation(direction * directionForSpindleOrientationIn);
-  real * get_toolHolderDiameterForSpindleOrientation();
-  void set_toolHolderDiameterForSpindleOrientation(real * toolHolderDiameterForSpindleOrientationIn);
-private:
   direction * directionForSpindleOrientation;
   real * toolHolderDiameterForSpindleOrientation;
 };
@@ -10128,7 +9015,6 @@ This is a parent class.
 class millingMachiningOperation :
   public machiningOperation
 {
-  friend int yyparse();
 public:
   millingMachiningOperation();
   millingMachiningOperation(
@@ -10144,9 +9030,6 @@ public:
   ~millingMachiningOperation();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_overcutLength();
-  void set_overcutLength(real * overcutLengthIn);
-private:
   real * overcutLength;
 };
 
@@ -10165,7 +9048,6 @@ class millingTechnology :
   public instance,
   public technology
 {
-  friend int yyparse();
 public:
   millingTechnology();
   millingTechnology(
@@ -10181,21 +9063,6 @@ public:
   ~millingTechnology();
   int isA(int aType);
   void printSelf();
-  real * get_cutspeed();
-  void set_cutspeed(real * cutspeedIn);
-  real * get_spindle();
-  void set_spindle(real * spindleIn);
-  real * get_feedratePerTooth();
-  void set_feedratePerTooth(real * feedratePerToothIn);
-  boolean * get_synchronizeSpindleWithFeed();
-  void set_synchronizeSpindleWithFeed(boolean * synchronizeSpindleWithFeedIn);
-  boolean * get_inhibitFeedrateOverride();
-  void set_inhibitFeedrateOverride(boolean * inhibitFeedrateOverrideIn);
-  boolean * get_inhibitSpindleOverride();
-  void set_inhibitSpindleOverride(boolean * inhibitSpindleOverrideIn);
-  boolean * get_itsAdaptiveControl();
-  void set_itsAdaptiveControl(boolean * itsAdaptiveControlIn);
-private:
   real * cutspeed;
   real * spindle;
   real * feedratePerTooth;
@@ -10216,7 +9083,6 @@ This is a parent class.
 class millingToolBody :
   public toolBody
 {
-  friend int yyparse();
 public:
   millingToolBody();
   millingToolBody(
@@ -10228,17 +9094,6 @@ public:
   ~millingToolBody();
   int isA(int aType);
   void printSelf() = 0;
-  millingToolDimension * get_dimension();
-  void set_dimension(millingToolDimension * dimensionIn);
-  integer * get_numberOfTeeth();
-  void set_numberOfTeeth(integer * numberOfTeethIn);
-  hand * get_handOfCut();
-  void set_handOfCut(hand * handOfCutIn);
-  boolean * get_coolantThroughTool();
-  void set_coolantThroughTool(boolean * coolantThroughToolIn);
-  real * get_pilotLength();
-  void set_pilotLength(real * pilotLengthIn);
-private:
   millingToolDimension * dimension;
   integer * numberOfTeeth;
   hand * handOfCut;
@@ -10257,7 +9112,6 @@ This is a parent class.
 class millingTypeOperation :
   public millingMachiningOperation
 {
-  friend int yyparse();
 public:
   millingTypeOperation();
   millingTypeOperation(
@@ -10275,11 +9129,6 @@ public:
   ~millingTypeOperation();
   int isA(int aType);
   void printSelf() = 0;
-  approachRetractStrategy * get_approach();
-  void set_approach(approachRetractStrategy * approachIn);
-  approachRetractStrategy * get_retract();
-  void set_retract(approachRetractStrategy * retractIn);
-private:
   approachRetractStrategy * approach;
   approachRetractStrategy * retract;
 };
@@ -10299,7 +9148,6 @@ class ncConstant :
   public instance,
   public rvalue
 {
-  friend int yyparse();
 public:
   ncConstant();
   ncConstant(
@@ -10308,11 +9156,6 @@ public:
   ~ncConstant();
   int isA(int aType);
   void printSelf();
-  char * get_itsName();
-  void set_itsName(char * itsNameIn);
-  real * get_initialValue();
-  void set_initialValue(real * initialValueIn);
-private:
   char * itsName;
   real * initialValue;
 };
@@ -10332,7 +9175,6 @@ class ncVariable :
   public instance,
   public rvalue
 {
-  friend int yyparse();
 public:
   ncVariable();
   ncVariable(
@@ -10341,11 +9183,6 @@ public:
   ~ncVariable();
   int isA(int aType);
   void printSelf();
-  char * get_itsName();
-  void set_itsName(char * itsNameIn);
-  real * get_initialValue();
-  void set_initialValue(real * initialValueIn);
-private:
   char * itsName;
   real * initialValue;
 };
@@ -10365,7 +9202,6 @@ class ngonClosedProfile :
   public instance,
   public closedProfile
 {
-  friend int yyparse();
 public:
   ngonClosedProfile();
   ngonClosedProfile(
@@ -10376,13 +9212,6 @@ public:
   ~ngonClosedProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_diameter();
-  void set_diameter(tolerancedLengthMeasure * diameterIn);
-  int get_numberOfSides();
-  void set_numberOfSides(int numberOfSidesIn);
-  boolean * get_circumscribedOrAcrossFlats();
-  void set_circumscribedOrAcrossFlats(boolean * circumscribedOrAcrossFlatsIn);
-private:
   tolerancedLengthMeasure * diameter;
   int numberOfSides;
   boolean * circumscribedOrAcrossFlats;
@@ -10403,7 +9232,6 @@ class nonSequential :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   nonSequential();
   nonSequential(
@@ -10412,9 +9240,6 @@ public:
   ~nonSequential();
   int isA(int aType);
   void printSelf();
-  parenExecutableListFull * get_itsElements();
-  void set_itsElements(parenExecutableListFull * itsElementsIn);
-private:
   parenExecutableListFull * itsElements;
 };
 
@@ -10433,7 +9258,6 @@ class notExpression :
   public instance,
   public unaryBooleanExpression
 {
-  friend int yyparse();
 public:
   notExpression();
   notExpression(
@@ -10458,7 +9282,6 @@ class numericParameter :
   public instance,
   public propertyParameter
 {
-  friend int yyparse();
 public:
   numericParameter();
   numericParameter(
@@ -10468,11 +9291,6 @@ public:
   ~numericParameter();
   int isA(int aType);
   void printSelf();
-  double get_itsParameterValue();
-  void set_itsParameterValue(double itsParameterValueIn);
-  char * get_itsParameterUnit();
-  void set_itsParameterUnit(char * itsParameterUnitIn);
-private:
   double itsParameterValue;
   char * itsParameterUnit;
 };
@@ -10488,7 +9306,6 @@ This is a parent class.
 class openProfile :
   public profile
 {
-  friend int yyparse();
 public:
   openProfile();
   openProfile(
@@ -10509,7 +9326,6 @@ This is a parent class.
 class openShellParent :
   public connectedFaceSet
 {
-  friend int yyparse();
 public:
   openShellParent();
   openShellParent(
@@ -10535,7 +9351,6 @@ class openShell :
   public instance,
   public openShellParent
 {
-  friend int yyparse();
 public:
   openShell();
   openShell(
@@ -10561,7 +9376,6 @@ class openSlotEndType :
   public instance,
   public slotEndType
 {
-  friend int yyparse();
 public:
   openSlotEndType();
   ~openSlotEndType();
@@ -10584,7 +9398,6 @@ class orientedEdge :
   public instance,
   public edge
 {
-  friend int yyparse();
 public:
   orientedEdge();
   orientedEdge(
@@ -10596,11 +9409,6 @@ public:
   ~orientedEdge();
   int isA(int aType);
   void printSelf();
-  edge * get_edgeElement();
-  void set_edgeElement(edge * edgeElementIn);
-  boolean * get_orientation();
-  void set_orientation(boolean * orientationIn);
-private:
   edge * edgeElement;
   boolean * orientation;
 };
@@ -10620,7 +9428,6 @@ class parallel :
   public instance,
   public programStructure
 {
-  friend int yyparse();
 public:
   parallel();
   parallel(
@@ -10629,9 +9436,6 @@ public:
   ~parallel();
   int isA(int aType);
   void printSelf();
-  parenExecutableListFull * get_branches();
-  void set_branches(parenExecutableListFull * branchesIn);
-private:
   parenExecutableListFull * branches;
 };
 
@@ -10646,7 +9450,6 @@ This is a parent class.
 class parameterisedPath :
   public toolpath
 {
-  friend int yyparse();
 public:
   parameterisedPath();
   parameterisedPath(
@@ -10675,7 +9478,6 @@ class partialCircularPath :
   public instance,
   public circularPath
 {
-  friend int yyparse();
 public:
   partialCircularPath();
   partialCircularPath(
@@ -10685,9 +9487,6 @@ public:
   ~partialCircularPath();
   int isA(int aType);
   void printSelf();
-  double get_sweepAngle();
-  void set_sweepAngle(double sweepAngleIn);
-private:
   double sweepAngle;
 };
 
@@ -10706,7 +9505,6 @@ class partialCircularProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   partialCircularProfile();
   partialCircularProfile(
@@ -10716,11 +9514,6 @@ public:
   ~partialCircularProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-  double get_sweepAngle();
-  void set_sweepAngle(double sweepAngleIn);
-private:
   tolerancedLengthMeasure * radius;
   double sweepAngle;
 };
@@ -10736,7 +9529,6 @@ This is a parent class.
 class placement :
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   placement();
   placement(
@@ -10745,9 +9537,6 @@ public:
   ~placement();
   int isA(int aType);
   void printSelf() = 0;
-  cartesianPoint * get_location();
-  void set_location(cartesianPoint * locationIn);
-private:
   cartesianPoint * location;
 };
 
@@ -10766,7 +9555,6 @@ class planarFace :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   planarFace();
   planarFace(
@@ -10782,15 +9570,6 @@ public:
   ~planarFace();
   int isA(int aType);
   void printSelf();
-  linearPath * get_courseOfTravel();
-  void set_courseOfTravel(linearPath * courseOfTravelIn);
-  linearProfile * get_removalBoundary();
-  void set_removalBoundary(linearProfile * removalBoundaryIn);
-  closedProfile * get_faceBoundary();
-  void set_faceBoundary(closedProfile * faceBoundaryIn);
-  parenBossList * get_itsBoss();
-  void set_itsBoss(parenBossList * itsBossIn);
-private:
   linearPath * courseOfTravel;
   linearProfile * removalBoundary;
   closedProfile * faceBoundary;
@@ -10812,7 +9591,6 @@ class planarPocketBottomCondition :
   public instance,
   public pocketBottomCondition
 {
-  friend int yyparse();
 public:
   planarPocketBottomCondition();
   ~planarPocketBottomCondition();
@@ -10835,7 +9613,6 @@ class plusMinusValue :
   public instance,
   public toleranceSelect
 {
-  friend int yyparse();
 public:
   plusMinusValue();
   plusMinusValue(
@@ -10845,13 +9622,6 @@ public:
   ~plusMinusValue();
   int isA(int aType);
   void printSelf();
-  double get_upperLimit();
-  void set_upperLimit(double upperLimitIn);
-  double get_lowerLimit();
-  void set_lowerLimit(double lowerLimitIn);
-  int get_significantDigits();
-  void set_significantDigits(int significantDigitsIn);
-private:
   double upperLimit;
   double lowerLimit;
   int significantDigits;
@@ -10868,7 +9638,6 @@ This is a parent class.
 class pocket :
   public machiningFeature
 {
-  friend int yyparse();
 public:
   pocket();
   pocket(
@@ -10885,17 +9654,6 @@ public:
   ~pocket();
   int isA(int aType);
   void printSelf() = 0;
-  parenBossList * get_itsBoss();
-  void set_itsBoss(parenBossList * itsBossIn);
-  real * get_slope();
-  void set_slope(real * slopeIn);
-  pocketBottomCondition * get_bottomCondition();
-  void set_bottomCondition(pocketBottomCondition * bottomConditionIn);
-  tolerancedLengthMeasure * get_planarRadius();
-  void set_planarRadius(tolerancedLengthMeasure * planarRadiusIn);
-  tolerancedLengthMeasure * get_orthogonalRadius();
-  void set_orthogonalRadius(tolerancedLengthMeasure * orthogonalRadiusIn);
-private:
   parenBossList * itsBoss;
   real * slope;
   pocketBottomCondition * bottomCondition;
@@ -10914,7 +9672,6 @@ This is a parent class.
 class point :
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   point();
   point(
@@ -10935,7 +9692,6 @@ This is a parent class.
 class profileFeature :
   public machiningFeature
 {
-  friend int yyparse();
 public:
   profileFeature();
   profileFeature(
@@ -10948,9 +9704,6 @@ public:
   ~profileFeature();
   int isA(int aType);
   void printSelf() = 0;
-  linearPath * get_profileSweptShape();
-  void set_profileSweptShape(linearPath * profileSweptShapeIn);
-private:
   linearPath * profileSweptShape;
 };
 
@@ -10965,7 +9718,6 @@ This is a parent class.
 class profileFloor :
   public profileSelect
 {
-  friend int yyparse();
 public:
   profileFloor();
   profileFloor(
@@ -10974,11 +9726,6 @@ public:
   ~profileFloor();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_floorRadius();
-  void set_floorRadius(real * floorRadiusIn);
-  boolean * get_startOrEnd();
-  void set_startOrEnd(boolean * startOrEndIn);
-private:
   real * floorRadius;
   boolean * startOrEnd;
 };
@@ -10998,7 +9745,6 @@ class radiusedSlotEndType :
   public instance,
   public slotEndType
 {
-  friend int yyparse();
 public:
   radiusedSlotEndType();
   ~radiusedSlotEndType();
@@ -11022,7 +9768,6 @@ class rapidMovement :
   public operation,
   public workingstep
 {
-  friend int yyparse();
 public:
   rapidMovement();
   rapidMovement(
@@ -11057,9 +9802,6 @@ public:
   ~real();
   int isA(int aType);
   void printSelf();
-  double get_val();
-  void set_val(double valIn);
-private:
   double val;
 };
 
@@ -11074,7 +9816,6 @@ This is a parent class.
 class reamer :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   reamer();
   reamer(
@@ -11103,7 +9844,6 @@ class rectangularClosedProfile :
   public instance,
   public closedProfile
 {
-  friend int yyparse();
 public:
   rectangularClosedProfile();
   rectangularClosedProfile(
@@ -11113,11 +9853,6 @@ public:
   ~rectangularClosedProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_profileWidth();
-  void set_profileWidth(tolerancedLengthMeasure * profileWidthIn);
-  tolerancedLengthMeasure * get_profileLength();
-  void set_profileLength(tolerancedLengthMeasure * profileLengthIn);
-private:
   tolerancedLengthMeasure * profileWidth;
   tolerancedLengthMeasure * profileLength;
 };
@@ -11133,7 +9868,6 @@ This is a parent class.
 class replicateFeature :
   public two5DmanufacturingFeature
 {
-  friend int yyparse();
 public:
   replicateFeature();
   replicateFeature(
@@ -11145,9 +9879,6 @@ public:
   ~replicateFeature();
   int isA(int aType);
   void printSelf() = 0;
-  two5DmanufacturingFeature * get_replicateBaseFeature();
-  void set_replicateBaseFeature(two5DmanufacturingFeature * replicateBaseFeatureIn);
-private:
   two5DmanufacturingFeature * replicateBaseFeature;
 };
 
@@ -11167,7 +9898,6 @@ class rightCircularCylinder :
   public boundingGeometrySelect,
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   rightCircularCylinder();
   rightCircularCylinder(
@@ -11178,13 +9908,6 @@ public:
   ~rightCircularCylinder();
   int isA(int aType);
   void printSelf();
-  axis1placement * get_position();
-  void set_position(axis1placement * positionIn);
-  double get_height();
-  void set_height(double heightIn);
-  double get_radius();
-  void set_radius(double radiusIn);
-private:
   axis1placement * position;
   double height;
   double radius;
@@ -11205,7 +9928,6 @@ class roundedEnd :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   roundedEnd();
   roundedEnd(
@@ -11219,11 +9941,6 @@ public:
   ~roundedEnd();
   int isA(int aType);
   void printSelf();
-  linearPath * get_courseOfTravel();
-  void set_courseOfTravel(linearPath * courseOfTravelIn);
-  partialCircularProfile * get_partialCircularBoundary();
-  void set_partialCircularBoundary(partialCircularProfile * partialCircularBoundaryIn);
-private:
   linearPath * courseOfTravel;
   partialCircularProfile * partialCircularBoundary;
 };
@@ -11243,7 +9960,6 @@ class roundedUProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   roundedUProfile();
   roundedUProfile(
@@ -11252,9 +9968,6 @@ public:
   ~roundedUProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_width();
-  void set_width(tolerancedLengthMeasure * widthIn);
-private:
   tolerancedLengthMeasure * width;
 };
 
@@ -11273,7 +9986,6 @@ class roundHole :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   roundHole();
   roundHole(
@@ -11288,13 +10000,6 @@ public:
   ~roundHole();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_diameter();
-  void set_diameter(tolerancedLengthMeasure * diameterIn);
-  taperSelect * get_changeInDiameter();
-  void set_changeInDiameter(taperSelect * changeInDiameterIn);
-  holeBottomCondition * get_bottomCondition();
-  void set_bottomCondition(holeBottomCondition * bottomConditionIn);
-private:
   tolerancedLengthMeasure * diameter;
   taperSelect * changeInDiameter;
   holeBottomCondition * bottomCondition;
@@ -11311,7 +10016,6 @@ This is a parent class.
 class shapeProfile :
   public profileFeature
 {
-  friend int yyparse();
 public:
   shapeProfile();
   shapeProfile(
@@ -11326,11 +10030,6 @@ public:
   ~shapeProfile();
   int isA(int aType);
   void printSelf() = 0;
-  profileSelect * get_floorCondition();
-  void set_floorCondition(profileSelect * floorConditionIn);
-  direction * get_removalDirection();
-  void set_removalDirection(direction * removalDirectionIn);
-private:
   profileSelect * floorCondition;
   direction * removalDirection;
 };
@@ -11350,7 +10049,6 @@ class slot :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   slot();
   slot(
@@ -11365,13 +10063,6 @@ public:
   ~slot();
   int isA(int aType);
   void printSelf();
-  travelPath * get_courseOfTravel();
-  void set_courseOfTravel(travelPath * courseOfTravelIn);
-  openProfile * get_sweptShape();
-  void set_sweptShape(openProfile * sweptShapeIn);
-  parenSlotEndTypeList * get_endConditions();
-  void set_endConditions(parenSlotEndTypeList * endConditionsIn);
-private:
   travelPath * courseOfTravel;
   openProfile * sweptShape;
   parenSlotEndTypeList * endConditions;
@@ -11388,7 +10079,6 @@ This is a parent class.
 class solidModel :
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   solidModel();
   solidModel(
@@ -11434,7 +10124,6 @@ class sphericalCap :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   sphericalCap();
   sphericalCap(
@@ -11448,11 +10137,6 @@ public:
   ~sphericalCap();
   int isA(int aType);
   void printSelf();
-  numericParameter * get_internalAngle();
-  void set_internalAngle(numericParameter * internalAngleIn);
-  numericParameter * get_radius();
-  void set_radius(numericParameter * radiusIn);
-private:
   numericParameter * internalAngle;
   numericParameter * radius;
 };
@@ -11472,7 +10156,6 @@ class sphericalHoleBottom :
   public instance,
   public blindBottomCondition
 {
-  friend int yyparse();
 public:
   sphericalHoleBottom();
   sphericalHoleBottom(
@@ -11480,9 +10163,6 @@ public:
   ~sphericalHoleBottom();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-private:
   tolerancedLengthMeasure * radius;
 };
 
@@ -11501,7 +10181,6 @@ class squareUProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   squareUProfile();
   squareUProfile(
@@ -11514,17 +10193,6 @@ public:
   ~squareUProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_width();
-  void set_width(tolerancedLengthMeasure * widthIn);
-  tolerancedLengthMeasure * get_firstRadius();
-  void set_firstRadius(tolerancedLengthMeasure * firstRadiusIn);
-  double get_firstAngle();
-  void set_firstAngle(double firstAngleIn);
-  tolerancedLengthMeasure * get_secondRadius();
-  void set_secondRadius(tolerancedLengthMeasure * secondRadiusIn);
-  double get_secondAngle();
-  void set_secondAngle(double secondAngleIn);
-private:
   tolerancedLengthMeasure * width;
   tolerancedLengthMeasure * firstRadius;
   double firstAngle;
@@ -11547,7 +10215,6 @@ class step :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   step();
   step(
@@ -11562,13 +10229,6 @@ public:
   ~step();
   int isA(int aType);
   void printSelf();
-  linearPath * get_openBoundary();
-  void set_openBoundary(linearPath * openBoundaryIn);
-  veeProfile * get_wallBoundary();
-  void set_wallBoundary(veeProfile * wallBoundaryIn);
-  parenBossList * get_itsBoss();
-  void set_itsBoss(parenBossList * itsBossIn);
-private:
   linearPath * openBoundary;
   veeProfile * wallBoundary;
   parenBossList * itsBoss;
@@ -11585,7 +10245,6 @@ This is a parent class.
 class surface :
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   surface();
   surface(
@@ -11606,7 +10265,6 @@ This is a parent class.
 class sweptSurface :
   public surface
 {
-  friend int yyparse();
 public:
   sweptSurface();
   sweptSurface(
@@ -11615,9 +10273,6 @@ public:
   ~sweptSurface();
   int isA(int aType);
   void printSelf() = 0;
-  curve * get_sweptCurve();
-  void set_sweptCurve(curve * sweptCurveIn);
-private:
   curve * sweptCurve;
 };
 
@@ -11632,7 +10287,6 @@ This is a parent class.
 class tapParent :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   tapParent();
   tapParent(
@@ -11661,7 +10315,6 @@ class taperedReamer :
   public instance,
   public reamer
 {
-  friend int yyparse();
 public:
   taperedReamer();
   taperedReamer(
@@ -11674,9 +10327,6 @@ public:
   ~taperedReamer();
   int isA(int aType);
   void printSelf();
-  real * get_taperAngle();
-  void set_taperAngle(real * taperAngleIn);
-private:
   real * taperAngle;
 };
 
@@ -11695,7 +10345,6 @@ class teeProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   teeProfile();
   teeProfile(
@@ -11711,23 +10360,6 @@ public:
   ~teeProfile();
   int isA(int aType);
   void printSelf();
-  double get_firstAngle();
-  void set_firstAngle(double firstAngleIn);
-  double get_secondAngle();
-  void set_secondAngle(double secondAngleIn);
-  tolerancedLengthMeasure * get_crossBarWidth();
-  void set_crossBarWidth(tolerancedLengthMeasure * crossBarWidthIn);
-  tolerancedLengthMeasure * get_crossBarDepth();
-  void set_crossBarDepth(tolerancedLengthMeasure * crossBarDepthIn);
-  tolerancedLengthMeasure * get_radius();
-  void set_radius(tolerancedLengthMeasure * radiusIn);
-  tolerancedLengthMeasure * get_width();
-  void set_width(tolerancedLengthMeasure * widthIn);
-  tolerancedLengthMeasure * get_firstOffset();
-  void set_firstOffset(tolerancedLengthMeasure * firstOffsetIn);
-  tolerancedLengthMeasure * get_secondOffset();
-  void set_secondOffset(tolerancedLengthMeasure * secondOffsetIn);
-private:
   double firstAngle;
   double secondAngle;
   tolerancedLengthMeasure * crossBarWidth;
@@ -11749,7 +10381,6 @@ This is a parent class.
 class thread :
   public machiningFeature
 {
-  friend int yyparse();
 public:
   thread();
   thread(
@@ -11770,25 +10401,6 @@ public:
   ~thread();
   int isA(int aType);
   void printSelf() = 0;
-  partialAreaDefinition * get_partialProfile();
-  void set_partialProfile(partialAreaDefinition * partialProfileIn);
-  parenMachiningFeatureListFull * get_appliedShape();
-  void set_appliedShape(parenMachiningFeatureListFull * appliedShapeIn);
-  boolean * get_innerOrOuterThread();
-  void set_innerOrOuterThread(boolean * innerOrOuterThreadIn);
-  descriptiveParameter * get_qualifier();
-  void set_qualifier(descriptiveParameter * qualifierIn);
-  descriptiveParameter * get_fitClass();
-  void set_fitClass(descriptiveParameter * fitClassIn);
-  descriptiveParameter * get_form();
-  void set_form(descriptiveParameter * formIn);
-  double get_majorDiameter();
-  void set_majorDiameter(double majorDiameterIn);
-  numericParameter * get_numberOfThreads();
-  void set_numberOfThreads(numericParameter * numberOfThreadsIn);
-  descriptiveParameter * get_threadHand();
-  void set_threadHand(descriptiveParameter * threadHandIn);
-private:
   partialAreaDefinition * partialProfile;
   parenMachiningFeatureListFull * appliedShape;
   boolean * innerOrOuterThread;
@@ -11815,7 +10427,6 @@ class threeAxes :
   public instance,
   public toolDirection
 {
-  friend int yyparse();
 public:
   threeAxes();
   ~threeAxes();
@@ -11838,7 +10449,6 @@ class threeAxesTiltedTool :
   public instance,
   public toolDirectionForMilling
 {
-  friend int yyparse();
 public:
   threeAxesTiltedTool();
   threeAxesTiltedTool(
@@ -11846,9 +10456,6 @@ public:
   ~threeAxesTiltedTool();
   int isA(int aType);
   void printSelf();
-  direction * get_itsToolDirection();
-  void set_itsToolDirection(direction * itsToolDirectionIn);
-private:
   direction * itsToolDirection;
 };
 
@@ -11867,7 +10474,6 @@ class toolpathFeature :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   toolpathFeature();
   toolpathFeature(
@@ -11896,7 +10502,6 @@ class toolpathSpeed :
   public instance,
   public toolpathSpeedprofile
 {
-  friend int yyparse();
 public:
   toolpathSpeed();
   toolpathSpeed(
@@ -11904,9 +10509,6 @@ public:
   ~toolpathSpeed();
   int isA(int aType);
   void printSelf();
-  bSplineCurve * get_speed();
-  void set_speed(bSplineCurve * speedIn);
-private:
   bSplineCurve * speed;
 };
 
@@ -11926,7 +10528,6 @@ class topologicalRegion :
   public openShellParent,
   public region
 {
-  friend int yyparse();
 public:
   topologicalRegion();
   topologicalRegion(
@@ -11953,7 +10554,6 @@ class touchProbing :
   public operation,
   public workingstep
 {
-  friend int yyparse();
 public:
   touchProbing();
   touchProbing(
@@ -11965,9 +10565,6 @@ public:
   ~touchProbing();
   int isA(int aType);
   void printSelf() = 0;
-  ncVariable * get_measuredOffset();
-  void set_measuredOffset(ncVariable * measuredOffsetIn);
-private:
   ncVariable * measuredOffset;
 };
 
@@ -11982,7 +10579,6 @@ This is a parent class.
 class two5DmillingOperation :
   public millingTypeOperation
 {
-  friend int yyparse();
 public:
   two5DmillingOperation();
   two5DmillingOperation(
@@ -12001,9 +10597,6 @@ public:
   ~two5DmillingOperation();
   int isA(int aType);
   void printSelf() = 0;
-  two5DmillingStrategy * get_itsMachiningStrategy();
-  void set_itsMachiningStrategy(two5DmillingStrategy * itsMachiningStrategyIn);
-private:
   two5DmillingStrategy * itsMachiningStrategy;
 };
 
@@ -12022,7 +10615,6 @@ class userDefinedTool :
   public instance,
   public millingToolBody
 {
-  friend int yyparse();
 public:
   userDefinedTool();
   userDefinedTool(
@@ -12035,9 +10627,6 @@ public:
   ~userDefinedTool();
   int isA(int aType);
   void printSelf();
-  char * get_identifier();
-  void set_identifier(char * identifierIn);
-private:
   char * identifier;
 };
 
@@ -12056,7 +10645,6 @@ class vector :
   public instance,
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   vector();
   vector(
@@ -12066,11 +10654,6 @@ public:
   ~vector();
   int isA(int aType);
   void printSelf();
-  direction * get_orientation();
-  void set_orientation(direction * orientationIn);
-  double get_magnitude();
-  void set_magnitude(double magnitudeIn);
-private:
   direction * orientation;
   double magnitude;
 };
@@ -12090,7 +10673,6 @@ class veeProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   veeProfile();
   veeProfile(
@@ -12101,13 +10683,6 @@ public:
   ~veeProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_profileRadius();
-  void set_profileRadius(tolerancedLengthMeasure * profileRadiusIn);
-  double get_profileAngle();
-  void set_profileAngle(double profileAngleIn);
-  double get_tiltAngle();
-  void set_tiltAngle(double tiltAngleIn);
-private:
   tolerancedLengthMeasure * profileRadius;
   double profileAngle;
   double tiltAngle;
@@ -12128,7 +10703,6 @@ class vertexLoop :
   public instance,
   public loop
 {
-  friend int yyparse();
 public:
   vertexLoop();
   vertexLoop(
@@ -12137,9 +10711,6 @@ public:
   ~vertexLoop();
   int isA(int aType);
   void printSelf();
-  vertex * get_loopVertex();
-  void set_loopVertex(vertex * loopVertexIn);
-private:
   vertex * loopVertex;
 };
 
@@ -12158,7 +10729,6 @@ class workpieceCompleteProbing :
   public instance,
   public touchProbing
 {
-  friend int yyparse();
 public:
   workpieceCompleteProbing();
   workpieceCompleteProbing(
@@ -12174,15 +10744,6 @@ public:
   ~workpieceCompleteProbing();
   int isA(int aType);
   void printSelf();
-  workpiece * get_itsWorkpiece();
-  void set_itsWorkpiece(workpiece * itsWorkpieceIn);
-  tolerancedLengthMeasure * get_probingDistance();
-  void set_probingDistance(tolerancedLengthMeasure * probingDistanceIn);
-  touchProbe * get_itsProbe();
-  void set_itsProbe(touchProbe * itsProbeIn);
-  offsetVector * get_computedOffset();
-  void set_computedOffset(offsetVector * computedOffsetIn);
-private:
   workpiece * itsWorkpiece;
   tolerancedLengthMeasure * probingDistance;
   touchProbe * itsProbe;
@@ -12204,7 +10765,6 @@ class workpieceProbing :
   public instance,
   public touchProbing
 {
-  friend int yyparse();
 public:
   workpieceProbing();
   workpieceProbing(
@@ -12221,17 +10781,6 @@ public:
   ~workpieceProbing();
   int isA(int aType);
   void printSelf();
-  axis2placement3d * get_startPosition();
-  void set_startPosition(axis2placement3d * startPositionIn);
-  workpiece * get_itsWorkpiece();
-  void set_itsWorkpiece(workpiece * itsWorkpieceIn);
-  direction * get_itsDirection();
-  void set_itsDirection(direction * itsDirectionIn);
-  tolerancedLengthMeasure * get_expectedValue();
-  void set_expectedValue(tolerancedLengthMeasure * expectedValueIn);
-  touchProbe * get_itsProbe();
-  void set_itsProbe(touchProbe * itsProbeIn);
-private:
   axis2placement3d * startPosition;
   workpiece * itsWorkpiece;
   direction * itsDirection;
@@ -12254,7 +10803,6 @@ class xorExpression :
   public instance,
   public binaryBooleanExpression
 {
-  friend int yyparse();
 public:
   xorExpression();
   xorExpression(
@@ -12281,7 +10829,6 @@ class advancedBrepShapeRepresentation :
   public boundingGeometrySelect,
   public shapeRepresentationParent
 {
-  friend int yyparse();
 public:
   advancedBrepShapeRepresentation();
   advancedBrepShapeRepresentation(
@@ -12308,7 +10855,6 @@ class advancedFace :
   public instance,
   public faceSurface
 {
-  friend int yyparse();
 public:
   advancedFace();
   advancedFace(
@@ -12332,7 +10878,6 @@ This is a parent class.
 class approachLiftPath :
   public parameterisedPath
 {
-  friend int yyparse();
 public:
   approachLiftPath();
   approachLiftPath(
@@ -12346,11 +10891,6 @@ public:
   ~approachLiftPath();
   int isA(int aType);
   void printSelf() = 0;
-  cartesianPoint * get_fixPoint();
-  void set_fixPoint(cartesianPoint * fixPointIn);
-  direction * get_fixPointDir();
-  void set_fixPointDir(direction * fixPointDirIn);
-private:
   cartesianPoint * fixPoint;
   direction * fixPointDir;
 };
@@ -12370,7 +10910,6 @@ class axis1placement :
   public instance,
   public placement
 {
-  friend int yyparse();
 public:
   axis1placement();
   axis1placement(
@@ -12380,9 +10919,6 @@ public:
   ~axis1placement();
   int isA(int aType);
   void printSelf();
-  direction * get_axis();
-  void set_axis(direction * axisIn);
-private:
   direction * axis;
 };
 
@@ -12401,7 +10937,6 @@ class axis2placement3d :
   public instance,
   public placement
 {
-  friend int yyparse();
 public:
   axis2placement3d();
   axis2placement3d(
@@ -12412,11 +10947,6 @@ public:
   ~axis2placement3d();
   int isA(int aType);
   void printSelf();
-  direction * get_axis();
-  void set_axis(direction * axisIn);
-  direction * get_refDirection();
-  void set_refDirection(direction * refDirectionIn);
-private:
   direction * axis;
   direction * refDirection;
 };
@@ -12437,7 +10967,6 @@ class block :
   public boundingGeometrySelect,
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   block();
   block(
@@ -12449,15 +10978,6 @@ public:
   ~block();
   int isA(int aType);
   void printSelf();
-  axis2placement3d * get_position();
-  void set_position(axis2placement3d * positionIn);
-  double get_x();
-  void set_x(double xIn);
-  double get_y();
-  void set_y(double yIn);
-  double get_z();
-  void set_z(double zIn);
-private:
   axis2placement3d * position;
   double x;
   double y;
@@ -12479,7 +10999,6 @@ class boringTool :
   public instance,
   public millingToolBody
 {
-  friend int yyparse();
 public:
   boringTool();
   boringTool(
@@ -12508,7 +11027,6 @@ class boss :
   public instance,
   public machiningFeature
 {
-  friend int yyparse();
 public:
   boss();
   boss(
@@ -12522,11 +11040,6 @@ public:
   ~boss();
   int isA(int aType);
   void printSelf();
-  closedProfile * get_itsBoundary();
-  void set_itsBoundary(closedProfile * itsBoundaryIn);
-  real * get_slope();
-  void set_slope(real * slopeIn);
-private:
   closedProfile * itsBoundary;
   real * slope;
 };
@@ -12542,7 +11055,6 @@ This is a parent class.
 class bottomAndSideMilling :
   public two5DmillingOperation
 {
-  friend int yyparse();
 public:
   bottomAndSideMilling();
   bottomAndSideMilling(
@@ -12565,15 +11077,6 @@ public:
   ~bottomAndSideMilling();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_axialCuttingDepth();
-  void set_axialCuttingDepth(real * axialCuttingDepthIn);
-  real * get_radialCuttingDepth();
-  void set_radialCuttingDepth(real * radialCuttingDepthIn);
-  real * get_allowanceSide();
-  void set_allowanceSide(real * allowanceSideIn);
-  real * get_allowanceBottom();
-  void set_allowanceBottom(real * allowanceBottomIn);
-private:
   real * axialCuttingDepth;
   real * radialCuttingDepth;
   real * allowanceSide;
@@ -12595,7 +11098,6 @@ class bottomAndSideRoughMilling :
   public instance,
   public bottomAndSideMilling
 {
-  friend int yyparse();
 public:
   bottomAndSideRoughMilling();
   bottomAndSideRoughMilling(
@@ -12631,7 +11133,6 @@ This is a parent class.
 class boundedSurface :
   public surface
 {
-  friend int yyparse();
 public:
   boundedSurface();
   boundedSurface(
@@ -12652,7 +11153,6 @@ This is a parent class.
 class bSplineSurface :
   public boundedSurface
 {
-  friend int yyparse();
 public:
   bSplineSurface();
   bSplineSurface(
@@ -12667,21 +11167,6 @@ public:
   ~bSplineSurface();
   int isA(int aType);
   void printSelf() = 0;
-  integer * get_uDegree();
-  void set_uDegree(integer * uDegreeIn);
-  integer * get_vDegree();
-  void set_vDegree(integer * vDegreeIn);
-  parenParenCartesianPointListFullListFull * get_controlPointsList();
-  void set_controlPointsList(parenParenCartesianPointListFullListFull * controlPointsListIn);
-  bSplineSurfaceForm * get_surfaceForm();
-  void set_surfaceForm(bSplineSurfaceForm * surfaceFormIn);
-  logical * get_uClosed();
-  void set_uClosed(logical * uClosedIn);
-  logical * get_vClosed();
-  void set_vClosed(logical * vClosedIn);
-  logical * get_selfIntersect();
-  void set_selfIntersect(logical * selfIntersectIn);
-private:
   integer * uDegree;
   integer * vDegree;
   parenParenCartesianPointListFullListFull * controlPointsList;
@@ -12706,7 +11191,6 @@ class bSplineSurfaceWithKnots :
   public instance,
   public bSplineSurface
 {
-  friend int yyparse();
 public:
   bSplineSurfaceWithKnots();
   bSplineSurfaceWithKnots(
@@ -12726,17 +11210,6 @@ public:
   ~bSplineSurfaceWithKnots();
   int isA(int aType);
   void printSelf();
-  parenIntegerListFull * get_uMultiplicities();
-  void set_uMultiplicities(parenIntegerListFull * uMultiplicitiesIn);
-  parenIntegerListFull * get_vMultiplicities();
-  void set_vMultiplicities(parenIntegerListFull * vMultiplicitiesIn);
-  parenRealListFull * get_uKnots();
-  void set_uKnots(parenRealListFull * uKnotsIn);
-  parenRealListFull * get_vKnots();
-  void set_vKnots(parenRealListFull * vKnotsIn);
-  knotType * get_knotSpec();
-  void set_knotSpec(knotType * knotSpecIn);
-private:
   parenIntegerListFull * uMultiplicities;
   parenIntegerListFull * vMultiplicities;
   parenRealListFull * uKnots;
@@ -12760,7 +11233,6 @@ class cartesianPoint :
   public point,
   public trimmingSelect
 {
-  friend int yyparse();
 public:
   cartesianPoint();
   cartesianPoint(
@@ -12769,9 +11241,6 @@ public:
   ~cartesianPoint();
   int isA(int aType);
   void printSelf();
-  parenRealListFull * get_coordinates();
-  void set_coordinates(parenRealListFull * coordinatesIn);
-private:
   parenRealListFull * coordinates;
 };
 
@@ -12790,7 +11259,6 @@ class catalogueThread :
   public instance,
   public thread
 {
-  friend int yyparse();
 public:
   catalogueThread();
   catalogueThread(
@@ -12812,9 +11280,6 @@ public:
   ~catalogueThread();
   int isA(int aType);
   void printSelf();
-  specification * get_documentation();
-  void set_documentation(specification * documentationIn);
-private:
   specification * documentation;
 };
 
@@ -12833,7 +11298,6 @@ class centerDrill :
   public instance,
   public millingToolBody
 {
-  friend int yyparse();
 public:
   centerDrill();
   centerDrill(
@@ -12862,7 +11326,6 @@ class circularClosedProfile :
   public instance,
   public closedProfile
 {
-  friend int yyparse();
 public:
   circularClosedProfile();
   circularClosedProfile(
@@ -12871,9 +11334,6 @@ public:
   ~circularClosedProfile();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_diameter();
-  void set_diameter(tolerancedLengthMeasure * diameterIn);
-private:
   tolerancedLengthMeasure * diameter;
 };
 
@@ -12892,7 +11352,6 @@ class circularClosedShapeProfile :
   public instance,
   public shapeProfile
 {
-  friend int yyparse();
 public:
   circularClosedShapeProfile();
   circularClosedShapeProfile(
@@ -12908,9 +11367,6 @@ public:
   ~circularClosedShapeProfile();
   int isA(int aType);
   void printSelf();
-  circularClosedProfile * get_closedBoundary();
-  void set_closedBoundary(circularClosedProfile * closedBoundaryIn);
-private:
   circularClosedProfile * closedBoundary;
 };
 
@@ -12929,7 +11385,6 @@ class circularPattern :
   public instance,
   public replicateFeature
 {
-  friend int yyparse();
 public:
   circularPattern();
   circularPattern(
@@ -12947,19 +11402,6 @@ public:
   ~circularPattern();
   int isA(int aType);
   void printSelf();
-  double get_angleIncrement();
-  void set_angleIncrement(double angleIncrementIn);
-  int get_numberOfFeature();
-  void set_numberOfFeature(int numberOfFeatureIn);
-  parenCircularOffsetList * get_relocatedBaseFeature();
-  void set_relocatedBaseFeature(parenCircularOffsetList * relocatedBaseFeatureIn);
-  parenCircularOmitList * get_missingBaseFeature();
-  void set_missingBaseFeature(parenCircularOmitList * missingBaseFeatureIn);
-  tolerancedLengthMeasure * get_baseFeatureDiameter();
-  void set_baseFeatureDiameter(tolerancedLengthMeasure * baseFeatureDiameterIn);
-  double get_baseFeatureRotation();
-  void set_baseFeatureRotation(double baseFeatureRotationIn);
-private:
   double angleIncrement;
   int numberOfFeature;
   parenCircularOffsetList * relocatedBaseFeature;
@@ -12983,7 +11425,6 @@ class closedPocket :
   public instance,
   public pocket
 {
-  friend int yyparse();
 public:
   closedPocket();
   closedPocket(
@@ -13001,9 +11442,6 @@ public:
   ~closedPocket();
   int isA(int aType);
   void printSelf();
-  closedProfile * get_featureBoundary();
-  void set_featureBoundary(closedProfile * featureBoundaryIn);
-private:
   closedProfile * featureBoundary;
 };
 
@@ -13022,7 +11460,6 @@ class closedShell :
   public instance,
   public connectedFaceSet
 {
-  friend int yyparse();
 public:
   closedShell();
   closedShell(
@@ -13048,7 +11485,6 @@ class combinedDrillAndReamer :
   public instance,
   public reamer
 {
-  friend int yyparse();
 public:
   combinedDrillAndReamer();
   combinedDrillAndReamer(
@@ -13061,9 +11497,6 @@ public:
   ~combinedDrillAndReamer();
   int isA(int aType);
   void printSelf();
-  real * get_drillLength();
-  void set_drillLength(real * drillLengthIn);
-private:
   real * drillLength;
 };
 
@@ -13082,7 +11515,6 @@ class combinedDrillAndTap :
   public instance,
   public tapParent
 {
-  friend int yyparse();
 public:
   combinedDrillAndTap();
   combinedDrillAndTap(
@@ -13095,9 +11527,6 @@ public:
   ~combinedDrillAndTap();
   int isA(int aType);
   void printSelf();
-  real * get_drillLength();
-  void set_drillLength(real * drillLengthIn);
-private:
   real * drillLength;
 };
 
@@ -13112,7 +11541,6 @@ This is a parent class.
 class connector :
   public parameterisedPath
 {
-  friend int yyparse();
 public:
   connector();
   connector(
@@ -13141,7 +11569,6 @@ class connectSecplane :
   public instance,
   public connector
 {
-  friend int yyparse();
 public:
   connectSecplane();
   connectSecplane(
@@ -13155,11 +11582,6 @@ public:
   ~connectSecplane();
   int isA(int aType);
   void printSelf();
-  direction * get_upDir();
-  void set_upDir(direction * upDirIn);
-  direction * get_downDir();
-  void set_downDir(direction * downDirIn);
-private:
   direction * upDir;
   direction * downDir;
 };
@@ -13175,7 +11597,6 @@ This is a parent class.
 class counterboreParent :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   counterboreParent();
   counterboreParent(
@@ -13200,7 +11621,6 @@ This is a parent class.
 class countersinkParent :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   countersinkParent();
   countersinkParent(
@@ -13225,7 +11645,6 @@ This is a parent class.
 class curve :
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   curve();
   curve(
@@ -13250,7 +11669,6 @@ class definedThread :
   public instance,
   public thread
 {
-  friend int yyparse();
 public:
   definedThread();
   definedThread(
@@ -13274,13 +11692,6 @@ public:
   ~definedThread();
   int isA(int aType);
   void printSelf();
-  double get_pitchDiameter();
-  void set_pitchDiameter(double pitchDiameterIn);
-  real * get_minorDiameter();
-  void set_minorDiameter(real * minorDiameterIn);
-  real * get_crest();
-  void set_crest(real * crestIn);
-private:
   double pitchDiameter;
   real * minorDiameter;
   real * crest;
@@ -13301,7 +11712,6 @@ class direction :
   public instance,
   public geometricRepresentationItem
 {
-  friend int yyparse();
 public:
   direction();
   direction(
@@ -13310,9 +11720,6 @@ public:
   ~direction();
   int isA(int aType);
   void printSelf();
-  parenRealListFull * get_directionRatios();
-  void set_directionRatios(parenRealListFull * directionRatiosIn);
-private:
   parenRealListFull * directionRatios;
 };
 
@@ -13327,7 +11734,6 @@ This is a parent class.
 class drill :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   drill();
   drill(
@@ -13352,7 +11758,6 @@ This is a parent class.
 class drillingTypeOperation :
   public millingMachiningOperation
 {
-  friend int yyparse();
 public:
   drillingTypeOperation();
   drillingTypeOperation(
@@ -13373,17 +11778,6 @@ public:
   ~drillingTypeOperation();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_cuttingDepth();
-  void set_cuttingDepth(real * cuttingDepthIn);
-  real * get_previousDiameter();
-  void set_previousDiameter(real * previousDiameterIn);
-  real * get_dwellTimeBottom();
-  void set_dwellTimeBottom(real * dwellTimeBottomIn);
-  real * get_feedOnRetract();
-  void set_feedOnRetract(real * feedOnRetractIn);
-  drillingTypeStrategy * get_itsMachiningStrategy();
-  void set_itsMachiningStrategy(drillingTypeStrategy * itsMachiningStrategyIn);
-private:
   real * cuttingDepth;
   real * previousDiameter;
   real * dwellTimeBottom;
@@ -13406,7 +11800,6 @@ class edgeLoop :
   public instance,
   public loop
 {
-  friend int yyparse();
 public:
   edgeLoop();
   edgeLoop(
@@ -13415,9 +11808,6 @@ public:
   ~edgeLoop();
   int isA(int aType);
   void printSelf();
-  parenOrientedEdgeListFull * get_edgeList();
-  void set_edgeList(parenOrientedEdgeListFull * edgeListIn);
-private:
   parenOrientedEdgeListFull * edgeList;
 };
 
@@ -13432,7 +11822,6 @@ This is a parent class.
 class elementarySurface :
   public surface
 {
-  friend int yyparse();
 public:
   elementarySurface();
   elementarySurface(
@@ -13441,9 +11830,6 @@ public:
   ~elementarySurface();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_position();
-  void set_position(axis2placement3d * positionIn);
-private:
   axis2placement3d * position;
 };
 
@@ -13462,7 +11848,6 @@ class freeformOperation :
   public instance,
   public millingTypeOperation
 {
-  friend int yyparse();
 public:
   freeformOperation();
   freeformOperation(
@@ -13481,9 +11866,6 @@ public:
   ~freeformOperation();
   int isA(int aType);
   void printSelf();
-  freeformStrategy * get_itsMachiningStrategy();
-  void set_itsMachiningStrategy(freeformStrategy * itsMachiningStrategyIn);
-private:
   freeformStrategy * itsMachiningStrategy;
 };
 
@@ -13502,7 +11884,6 @@ class generalOutsideProfile :
   public instance,
   public profileFeature
 {
-  friend int yyparse();
 public:
   generalOutsideProfile();
   generalOutsideProfile(
@@ -13516,9 +11897,6 @@ public:
   ~generalOutsideProfile();
   int isA(int aType);
   void printSelf();
-  profile * get_featureBoundary();
-  void set_featureBoundary(profile * featureBoundaryIn);
-private:
   profile * featureBoundary;
 };
 
@@ -13537,7 +11915,6 @@ class generalPattern :
   public instance,
   public replicateFeature
 {
-  friend int yyparse();
 public:
   generalPattern();
   generalPattern(
@@ -13550,9 +11927,6 @@ public:
   ~generalPattern();
   int isA(int aType);
   void printSelf();
-  parenAxis2placement3dListFull * get_replicateLocations();
-  void set_replicateLocations(parenAxis2placement3dListFull * replicateLocationsIn);
-private:
   parenAxis2placement3dListFull * replicateLocations;
 };
 
@@ -13571,7 +11945,6 @@ class generalProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   generalProfile();
   generalProfile(
@@ -13580,9 +11953,6 @@ public:
   ~generalProfile();
   int isA(int aType);
   void printSelf();
-  boundedCurve * get_itsProfile();
-  void set_itsProfile(boundedCurve * itsProfileIn);
-private:
   boundedCurve * itsProfile;
 };
 
@@ -13601,7 +11971,6 @@ class generalProfileFloor :
   public instance,
   public profileFloor
 {
-  friend int yyparse();
 public:
   generalProfileFloor();
   generalProfileFloor(
@@ -13611,9 +11980,6 @@ public:
   ~generalProfileFloor();
   int isA(int aType);
   void printSelf();
-  face * get_floor();
-  void set_floor(face * floorIn);
-private:
   face * floor;
 };
 
@@ -13632,7 +11998,6 @@ class generalShapeProfile :
   public instance,
   public shapeProfile
 {
-  friend int yyparse();
 public:
   generalShapeProfile();
   generalShapeProfile(
@@ -13648,9 +12013,6 @@ public:
   ~generalShapeProfile();
   int isA(int aType);
   void printSelf();
-  profile * get_profileBoundary();
-  void set_profileBoundary(profile * profileBoundaryIn);
-private:
   profile * profileBoundary;
 };
 
@@ -13669,7 +12031,6 @@ class helix :
   public instance,
   public curve
 {
-  friend int yyparse();
 public:
   helix();
   helix(
@@ -13680,13 +12041,6 @@ public:
   ~helix();
   int isA(int aType);
   void printSelf();
-  axis2placement3d * get_position();
-  void set_position(axis2placement3d * positionIn);
-  double get_radius();
-  void set_radius(double radiusIn);
-  double get_pitch();
-  void set_pitch(double pitchIn);
-private:
   axis2placement3d * position;
   double radius;
   double pitch;
@@ -13707,7 +12061,6 @@ class line :
   public instance,
   public curve
 {
-  friend int yyparse();
 public:
   line();
   line(
@@ -13717,11 +12070,6 @@ public:
   ~line();
   int isA(int aType);
   void printSelf();
-  cartesianPoint * get_pnt();
-  void set_pnt(cartesianPoint * pntIn);
-  vector * get_dir();
-  void set_dir(vector * dirIn);
-private:
   cartesianPoint * pnt;
   vector * dir;
 };
@@ -13741,7 +12089,6 @@ class linearProfile :
   public instance,
   public openProfile
 {
-  friend int yyparse();
 public:
   linearProfile();
   linearProfile(
@@ -13750,9 +12097,6 @@ public:
   ~linearProfile();
   int isA(int aType);
   void printSelf();
-  numericParameter * get_profileLength();
-  void set_profileLength(numericParameter * profileLengthIn);
-private:
   numericParameter * profileLength;
 };
 
@@ -13771,7 +12115,6 @@ class manifoldSolidBrep :
   public instance,
   public solidModel
 {
-  friend int yyparse();
 public:
   manifoldSolidBrep();
   manifoldSolidBrep(
@@ -13780,9 +12123,6 @@ public:
   ~manifoldSolidBrep();
   int isA(int aType);
   void printSelf();
-  closedShell * get_outer();
-  void set_outer(closedShell * outerIn);
-private:
   closedShell * outer;
 };
 
@@ -13797,7 +12137,6 @@ This is a parent class.
 class millingCutter :
   public millingToolBody
 {
-  friend int yyparse();
 public:
   millingCutter();
   millingCutter(
@@ -13826,7 +12165,6 @@ class millingThreadingTool :
   public instance,
   public millingToolBody
 {
-  friend int yyparse();
 public:
   millingThreadingTool();
   millingThreadingTool(
@@ -13855,7 +12193,6 @@ class openPocket :
   public instance,
   public pocket
 {
-  friend int yyparse();
 public:
   openPocket();
   openPocket(
@@ -13874,11 +12211,6 @@ public:
   ~openPocket();
   int isA(int aType);
   void printSelf();
-  openProfile * get_openBoundary();
-  void set_openBoundary(openProfile * openBoundaryIn);
-  openProfile * get_wallBoundary();
-  void set_wallBoundary(openProfile * wallBoundaryIn);
-private:
   openProfile * openBoundary;
   openProfile * wallBoundary;
 };
@@ -13898,7 +12230,6 @@ class partialCircularShapeProfile :
   public instance,
   public shapeProfile
 {
-  friend int yyparse();
 public:
   partialCircularShapeProfile();
   partialCircularShapeProfile(
@@ -13914,9 +12245,6 @@ public:
   ~partialCircularShapeProfile();
   int isA(int aType);
   void printSelf();
-  partialCircularProfile * get_openBoundary();
-  void set_openBoundary(partialCircularProfile * openBoundaryIn);
-private:
   partialCircularProfile * openBoundary;
 };
 
@@ -13931,7 +12259,6 @@ This is a parent class.
 class pcurveParent :
   public curve
 {
-  friend int yyparse();
 public:
   pcurveParent();
   pcurveParent(
@@ -13941,11 +12268,6 @@ public:
   ~pcurveParent();
   int isA(int aType);
   void printSelf() = 0;
-  surface * get_basisSurface();
-  void set_basisSurface(surface * basisSurfaceIn);
-  definitionalRepresentation * get_referenceToCurve();
-  void set_referenceToCurve(definitionalRepresentation * referenceToCurveIn);
-private:
   surface * basisSurface;
   definitionalRepresentation * referenceToCurve;
 };
@@ -13965,7 +12287,6 @@ class planarProfileFloor :
   public instance,
   public profileFloor
 {
-  friend int yyparse();
 public:
   planarProfileFloor();
   planarProfileFloor(
@@ -13975,9 +12296,6 @@ public:
   ~planarProfileFloor();
   int isA(int aType);
   void printSelf();
-  plane * get_floor();
-  void set_floor(plane * floorIn);
-private:
   plane * floor;
 };
 
@@ -13996,7 +12314,6 @@ class plane :
   public instance,
   public elementarySurface
 {
-  friend int yyparse();
 public:
   plane();
   plane(
@@ -14018,7 +12335,6 @@ This is a parent class.
 class planeMilling :
   public two5DmillingOperation
 {
-  friend int yyparse();
 public:
   planeMilling();
   planeMilling(
@@ -14039,11 +12355,6 @@ public:
   ~planeMilling();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_axialCuttingDepth();
-  void set_axialCuttingDepth(real * axialCuttingDepthIn);
-  real * get_allowanceBottom();
-  void set_allowanceBottom(real * allowanceBottomIn);
-private:
   real * axialCuttingDepth;
   real * allowanceBottom;
 };
@@ -14063,7 +12374,6 @@ class planeRoughMilling :
   public instance,
   public planeMilling
 {
-  friend int yyparse();
 public:
   planeRoughMilling();
   planeRoughMilling(
@@ -14101,7 +12411,6 @@ class quasiUniformSurface :
   public instance,
   public bSplineSurface
 {
-  friend int yyparse();
 public:
   quasiUniformSurface();
   quasiUniformSurface(
@@ -14133,7 +12442,6 @@ class rationalBSplineSurface :
   public instance,
   public bSplineSurface
 {
-  friend int yyparse();
 public:
   rationalBSplineSurface();
   rationalBSplineSurface(
@@ -14149,9 +12457,6 @@ public:
   ~rationalBSplineSurface();
   int isA(int aType);
   void printSelf();
-  parenParenRealListFullListFull * get_weightsData();
-  void set_weightsData(parenParenRealListFullListFull * weightsDataIn);
-private:
   parenParenRealListFullListFull * weightsData;
 };
 
@@ -14170,7 +12475,6 @@ class rectangularClosedShapeProfile :
   public instance,
   public shapeProfile
 {
-  friend int yyparse();
 public:
   rectangularClosedShapeProfile();
   rectangularClosedShapeProfile(
@@ -14186,9 +12490,6 @@ public:
   ~rectangularClosedShapeProfile();
   int isA(int aType);
   void printSelf();
-  rectangularClosedProfile * get_closedBoundary();
-  void set_closedBoundary(rectangularClosedProfile * closedBoundaryIn);
-private:
   rectangularClosedProfile * closedBoundary;
 };
 
@@ -14207,7 +12508,6 @@ class rectangularOpenShapeProfile :
   public instance,
   public shapeProfile
 {
-  friend int yyparse();
 public:
   rectangularOpenShapeProfile();
   rectangularOpenShapeProfile(
@@ -14223,9 +12523,6 @@ public:
   ~rectangularOpenShapeProfile();
   int isA(int aType);
   void printSelf();
-  squareUProfile * get_openBoundary();
-  void set_openBoundary(squareUProfile * openBoundaryIn);
-private:
   squareUProfile * openBoundary;
 };
 
@@ -14244,7 +12541,6 @@ class rectangularPattern :
   public instance,
   public replicateFeature
 {
-  friend int yyparse();
 public:
   rectangularPattern();
   rectangularPattern(
@@ -14264,23 +12560,6 @@ public:
   ~rectangularPattern();
   int isA(int aType);
   void printSelf();
-  tolerancedLengthMeasure * get_spacing();
-  void set_spacing(tolerancedLengthMeasure * spacingIn);
-  direction * get_itsDirection();
-  void set_itsDirection(direction * itsDirectionIn);
-  integer * get_numberOfRows();
-  void set_numberOfRows(integer * numberOfRowsIn);
-  int get_numberOfColumns();
-  void set_numberOfColumns(int numberOfColumnsIn);
-  tolerancedLengthMeasure * get_rowSpacing();
-  void set_rowSpacing(tolerancedLengthMeasure * rowSpacingIn);
-  direction * get_rowLayoutDirection();
-  void set_rowLayoutDirection(direction * rowLayoutDirectionIn);
-  parenRectangularOffsetList * get_relocatedBaseFeature();
-  void set_relocatedBaseFeature(parenRectangularOffsetList * relocatedBaseFeatureIn);
-  parenRectangularOmitList * get_missingBaseFeature();
-  void set_missingBaseFeature(parenRectangularOmitList * missingBaseFeatureIn);
-private:
   tolerancedLengthMeasure * spacing;
   direction * itsDirection;
   integer * numberOfRows;
@@ -14306,7 +12585,6 @@ class sideMill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   sideMill();
   sideMill(
@@ -14319,9 +12597,6 @@ public:
   ~sideMill();
   int isA(int aType);
   void printSelf();
-  real * get_lengthMeasure();
-  void set_lengthMeasure(real * lengthMeasureIn);
-private:
   real * lengthMeasure;
 };
 
@@ -14336,7 +12611,6 @@ This is a parent class.
 class sideMilling :
   public two5DmillingOperation
 {
-  friend int yyparse();
 public:
   sideMilling();
   sideMilling(
@@ -14358,13 +12632,6 @@ public:
   ~sideMilling();
   int isA(int aType);
   void printSelf() = 0;
-  real * get_axialCuttingDepth();
-  void set_axialCuttingDepth(real * axialCuttingDepthIn);
-  real * get_radialCuttingDepth();
-  void set_radialCuttingDepth(real * radialCuttingDepthIn);
-  real * get_allowanceSide();
-  void set_allowanceSide(real * allowanceSideIn);
-private:
   real * axialCuttingDepth;
   real * radialCuttingDepth;
   real * allowanceSide;
@@ -14385,7 +12652,6 @@ class sideFinishMilling :
   public instance,
   public sideMilling
 {
-  friend int yyparse();
 public:
   sideFinishMilling();
   sideFinishMilling(
@@ -14424,7 +12690,6 @@ class sideRoughMilling :
   public instance,
   public sideMilling
 {
-  friend int yyparse();
 public:
   sideRoughMilling();
   sideRoughMilling(
@@ -14463,7 +12728,6 @@ class spadeDrill :
   public instance,
   public drill
 {
-  friend int yyparse();
 public:
   spadeDrill();
   spadeDrill(
@@ -14492,7 +12756,6 @@ class sphericalSurface :
   public instance,
   public elementarySurface
 {
-  friend int yyparse();
 public:
   sphericalSurface();
   sphericalSurface(
@@ -14502,9 +12765,6 @@ public:
   ~sphericalSurface();
   int isA(int aType);
   void printSelf();
-  double get_radius();
-  void set_radius(double radiusIn);
-private:
   double radius;
 };
 
@@ -14523,7 +12783,6 @@ class surfaceOfLinearExtrusion :
   public instance,
   public sweptSurface
 {
-  friend int yyparse();
 public:
   surfaceOfLinearExtrusion();
   surfaceOfLinearExtrusion(
@@ -14533,9 +12792,6 @@ public:
   ~surfaceOfLinearExtrusion();
   int isA(int aType);
   void printSelf();
-  vector * get_extrusionAxis();
-  void set_extrusionAxis(vector * extrusionAxisIn);
-private:
   vector * extrusionAxis;
 };
 
@@ -14554,7 +12810,6 @@ class surfaceOfRevolution :
   public instance,
   public sweptSurface
 {
-  friend int yyparse();
 public:
   surfaceOfRevolution();
   surfaceOfRevolution(
@@ -14564,9 +12819,6 @@ public:
   ~surfaceOfRevolution();
   int isA(int aType);
   void printSelf();
-  axis1placement * get_axisPosition();
-  void set_axisPosition(axis1placement * axisPositionIn);
-private:
   axis1placement * axisPosition;
 };
 
@@ -14585,7 +12837,6 @@ class tap :
   public instance,
   public tapParent
 {
-  friend int yyparse();
 public:
   tap();
   tap(
@@ -14614,7 +12865,6 @@ class taperedTap :
   public instance,
   public tapParent
 {
-  friend int yyparse();
 public:
   taperedTap();
   taperedTap(
@@ -14627,9 +12877,6 @@ public:
   ~taperedTap();
   int isA(int aType);
   void printSelf();
-  real * get_taperAngle();
-  void set_taperAngle(real * taperAngleIn);
-private:
   real * taperAngle;
 };
 
@@ -14648,7 +12895,6 @@ class tapping :
   public instance,
   public drillingTypeOperation
 {
-  friend int yyparse();
 public:
   tapping();
   tapping(
@@ -14670,9 +12916,6 @@ public:
   ~tapping();
   int isA(int aType);
   void printSelf();
-  boolean * get_compensationChuck();
-  void set_compensationChuck(boolean * compensationChuckIn);
-private:
   boolean * compensationChuck;
 };
 
@@ -14691,7 +12934,6 @@ class threadDrilling :
   public instance,
   public drillingTypeOperation
 {
-  friend int yyparse();
 public:
   threadDrilling();
   threadDrilling(
@@ -14713,9 +12955,6 @@ public:
   ~threadDrilling();
   int isA(int aType);
   void printSelf();
-  boolean * get_helicalMovementOnForward();
-  void set_helicalMovementOnForward(boolean * helicalMovementOnForwardIn);
-private:
   boolean * helicalMovementOnForward;
 };
 
@@ -14734,7 +12973,6 @@ class threadMill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   threadMill();
   threadMill(
@@ -14759,7 +12997,6 @@ This is a parent class.
 class toolProbing :
   public touchProbing
 {
-  friend int yyparse();
 public:
   toolProbing();
   toolProbing(
@@ -14774,13 +13011,6 @@ public:
   ~toolProbing();
   int isA(int aType);
   void printSelf() = 0;
-  cartesianPoint * get_offset();
-  void set_offset(cartesianPoint * offsetIn);
-  double get_maxWear();
-  void set_maxWear(double maxWearIn);
-  machiningTool * get_itsTool();
-  void set_itsTool(machiningTool * itsToolIn);
-private:
   cartesianPoint * offset;
   double maxWear;
   machiningTool * itsTool;
@@ -14801,7 +13031,6 @@ class toolRadiusProbing :
   public instance,
   public toolProbing
 {
-  friend int yyparse();
 public:
   toolRadiusProbing();
   toolRadiusProbing(
@@ -14833,7 +13062,6 @@ class tSlotMill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   tSlotMill();
   tSlotMill(
@@ -14846,9 +13074,6 @@ public:
   ~tSlotMill();
   int isA(int aType);
   void printSelf();
-  real * get_cuttingThickness();
-  void set_cuttingThickness(real * cuttingThicknessIn);
-private:
   real * cuttingThickness;
 };
 
@@ -14863,7 +13088,6 @@ This is a parent class.
 class twistDrillParent :
   public drill
 {
-  friend int yyparse();
 public:
   twistDrillParent();
   twistDrillParent(
@@ -14892,7 +13116,6 @@ class twistDrill :
   public instance,
   public twistDrillParent
 {
-  friend int yyparse();
 public:
   twistDrill();
   twistDrill(
@@ -14921,7 +13144,6 @@ class uniformSurface :
   public instance,
   public bSplineSurface
 {
-  friend int yyparse();
 public:
   uniformSurface();
   uniformSurface(
@@ -14953,7 +13175,6 @@ class woodruffKeyseatMill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   woodruffKeyseatMill();
   woodruffKeyseatMill(
@@ -14966,9 +13187,6 @@ public:
   ~woodruffKeyseatMill();
   int isA(int aType);
   void printSelf();
-  real * get_cutterWidth();
-  void set_cutterWidth(real * cutterWidthIn);
-private:
   real * cutterWidth;
 };
 
@@ -14987,7 +13205,6 @@ class apLiftPathAngle :
   public instance,
   public approachLiftPath
 {
-  friend int yyparse();
 public:
   apLiftPathAngle();
   apLiftPathAngle(
@@ -15003,11 +13220,6 @@ public:
   ~apLiftPathAngle();
   int isA(int aType);
   void printSelf();
-  double get_angle();
-  void set_angle(double angleIn);
-  double get_benddist();
-  void set_benddist(double benddistIn);
-private:
   double angle;
   double benddist;
 };
@@ -15027,7 +13239,6 @@ class apLiftPathTangent :
   public instance,
   public approachLiftPath
 {
-  friend int yyparse();
 public:
   apLiftPathTangent();
   apLiftPathTangent(
@@ -15042,9 +13253,6 @@ public:
   ~apLiftPathTangent();
   int isA(int aType);
   void printSelf();
-  double get_radius();
-  void set_radius(double radiusIn);
-private:
   double radius;
 };
 
@@ -15063,7 +13271,6 @@ class backBoring :
   public instance,
   public drillingTypeOperation
 {
-  friend int yyparse();
 public:
   backBoring();
   backBoring(
@@ -15101,7 +13308,6 @@ class backsideCounterbore :
   public instance,
   public counterboreParent
 {
-  friend int yyparse();
 public:
   backsideCounterbore();
   backsideCounterbore(
@@ -15130,7 +13336,6 @@ class backsideCountersink :
   public instance,
   public countersinkParent
 {
-  friend int yyparse();
 public:
   backsideCountersink();
   backsideCountersink(
@@ -15143,9 +13348,6 @@ public:
   ~backsideCountersink();
   int isA(int aType);
   void printSelf();
-  real * get_countersinkRadius();
-  void set_countersinkRadius(real * countersinkRadiusIn);
-private:
   real * countersinkRadius;
 };
 
@@ -15164,7 +13366,6 @@ class bezierSurface :
   public instance,
   public bSplineSurface
 {
-  friend int yyparse();
 public:
   bezierSurface();
   bezierSurface(
@@ -15192,7 +13393,6 @@ This is a parent class.
 class boringOperation :
   public drillingTypeOperation
 {
-  friend int yyparse();
 public:
   boringOperation();
   boringOperation(
@@ -15216,13 +13416,6 @@ public:
   ~boringOperation();
   int isA(int aType);
   void printSelf() = 0;
-  boolean * get_spindleStopAtBottom();
-  void set_spindleStopAtBottom(boolean * spindleStopAtBottomIn);
-  real * get_depthOfTestcut();
-  void set_depthOfTestcut(real * depthOfTestcutIn);
-  cartesianPoint * get_waitingPosition();
-  void set_waitingPosition(cartesianPoint * waitingPositionIn);
-private:
   boolean * spindleStopAtBottom;
   real * depthOfTestcut;
   cartesianPoint * waitingPosition;
@@ -15243,7 +13436,6 @@ class bottomAndSideFinishMilling :
   public instance,
   public bottomAndSideMilling
 {
-  friend int yyparse();
 public:
   bottomAndSideFinishMilling();
   bottomAndSideFinishMilling(
@@ -15279,7 +13471,6 @@ This is a parent class.
 class boundedCurve :
   public curve
 {
-  friend int yyparse();
 public:
   boundedCurve();
   boundedCurve(
@@ -15305,7 +13496,6 @@ class boundedPCurve :
   public curveWithSurfaceNormalSelect,
   public pcurveParent
 {
-  friend int yyparse();
 public:
   boundedPCurve();
   boundedPCurve(
@@ -15328,7 +13518,6 @@ This is a parent class.
 class bSplineCurve :
   public boundedCurve
 {
-  friend int yyparse();
 public:
   bSplineCurve();
   bSplineCurve(
@@ -15341,17 +13530,6 @@ public:
   ~bSplineCurve();
   int isA(int aType);
   void printSelf() = 0;
-  int get_degree();
-  void set_degree(int degreeIn);
-  parenCartesianPointList * get_controlPointsList();
-  void set_controlPointsList(parenCartesianPointList * controlPointsListIn);
-  bSplineCurveForm * get_curveForm();
-  void set_curveForm(bSplineCurveForm * curveFormIn);
-  logical * get_closedCurve();
-  void set_closedCurve(logical * closedCurveIn);
-  logical * get_selfIntersect();
-  void set_selfIntersect(logical * selfIntersectIn);
-private:
   int degree;
   parenCartesianPointList * controlPointsList;
   bSplineCurveForm * curveForm;
@@ -15374,7 +13552,6 @@ class bSplineCurveWithKnots :
   public instance,
   public bSplineCurve
 {
-  friend int yyparse();
 public:
   bSplineCurveWithKnots();
   bSplineCurveWithKnots(
@@ -15390,13 +13567,6 @@ public:
   ~bSplineCurveWithKnots();
   int isA(int aType);
   void printSelf();
-  parenIntegerListFull * get_knotMultiplicites();
-  void set_knotMultiplicites(parenIntegerListFull * knotMultiplicitesIn);
-  parenRealListFull * get_knots();
-  void set_knots(parenRealListFull * knotsIn);
-  knotType * get_knotSpec();
-  void set_knotSpec(knotType * knotSpecIn);
-private:
   parenIntegerListFull * knotMultiplicites;
   parenRealListFull * knots;
   knotType * knotSpec;
@@ -15417,7 +13587,6 @@ class compositeCurve :
   public instance,
   public boundedCurve
 {
-  friend int yyparse();
 public:
   compositeCurve();
   compositeCurve(
@@ -15427,11 +13596,6 @@ public:
   ~compositeCurve();
   int isA(int aType);
   void printSelf();
-  parenCompositeCurveSegmentListFull * get_segments();
-  void set_segments(parenCompositeCurveSegmentListFull * segmentsIn);
-  logical * get_selfIntersect();
-  void set_selfIntersect(logical * selfIntersectIn);
-private:
   parenCompositeCurveSegmentListFull * segments;
   logical * selfIntersect;
 };
@@ -15447,7 +13611,6 @@ This is a parent class.
 class conic :
   public curve
 {
-  friend int yyparse();
 public:
   conic();
   conic(
@@ -15456,9 +13619,6 @@ public:
   ~conic();
   int isA(int aType);
   void printSelf() = 0;
-  axis2placement3d * get_position();
-  void set_position(axis2placement3d * positionIn);
-private:
   axis2placement3d * position;
 };
 
@@ -15477,7 +13637,6 @@ class connectDirect :
   public instance,
   public connector
 {
-  friend int yyparse();
 public:
   connectDirect();
   connectDirect(
@@ -15506,7 +13665,6 @@ class counterbore :
   public instance,
   public counterboreParent
 {
-  friend int yyparse();
 public:
   counterbore();
   counterbore(
@@ -15535,7 +13693,6 @@ class countersink :
   public instance,
   public countersinkParent
 {
-  friend int yyparse();
 public:
   countersink();
   countersink(
@@ -15548,9 +13705,6 @@ public:
   ~countersink();
   int isA(int aType);
   void printSelf();
-  real * get_countersinkRadius();
-  void set_countersinkRadius(real * countersinkRadiusIn);
-private:
   real * countersinkRadius;
 };
 
@@ -15569,7 +13723,6 @@ class dovetailMill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   dovetailMill();
   dovetailMill(
@@ -15582,9 +13735,6 @@ public:
   ~dovetailMill();
   int isA(int aType);
   void printSelf();
-  real * get_includedAngle();
-  void set_includedAngle(real * includedAngleIn);
-private:
   real * includedAngle;
 };
 
@@ -15599,7 +13749,6 @@ This is a parent class.
 class drillingOperation :
   public drillingTypeOperation
 {
-  friend int yyparse();
 public:
   drillingOperation();
   drillingOperation(
@@ -15637,7 +13786,6 @@ class ellipse :
   public instance,
   public conic
 {
-  friend int yyparse();
 public:
   ellipse();
   ellipse(
@@ -15648,11 +13796,6 @@ public:
   ~ellipse();
   int isA(int aType);
   void printSelf();
-  double get_semiAxis1();
-  void set_semiAxis1(double semiAxis1In);
-  double get_semiAxis2();
-  void set_semiAxis2(double semiAxis2In);
-private:
   double semiAxis1;
   double semiAxis2;
 };
@@ -15668,7 +13811,6 @@ This is a parent class.
 class endmill :
   public millingCutter
 {
-  friend int yyparse();
 public:
   endmill();
   endmill(
@@ -15697,7 +13839,6 @@ class facemill :
   public instance,
   public millingCutter
 {
-  friend int yyparse();
 public:
   facemill();
   facemill(
@@ -15726,7 +13867,6 @@ class hyperbola :
   public instance,
   public conic
 {
-  friend int yyparse();
 public:
   hyperbola();
   hyperbola(
@@ -15737,11 +13877,6 @@ public:
   ~hyperbola();
   int isA(int aType);
   void printSelf();
-  double get_semiAxis();
-  void set_semiAxis(double semiAxisIn);
-  double get_semiImagAxis();
-  void set_semiImagAxis(double semiImagAxisIn);
-private:
   double semiAxis;
   double semiImagAxis;
 };
@@ -15761,7 +13896,6 @@ class multistepDrilling :
   public instance,
   public drillingOperation
 {
-  friend int yyparse();
 public:
   multistepDrilling();
   multistepDrilling(
@@ -15786,15 +13920,6 @@ public:
   ~multistepDrilling();
   int isA(int aType);
   void printSelf();
-  double get_retractDistance();
-  void set_retractDistance(double retractDistanceIn);
-  double get_firstDepth();
-  void set_firstDepth(double firstDepthIn);
-  double get_depthOfStep();
-  void set_depthOfStep(double depthOfStepIn);
-  real * get_dwellTimeStep();
-  void set_dwellTimeStep(real * dwellTimeStepIn);
-private:
   double retractDistance;
   double firstDepth;
   double depthOfStep;
@@ -15816,7 +13941,6 @@ class parabola :
   public instance,
   public conic
 {
-  friend int yyparse();
 public:
   parabola();
   parabola(
@@ -15826,9 +13950,6 @@ public:
   ~parabola();
   int isA(int aType);
   void printSelf();
-  double get_focalDist();
-  void set_focalDist(double focalDistIn);
-private:
   double focalDist;
 };
 
@@ -15847,7 +13968,6 @@ class pcurve :
   public instance,
   public pcurveParent
 {
-  friend int yyparse();
 public:
   pcurve();
   pcurve(
@@ -15874,7 +13994,6 @@ class planeFinishMilling :
   public instance,
   public planeMilling
 {
-  friend int yyparse();
 public:
   planeFinishMilling();
   planeFinishMilling(
@@ -15912,7 +14031,6 @@ class polyline :
   public instance,
   public boundedCurve
 {
-  friend int yyparse();
 public:
   polyline();
   polyline(
@@ -15921,9 +14039,6 @@ public:
   ~polyline();
   int isA(int aType);
   void printSelf();
-  parenCartesianPointListFull * get_points();
-  void set_points(parenCartesianPointListFull * pointsIn);
-private:
   parenCartesianPointListFull * points;
 };
 
@@ -15942,7 +14057,6 @@ class quasiUniformCurve :
   public instance,
   public bSplineCurve
 {
-  friend int yyparse();
 public:
   quasiUniformCurve();
   quasiUniformCurve(
@@ -15972,7 +14086,6 @@ class rationalBSplineCurve :
   public instance,
   public bSplineCurve
 {
-  friend int yyparse();
 public:
   rationalBSplineCurve();
   rationalBSplineCurve(
@@ -15986,9 +14099,6 @@ public:
   ~rationalBSplineCurve();
   int isA(int aType);
   void printSelf();
-  parenRealListFull * get_weightsData();
-  void set_weightsData(parenRealListFull * weightsDataIn);
-private:
   parenRealListFull * weightsData;
 };
 
@@ -16007,7 +14117,6 @@ class reaming :
   public instance,
   public boringOperation
 {
-  friend int yyparse();
 public:
   reaming();
   reaming(
@@ -16048,7 +14157,6 @@ class taperedDrill :
   public instance,
   public twistDrillParent
 {
-  friend int yyparse();
 public:
   taperedDrill();
   taperedDrill(
@@ -16061,9 +14169,6 @@ public:
   ~taperedDrill();
   int isA(int aType);
   void printSelf();
-  real * get_taperAngle();
-  void set_taperAngle(real * taperAngleIn);
-private:
   real * taperAngle;
 };
 
@@ -16082,7 +14187,6 @@ class taperedEndmill :
   public instance,
   public endmill
 {
-  friend int yyparse();
 public:
   taperedEndmill();
   taperedEndmill(
@@ -16095,9 +14199,6 @@ public:
   ~taperedEndmill();
   int isA(int aType);
   void printSelf();
-  real * get_taperAngle();
-  void set_taperAngle(real * taperAngleIn);
-private:
   real * taperAngle;
 };
 
@@ -16116,7 +14217,6 @@ class toolLengthProbing :
   public instance,
   public toolProbing
 {
-  friend int yyparse();
 public:
   toolLengthProbing();
   toolLengthProbing(
@@ -16148,7 +14248,6 @@ class trimmedCurve :
   public instance,
   public boundedCurve
 {
-  friend int yyparse();
 public:
   trimmedCurve();
   trimmedCurve(
@@ -16161,17 +14260,6 @@ public:
   ~trimmedCurve();
   int isA(int aType);
   void printSelf();
-  curve * get_basisCurve();
-  void set_basisCurve(curve * basisCurveIn);
-  parenTrimmingSelectListFull * get_trim1();
-  void set_trim1(parenTrimmingSelectListFull * trim1In);
-  parenTrimmingSelectListFull * get_trim2();
-  void set_trim2(parenTrimmingSelectListFull * trim2In);
-  boolean * get_senseAgreement();
-  void set_senseAgreement(boolean * senseAgreementIn);
-  trimmingPreference * get_masterRepresentation();
-  void set_masterRepresentation(trimmingPreference * masterRepresentationIn);
-private:
   curve * basisCurve;
   parenTrimmingSelectListFull * trim1;
   parenTrimmingSelectListFull * trim2;
@@ -16194,7 +14282,6 @@ class uniformCurve :
   public instance,
   public bSplineCurve
 {
-  friend int yyparse();
 public:
   uniformCurve();
   uniformCurve(
@@ -16224,7 +14311,6 @@ class ballEndmill :
   public instance,
   public endmill
 {
-  friend int yyparse();
 public:
   ballEndmill();
   ballEndmill(
@@ -16253,7 +14339,6 @@ class bezierCurve :
   public instance,
   public bSplineCurve
 {
-  friend int yyparse();
 public:
   bezierCurve();
   bezierCurve(
@@ -16283,7 +14368,6 @@ class boring :
   public instance,
   public boringOperation
 {
-  friend int yyparse();
 public:
   boring();
   boring(
@@ -16324,7 +14408,6 @@ class bullnoseEndmill :
   public instance,
   public endmill
 {
-  friend int yyparse();
 public:
   bullnoseEndmill();
   bullnoseEndmill(
@@ -16353,7 +14436,6 @@ class centerDrilling :
   public instance,
   public drillingOperation
 {
-  friend int yyparse();
 public:
   centerDrilling();
   centerDrilling(
@@ -16391,7 +14473,6 @@ class circle :
   public instance,
   public conic
 {
-  friend int yyparse();
 public:
   circle();
   circle(
@@ -16401,9 +14482,6 @@ public:
   ~circle();
   int isA(int aType);
   void printSelf();
-  double get_radius();
-  void set_radius(double radiusIn);
-private:
   double radius;
 };
 
@@ -16422,7 +14500,6 @@ class counterSinking :
   public instance,
   public drillingOperation
 {
-  friend int yyparse();
 public:
   counterSinking();
   counterSinking(
@@ -16460,7 +14537,6 @@ class drilling :
   public instance,
   public drillingOperation
 {
-  friend int yyparse();
 public:
   drilling();
   drilling(

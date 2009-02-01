@@ -20,7 +20,7 @@
 
   int n;
   int first;
-  char lexbuf[40];
+  char lexbuf[80];
 %}
 
 W [ \t]*

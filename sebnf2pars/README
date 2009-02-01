@@ -27,15 +27,15 @@ INPUT EBNF FILE
 ---------------
 
 An EBNF file corresponding to a particular EXPRESS schema (or schemas)
-needs to be created in order to use the tool. The file should be written in
-ISO standard EBNF (except that a keyword written in all uppercase letters does
-not need to be spelled out in the EBNF files unless its spelling in a
-Part 21 file differs from its spelling as a keyword). Preparing the
-EBNF file is a substantial piece of work for a non-trivial EXPRESS
-schema. Moreover, sebnf2pars supports only a limited number of the
-supertype/subtype relationships that are possible in EXPRESS, so sebnf2pars
-is expected to be useful only for handling ARM-type models which do not use
-complex relationships.
+needs to be created in order to use the tool. The file should be
+written in ISO standard EBNF (except that a keyword written in all
+uppercase letters does not need to be spelled out in the EBNF files
+unless its spelling in a Part 21 file differs from its spelling as a
+keyword). Preparing the EBNF file is a substantial piece of work for a
+non-trivial EXPRESS schema. Moreover, sebnf2pars supports only a
+limited number of the supertype/subtype relationships that are
+possible in EXPRESS, so sebnf2pars is expected to be useful only for
+handling ARM-type models which do not use complex relationships.
 
 The EBNF file must include a section that gives the names of attributes of
 the EXPRESS entities. The section is composed of EBNF comments.
@@ -43,18 +43,26 @@ the EXPRESS entities. The section is composed of EBNF comments.
 C++ CLASSES
 -----------
 
+The user of sebnf2pars has a choice of whether the C++ classes will
+have (1) private data with public access functions to get and set the
+data, or (2) public data which can be get and set directly so that no
+access functions are needed. The choice is made by specifying either
+direct or indirect as the second command argument when sebnf2pars is
+executed.
+
 The C++ classes are covered by two files:
 
 1. a C++ header file defining classes. The header file includes
-   declarations and implementations of constructors, identifying
-   functions, and access functions. It also includes declarations
-   of destructors and printing functions. The class names and the
-   names of attributes in the classes are the same as the names
-   given in the EBNF file.
+   all class declarations and only declarations. The declaration of
+   a class includes:  constructors, destructors, identifying (isA)
+   methods, a printSelf method, and access functions (if needed). The
+   class names and the names of attributes in the classes are the same
+   as the names given in the EBNF file.
 
-2. a C++ code file implementing the classes further. The code file
-   includes destructors and printing functions that enable printing
-   a Part 21 file back out again.
+2. a C++ code file implementing the classes. The code file includes the
+   implementations of constructors, destructors, printSelf methods, isA
+   methods, and access functions (if needed). The printSelf methods
+   enable printing a Part 21 file back out again.
 
 YACC FILE
 ---------
@@ -80,10 +88,11 @@ EXAMPLE - ISO 14649
 -------------------
 
 This directory contains one example of using sebnf2pars. The example
-implements Parts 10 and 11 of ISO 14649 (defining an information model for
-controlling a machining center). The example includes a simple test program
-named iso14649parser that will read in a Part 21 file, print it back out
-again, and print the skeleton of the parse tree built by the parser.
+implements all of Parts 10, 11, and 111 of ISO 14649 (defining an
+information model for controlling a machining center). The example
+includes a simple test program named iso14649parser that will read in
+a Part 21 file, print it back out again, and print the skeleton of the
+parse tree built by the parser.
 
 The files generated automatically for this example have been used to build
 an ISO 14649 interpreter. It is available at
@@ -107,9 +116,9 @@ parsers
       Makefile
       bin (empty - intended for binary files)
       data (four test files)
-      include (two header files)
+      include (four header files)
       ofiles (empty - intended for object files)
-      source (six files in C++, YACC, and Lex)
+      source (fourteen files in C++, YACC, and Lex)
 
 
 COMPILING
@@ -124,6 +133,7 @@ compiler and give the following commands.
 
 2. from the parsers/iso14649 directory:
    make bin/iso14649parser
+   make bin/iso14649parserDirect
 
 If you have a Windows system you are on your own.
 

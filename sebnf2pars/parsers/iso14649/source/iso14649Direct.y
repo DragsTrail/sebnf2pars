@@ -14,7 +14,7 @@
 #include <string.h>  // for strlen, strcpy, strcat
 #include <stdio.h>   // for fopen, etc.
 #include <stdlib.h>  // for exit
-#include "iso14649classes.hh"
+#include "iso14649classesDirect.hh"
 
 #define YYERROR_VERBOSE
 #define YYDEBUG 1
@@ -49,7 +49,7 @@ void link_ ## TYP()\
       else\
 	{\
 	  fprintf(report, "Error: #%d used incorrectly\n",\
-		  instances[*numIter]->get_iId()->get_val());\
+		  instances[*numIter]->iId->val);\
 	  numErrors++;\
 	}\
     }\
@@ -2884,7 +2884,7 @@ advancedFace :
 	  ADVANCEDFACE LPAREN CHARSTRING C parenFaceBoundListFull C instanceId C boolean RPAREN
 	    { $$ = new advancedFace($3, $5, 0, $9);
 	      surface_refs.push_back(&($$->faceGeometry));
-	      surface_nums.push_back($7->get_val());
+	      surface_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -2920,12 +2920,12 @@ alongPath :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      toolpathList_refs.push_back(&($$->path));
-	      toolpathList_nums.push_back($5->get_val());
+	      toolpathList_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -2949,35 +2949,35 @@ apLiftPathAngle :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      cartesianPoint_refs.push_back(&($$->fixPoint));
-	      cartesianPoint_nums.push_back($13->get_val());
+	      cartesianPoint_nums.push_back($13->val);
 	      delete $13;
 	      if ($15)
 		{
 		  $$->fixPointDir = 0;
 		  direction_refs.push_back(&($$->fixPointDir));
-		  direction_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  direction_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	    }
@@ -2992,35 +2992,35 @@ apLiftPathTangent :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      cartesianPoint_refs.push_back(&($$->fixPoint));
-	      cartesianPoint_nums.push_back($13->get_val());
+	      cartesianPoint_nums.push_back($13->val);
 	      delete $13;
 	      if ($15)
 		{
 		  $$->fixPointDir = 0;
 		  direction_refs.push_back(&($$->fixPointDir));
-		  direction_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  direction_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	    }
@@ -3030,7 +3030,7 @@ approval :
 	  APPROVAL LPAREN instanceId C CHARSTRING RPAREN
 	    { $$ = new approval(0, $5);
 	      approvalStatus_refs.push_back(&($$->status));
-	      approvalStatus_nums.push_back($3->get_val());
+	      approvalStatus_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3047,8 +3047,8 @@ apRetractAngle :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -3061,8 +3061,8 @@ apRetractTangent :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -3072,10 +3072,10 @@ assignment :
 	  ASSIGNMENT LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new assignment($3, 0, 0);
 	      ncVariable_refs.push_back(&($$->itsLvalue));
-	      ncVariable_nums.push_back($5->get_val());
+	      ncVariable_nums.push_back($5->val);
 	      delete $5;
 	      rvalue_refs.push_back(&($$->itsRvalue));
-	      rvalue_nums.push_back($7->get_val());
+	      rvalue_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -3089,10 +3089,10 @@ axis1placement :
 	  AXIS1PLACEMENT LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new axis1placement($3, 0, 0);
 	      cartesianPoint_refs.push_back(&($$->location));
-	      cartesianPoint_nums.push_back($5->get_val());
+	      cartesianPoint_nums.push_back($5->val);
 	      delete $5;
 	      direction_refs.push_back(&($$->axis));
-	      direction_nums.push_back($7->get_val());
+	      direction_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -3101,17 +3101,17 @@ axis2placement3d :
 	  AXIS2PLACEMENT3D LPAREN CHARSTRING C instanceId C instanceId C optDirection RPAREN
 	    { $$ = new axis2placement3d($3, 0, 0, $9);
 	      cartesianPoint_refs.push_back(&($$->location));
-	      cartesianPoint_nums.push_back($5->get_val());
+	      cartesianPoint_nums.push_back($5->val);
 	      delete $5;
 	      direction_refs.push_back(&($$->axis));
-	      direction_nums.push_back($7->get_val());
+	      direction_nums.push_back($7->val);
 	      delete $7;
 	      if ($9)
 		{
 		  $$->refDirection = 0;
 		  direction_refs.push_back(&($$->refDirection));
-		  direction_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  direction_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -3122,13 +3122,13 @@ axis2placement3dList :
 	    { $$ = new std::list<axis2placement3d *>;
 	      $$->push_back(0);
 	      axis2placement3d_refs.push_back(&($$->back()));
-	      axis2placement3d_nums.push_back($1->get_val());
+	      axis2placement3d_nums.push_back($1->val);
 	    }
 	| axis2placement3dList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      axis2placement3d_refs.push_back(&($$->back()));
-	      axis2placement3d_nums.push_back($3->get_val());
+	      axis2placement3d_nums.push_back($3->val);
 	    }
 	;
 
@@ -3141,24 +3141,24 @@ axisTrajectory :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -3171,41 +3171,41 @@ backBoring :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -3215,7 +3215,7 @@ backsideCounterbore :
 	  BACKSIDECOUNTERBORE LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new backsideCounterbore(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3224,7 +3224,7 @@ backsideCountersink :
 	  BACKSIDECOUNTERSINK LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new backsideCountersink(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3233,7 +3233,7 @@ ballEndmill :
 	  BALLENDMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new ballEndmill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3255,8 +3255,8 @@ bidirectionalContour :
 		{
 		  $$->feedDirection = 0;
 		  direction_refs.push_back(&($$->feedDirection));
-		  direction_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  direction_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	    }
@@ -3269,8 +3269,8 @@ bidirectionalMilling :
 		{
 		  $$->feedDirection = 0;
 		  direction_refs.push_back(&($$->feedDirection));
-		  direction_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  direction_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	    }
@@ -3280,7 +3280,7 @@ block :
 	  BLOCK LPAREN CHARSTRING C instanceId C REALSTRING C REALSTRING C REALSTRING RPAREN
 	    { $$ = new block($3, 0, $7, $9, $11);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -3297,13 +3297,13 @@ booleanExpressionList :
 	    { $$ = new std::list<booleanExpression *>;
 	      $$->push_back(0);
 	      booleanExpression_refs.push_back(&($$->back()));
-	      booleanExpression_nums.push_back($1->get_val());
+	      booleanExpression_nums.push_back($1->val);
 	    }
 	| booleanExpressionList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      booleanExpression_refs.push_back(&($$->back()));
-	      booleanExpression_nums.push_back($3->get_val());
+	      booleanExpression_nums.push_back($3->val);
 	    }
 	;
 
@@ -3324,49 +3324,49 @@ boring :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	      if ($35)
 		{
 		  $$->waitingPosition = 0;
 		  cartesianPoint_refs.push_back(&($$->waitingPosition));
-		  cartesianPoint_nums.push_back($35->get_iId()->get_val());
-		  delete $35->get_iId();
+		  cartesianPoint_nums.push_back($35->iId->val);
+		  delete $35->iId;
 		  delete $35;
 		}
 	    }
@@ -3376,7 +3376,7 @@ boringTool :
 	  BORINGTOOL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new boringTool(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3385,16 +3385,16 @@ boss :
 	  BOSS LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C optReal RPAREN
 	    { $$ = new boss($3, 0, $7, 0, 0, 0, $15);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      closedProfile_refs.push_back(&($$->itsBoundary));
-	      closedProfile_nums.push_back($13->get_val());
+	      closedProfile_nums.push_back($13->val);
 	      delete $13;
 	    }
 	;
@@ -3404,13 +3404,13 @@ bossList :
 	    { $$ = new std::list<boss *>;
 	      $$->push_back(0);
 	      boss_refs.push_back(&($$->back()));
-	      boss_nums.push_back($1->get_val());
+	      boss_nums.push_back($1->val);
 	    }
 	| bossList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      boss_refs.push_back(&($$->back()));
-	      boss_nums.push_back($3->get_val());
+	      boss_nums.push_back($3->val);
 	    }
 	;
 
@@ -3421,57 +3421,57 @@ bottomAndSideFinishMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -3484,57 +3484,57 @@ bottomAndSideRoughMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -3569,13 +3569,13 @@ boundedCurveList :
 	    { $$ = new std::list<boundedCurve *>;
 	      $$->push_back(0);
 	      boundedCurve_refs.push_back(&($$->back()));
-	      boundedCurve_nums.push_back($1->get_val());
+	      boundedCurve_nums.push_back($1->val);
 	    }
 	| boundedCurveList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      boundedCurve_refs.push_back(&($$->back()));
-	      boundedCurve_nums.push_back($3->get_val());
+	      boundedCurve_nums.push_back($3->val);
 	    }
 	;
 
@@ -3583,10 +3583,10 @@ boundedPCurve :
 	  BOUNDEDPCURVE LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new boundedPCurve($3, 0, 0);
 	      surface_refs.push_back(&($$->basisSurface));
-	      surface_nums.push_back($5->get_val());
+	      surface_nums.push_back($5->val);
 	      delete $5;
 	      definitionalRepresentation_refs.push_back(&($$->referenceToCurve));
-	      definitionalRepresentation_nums.push_back($7->get_val());
+	      definitionalRepresentation_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -3596,13 +3596,13 @@ boundedSurfaceList :
 	    { $$ = new std::list<boundedSurface *>;
 	      $$->push_back(0);
 	      boundedSurface_refs.push_back(&($$->back()));
-	      boundedSurface_nums.push_back($1->get_val());
+	      boundedSurface_nums.push_back($1->val);
 	    }
 	| boundedSurfaceList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      boundedSurface_refs.push_back(&($$->back()));
-	      boundedSurface_nums.push_back($3->get_val());
+	      boundedSurface_nums.push_back($3->val);
 	    }
 	;
 
@@ -3745,7 +3745,7 @@ bullnoseEndmill :
 	  BULLNOSEENDMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new bullnoseEndmill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3765,13 +3765,13 @@ cartesianPointList :
 	    { $$ = new std::list<cartesianPoint *>;
 	      $$->push_back(0);
 	      cartesianPoint_refs.push_back(&($$->back()));
-	      cartesianPoint_nums.push_back($1->get_val());
+	      cartesianPoint_nums.push_back($1->val);
 	    }
 	| cartesianPointList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      cartesianPoint_refs.push_back(&($$->back()));
-	      cartesianPoint_nums.push_back($3->get_val());
+	      cartesianPoint_nums.push_back($3->val);
 	    }
 	;
 
@@ -3779,39 +3779,39 @@ catalogueThread :
 	  CATALOGUETHREAD LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C parenMachiningFeatureListFull C boolean C optDescriptiveParameter C instanceId C instanceId C REALSTRING C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new catalogueThread($3, 0, $7, 0, 0, 0, $15, $17, $19, 0, 0, $25, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      partialAreaDefinition_refs.push_back(&($$->partialProfile));
-	      partialAreaDefinition_nums.push_back($13->get_val());
+	      partialAreaDefinition_nums.push_back($13->val);
 	      delete $13;
 	      if ($19)
 		{
 		  $$->qualifier = 0;
 		  descriptiveParameter_refs.push_back(&($$->qualifier));
-		  descriptiveParameter_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  descriptiveParameter_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	      descriptiveParameter_refs.push_back(&($$->fitClass));
-	      descriptiveParameter_nums.push_back($21->get_val());
+	      descriptiveParameter_nums.push_back($21->val);
 	      delete $21;
 	      descriptiveParameter_refs.push_back(&($$->form));
-	      descriptiveParameter_nums.push_back($23->get_val());
+	      descriptiveParameter_nums.push_back($23->val);
 	      delete $23;
 	      numericParameter_refs.push_back(&($$->numberOfThreads));
-	      numericParameter_nums.push_back($27->get_val());
+	      numericParameter_nums.push_back($27->val);
 	      delete $27;
 	      descriptiveParameter_refs.push_back(&($$->threadHand));
-	      descriptiveParameter_nums.push_back($29->get_val());
+	      descriptiveParameter_nums.push_back($29->val);
 	      delete $29;
 	      specification_refs.push_back(&($$->documentation));
-	      specification_nums.push_back($31->get_val());
+	      specification_nums.push_back($31->val);
 	      delete $31;
 	    }
 	;
@@ -3820,7 +3820,7 @@ centerDrill :
 	  CENTERDRILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new centerDrill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -3832,41 +3832,41 @@ centerDrilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -3881,16 +3881,16 @@ chamfer :
 	  CHAMFER LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C REALSTRING C instanceId RPAREN
 	    { $$ = new chamfer($3, 0, $7, 0, 0, $13, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      machiningFeature_refs.push_back(&($$->firstFeature));
-	      machiningFeature_nums.push_back($9->get_val());
+	      machiningFeature_nums.push_back($9->val);
 	      delete $9;
 	      machiningFeature_refs.push_back(&($$->secondFeature));
-	      machiningFeature_nums.push_back($11->get_val());
+	      machiningFeature_nums.push_back($11->val);
 	      delete $11;
 	      tolerancedLengthMeasure_refs.push_back(&($$->firstOffsetAmount));
-	      tolerancedLengthMeasure_nums.push_back($15->get_val());
+	      tolerancedLengthMeasure_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -3904,7 +3904,7 @@ circle :
 	  CIRCLE LPAREN CHARSTRING C instanceId C REALSTRING RPAREN
 	    { $$ = new circle($3, 0, $7);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -3916,12 +3916,12 @@ circularClosedProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->diameter));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -3930,25 +3930,25 @@ circularClosedShapeProfile :
 	  CIRCULARCLOSEDSHAPEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new circularClosedShapeProfile($3, 0, $7, 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profileSelect_refs.push_back(&($$->floorCondition));
-	      profileSelect_nums.push_back($15->get_val());
+	      profileSelect_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->removalDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      circularClosedProfile_refs.push_back(&($$->closedBoundary));
-	      circularClosedProfile_nums.push_back($19->get_val());
+	      circularClosedProfile_nums.push_back($19->val);
 	      delete $19;
 	    }
 	;
@@ -3963,13 +3963,13 @@ circularOffsetList :
 	    { $$ = new std::list<circularOffset *>;
 	      $$->push_back(0);
 	      circularOffset_refs.push_back(&($$->back()));
-	      circularOffset_nums.push_back($1->get_val());
+	      circularOffset_nums.push_back($1->val);
 	    }
 	| circularOffsetList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      circularOffset_refs.push_back(&($$->back()));
-	      circularOffset_nums.push_back($3->get_val());
+	      circularOffset_nums.push_back($3->val);
 	    }
 	;
 
@@ -3983,13 +3983,13 @@ circularOmitList :
 	    { $$ = new std::list<circularOmit *>;
 	      $$->push_back(0);
 	      circularOmit_refs.push_back(&($$->back()));
-	      circularOmit_nums.push_back($1->get_val());
+	      circularOmit_nums.push_back($1->val);
 	    }
 	| circularOmitList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      circularOmit_refs.push_back(&($$->back()));
-	      circularOmit_nums.push_back($3->get_val());
+	      circularOmit_nums.push_back($3->val);
 	    }
 	;
 
@@ -3997,20 +3997,20 @@ circularPattern :
 	  CIRCULARPATTERN LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C REALSTRING C INTSTRING C parenCircularOffsetList C parenCircularOmitList C optTolerancedLengthMeasure C REALSTRING RPAREN
 	    { $$ = new circularPattern($3, 0, $7, 0, 0, $13, $15, $17, $19, $21, $23);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      two5DmanufacturingFeature_refs.push_back(&($$->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back($11->get_val());
+	      two5DmanufacturingFeature_nums.push_back($11->val);
 	      delete $11;
 	      if ($21)
 		{
 		  $$->baseFeatureDiameter = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->baseFeatureDiameter));
-		  tolerancedLengthMeasure_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	    }
@@ -4020,35 +4020,35 @@ closedPocket :
 	  CLOSEDPOCKET LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C parenBossList C optReal C instanceId C optTolerancedLengthMeasure C optTolerancedLengthMeasure C instanceId RPAREN
 	    { $$ = new closedPocket($3, 0, $7, 0, 0, $13, $15, 0, $19, $21, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      pocketBottomCondition_refs.push_back(&($$->bottomCondition));
-	      pocketBottomCondition_nums.push_back($17->get_val());
+	      pocketBottomCondition_nums.push_back($17->val);
 	      delete $17;
 	      if ($19)
 		{
 		  $$->planarRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->planarRadius));
-		  tolerancedLengthMeasure_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	      if ($21)
 		{
 		  $$->orthogonalRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->orthogonalRadius));
-		  tolerancedLengthMeasure_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      closedProfile_refs.push_back(&($$->featureBoundary));
-	      closedProfile_nums.push_back($23->get_val());
+	      closedProfile_nums.push_back($23->val);
 	      delete $23;
 	    }
 	;
@@ -4062,7 +4062,7 @@ combinedDrillAndReamer :
 	  COMBINEDDRILLANDREAMER LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new combinedDrillAndReamer(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4071,7 +4071,7 @@ combinedDrillAndTap :
 	  COMBINEDDRILLANDTAP LPAREN instanceId C optInteger C optHand C optBoolean C optReal optReal RPAREN
 	    { $$ = new combinedDrillAndTap(0, $5, $7, $9, $11, $12);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4080,10 +4080,10 @@ comparisonEqual :
 	  COMPARISONEQUAL LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonEqual(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4092,10 +4092,10 @@ comparisonGreater :
 	  COMPARISONGREATER LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonGreater(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4104,10 +4104,10 @@ comparisonGreaterEqual :
 	  COMPARISONGREATEREQUAL LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonGreaterEqual(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4116,10 +4116,10 @@ comparisonLess :
 	  COMPARISONLESS LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonLess(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4128,10 +4128,10 @@ comparisonLessEqual :
 	  COMPARISONLESSEQUAL LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonLessEqual(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4140,10 +4140,10 @@ comparisonNotEqual :
 	  COMPARISONNOTEQUAL LPAREN instanceId C instanceId RPAREN
 	    { $$ = new comparisonNotEqual(0, 0);
 	      ncVariable_refs.push_back(&($$->operand1));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	      delete $3;
 	      rvalue_refs.push_back(&($$->operand2));
-	      rvalue_nums.push_back($5->get_val());
+	      rvalue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4155,12 +4155,12 @@ completeCircularPath :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4174,7 +4174,7 @@ compositeCurveSegment :
 	  COMPOSITECURVESEGMENT LPAREN transitionCode C boolean C instanceId RPAREN
 	    { $$ = new compositeCurveSegment($3, $5, 0);
 	      curve_refs.push_back(&($$->parentCurve));
-	      curve_nums.push_back($7->get_val());
+	      curve_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -4184,13 +4184,13 @@ compositeCurveSegmentList :
 	    { $$ = new std::list<compositeCurveSegment *>;
 	      $$->push_back(0);
 	      compositeCurveSegment_refs.push_back(&($$->back()));
-	      compositeCurveSegment_nums.push_back($1->get_val());
+	      compositeCurveSegment_nums.push_back($1->val);
 	    }
 	| compositeCurveSegmentList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      compositeCurveSegment_refs.push_back(&($$->back()));
-	      compositeCurveSegment_nums.push_back($3->get_val());
+	      compositeCurveSegment_nums.push_back($3->val);
 	    }
 	;
 
@@ -4199,13 +4199,13 @@ compoundFeatureSelectList :
 	    { $$ = new std::list<compoundFeatureSelect *>;
 	      $$->push_back(0);
 	      compoundFeatureSelect_refs.push_back(&($$->back()));
-	      compoundFeatureSelect_nums.push_back($1->get_val());
+	      compoundFeatureSelect_nums.push_back($1->val);
 	    }
 	| compoundFeatureSelectList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      compoundFeatureSelect_refs.push_back(&($$->back()));
-	      compoundFeatureSelect_nums.push_back($3->get_val());
+	      compoundFeatureSelect_nums.push_back($3->val);
 	    }
 	;
 
@@ -4216,8 +4216,8 @@ conicalHoleBottom :
 		{
 		  $$->tipRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->tipRadius));
-		  tolerancedLengthMeasure_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	    }
@@ -4232,24 +4232,24 @@ connectDirect :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -4264,40 +4264,40 @@ connectSecplane :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      if ($13)
 		{
 		  $$->upDir = 0;
 		  direction_refs.push_back(&($$->upDir));
-		  direction_nums.push_back($13->get_iId()->get_val());
-		  delete $13->get_iId();
+		  direction_nums.push_back($13->iId->val);
+		  delete $13->iId;
 		  delete $13;
 		}
 	      if ($15)
 		{
 		  $$->downDir = 0;
 		  direction_refs.push_back(&($$->downDir));
-		  direction_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  direction_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	    }
@@ -4327,8 +4327,8 @@ contourBidirectional :
 		{
 		  $$->feedDirection = 0;
 		  direction_refs.push_back(&($$->feedDirection));
-		  direction_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  direction_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	    }
@@ -4353,7 +4353,7 @@ counterbore :
 	  COUNTERBORE LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new counterbore(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4362,10 +4362,10 @@ counterboreHole :
 	  COUNTERBOREHOLE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C parenCompoundFeatureSelectListFull RPAREN
 	    { $$ = new counterboreHole($3, 0, $7, 0, $11);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	    }
 	;
@@ -4374,7 +4374,7 @@ countersink :
 	  COUNTERSINK LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new countersink(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4386,41 +4386,41 @@ counterSinking :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -4430,10 +4430,10 @@ countersunkHole :
 	  COUNTERSUNKHOLE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C parenCompoundFeatureSelectListFull RPAREN
 	    { $$ = new countersunkHole($3, 0, $7, 0, $11);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	    }
 	;
@@ -4442,10 +4442,10 @@ curveWithNormalVector :
 	  CURVEWITHNORMALVECTOR LPAREN instanceId C instanceId RPAREN
 	    { $$ = new curveWithNormalVector(0, 0);
 	      boundedCurve_refs.push_back(&($$->basiccurve));
-	      boundedCurve_nums.push_back($3->get_val());
+	      boundedCurve_nums.push_back($3->val);
 	      delete $3;
 	      boundedCurve_refs.push_back(&($$->surfaceNormal));
-	      boundedCurve_nums.push_back($5->get_val());
+	      boundedCurve_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4476,35 +4476,35 @@ cutterContactTrajectory :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      curveWithSurfaceNormalSelect_refs.push_back(&($$->basiccurve));
-	      curveWithSurfaceNormalSelect_nums.push_back($15->get_val());
+	      curveWithSurfaceNormalSelect_nums.push_back($15->val);
 	      delete $15;
 	      if ($17)
 		{
 		  $$->itsToolaxis = 0;
 		  boundedCurve_refs.push_back(&($$->itsToolaxis));
-		  boundedCurve_nums.push_back($17->get_iId()->get_val());
-		  delete $17->get_iId();
+		  boundedCurve_nums.push_back($17->iId->val);
+		  delete $17->iId;
 		  delete $17;
 		}
 	    }
@@ -4519,43 +4519,43 @@ cutterLocationTrajectory :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      boundedCurve_refs.push_back(&($$->basiccurve));
-	      boundedCurve_nums.push_back($15->get_val());
+	      boundedCurve_nums.push_back($15->val);
 	      delete $15;
 	      if ($17)
 		{
 		  $$->itsToolaxis = 0;
 		  boundedCurve_refs.push_back(&($$->itsToolaxis));
-		  boundedCurve_nums.push_back($17->get_iId()->get_val());
-		  delete $17->get_iId();
+		  boundedCurve_nums.push_back($17->iId->val);
+		  delete $17->iId;
 		  delete $17;
 		}
 	      if ($19)
 		{
 		  $$->surfaceNormal = 0;
 		  boundedCurve_refs.push_back(&($$->surfaceNormal));
-		  boundedCurve_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  boundedCurve_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	    }
@@ -4568,24 +4568,24 @@ cuttingComponent :
 		{
 		  $$->itsMaterial = 0;
 		  material_refs.push_back(&($$->itsMaterial));
-		  material_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  material_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($7)
 		{
 		  $$->technologicalData = 0;
 		  cuttingEdgeTechnologicalData_refs.push_back(&($$->technologicalData));
-		  cuttingEdgeTechnologicalData_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  cuttingEdgeTechnologicalData_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($11)
 		{
 		  $$->itsTechnology = 0;
 		  millingTechnology_refs.push_back(&($$->itsTechnology));
-		  millingTechnology_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  millingTechnology_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -4596,13 +4596,13 @@ cuttingComponentList :
 	    { $$ = new std::list<cuttingComponent *>;
 	      $$->push_back(0);
 	      cuttingComponent_refs.push_back(&($$->back()));
-	      cuttingComponent_nums.push_back($1->get_val());
+	      cuttingComponent_nums.push_back($1->val);
 	    }
 	| cuttingComponentList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      cuttingComponent_refs.push_back(&($$->back()));
-	      cuttingComponent_nums.push_back($3->get_val());
+	      cuttingComponent_nums.push_back($3->val);
 	    }
 	;
 
@@ -4625,10 +4625,10 @@ dateAndTime :
 	  DATEANDTIME LPAREN instanceId C instanceId RPAREN
 	    { $$ = new dateAndTime(0, 0);
 	      date_refs.push_back(&($$->dateComponent));
-	      date_nums.push_back($3->get_val());
+	      date_nums.push_back($3->val);
 	      delete $3;
 	      localTime_refs.push_back(&($$->timeComponent));
-	      localTime_nums.push_back($5->get_val());
+	      localTime_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4637,36 +4637,36 @@ definedThread :
 	  DEFINEDTHREAD LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C parenMachiningFeatureListFull C boolean C optDescriptiveParameter C instanceId C instanceId C REALSTRING C instanceId C instanceId C REALSTRING C optReal C optReal RPAREN
 	    { $$ = new definedThread($3, 0, $7, 0, 0, 0, $15, $17, $19, 0, 0, $25, 0, 0, $31, $33, $35);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      partialAreaDefinition_refs.push_back(&($$->partialProfile));
-	      partialAreaDefinition_nums.push_back($13->get_val());
+	      partialAreaDefinition_nums.push_back($13->val);
 	      delete $13;
 	      if ($19)
 		{
 		  $$->qualifier = 0;
 		  descriptiveParameter_refs.push_back(&($$->qualifier));
-		  descriptiveParameter_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  descriptiveParameter_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	      descriptiveParameter_refs.push_back(&($$->fitClass));
-	      descriptiveParameter_nums.push_back($21->get_val());
+	      descriptiveParameter_nums.push_back($21->val);
 	      delete $21;
 	      descriptiveParameter_refs.push_back(&($$->form));
-	      descriptiveParameter_nums.push_back($23->get_val());
+	      descriptiveParameter_nums.push_back($23->val);
 	      delete $23;
 	      numericParameter_refs.push_back(&($$->numberOfThreads));
-	      numericParameter_nums.push_back($27->get_val());
+	      numericParameter_nums.push_back($27->val);
 	      delete $27;
 	      descriptiveParameter_refs.push_back(&($$->threadHand));
-	      descriptiveParameter_nums.push_back($29->get_val());
+	      descriptiveParameter_nums.push_back($29->val);
 	      delete $29;
 	    }
 	;
@@ -4685,7 +4685,7 @@ diameterTaper :
 	  DIAMETERTAPER LPAREN instanceId RPAREN
 	    { $$ = new diameterTaper(0);
 	      tolerancedLengthMeasure_refs.push_back(&($$->finalDiameter));
-	      tolerancedLengthMeasure_nums.push_back($3->get_val());
+	      tolerancedLengthMeasure_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4704,7 +4704,7 @@ dovetailMill :
 	  DOVETAILMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new dovetailMill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4716,41 +4716,41 @@ drilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -4765,13 +4765,13 @@ edgeCurve :
 	  EDGECURVE LPAREN CHARSTRING C instanceId C instanceId C instanceId C boolean RPAREN
 	    { $$ = new edgeCurve($3, 0, 0, 0, $11);
 	      vertex_refs.push_back(&($$->edgeStart));
-	      vertex_nums.push_back($5->get_val());
+	      vertex_nums.push_back($5->val);
 	      delete $5;
 	      vertex_refs.push_back(&($$->edgeEnd));
-	      vertex_nums.push_back($7->get_val());
+	      vertex_nums.push_back($7->val);
 	      delete $7;
 	      curve_refs.push_back(&($$->edgeGeometry));
-	      curve_nums.push_back($9->get_val());
+	      curve_nums.push_back($9->val);
 	      delete $9;
 	    }
 	;
@@ -4785,31 +4785,31 @@ edgeRound :
 	  EDGEROUND LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C optTolerancedLengthMeasure C optTolerancedLengthMeasure RPAREN
 	    { $$ = new edgeRound($3, 0, $7, 0, 0, 0, $15, $17);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      machiningFeature_refs.push_back(&($$->firstFeature));
-	      machiningFeature_nums.push_back($9->get_val());
+	      machiningFeature_nums.push_back($9->val);
 	      delete $9;
 	      machiningFeature_refs.push_back(&($$->secondFeature));
-	      machiningFeature_nums.push_back($11->get_val());
+	      machiningFeature_nums.push_back($11->val);
 	      delete $11;
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($13->get_val());
+	      tolerancedLengthMeasure_nums.push_back($13->val);
 	      delete $13;
 	      if ($15)
 		{
 		  $$->firstOffsetAmount = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->firstOffsetAmount));
-		  tolerancedLengthMeasure_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	      if ($17)
 		{
 		  $$->secondOffsetAmount = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->secondOffsetAmount));
-		  tolerancedLengthMeasure_nums.push_back($17->get_iId()->get_val());
-		  delete $17->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($17->iId->val);
+		  delete $17->iId;
 		  delete $17;
 		}
 	    }
@@ -4819,7 +4819,7 @@ ellipse :
 	  ELLIPSE LPAREN CHARSTRING C instanceId C REALSTRING C REALSTRING RPAREN
 	    { $$ = new ellipse($3, 0, $7, $9);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4839,13 +4839,13 @@ executableList :
 	    { $$ = new std::list<executable *>;
 	      $$->push_back(0);
 	      executable_refs.push_back(&($$->back()));
-	      executable_nums.push_back($1->get_val());
+	      executable_nums.push_back($1->val);
 	    }
 	| executableList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      executable_refs.push_back(&($$->back()));
-	      executable_nums.push_back($3->get_val());
+	      executable_nums.push_back($3->val);
 	    }
 	;
 
@@ -4859,13 +4859,13 @@ faceList :
 	    { $$ = new std::list<face *>;
 	      $$->push_back(0);
 	      face_refs.push_back(&($$->back()));
-	      face_nums.push_back($1->get_val());
+	      face_nums.push_back($1->val);
 	    }
 	| faceList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      face_refs.push_back(&($$->back()));
-	      face_nums.push_back($3->get_val());
+	      face_nums.push_back($3->val);
 	    }
 	;
 
@@ -4873,7 +4873,7 @@ facemill :
 	  FACEMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new facemill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -4882,7 +4882,7 @@ faceBound :
 	  FACEBOUND LPAREN CHARSTRING C instanceId C boolean RPAREN
 	    { $$ = new faceBound($3, 0, $7);
 	      loop_refs.push_back(&($$->bound));
-	      loop_nums.push_back($5->get_val());
+	      loop_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4892,13 +4892,13 @@ faceBoundList :
 	    { $$ = new std::list<faceBound *>;
 	      $$->push_back(0);
 	      faceBound_refs.push_back(&($$->back()));
-	      faceBound_nums.push_back($1->get_val());
+	      faceBound_nums.push_back($1->val);
 	    }
 	| faceBoundList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      faceBound_refs.push_back(&($$->back()));
-	      faceBound_nums.push_back($3->get_val());
+	      faceBound_nums.push_back($3->val);
 	    }
 	;
 
@@ -4906,7 +4906,7 @@ faceOuterBound :
 	  FACEOUTERBOUND LPAREN CHARSTRING C instanceId C boolean RPAREN
 	    { $$ = new faceOuterBound($3, 0, $7);
 	      loop_refs.push_back(&($$->bound));
-	      loop_nums.push_back($5->get_val());
+	      loop_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -4920,24 +4920,24 @@ feedstop :
 		  v = dynamic_cast<toolpathSpeed *>($7);
 		  $$->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&($$->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsTechnology = 0;
 		  technology_refs.push_back(&($$->itsTechnology));
-		  technology_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  technology_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-		  machineFunctions_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  machineFunctions_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -5029,10 +5029,10 @@ flatSlotEndType :
 	  FLATSLOTENDTYPE LPAREN instanceId C instanceId RPAREN
 	    { $$ = new flatSlotEndType(0, 0);
 	      tolerancedLengthMeasure_refs.push_back(&($$->cornerRadius1));
-	      tolerancedLengthMeasure_nums.push_back($3->get_val());
+	      tolerancedLengthMeasure_nums.push_back($3->val);
 	      delete $3;
 	      tolerancedLengthMeasure_refs.push_back(&($$->cornerRadius2));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5041,7 +5041,7 @@ flatWithRadiusHoleBottom :
 	  FLATWITHRADIUSHOLEBOTTOM LPAREN instanceId RPAREN
 	    { $$ = new flatWithRadiusHoleBottom(0);
 	      tolerancedLengthMeasure_refs.push_back(&($$->cornerRadius));
-	      tolerancedLengthMeasure_nums.push_back($3->get_val());
+	      tolerancedLengthMeasure_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -5053,57 +5053,57 @@ freeformOperation :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  freeformStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  freeformStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  freeformStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -5116,12 +5116,12 @@ generalClosedProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      boundedCurve_refs.push_back(&($$->closedProfileShape));
-	      boundedCurve_nums.push_back($5->get_val());
+	      boundedCurve_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5130,19 +5130,19 @@ generalOutsideProfile :
 	  GENERALOUTSIDEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new generalOutsideProfile($3, 0, $7, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profile_refs.push_back(&($$->featureBoundary));
-	      profile_nums.push_back($15->get_val());
+	      profile_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -5154,12 +5154,12 @@ generalPath :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      boundedCurve_refs.push_back(&($$->sweptPath));
-	      boundedCurve_nums.push_back($5->get_val());
+	      boundedCurve_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5168,13 +5168,13 @@ generalPattern :
 	  GENERALPATTERN LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C parenAxis2placement3dListFull RPAREN
 	    { $$ = new generalPattern($3, 0, $7, 0, 0, $13);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      two5DmanufacturingFeature_refs.push_back(&($$->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back($11->get_val());
+	      two5DmanufacturingFeature_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -5183,7 +5183,7 @@ generalPocketBottomCondition :
 	  GENERALPOCKETBOTTOMCONDITION LPAREN instanceId RPAREN
 	    { $$ = new generalPocketBottomCondition(0);
 	      region_refs.push_back(&($$->shape));
-	      region_nums.push_back($3->get_val());
+	      region_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -5195,12 +5195,12 @@ generalProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      boundedCurve_refs.push_back(&($$->itsProfile));
-	      boundedCurve_nums.push_back($5->get_val());
+	      boundedCurve_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5209,7 +5209,7 @@ generalProfileFloor :
 	  GENERALPROFILEFLOOR LPAREN optReal C boolean C instanceId RPAREN
 	    { $$ = new generalProfileFloor($3, $5, 0);
 	      face_refs.push_back(&($$->floor));
-	      face_nums.push_back($7->get_val());
+	      face_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -5218,25 +5218,25 @@ generalShapeProfile :
 	  GENERALSHAPEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new generalShapeProfile($3, 0, $7, 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profileSelect_refs.push_back(&($$->floorCondition));
-	      profileSelect_nums.push_back($15->get_val());
+	      profileSelect_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->removalDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      profile_refs.push_back(&($$->profileBoundary));
-	      profile_nums.push_back($19->get_val());
+	      profile_nums.push_back($19->val);
 	      delete $19;
 	    }
 	;
@@ -5279,7 +5279,7 @@ helix :
 	  HELIX LPAREN CHARSTRING C instanceId C REALSTRING C REALSTRING RPAREN
 	    { $$ = new helix($3, 0, $7, $9);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5288,7 +5288,7 @@ hyperbola :
 	  HYPERBOLA LPAREN CHARSTRING C instanceId C REALSTRING C REALSTRING RPAREN
 	    { $$ = new hyperbola($3, 0, $7, $9);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5297,17 +5297,17 @@ ifStatement :
 	  IFSTATEMENT LPAREN CHARSTRING C instanceId C instanceId C optExecutable RPAREN
 	    { $$ = new ifStatement($3, 0, 0, $9);
 	      booleanExpression_refs.push_back(&($$->condition));
-	      booleanExpression_nums.push_back($5->get_val());
+	      booleanExpression_nums.push_back($5->val);
 	      delete $5;
 	      executable_refs.push_back(&($$->trueBranch));
-	      executable_nums.push_back($7->get_val());
+	      executable_nums.push_back($7->val);
 	      delete $7;
 	      if ($9)
 		{
 		  $$->falseBranch = 0;
 		  executable_refs.push_back(&($$->falseBranch));
-		  executable_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  executable_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -5330,24 +5330,24 @@ inProcessGeometry :
 		{
 		  $$->asIs = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&($$->asIs));
-		  advancedBrepShapeRepresentation_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->toBe = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&($$->toBe));
-		  advancedBrepShapeRepresentation_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($7)
 		{
 		  $$->removal = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&($$->removal));
-		  advancedBrepShapeRepresentation_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	    }
@@ -5371,8 +5371,8 @@ instancePlus :
 	  instanceId EQUALS instance SEMICOLON
 	    { int n;
 	      $$ = $3;
-	      $3->set_iId($1);
-	      n = $1->get_val();
+	      $3->iId = $1;
+	      n = $1->val;
 	      if (n < INSTANCEMAX)
 		{
 		  if (instances[n])
@@ -5445,10 +5445,10 @@ leadingLineStrategy :
 	  LEADINGLINESTRATEGY LPAREN pathmodeType C cutmodeType C instanceId C optReal C instanceId RPAREN
 	    { $$ = new leadingLineStrategy($3, $5, 0, $9, 0);
 	      tolerances_refs.push_back(&($$->itsMillingTolerances));
-	      tolerances_nums.push_back($7->get_val());
+	      tolerances_nums.push_back($7->val);
 	      delete $7;
 	      boundedCurve_refs.push_back(&($$->itsLine));
-	      boundedCurve_nums.push_back($11->get_val());
+	      boundedCurve_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -5479,10 +5479,10 @@ line :
 	  LINE LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new line($3, 0, 0);
 	      cartesianPoint_refs.push_back(&($$->pnt));
-	      cartesianPoint_nums.push_back($5->get_val());
+	      cartesianPoint_nums.push_back($5->val);
 	      delete $5;
 	      vector_refs.push_back(&($$->dir));
-	      vector_nums.push_back($7->get_val());
+	      vector_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -5494,15 +5494,15 @@ linearPath :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->distance));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	      direction_refs.push_back(&($$->itsDirection));
-	      direction_nums.push_back($7->get_val());
+	      direction_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -5514,12 +5514,12 @@ linearProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      numericParameter_refs.push_back(&($$->profileLength));
-	      numericParameter_nums.push_back($5->get_val());
+	      numericParameter_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5528,7 +5528,7 @@ loadTool :
 	  LOADTOOL LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new loadTool($3, 0);
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($5->get_val());
+	      machiningTool_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5537,7 +5537,7 @@ localTime :
 	  LOCALTIME LPAREN INTSTRING optInteger optReal instanceId RPAREN
 	    { $$ = new localTime($3, $4, $5, 0);
 	      coordinatedUniversalTimeOffset_refs.push_back(&($$->zone));
-	      coordinatedUniversalTimeOffset_nums.push_back($6->get_val());
+	      coordinatedUniversalTimeOffset_nums.push_back($6->val);
 	      delete $6;
 	    }
 	;
@@ -5575,7 +5575,7 @@ machinedSurface :
 	  MACHINEDSURFACE LPAREN instanceId C bottomOrSide RPAREN
 	    { $$ = new machinedSurface(0, $5);
 	      machiningFeature_refs.push_back(&($$->itsMachiningFeature));
-	      machiningFeature_nums.push_back($3->get_val());
+	      machiningFeature_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -5585,13 +5585,13 @@ machinedSurfaceList :
 	    { $$ = new std::list<machinedSurface *>;
 	      $$->push_back(0);
 	      machinedSurface_refs.push_back(&($$->back()));
-	      machinedSurface_nums.push_back($1->get_val());
+	      machinedSurface_nums.push_back($1->val);
 	    }
 	| machinedSurfaceList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      machinedSurface_refs.push_back(&($$->back()));
-	      machinedSurface_nums.push_back($3->get_val());
+	      machinedSurface_nums.push_back($3->val);
 	    }
 	;
 
@@ -5600,13 +5600,13 @@ machiningFeatureList :
 	    { $$ = new std::list<machiningFeature *>;
 	      $$->push_back(0);
 	      machiningFeature_refs.push_back(&($$->back()));
-	      machiningFeature_nums.push_back($1->get_val());
+	      machiningFeature_nums.push_back($1->val);
 	    }
 	| machiningFeatureList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      machiningFeature_refs.push_back(&($$->back()));
-	      machiningFeature_nums.push_back($3->get_val());
+	      machiningFeature_nums.push_back($3->val);
 	    }
 	;
 
@@ -5615,13 +5615,13 @@ machiningOperationList :
 	    { $$ = new std::list<machiningOperation *>;
 	      $$->push_back(0);
 	      machiningOperation_refs.push_back(&($$->back()));
-	      machiningOperation_nums.push_back($1->get_val());
+	      machiningOperation_nums.push_back($1->val);
 	    }
 	| machiningOperationList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      machiningOperation_refs.push_back(&($$->back()));
-	      machiningOperation_nums.push_back($3->get_val());
+	      machiningOperation_nums.push_back($3->val);
 	    }
 	;
 
@@ -5629,20 +5629,20 @@ machiningWorkingstep :
 	  MACHININGWORKINGSTEP LPAREN CHARSTRING C instanceId C instanceId C instanceId C optInProcessGeometry RPAREN
 	    { $$ = new machiningWorkingstep($3, 0, 0, 0, $11);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      manufacturingFeature_refs.push_back(&($$->itsFeature));
-	      manufacturingFeature_nums.push_back($7->get_val());
+	      manufacturingFeature_nums.push_back($7->val);
 	      delete $7;
 	      machiningOperation_refs.push_back(&($$->itsOperation));
-	      machiningOperation_nums.push_back($9->get_val());
+	      machiningOperation_nums.push_back($9->val);
 	      delete $9;
 	      if ($11)
 		{
 		  $$->itsEffect = 0;
 		  inProcessGeometry_refs.push_back(&($$->itsEffect));
-		  inProcessGeometry_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  inProcessGeometry_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -5652,7 +5652,7 @@ manifoldSolidBrep :
 	  MANIFOLDSOLIDBREP LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new manifoldSolidBrep($3, 0);
 	      closedShell_refs.push_back(&($$->outer));
-	      closedShell_nums.push_back($5->get_val());
+	      closedShell_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5666,14 +5666,14 @@ millingCuttingTool :
 	  MILLINGCUTTINGTOOL LPAREN CHARSTRING C instanceId C parenCuttingComponentListFull C optReal C optDirection C optReal RPAREN
 	    { $$ = new millingCuttingTool($3, 0, $7, $9, $11, $13);
 	      toolBody_refs.push_back(&($$->itsToolBody));
-	      toolBody_nums.push_back($5->get_val());
+	      toolBody_nums.push_back($5->val);
 	      delete $5;
 	      if ($11)
 		{
 		  $$->directionForSpindleOrientation = 0;
 		  direction_refs.push_back(&($$->directionForSpindleOrientation));
-		  direction_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  direction_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -5686,16 +5686,16 @@ millingMachineFunctions :
 		{
 		  $$->orientedSpindleStop = 0;
 		  direction_refs.push_back(&($$->orientedSpindleStop));
-		  direction_nums.push_back($17->get_iId()->get_val());
-		  delete $17->get_iId();
+		  direction_nums.push_back($17->iId->val);
+		  delete $17->iId;
 		  delete $17;
 		}
 	      if ($19)
 		{
 		  $$->itsProcessModel = 0;
 		  processModelList_refs.push_back(&($$->itsProcessModel));
-		  processModelList_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  processModelList_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	    }
@@ -5710,7 +5710,7 @@ millingThreadingTool :
 	  MILLINGTHREADINGTOOL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new millingThreadingTool(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -5727,41 +5727,41 @@ multistepDrilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -5782,13 +5782,13 @@ ncVariableList :
 	    { $$ = new std::list<ncVariable *>;
 	      $$->push_back(0);
 	      ncVariable_refs.push_back(&($$->back()));
-	      ncVariable_nums.push_back($1->get_val());
+	      ncVariable_nums.push_back($1->val);
 	    }
 	| ncVariableList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      ncVariable_refs.push_back(&($$->back()));
-	      ncVariable_nums.push_back($3->get_val());
+	      ncVariable_nums.push_back($3->val);
 	    }
 	;
 
@@ -5799,12 +5799,12 @@ ngonClosedProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->diameter));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -5818,7 +5818,7 @@ notExpression :
 	  NOTEXPRESSION LPAREN instanceId RPAREN
 	    { $$ = new notExpression(0);
 	      booleanExpression_refs.push_back(&($$->operand));
-	      booleanExpression_nums.push_back($3->get_val());
+	      booleanExpression_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -5837,42 +5837,42 @@ openPocket :
 	  OPENPOCKET LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C parenBossList C optReal C instanceId C optTolerancedLengthMeasure C optTolerancedLengthMeasure C instanceId C optOpenProfile RPAREN
 	    { $$ = new openPocket($3, 0, $7, 0, 0, $13, $15, 0, $19, $21, 0, $25);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      pocketBottomCondition_refs.push_back(&($$->bottomCondition));
-	      pocketBottomCondition_nums.push_back($17->get_val());
+	      pocketBottomCondition_nums.push_back($17->val);
 	      delete $17;
 	      if ($19)
 		{
 		  $$->planarRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->planarRadius));
-		  tolerancedLengthMeasure_nums.push_back($19->get_iId()->get_val());
-		  delete $19->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($19->iId->val);
+		  delete $19->iId;
 		  delete $19;
 		}
 	      if ($21)
 		{
 		  $$->orthogonalRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->orthogonalRadius));
-		  tolerancedLengthMeasure_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      openProfile_refs.push_back(&($$->openBoundary));
-	      openProfile_nums.push_back($23->get_val());
+	      openProfile_nums.push_back($23->val);
 	      delete $23;
 	      if ($25)
 		{
 		  $$->wallBoundary = 0;
 		  openProfile_refs.push_back(&($$->wallBoundary));
-		  openProfile_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  openProfile_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -5891,7 +5891,7 @@ openSlotEndType :
 optAddress :
 	  instanceId
 	    { $$ = new address(0,0,0,0,0,0,0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5900,7 +5900,7 @@ optAddress :
 optAdvancedBrepShapeRepresentation :
 	  instanceId
 	    { $$ = new advancedBrepShapeRepresentation(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5909,7 +5909,7 @@ optAdvancedBrepShapeRepresentation :
 optApproachRetractStrategy :
 	  instanceId
 	    { $$ = new alongPath(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5918,7 +5918,7 @@ optApproachRetractStrategy :
 optApproval :
 	  instanceId
 	    { $$ = new approval(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5927,7 +5927,7 @@ optApproval :
 optAxis2placement3d :
 	  instanceId
 	    { $$ = new axis2placement3d(0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5943,7 +5943,7 @@ optBoolean :
 optBoundedCurve :
 	  instanceId
 	    { $$ = new bezierCurve(0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5952,7 +5952,7 @@ optBoundedCurve :
 optBoundingGeometrySelect :
 	  instanceId
 	    { $$ = new advancedBrepShapeRepresentation(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5961,7 +5961,7 @@ optBoundingGeometrySelect :
 optCartesianPoint :
 	  instanceId
 	    { $$ = new cartesianPoint(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5970,7 +5970,7 @@ optCartesianPoint :
 optChannel :
 	  instanceId
 	    { $$ = new channel(0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -5979,7 +5979,7 @@ optChannel :
 optClosedProfile :
 	  instanceId
 	    { $$ = new circularClosedProfile(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6002,7 +6002,7 @@ optCutmodeType :
 optCuttingEdgeTechnologicalData :
 	  instanceId
 	    { $$ = new cuttingEdgeTechnologicalData(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6011,7 +6011,7 @@ optCuttingEdgeTechnologicalData :
 optDateAndTime :
 	  instanceId
 	    { $$ = new dateAndTime(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6020,7 +6020,7 @@ optDateAndTime :
 optDescriptiveParameter :
 	  instanceId
 	    { $$ = new descriptiveParameter(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6029,7 +6029,7 @@ optDescriptiveParameter :
 optDirection :
 	  instanceId
 	    { $$ = new direction(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6038,7 +6038,7 @@ optDirection :
 optDrillingTypeStrategy :
 	  instanceId
 	    { $$ = new drillingTypeStrategy(0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6047,7 +6047,7 @@ optDrillingTypeStrategy :
 optExecutable :
 	  instanceId
 	    { $$ = new assignment(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6063,7 +6063,7 @@ optFittingType :
 optFreeformStrategy :
 	  instanceId
 	    { $$ = new leadingLineStrategy(0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6084,7 +6084,7 @@ optionalStop :
 optInProcessGeometry :
 	  instanceId
 	    { $$ = new inProcessGeometry(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6107,7 +6107,7 @@ optLeftOrRight :
 optMachineFunctions :
 	  instanceId
 	    { $$ = new millingMachineFunctions(0,0,0,0,0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6116,7 +6116,7 @@ optMachineFunctions :
 optMachiningTool :
 	  instanceId
 	    { $$ = new millingCuttingTool(0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6125,7 +6125,7 @@ optMachiningTool :
 optMaterial :
 	  instanceId
 	    { $$ = new material(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6134,7 +6134,7 @@ optMaterial :
 optMillingTechnology :
 	  instanceId
 	    { $$ = new millingTechnology(0,0,0,0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6150,7 +6150,7 @@ optOffsetVector :
 optOpenProfile :
 	  instanceId
 	    { $$ = new generalProfile(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6173,7 +6173,7 @@ optParenStringListFull :
 optPersonAndAddress :
 	  instanceId
 	    { $$ = new personAndAddress(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6182,7 +6182,7 @@ optPersonAndAddress :
 optProcessModelList :
 	  instanceId
 	    { $$ = new processModelList(0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6198,7 +6198,7 @@ optReal :
 optRestrictedAreaSelect :
 	  instanceId
 	    { $$ = new advancedBrepShapeRepresentation(0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6214,7 +6214,7 @@ optRotDirection :
 optSetup :
 	  instanceId
 	    { $$ = new setup(0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6237,7 +6237,7 @@ optStrokeConnectionStrategy :
 optTaperSelect :
 	  instanceId
 	    { $$ = new angleTaper(0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6246,7 +6246,7 @@ optTaperSelect :
 optTechnology :
 	  instanceId
 	    { $$ = new millingTechnology(0,0,0,0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6255,7 +6255,7 @@ optTechnology :
 optTolerancedLengthMeasure :
 	  instanceId
 	    { $$ = new tolerancedLengthMeasure(0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6264,7 +6264,7 @@ optTolerancedLengthMeasure :
 optToolDirection :
 	  instanceId
 	    { $$ = new threeAxes();
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6273,7 +6273,7 @@ optToolDirection :
 optToolpathList :
 	  instanceId
 	    { $$ = new toolpathList(0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6283,7 +6283,7 @@ optToolpathSpeedprofile :
 	  instanceId
 	    { toolpathSpeed * v;
 	      v = new toolpathSpeed(0);
-	      v->set_iId($1);
+	      v->iId = $1;
 	      $$ = v;
 	    }
 	| real
@@ -6297,7 +6297,7 @@ optToolpathSpeedprofile :
 optTwo5DmillingStrategy :
 	  instanceId
 	    { $$ = new bidirectionalContour(0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6306,7 +6306,7 @@ optTwo5DmillingStrategy :
 optVeeProfile :
 	  instanceId
 	    { $$ = new veeProfile(0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6315,7 +6315,7 @@ optVeeProfile :
 optWorkpiece :
 	  instanceId
 	    { $$ = new workpiece(0,0,0,0,0,0,0);
-	      $$->set_iId($1);
+	      $$->iId = $1;
 	    }
 	| DOLLAR
 	    { $$ = 0; }
@@ -6330,13 +6330,13 @@ orientedEdge :
 	  ORIENTEDEDGE LPAREN CHARSTRING C instanceId C instanceId C instanceId C boolean RPAREN
 	    { $$ = new orientedEdge($3, 0, 0, 0, $11);
 	      vertex_refs.push_back(&($$->edgeStart));
-	      vertex_nums.push_back($5->get_val());
+	      vertex_nums.push_back($5->val);
 	      delete $5;
 	      vertex_refs.push_back(&($$->edgeEnd));
-	      vertex_nums.push_back($7->get_val());
+	      vertex_nums.push_back($7->val);
 	      delete $7;
 	      edge_refs.push_back(&($$->edgeElement));
-	      edge_nums.push_back($9->get_val());
+	      edge_nums.push_back($9->val);
 	      delete $9;
 	    }
 	;
@@ -6346,13 +6346,13 @@ orientedEdgeList :
 	    { $$ = new std::list<orientedEdge *>;
 	      $$->push_back(0);
 	      orientedEdge_refs.push_back(&($$->back()));
-	      orientedEdge_nums.push_back($1->get_val());
+	      orientedEdge_nums.push_back($1->val);
 	    }
 	| orientedEdgeList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      orientedEdge_refs.push_back(&($$->back()));
-	      orientedEdge_nums.push_back($3->get_val());
+	      orientedEdge_nums.push_back($3->val);
 	    }
 	;
 
@@ -6365,7 +6365,7 @@ parabola :
 	  PARABOLA LPAREN CHARSTRING C instanceId C REALSTRING RPAREN
 	    { $$ = new parabola($3, 0, $7);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -6622,7 +6622,7 @@ partialAreaDefinition :
 	  PARTIALAREADEFINITION LPAREN REALSTRING C instanceId C optReal RPAREN
 	    { $$ = new partialAreaDefinition($3, 0, $7);
 	      axis2placement3d_refs.push_back(&($$->placement));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -6634,12 +6634,12 @@ partialCircularPath :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -6651,12 +6651,12 @@ partialCircularProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -6665,25 +6665,25 @@ partialCircularShapeProfile :
 	  PARTIALCIRCULARSHAPEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new partialCircularShapeProfile($3, 0, $7, 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profileSelect_refs.push_back(&($$->floorCondition));
-	      profileSelect_nums.push_back($15->get_val());
+	      profileSelect_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->removalDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      partialCircularProfile_refs.push_back(&($$->openBoundary));
-	      partialCircularProfile_nums.push_back($19->get_val());
+	      partialCircularProfile_nums.push_back($19->val);
 	      delete $19;
 	    }
 	;
@@ -6709,10 +6709,10 @@ pcurve :
 	  PCURVE LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new pcurve($3, 0, 0);
 	      surface_refs.push_back(&($$->basisSurface));
-	      surface_nums.push_back($5->get_val());
+	      surface_nums.push_back($5->val);
 	      delete $5;
 	      definitionalRepresentation_refs.push_back(&($$->referenceToCurve));
-	      definitionalRepresentation_nums.push_back($7->get_val());
+	      definitionalRepresentation_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -6726,14 +6726,14 @@ personAndAddress :
 	  PERSONANDADDRESS LPAREN instanceId C optAddress RPAREN
 	    { $$ = new personAndAddress(0, $5);
 	      person_refs.push_back(&($$->itsPerson));
-	      person_nums.push_back($3->get_val());
+	      person_nums.push_back($3->val);
 	      delete $3;
 	      if ($5)
 		{
 		  $$->itsAddress = 0;
 		  address_refs.push_back(&($$->itsAddress));
-		  address_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  address_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	    }
@@ -6743,26 +6743,26 @@ planarFace :
 	  PLANARFACE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C optClosedProfile C parenBossList RPAREN
 	    { $$ = new planarFace($3, 0, $7, 0, 0, 0, 0, $17, $19);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->courseOfTravel));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      linearProfile_refs.push_back(&($$->removalBoundary));
-	      linearProfile_nums.push_back($15->get_val());
+	      linearProfile_nums.push_back($15->val);
 	      delete $15;
 	      if ($17)
 		{
 		  $$->faceBoundary = 0;
 		  closedProfile_refs.push_back(&($$->faceBoundary));
-		  closedProfile_nums.push_back($17->get_iId()->get_val());
-		  delete $17->get_iId();
+		  closedProfile_nums.push_back($17->iId->val);
+		  delete $17->iId;
 		  delete $17;
 		}
 	    }
@@ -6777,7 +6777,7 @@ planarProfileFloor :
 	  PLANARPROFILEFLOOR LPAREN optReal C boolean C instanceId RPAREN
 	    { $$ = new planarProfileFloor($3, $5, 0);
 	      plane_refs.push_back(&($$->floor));
-	      plane_nums.push_back($7->get_val());
+	      plane_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -6786,7 +6786,7 @@ plane :
 	  PLANE LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new plane($3, 0);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -6795,10 +6795,10 @@ planeCcStrategy :
 	  PLANECCSTRATEGY LPAREN pathmodeType C cutmodeType C instanceId C optReal C instanceId RPAREN
 	    { $$ = new planeCcStrategy($3, $5, 0, $9, 0);
 	      tolerances_refs.push_back(&($$->itsMillingTolerances));
-	      tolerances_nums.push_back($7->get_val());
+	      tolerances_nums.push_back($7->val);
 	      delete $7;
 	      direction_refs.push_back(&($$->itsPlaneNormal));
-	      direction_nums.push_back($11->get_val());
+	      direction_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -6807,10 +6807,10 @@ planeClStrategy :
 	  PLANECLSTRATEGY LPAREN pathmodeType C cutmodeType C instanceId C optReal C instanceId RPAREN
 	    { $$ = new planeClStrategy($3, $5, 0, $9, 0);
 	      tolerances_refs.push_back(&($$->itsMillingTolerances));
-	      tolerances_nums.push_back($7->get_val());
+	      tolerances_nums.push_back($7->val);
 	      delete $7;
 	      direction_refs.push_back(&($$->itsPlaneNormal));
-	      direction_nums.push_back($11->get_val());
+	      direction_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -6822,57 +6822,57 @@ planeFinishMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -6885,57 +6885,57 @@ planeRoughMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -6948,8 +6948,8 @@ plungeHelix :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -6962,8 +6962,8 @@ plungeRamp :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -6976,8 +6976,8 @@ plungeToolaxis :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -6990,8 +6990,8 @@ plungeZigzag :
 		{
 		  $$->toolOrientation = 0;
 		  direction_refs.push_back(&($$->toolOrientation));
-		  direction_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  direction_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	    }
@@ -7022,13 +7022,13 @@ processModelLiszt :
 	    { $$ = new std::list<processModel *>;
 	      $$->push_back(0);
 	      processModel_refs.push_back(&($$->back()));
-	      processModel_nums.push_back($1->get_val());
+	      processModel_nums.push_back($1->val);
 	    }
 	| processModelLiszt C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      processModel_refs.push_back(&($$->back()));
-	      processModel_nums.push_back($3->get_val());
+	      processModel_nums.push_back($3->val);
 	    }
 	;
 
@@ -7041,30 +7041,30 @@ project :
 	  PROJECT LPAREN CHARSTRING C instanceId C parenWorkpieceList C optPersonAndAddress C optDateAndTime C optApproval RPAREN
 	    { $$ = new project($3, 0, $7, $9, $11, $13);
 	      workplan_refs.push_back(&($$->mainWorkplan));
-	      workplan_nums.push_back($5->get_val());
+	      workplan_nums.push_back($5->val);
 	      delete $5;
 	      if ($9)
 		{
 		  $$->itsOwner = 0;
 		  personAndAddress_refs.push_back(&($$->itsOwner));
-		  personAndAddress_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  personAndAddress_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsRelease = 0;
 		  dateAndTime_refs.push_back(&($$->itsRelease));
-		  dateAndTime_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  dateAndTime_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      if ($13)
 		{
 		  $$->itsStatus = 0;
 		  approval_refs.push_back(&($$->itsStatus));
-		  approval_nums.push_back($13->get_iId()->get_val());
-		  delete $13->get_iId();
+		  approval_nums.push_back($13->iId->val);
+		  delete $13->iId;
 		  delete $13;
 		}
 	    }
@@ -7075,13 +7075,13 @@ propertyParameterList :
 	    { $$ = new std::list<propertyParameter *>;
 	      $$->push_back(0);
 	      propertyParameter_refs.push_back(&($$->back()));
-	      propertyParameter_nums.push_back($1->get_val());
+	      propertyParameter_nums.push_back($1->val);
 	    }
 	| propertyParameterList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      propertyParameter_refs.push_back(&($$->back()));
-	      propertyParameter_nums.push_back($3->get_val());
+	      propertyParameter_nums.push_back($3->val);
 	    }
 	;
 
@@ -7099,10 +7099,10 @@ radiusedPocketBottomCondition :
 	  RADIUSEDPOCKETBOTTOMCONDITION LPAREN instanceId C instanceId RPAREN
 	    { $$ = new radiusedPocketBottomCondition(0, 0);
 	      cartesianPoint_refs.push_back(&($$->floorRadiusCenter));
-	      cartesianPoint_nums.push_back($3->get_val());
+	      cartesianPoint_nums.push_back($3->val);
 	      delete $3;
 	      tolerancedLengthMeasure_refs.push_back(&($$->floorRadius));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -7116,22 +7116,22 @@ rapidMovement :
 	  RAPIDMOVEMENT LPAREN CHARSTRING C instanceId C optToolpathList C optToolDirection RPAREN
 	    { $$ = new rapidMovement($3, 0, $7, $9);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      if ($7)
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  toolpathList_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  toolDirection_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -7168,49 +7168,49 @@ reaming :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	      if ($35)
 		{
 		  $$->waitingPosition = 0;
 		  cartesianPoint_refs.push_back(&($$->waitingPosition));
-		  cartesianPoint_nums.push_back($35->get_iId()->get_val());
-		  delete $35->get_iId();
+		  cartesianPoint_nums.push_back($35->iId->val);
+		  delete $35->iId;
 		  delete $35;
 		}
 	    }
@@ -7223,15 +7223,15 @@ rectangularClosedProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->profileWidth));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	      tolerancedLengthMeasure_refs.push_back(&($$->profileLength));
-	      tolerancedLengthMeasure_nums.push_back($7->get_val());
+	      tolerancedLengthMeasure_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -7240,25 +7240,25 @@ rectangularClosedShapeProfile :
 	  RECTANGULARCLOSEDSHAPEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new rectangularClosedShapeProfile($3, 0, $7, 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profileSelect_refs.push_back(&($$->floorCondition));
-	      profileSelect_nums.push_back($15->get_val());
+	      profileSelect_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->removalDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      rectangularClosedProfile_refs.push_back(&($$->closedBoundary));
-	      rectangularClosedProfile_nums.push_back($19->get_val());
+	      rectangularClosedProfile_nums.push_back($19->val);
 	      delete $19;
 	    }
 	;
@@ -7267,7 +7267,7 @@ rectangularOffset :
 	  RECTANGULAROFFSET LPAREN instanceId C REALSTRING C INTSTRING C INTSTRING RPAREN
 	    { $$ = new rectangularOffset(0, $5, $7, $9);
 	      direction_refs.push_back(&($$->offsetDirection));
-	      direction_nums.push_back($3->get_val());
+	      direction_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7277,13 +7277,13 @@ rectangularOffsetList :
 	    { $$ = new std::list<rectangularOffset *>;
 	      $$->push_back(0);
 	      rectangularOffset_refs.push_back(&($$->back()));
-	      rectangularOffset_nums.push_back($1->get_val());
+	      rectangularOffset_nums.push_back($1->val);
 	    }
 	| rectangularOffsetList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      rectangularOffset_refs.push_back(&($$->back()));
-	      rectangularOffset_nums.push_back($3->get_val());
+	      rectangularOffset_nums.push_back($3->val);
 	    }
 	;
 
@@ -7297,13 +7297,13 @@ rectangularOmitList :
 	    { $$ = new std::list<rectangularOmit *>;
 	      $$->push_back(0);
 	      rectangularOmit_refs.push_back(&($$->back()));
-	      rectangularOmit_nums.push_back($1->get_val());
+	      rectangularOmit_nums.push_back($1->val);
 	    }
 	| rectangularOmitList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      rectangularOmit_refs.push_back(&($$->back()));
-	      rectangularOmit_nums.push_back($3->get_val());
+	      rectangularOmit_nums.push_back($3->val);
 	    }
 	;
 
@@ -7311,25 +7311,25 @@ rectangularOpenShapeProfile :
 	  RECTANGULAROPENSHAPEPROFILE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new rectangularOpenShapeProfile($3, 0, $7, 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->profileSweptShape));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      profileSelect_refs.push_back(&($$->floorCondition));
-	      profileSelect_nums.push_back($15->get_val());
+	      profileSelect_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->removalDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      squareUProfile_refs.push_back(&($$->openBoundary));
-	      squareUProfile_nums.push_back($19->get_val());
+	      squareUProfile_nums.push_back($19->val);
 	      delete $19;
 	    }
 	;
@@ -7338,34 +7338,34 @@ rectangularPattern :
 	  RECTANGULARPATTERN LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId instanceId C instanceId C optInteger C INTSTRING C optTolerancedLengthMeasure C optDirection C parenRectangularOffsetList C parenRectangularOmitList RPAREN
 	    { $$ = new rectangularPattern($3, 0, $7, 0, 0, 0, 0, $16, $18, $20, $22, $24, $26);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      two5DmanufacturingFeature_refs.push_back(&($$->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back($11->get_val());
+	      two5DmanufacturingFeature_nums.push_back($11->val);
 	      delete $11;
 	      tolerancedLengthMeasure_refs.push_back(&($$->spacing));
-	      tolerancedLengthMeasure_nums.push_back($12->get_val());
+	      tolerancedLengthMeasure_nums.push_back($12->val);
 	      delete $12;
 	      direction_refs.push_back(&($$->itsDirection));
-	      direction_nums.push_back($14->get_val());
+	      direction_nums.push_back($14->val);
 	      delete $14;
 	      if ($20)
 		{
 		  $$->rowSpacing = 0;
 		  tolerancedLengthMeasure_refs.push_back(&($$->rowSpacing));
-		  tolerancedLengthMeasure_nums.push_back($20->get_iId()->get_val());
-		  delete $20->get_iId();
+		  tolerancedLengthMeasure_nums.push_back($20->iId->val);
+		  delete $20->iId;
 		  delete $20;
 		}
 	      if ($22)
 		{
 		  $$->rowLayoutDirection = 0;
 		  direction_refs.push_back(&($$->rowLayoutDirection));
-		  direction_nums.push_back($22->get_iId()->get_val());
-		  delete $22->get_iId();
+		  direction_nums.push_back($22->iId->val);
+		  delete $22->iId;
 		  delete $22;
 		}
 	    }
@@ -7375,24 +7375,24 @@ regionProjection :
 	  REGIONPROJECTION LPAREN CHARSTRING C instanceId C parenMachiningOperationList C optAxis2placement3d C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new regionProjection($3, 0, $7, $9, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      if ($9)
 		{
 		  $$->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&($$->featurePlacement));
-		  axis2placement3d_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  axis2placement3d_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      boundedCurve_refs.push_back(&($$->projCurve));
-	      boundedCurve_nums.push_back($11->get_val());
+	      boundedCurve_nums.push_back($11->val);
 	      delete $11;
 	      direction_refs.push_back(&($$->projDir));
-	      direction_nums.push_back($13->get_val());
+	      direction_nums.push_back($13->val);
 	      delete $13;
 	      tolerancedLengthMeasure_refs.push_back(&($$->depth));
-	      tolerancedLengthMeasure_nums.push_back($15->get_val());
+	      tolerancedLengthMeasure_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -7401,14 +7401,14 @@ regionSurfaceList :
 	  REGIONSURFACELIST LPAREN CHARSTRING C instanceId C parenMachiningOperationList C optAxis2placement3d C parenBoundedSurfaceListFull RPAREN
 	    { $$ = new regionSurfaceList($3, 0, $7, $9, $11);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      if ($9)
 		{
 		  $$->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&($$->featurePlacement));
-		  axis2placement3d_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  axis2placement3d_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -7429,13 +7429,13 @@ representationItemList :
 	    { $$ = new std::list<representationItem *>;
 	      $$->push_back(0);
 	      representationItem_refs.push_back(&($$->back()));
-	      representationItem_nums.push_back($1->get_val());
+	      representationItem_nums.push_back($1->val);
 	    }
 	| representationItemList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      representationItem_refs.push_back(&($$->back()));
-	      representationItem_nums.push_back($3->get_val());
+	      representationItem_nums.push_back($3->val);
 	    }
 	;
 
@@ -7443,7 +7443,7 @@ rightCircularCylinder :
 	  RIGHTCIRCULARCYLINDER LPAREN CHARSTRING C instanceId C REALSTRING C REALSTRING RPAREN
 	    { $$ = new rightCircularCylinder($3, 0, $7, $9);
 	      axis1placement_refs.push_back(&($$->position));
-	      axis1placement_nums.push_back($5->get_val());
+	      axis1placement_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -7469,19 +7469,19 @@ roundedEnd :
 	  ROUNDEDEND LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new roundedEnd($3, 0, $7, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->courseOfTravel));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      partialCircularProfile_refs.push_back(&($$->partialCircularBoundary));
-	      partialCircularProfile_nums.push_back($15->get_val());
+	      partialCircularProfile_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -7493,12 +7493,12 @@ roundedUProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->width));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -7507,27 +7507,27 @@ roundHole :
 	  ROUNDHOLE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C optTaperSelect C instanceId RPAREN
 	    { $$ = new roundHole($3, 0, $7, 0, 0, 0, $15, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      tolerancedLengthMeasure_refs.push_back(&($$->diameter));
-	      tolerancedLengthMeasure_nums.push_back($13->get_val());
+	      tolerancedLengthMeasure_nums.push_back($13->val);
 	      delete $13;
 	      if ($15)
 		{
 		  $$->changeInDiameter = 0;
 		  taperSelect_refs.push_back(&($$->changeInDiameter));
-		  taperSelect_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  taperSelect_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	      holeBottomCondition_refs.push_back(&($$->bottomCondition));
-	      holeBottomCondition_nums.push_back($17->get_val());
+	      holeBottomCondition_nums.push_back($17->val);
 	      delete $17;
 	    }
 	;
@@ -7549,12 +7549,12 @@ setup :
 		{
 		  $$->itsOrigin = 0;
 		  axis2placement3d_refs.push_back(&($$->itsOrigin));
-		  axis2placement3d_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  axis2placement3d_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($7->get_val());
+	      elementarySurface_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -7569,13 +7569,13 @@ setupInstructionList :
 	    { $$ = new std::list<setupInstruction *>;
 	      $$->push_back(0);
 	      setupInstruction_refs.push_back(&($$->back()));
-	      setupInstruction_nums.push_back($1->get_val());
+	      setupInstruction_nums.push_back($1->val);
 	    }
 	| setupInstructionList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      setupInstruction_refs.push_back(&($$->back()));
-	      setupInstruction_nums.push_back($3->get_val());
+	      setupInstruction_nums.push_back($3->val);
 	    }
 	;
 
@@ -7588,7 +7588,7 @@ sideMill :
 	  SIDEMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new sideMill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7600,57 +7600,57 @@ sideFinishMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -7663,57 +7663,57 @@ sideRoughMilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($21)
 		{
 		  $$->approach = 0;
 		  approachRetractStrategy_refs.push_back(&($$->approach));
-		  approachRetractStrategy_nums.push_back($21->get_iId()->get_val());
-		  delete $21->get_iId();
+		  approachRetractStrategy_nums.push_back($21->iId->val);
+		  delete $21->iId;
 		  delete $21;
 		}
 	      if ($23)
 		{
 		  $$->retract = 0;
 		  approachRetractStrategy_refs.push_back(&($$->retract));
-		  approachRetractStrategy_nums.push_back($23->get_iId()->get_val());
-		  delete $23->get_iId();
+		  approachRetractStrategy_nums.push_back($23->iId->val);
+		  delete $23->iId;
 		  delete $23;
 		}
 	      if ($25)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back($25->get_iId()->get_val());
-		  delete $25->get_iId();
+		  two5DmillingStrategy_nums.push_back($25->iId->val);
+		  delete $25->iId;
 		  delete $25;
 		}
 	    }
@@ -7723,19 +7723,19 @@ slot :
 	  SLOT LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId C parenSlotEndTypeList RPAREN
 	    { $$ = new slot($3, 0, $7, 0, 0, 0, 0, $17);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      travelPath_refs.push_back(&($$->courseOfTravel));
-	      travelPath_nums.push_back($13->get_val());
+	      travelPath_nums.push_back($13->val);
 	      delete $13;
 	      openProfile_refs.push_back(&($$->sweptShape));
-	      openProfile_nums.push_back($15->get_val());
+	      openProfile_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -7745,13 +7745,13 @@ slotEndTypeList :
 	    { $$ = new std::list<slotEndType *>;
 	      $$->push_back(0);
 	      slotEndType_refs.push_back(&($$->back()));
-	      slotEndType_nums.push_back($1->get_val());
+	      slotEndType_nums.push_back($1->val);
 	    }
 	| slotEndTypeList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      slotEndType_refs.push_back(&($$->back()));
-	      slotEndType_nums.push_back($3->get_val());
+	      slotEndType_nums.push_back($3->val);
 	    }
 	;
 
@@ -7759,7 +7759,7 @@ spadeDrill :
 	  SPADEDRILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new spadeDrill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7779,13 +7779,13 @@ specificationUsageConstraintList :
 	    { $$ = new std::list<specificationUsageConstraint *>;
 	      $$->push_back(0);
 	      specificationUsageConstraint_refs.push_back(&($$->back()));
-	      specificationUsageConstraint_nums.push_back($1->get_val());
+	      specificationUsageConstraint_nums.push_back($1->val);
 	    }
 	| specificationUsageConstraintList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      specificationUsageConstraint_refs.push_back(&($$->back()));
-	      specificationUsageConstraint_nums.push_back($3->get_val());
+	      specificationUsageConstraint_nums.push_back($3->val);
 	    }
 	;
 
@@ -7798,19 +7798,19 @@ sphericalCap :
 	  SPHERICALCAP LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new sphericalCap($3, 0, $7, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      numericParameter_refs.push_back(&($$->internalAngle));
-	      numericParameter_nums.push_back($13->get_val());
+	      numericParameter_nums.push_back($13->val);
 	      delete $13;
 	      numericParameter_refs.push_back(&($$->radius));
-	      numericParameter_nums.push_back($15->get_val());
+	      numericParameter_nums.push_back($15->val);
 	      delete $15;
 	    }
 	;
@@ -7819,7 +7819,7 @@ sphericalHoleBottom :
 	  SPHERICALHOLEBOTTOM LPAREN instanceId RPAREN
 	    { $$ = new sphericalHoleBottom(0);
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($3->get_val());
+	      tolerancedLengthMeasure_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7828,7 +7828,7 @@ sphericalSurface :
 	  SPHERICALSURFACE LPAREN CHARSTRING C instanceId C REALSTRING RPAREN
 	    { $$ = new sphericalSurface($3, 0, $7);
 	      axis2placement3d_refs.push_back(&($$->position));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -7840,18 +7840,18 @@ squareUProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->width));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	      tolerancedLengthMeasure_refs.push_back(&($$->firstRadius));
-	      tolerancedLengthMeasure_nums.push_back($7->get_val());
+	      tolerancedLengthMeasure_nums.push_back($7->val);
 	      delete $7;
 	      tolerancedLengthMeasure_refs.push_back(&($$->secondRadius));
-	      tolerancedLengthMeasure_nums.push_back($11->get_val());
+	      tolerancedLengthMeasure_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -7860,23 +7860,23 @@ step :
 	  STEP LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId C instanceId C optVeeProfile C parenBossList RPAREN
 	    { $$ = new step($3, 0, $7, 0, 0, 0, $15, $17);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	      linearPath_refs.push_back(&($$->openBoundary));
-	      linearPath_nums.push_back($13->get_val());
+	      linearPath_nums.push_back($13->val);
 	      delete $13;
 	      if ($15)
 		{
 		  $$->wallBoundary = 0;
 		  veeProfile_refs.push_back(&($$->wallBoundary));
-		  veeProfile_nums.push_back($15->get_iId()->get_val());
-		  delete $15->get_iId();
+		  veeProfile_nums.push_back($15->iId->val);
+		  delete $15->iId;
 		  delete $15;
 		}
 	    }
@@ -7926,10 +7926,10 @@ surfaceOfLinearExtrusion :
 	  SURFACEOFLINEAREXTRUSION LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new surfaceOfLinearExtrusion($3, 0, 0);
 	      curve_refs.push_back(&($$->sweptCurve));
-	      curve_nums.push_back($5->get_val());
+	      curve_nums.push_back($5->val);
 	      delete $5;
 	      vector_refs.push_back(&($$->extrusionAxis));
-	      vector_nums.push_back($7->get_val());
+	      vector_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -7938,10 +7938,10 @@ surfaceOfRevolution :
 	  SURFACEOFREVOLUTION LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new surfaceOfRevolution($3, 0, 0);
 	      curve_refs.push_back(&($$->sweptCurve));
-	      curve_nums.push_back($5->get_val());
+	      curve_nums.push_back($5->val);
 	      delete $5;
 	      axis1placement_refs.push_back(&($$->axisPosition));
-	      axis1placement_nums.push_back($7->get_val());
+	      axis1placement_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -7955,7 +7955,7 @@ tap :
 	  TAP LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new tap(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7964,7 +7964,7 @@ taperedTap :
 	  TAPEREDTAP LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new taperedTap(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7973,7 +7973,7 @@ taperedDrill :
 	  TAPEREDDRILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new taperedDrill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7982,7 +7982,7 @@ taperedEndmill :
 	  TAPEREDENDMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new taperedEndmill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -7991,7 +7991,7 @@ taperedReamer :
 	  TAPEREDREAMER LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new taperedReamer(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8003,41 +8003,41 @@ tapping :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -8050,27 +8050,27 @@ teeProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->crossBarWidth));
-	      tolerancedLengthMeasure_nums.push_back($6->get_val());
+	      tolerancedLengthMeasure_nums.push_back($6->val);
 	      delete $6;
 	      tolerancedLengthMeasure_refs.push_back(&($$->crossBarDepth));
-	      tolerancedLengthMeasure_nums.push_back($7->get_val());
+	      tolerancedLengthMeasure_nums.push_back($7->val);
 	      delete $7;
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($8->get_val());
+	      tolerancedLengthMeasure_nums.push_back($8->val);
 	      delete $8;
 	      tolerancedLengthMeasure_refs.push_back(&($$->width));
-	      tolerancedLengthMeasure_nums.push_back($9->get_val());
+	      tolerancedLengthMeasure_nums.push_back($9->val);
 	      delete $9;
 	      tolerancedLengthMeasure_refs.push_back(&($$->firstOffset));
-	      tolerancedLengthMeasure_nums.push_back($10->get_val());
+	      tolerancedLengthMeasure_nums.push_back($10->val);
 	      delete $10;
 	      tolerancedLengthMeasure_refs.push_back(&($$->secondOffset));
-	      tolerancedLengthMeasure_nums.push_back($11->get_val());
+	      tolerancedLengthMeasure_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -8082,41 +8082,41 @@ threadDrilling :
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  toolpathList_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      if ($5)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  toolDirection_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($11)
 		{
 		  $$->startPoint = 0;
 		  cartesianPoint_refs.push_back(&($$->startPoint));
-		  cartesianPoint_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  cartesianPoint_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($13->get_val());
+	      machiningTool_nums.push_back($13->val);
 	      delete $13;
 	      technology_refs.push_back(&($$->itsTechnology));
-	      technology_nums.push_back($15->get_val());
+	      technology_nums.push_back($15->val);
 	      delete $15;
 	      machineFunctions_refs.push_back(&($$->itsMachineFunctions));
-	      machineFunctions_nums.push_back($17->get_val());
+	      machineFunctions_nums.push_back($17->val);
 	      delete $17;
 	      if ($29)
 		{
 		  $$->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&($$->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back($29->get_iId()->get_val());
-		  delete $29->get_iId();
+		  drillingTypeStrategy_nums.push_back($29->iId->val);
+		  delete $29->iId;
 		  delete $29;
 		}
 	    }
@@ -8126,7 +8126,7 @@ threadMill :
 	  THREADMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new threadMill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8140,7 +8140,7 @@ threeAxesTiltedTool :
 	  THREEAXESTILTEDTOOL LPAREN instanceId RPAREN
 	    { $$ = new threeAxesTiltedTool(0);
 	      direction_refs.push_back(&($$->itsToolDirection));
-	      direction_nums.push_back($3->get_val());
+	      direction_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8164,7 +8164,7 @@ tolerancedLengthMeasure :
 	  TOLERANCEDLENGTHMEASURE LPAREN REALSTRING C instanceId RPAREN
 	    { $$ = new tolerancedLengthMeasure($3, 0);
 	      plusMinusValue_refs.push_back(&($$->implicitTolerance));
-	      plusMinusValue_nums.push_back($5->get_val());
+	      plusMinusValue_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8178,32 +8178,32 @@ toolLengthProbing :
 	  TOOLLENGTHPROBING LPAREN CHARSTRING C instanceId C optToolpathList C optToolDirection C instanceId C instanceId C REALSTRING C instanceId RPAREN
 	    { $$ = new toolLengthProbing($3, 0, $7, $9, 0, 0, $15, 0);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      if ($7)
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  toolpathList_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  toolDirection_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      ncVariable_refs.push_back(&($$->measuredOffset));
-	      ncVariable_nums.push_back($11->get_val());
+	      ncVariable_nums.push_back($11->val);
 	      delete $11;
 	      cartesianPoint_refs.push_back(&($$->offset));
-	      cartesianPoint_nums.push_back($13->get_val());
+	      cartesianPoint_nums.push_back($13->val);
 	      delete $13;
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($17->get_val());
+	      machiningTool_nums.push_back($17->val);
 	      delete $17;
 	    }
 	;
@@ -8212,13 +8212,13 @@ toolpathFeature :
 	  TOOLPATHFEATURE LPAREN CHARSTRING C instanceId C parenMachiningOperationList C instanceId C instanceId RPAREN
 	    { $$ = new toolpathFeature($3, 0, $7, 0, 0);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      axis2placement3d_refs.push_back(&($$->featurePlacement));
-	      axis2placement3d_nums.push_back($9->get_val());
+	      axis2placement3d_nums.push_back($9->val);
 	      delete $9;
 	      elementarySurface_refs.push_back(&($$->depth));
-	      elementarySurface_nums.push_back($11->get_val());
+	      elementarySurface_nums.push_back($11->val);
 	      delete $11;
 	    }
 	;
@@ -8233,13 +8233,13 @@ toolpathLiszt :
 	    { $$ = new std::list<toolpath *>;
 	      $$->push_back(0);
 	      toolpath_refs.push_back(&($$->back()));
-	      toolpath_nums.push_back($1->get_val());
+	      toolpath_nums.push_back($1->val);
 	    }
 	| toolpathLiszt C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      toolpath_refs.push_back(&($$->back()));
-	      toolpath_nums.push_back($3->get_val());
+	      toolpath_nums.push_back($3->val);
 	    }
 	;
 
@@ -8247,7 +8247,7 @@ toolpathSpeed :
 	  TOOLPATHSPEED LPAREN instanceId RPAREN
 	    { $$ = new toolpathSpeed(0);
 	      bSplineCurve_refs.push_back(&($$->speed));
-	      bSplineCurve_nums.push_back($3->get_val());
+	      bSplineCurve_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8301,32 +8301,32 @@ toolRadiusProbing :
 	  TOOLRADIUSPROBING LPAREN CHARSTRING C instanceId C optToolpathList C optToolDirection C instanceId C instanceId C REALSTRING C instanceId RPAREN
 	    { $$ = new toolRadiusProbing($3, 0, $7, $9, 0, 0, $15, 0);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      if ($7)
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  toolpathList_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  toolDirection_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      ncVariable_refs.push_back(&($$->measuredOffset));
-	      ncVariable_nums.push_back($11->get_val());
+	      ncVariable_nums.push_back($11->val);
 	      delete $11;
 	      cartesianPoint_refs.push_back(&($$->offset));
-	      cartesianPoint_nums.push_back($13->get_val());
+	      cartesianPoint_nums.push_back($13->val);
 	      delete $13;
 	      machiningTool_refs.push_back(&($$->itsTool));
-	      machiningTool_nums.push_back($17->get_val());
+	      machiningTool_nums.push_back($17->val);
 	      delete $17;
 	    }
 	;
@@ -8352,14 +8352,14 @@ topologicalRegion :
 	  TOPOLOGICALREGION LPAREN CHARSTRING C instanceId C parenMachiningOperationList C optAxis2placement3d C CHARSTRING C parenFaceListFull RPAREN
 	    { $$ = new topologicalRegion($3, 0, $7, $9, $11, $13);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($5->get_val());
+	      workpiece_nums.push_back($5->val);
 	      delete $5;
 	      if ($9)
 		{
 		  $$->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&($$->featurePlacement));
-		  axis2placement3d_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  axis2placement3d_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -8405,7 +8405,7 @@ trimmedCurve :
 	  TRIMMEDCURVE LPAREN CHARSTRING C instanceId C parenTrimmingSelectListFull C parenTrimmingSelectListFull C boolean C trimmingPreference RPAREN
 	    { $$ = new trimmedCurve($3, 0, $7, $9, $11, $13);
 	      curve_refs.push_back(&($$->basisCurve));
-	      curve_nums.push_back($5->get_val());
+	      curve_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8439,7 +8439,7 @@ trimmingSelectList :
 	    { $$ = new std::list<trimmingSelect *>;
 	      $$->push_back(0);
 	      trimmingSelect_refs.push_back(&($$->back()));
-	      trimmingSelect_nums.push_back($1->get_val());
+	      trimmingSelect_nums.push_back($1->val);
 	    }
 	| real
 	    { $$ = new std::list<trimmingSelect *>;
@@ -8449,7 +8449,7 @@ trimmingSelectList :
 	    { $$ = $1;
 	      $$->push_back(0);
 	      trimmingSelect_refs.push_back(&($$->back()));
-	      trimmingSelect_nums.push_back($3->get_val());
+	      trimmingSelect_nums.push_back($3->val);
 	    }
 	| trimmingSelectList C real
 	    { $$ = $1;
@@ -8461,7 +8461,7 @@ tSlotMill :
 	  TSLOTMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new tSlotMill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8470,7 +8470,7 @@ twistDrill :
 	  TWISTDRILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal RPAREN
 	    { $$ = new twistDrill(0, $5, $7, $9, $11);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8487,8 +8487,8 @@ unidirectionalMilling :
 		{
 		  $$->feedDirection = 0;
 		  direction_refs.push_back(&($$->feedDirection));
-		  direction_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  direction_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	    }
@@ -8511,8 +8511,8 @@ unloadTool :
 		{
 		  $$->itsTool = 0;
 		  machiningTool_refs.push_back(&($$->itsTool));
-		  machiningTool_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  machiningTool_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	    }
@@ -8522,7 +8522,7 @@ userDefinedTool :
 	  USERDEFINEDTOOL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C CHARSTRING RPAREN
 	    { $$ = new userDefinedTool(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8531,13 +8531,13 @@ uvStrategy :
 	  UVSTRATEGY LPAREN pathmodeType C cutmodeType C instanceId C optReal C instanceId C instanceId RPAREN
 	    { $$ = new uvStrategy($3, $5, 0, $9, 0, 0);
 	      tolerances_refs.push_back(&($$->itsMillingTolerances));
-	      tolerances_nums.push_back($7->get_val());
+	      tolerances_nums.push_back($7->val);
 	      delete $7;
 	      direction_refs.push_back(&($$->forwardDirection));
-	      direction_nums.push_back($11->get_val());
+	      direction_nums.push_back($11->val);
 	      delete $11;
 	      direction_refs.push_back(&($$->sidewardDirection));
-	      direction_nums.push_back($13->get_val());
+	      direction_nums.push_back($13->val);
 	      delete $13;
 	    }
 	;
@@ -8546,7 +8546,7 @@ vector :
 	  VECTOR LPAREN CHARSTRING C instanceId C REALSTRING RPAREN
 	    { $$ = new vector($3, 0, $7);
 	      direction_refs.push_back(&($$->orientation));
-	      direction_nums.push_back($5->get_val());
+	      direction_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8558,12 +8558,12 @@ veeProfile :
 		{
 		  $$->placement = 0;
 		  axis2placement3d_refs.push_back(&($$->placement));
-		  axis2placement3d_nums.push_back($3->get_iId()->get_val());
-		  delete $3->get_iId();
+		  axis2placement3d_nums.push_back($3->iId->val);
+		  delete $3->iId;
 		  delete $3;
 		}
 	      tolerancedLengthMeasure_refs.push_back(&($$->profileRadius));
-	      tolerancedLengthMeasure_nums.push_back($5->get_val());
+	      tolerancedLengthMeasure_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8572,7 +8572,7 @@ vertexLoop :
 	  VERTEXLOOP LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new vertexLoop($3, 0);
 	      vertex_refs.push_back(&($$->loopVertex));
-	      vertex_nums.push_back($5->get_val());
+	      vertex_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8581,7 +8581,7 @@ vertexPoint :
 	  VERTEXPOINT LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new vertexPoint($3, 0);
 	      point_refs.push_back(&($$->vertexGeometry));
-	      point_nums.push_back($5->get_val());
+	      point_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8590,7 +8590,7 @@ waitForMark :
 	  WAITFORMARK LPAREN CHARSTRING C instanceId RPAREN
 	    { $$ = new waitForMark($3, 0);
 	      channel_refs.push_back(&($$->itsChannel));
-	      channel_nums.push_back($5->get_val());
+	      channel_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;
@@ -8604,10 +8604,10 @@ whileStatement :
 	  WHILESTATEMENT LPAREN CHARSTRING C instanceId C instanceId RPAREN
 	    { $$ = new whileStatement($3, 0, 0);
 	      booleanExpression_refs.push_back(&($$->condition));
-	      booleanExpression_nums.push_back($5->get_val());
+	      booleanExpression_nums.push_back($5->val);
 	      delete $5;
 	      executable_refs.push_back(&($$->body));
-	      executable_nums.push_back($7->get_val());
+	      executable_nums.push_back($7->val);
 	      delete $7;
 	    }
 	;
@@ -8616,7 +8616,7 @@ woodruffKeyseatMill :
 	  WOODRUFFKEYSEATMILL LPAREN instanceId C optInteger C optHand C optBoolean C optReal C optReal RPAREN
 	    { $$ = new woodruffKeyseatMill(0, $5, $7, $9, $11, $13);
 	      millingToolDimension_refs.push_back(&($$->dimension));
-	      millingToolDimension_nums.push_back($3->get_val());
+	      millingToolDimension_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8625,7 +8625,7 @@ woodruffSlotEndType :
 	  WOODRUFFSLOTENDTYPE LPAREN instanceId RPAREN
 	    { $$ = new woodruffSlotEndType(0);
 	      tolerancedLengthMeasure_refs.push_back(&($$->radius));
-	      tolerancedLengthMeasure_nums.push_back($3->get_val());
+	      tolerancedLengthMeasure_nums.push_back($3->val);
 	      delete $3;
 	    }
 	;
@@ -8637,32 +8637,32 @@ workpiece :
 		{
 		  $$->itsMaterial = 0;
 		  material_refs.push_back(&($$->itsMaterial));
-		  material_nums.push_back($5->get_iId()->get_val());
-		  delete $5->get_iId();
+		  material_nums.push_back($5->iId->val);
+		  delete $5->iId;
 		  delete $5;
 		}
 	      if ($9)
 		{
 		  $$->itsRawpiece = 0;
 		  workpiece_refs.push_back(&($$->itsRawpiece));
-		  workpiece_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  workpiece_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsGeometry = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&($$->itsGeometry));
-		  advancedBrepShapeRepresentation_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	      if ($13)
 		{
 		  $$->itsBoundingGeometry = 0;
 		  boundingGeometrySelect_refs.push_back(&($$->itsBoundingGeometry));
-		  boundingGeometrySelect_nums.push_back($13->get_iId()->get_val());
-		  delete $13->get_iId();
+		  boundingGeometrySelect_nums.push_back($13->iId->val);
+		  delete $13->iId;
 		  delete $13;
 		}
 	    }
@@ -8672,35 +8672,35 @@ workpieceCompleteProbing :
 	  WORKPIECECOMPLETEPROBING LPAREN CHARSTRING C instanceId C optToolpathList C optToolDirection C instanceId C instanceId C instanceId C instanceId C offsetVector RPAREN
 	    { $$ = new workpieceCompleteProbing($3, 0, $7, $9, 0, 0, 0, 0, $19);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      if ($7)
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  toolpathList_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  toolDirection_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      ncVariable_refs.push_back(&($$->measuredOffset));
-	      ncVariable_nums.push_back($11->get_val());
+	      ncVariable_nums.push_back($11->val);
 	      delete $11;
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($13->get_val());
+	      workpiece_nums.push_back($13->val);
 	      delete $13;
 	      tolerancedLengthMeasure_refs.push_back(&($$->probingDistance));
-	      tolerancedLengthMeasure_nums.push_back($15->get_val());
+	      tolerancedLengthMeasure_nums.push_back($15->val);
 	      delete $15;
 	      touchProbe_refs.push_back(&($$->itsProbe));
-	      touchProbe_nums.push_back($17->get_val());
+	      touchProbe_nums.push_back($17->val);
 	      delete $17;
 	    }
 	;
@@ -8710,13 +8710,13 @@ workpieceList :
 	    { $$ = new std::list<workpiece *>;
 	      $$->push_back(0);
 	      workpiece_refs.push_back(&($$->back()));
-	      workpiece_nums.push_back($1->get_val());
+	      workpiece_nums.push_back($1->val);
 	    }
 	| workpieceList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      workpiece_refs.push_back(&($$->back()));
-	      workpiece_nums.push_back($3->get_val());
+	      workpiece_nums.push_back($3->val);
 	    }
 	;
 
@@ -8724,41 +8724,41 @@ workpieceProbing :
 	  WORKPIECEPROBING LPAREN CHARSTRING C instanceId C optToolpathList C optToolDirection C instanceId C instanceId C instanceId C instanceId C instanceId C instanceId RPAREN
 	    { $$ = new workpieceProbing($3, 0, $7, $9, 0, 0, 0, 0, 0, 0);
 	      elementarySurface_refs.push_back(&($$->itsSecplane));
-	      elementarySurface_nums.push_back($5->get_val());
+	      elementarySurface_nums.push_back($5->val);
 	      delete $5;
 	      if ($7)
 		{
 		  $$->itsToolpath = 0;
 		  toolpathList_refs.push_back(&($$->itsToolpath));
-		  toolpathList_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  toolpathList_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&($$->itsToolDirection));
-		  toolDirection_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  toolDirection_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      ncVariable_refs.push_back(&($$->measuredOffset));
-	      ncVariable_nums.push_back($11->get_val());
+	      ncVariable_nums.push_back($11->val);
 	      delete $11;
 	      axis2placement3d_refs.push_back(&($$->startPosition));
-	      axis2placement3d_nums.push_back($13->get_val());
+	      axis2placement3d_nums.push_back($13->val);
 	      delete $13;
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($15->get_val());
+	      workpiece_nums.push_back($15->val);
 	      delete $15;
 	      direction_refs.push_back(&($$->itsDirection));
-	      direction_nums.push_back($17->get_val());
+	      direction_nums.push_back($17->val);
 	      delete $17;
 	      tolerancedLengthMeasure_refs.push_back(&($$->expectedValue));
-	      tolerancedLengthMeasure_nums.push_back($19->get_val());
+	      tolerancedLengthMeasure_nums.push_back($19->val);
 	      delete $19;
 	      touchProbe_refs.push_back(&($$->itsProbe));
-	      touchProbe_nums.push_back($21->get_val());
+	      touchProbe_nums.push_back($21->val);
 	      delete $21;
 	    }
 	;
@@ -8767,17 +8767,17 @@ workpieceSetup :
 	  WORKPIECESETUP LPAREN instanceId C instanceId C optOffsetVector C optRestrictedAreaSelect C parenSetupInstructionList RPAREN
 	    { $$ = new workpieceSetup(0, 0, $7, $9, $11);
 	      workpiece_refs.push_back(&($$->itsWorkpiece));
-	      workpiece_nums.push_back($3->get_val());
+	      workpiece_nums.push_back($3->val);
 	      delete $3;
 	      axis2placement3d_refs.push_back(&($$->itsOrigin));
-	      axis2placement3d_nums.push_back($5->get_val());
+	      axis2placement3d_nums.push_back($5->val);
 	      delete $5;
 	      if ($9)
 		{
 		  $$->itsRestrictedArea = 0;
 		  restrictedAreaSelect_refs.push_back(&($$->itsRestrictedArea));
-		  restrictedAreaSelect_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  restrictedAreaSelect_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	    }
@@ -8788,13 +8788,13 @@ workpieceSetupList :
 	    { $$ = new std::list<workpieceSetup *>;
 	      $$->push_back(0);
 	      workpieceSetup_refs.push_back(&($$->back()));
-	      workpieceSetup_nums.push_back($1->get_val());
+	      workpieceSetup_nums.push_back($1->val);
 	    }
 	| workpieceSetupList C instanceId
 	    { $$ = $1;
 	      $$->push_back(0);
 	      workpieceSetup_refs.push_back(&($$->back()));
-	      workpieceSetup_nums.push_back($3->get_val());
+	      workpieceSetup_nums.push_back($3->val);
 	    }
 	;
 
@@ -8805,24 +8805,24 @@ workplan :
 		{
 		  $$->itsChannel = 0;
 		  channel_refs.push_back(&($$->itsChannel));
-		  channel_nums.push_back($7->get_iId()->get_val());
-		  delete $7->get_iId();
+		  channel_nums.push_back($7->iId->val);
+		  delete $7->iId;
 		  delete $7;
 		}
 	      if ($9)
 		{
 		  $$->itsSetup = 0;
 		  setup_refs.push_back(&($$->itsSetup));
-		  setup_nums.push_back($9->get_iId()->get_val());
-		  delete $9->get_iId();
+		  setup_nums.push_back($9->iId->val);
+		  delete $9->iId;
 		  delete $9;
 		}
 	      if ($11)
 		{
 		  $$->itsEffect = 0;
 		  inProcessGeometry_refs.push_back(&($$->itsEffect));
-		  inProcessGeometry_nums.push_back($11->get_iId()->get_val());
-		  delete $11->get_iId();
+		  inProcessGeometry_nums.push_back($11->iId->val);
+		  delete $11->iId;
 		  delete $11;
 		}
 	    }
@@ -8832,10 +8832,10 @@ xorExpression :
 	  XOREXPRESSION LPAREN instanceId C instanceId RPAREN
 	    { $$ = new xorExpression(0, 0);
 	      booleanExpression_refs.push_back(&($$->operand1));
-	      booleanExpression_nums.push_back($3->get_val());
+	      booleanExpression_nums.push_back($3->val);
 	      delete $3;
 	      booleanExpression_refs.push_back(&($$->operand2));
-	      booleanExpression_nums.push_back($5->get_val());
+	      booleanExpression_nums.push_back($5->val);
 	      delete $5;
 	    }
 	;

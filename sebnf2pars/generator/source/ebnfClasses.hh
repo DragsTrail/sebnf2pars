@@ -454,9 +454,11 @@ separated by commas.
      child is not an instance or the supertype of an instance
    3 if the production is an optional child
 
-8. isSupertype (bool, default is 0) - this is set in findSupertypes
-to true if each definition the production has only one expression
-and that expression is a production that is not a list.
+8. isSupertype (int, default is 0) - this is set in findSupertypes
+to 1 if each definition the production has only one expression
+and that expression is a production that is not a list. It is reset
+to 2 in findMixed if at least one of the subtypes is an instance
+and at least one is not. 
 
 9. lhs (char *, default is NULL) - this is the name of the production.
 It is set by the parser.
@@ -509,7 +511,7 @@ public:
     isInstance = false;
     isList = 0;
     isOptional = 0;
-    isSupertype = false;
+    isSupertype = 0;
     lhs = 0;
     myAtts.first = 0;
     myAtts.last = 0;
@@ -531,7 +533,7 @@ public:
   bool isInstance;         // true=is a subtype of instance, false=not
   int isList;              // 0=not a list, 1=list no commas, 2=list with commas
   int isOptional;          // 0, 1, 2, or 3 - see above
-  bool isSupertype;        // true = this prod is a supertype of other prods
+  int isSupertype;         // 1 = prod is supertype of other prods, 2=mixed
   char * lhs;              // the name of the production (lhs = left-hand side)
   stringList myAtts;       // names of attributes excluding supertypes
   expList myExps;          // expressions matching myAttNames

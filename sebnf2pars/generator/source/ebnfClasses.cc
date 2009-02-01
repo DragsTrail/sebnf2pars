@@ -271,7 +271,7 @@ production::production(
   isInstance = false;
   isList = 0;
   isOptional = 0;
-  isSupertype = false;
+  isSupertype = 0;
   lhs = lhsIn;
   myAtts.first = 0;
   myAtts.last = 0;
