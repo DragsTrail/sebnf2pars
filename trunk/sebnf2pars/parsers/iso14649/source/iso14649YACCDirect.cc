@@ -797,7 +797,7 @@
 #include <string.h>  // for strlen, strcpy, strcat
 #include <stdio.h>   // for fopen, etc.
 #include <stdlib.h>  // for exit
-#include "iso14649classes.hh"
+#include "iso14649classesDirect.hh"
 
 #define YYERROR_VERBOSE
 #define YYDEBUG 1
@@ -832,7 +832,7 @@ void link_ ## TYP()\
       else\
 	{\
 	  fprintf(report, "Error: #%d used incorrectly\n",\
-		  instances[*numIter]->get_iId()->get_val());\
+		  instances[*numIter]->iId->val);\
 	  numErrors++;\
 	}\
     }\
@@ -8419,7 +8419,7 @@ yyreduce:
 
     { (yyval.val5) = new advancedFace((yyvsp[(3) - (10)].sval), (yyvsp[(5) - (10)].val259), 0, (yyvsp[(9) - (10)].val34));
 	      surface_refs.push_back(&((yyval.val5)->faceGeometry));
-	      surface_nums.push_back((yyvsp[(7) - (10)].val189)->get_val());
+	      surface_nums.push_back((yyvsp[(7) - (10)].val189)->val);
 	      delete (yyvsp[(7) - (10)].val189);
 	    ;}
     break;
@@ -8461,12 +8461,12 @@ yyreduce:
 		{
 		  (yyval.val10)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val10)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->iId->val);
+		  delete (yyvsp[(3) - (6)].val136)->iId;
 		  delete (yyvsp[(3) - (6)].val136);
 		}
 	      toolpathList_refs.push_back(&((yyval.val10)->path));
-	      toolpathList_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      toolpathList_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -8490,35 +8490,35 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (20)].val396));
 		  (yyval.val13)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val13)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (20)].val396);
 		}
 	      if ((yyvsp[(9) - (20)].val222))
 		{
 		  (yyval.val13)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val13)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (20)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->iId->val);
+		  delete (yyvsp[(9) - (20)].val222)->iId;
 		  delete (yyvsp[(9) - (20)].val222);
 		}
 	      if ((yyvsp[(11) - (20)].val221))
 		{
 		  (yyval.val13)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val13)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (20)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->iId->val);
+		  delete (yyvsp[(11) - (20)].val221)->iId;
 		  delete (yyvsp[(11) - (20)].val221);
 		}
 	      cartesianPoint_refs.push_back(&((yyval.val13)->fixPoint));
-	      cartesianPoint_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      if ((yyvsp[(15) - (20)].val136))
 		{
 		  (yyval.val13)->fixPointDir = 0;
 		  direction_refs.push_back(&((yyval.val13)->fixPointDir));
-		  direction_nums.push_back((yyvsp[(15) - (20)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (20)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(15) - (20)].val136)->iId->val);
+		  delete (yyvsp[(15) - (20)].val136)->iId;
 		  delete (yyvsp[(15) - (20)].val136);
 		}
 	    ;}
@@ -8533,35 +8533,35 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (18)].val396));
 		  (yyval.val14)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val14)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (18)].val396);
 		}
 	      if ((yyvsp[(9) - (18)].val222))
 		{
 		  (yyval.val14)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val14)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (18)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (18)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (18)].val222)->iId->val);
+		  delete (yyvsp[(9) - (18)].val222)->iId;
 		  delete (yyvsp[(9) - (18)].val222);
 		}
 	      if ((yyvsp[(11) - (18)].val221))
 		{
 		  (yyval.val14)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val14)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (18)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (18)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (18)].val221)->iId->val);
+		  delete (yyvsp[(11) - (18)].val221)->iId;
 		  delete (yyvsp[(11) - (18)].val221);
 		}
 	      cartesianPoint_refs.push_back(&((yyval.val14)->fixPoint));
-	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      if ((yyvsp[(15) - (18)].val136))
 		{
 		  (yyval.val14)->fixPointDir = 0;
 		  direction_refs.push_back(&((yyval.val14)->fixPointDir));
-		  direction_nums.push_back((yyvsp[(15) - (18)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (18)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(15) - (18)].val136)->iId->val);
+		  delete (yyvsp[(15) - (18)].val136)->iId;
 		  delete (yyvsp[(15) - (18)].val136);
 		}
 	    ;}
@@ -8571,7 +8571,7 @@ yyreduce:
 
     { (yyval.val15) = new approval(0, (yyvsp[(5) - (6)].sval));
 	      approvalStatus_refs.push_back(&((yyval.val15)->status));
-	      approvalStatus_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      approvalStatus_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	    ;}
     break;
@@ -8588,8 +8588,8 @@ yyreduce:
 		{
 		  (yyval.val17)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val17)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->iId->val);
+		  delete (yyvsp[(3) - (8)].val136)->iId;
 		  delete (yyvsp[(3) - (8)].val136);
 		}
 	    ;}
@@ -8602,8 +8602,8 @@ yyreduce:
 		{
 		  (yyval.val18)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val18)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->iId->val);
+		  delete (yyvsp[(3) - (6)].val136)->iId;
 		  delete (yyvsp[(3) - (6)].val136);
 		}
 	    ;}
@@ -8613,10 +8613,10 @@ yyreduce:
 
     { (yyval.val19) = new assignment((yyvsp[(3) - (8)].sval), 0, 0);
 	      ncVariable_refs.push_back(&((yyval.val19)->itsLvalue));
-	      ncVariable_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      rvalue_refs.push_back(&((yyval.val19)->itsRvalue));
-	      rvalue_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -8630,10 +8630,10 @@ yyreduce:
 
     { (yyval.val21) = new axis1placement((yyvsp[(3) - (8)].sval), 0, 0);
 	      cartesianPoint_refs.push_back(&((yyval.val21)->location));
-	      cartesianPoint_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      direction_refs.push_back(&((yyval.val21)->axis));
-	      direction_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -8642,17 +8642,17 @@ yyreduce:
 
     { (yyval.val22) = new axis2placement3d((yyvsp[(3) - (10)].sval), 0, 0, (yyvsp[(9) - (10)].val136));
 	      cartesianPoint_refs.push_back(&((yyval.val22)->location));
-	      cartesianPoint_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	      direction_refs.push_back(&((yyval.val22)->axis));
-	      direction_nums.push_back((yyvsp[(7) - (10)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(7) - (10)].val189)->val);
 	      delete (yyvsp[(7) - (10)].val189);
 	      if ((yyvsp[(9) - (10)].val136))
 		{
 		  (yyval.val22)->refDirection = 0;
 		  direction_refs.push_back(&((yyval.val22)->refDirection));
-		  direction_nums.push_back((yyvsp[(9) - (10)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (10)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(9) - (10)].val136)->iId->val);
+		  delete (yyvsp[(9) - (10)].val136)->iId;
 		  delete (yyvsp[(9) - (10)].val136);
 		}
 	    ;}
@@ -8663,7 +8663,7 @@ yyreduce:
     { (yyval.val23) = new std::list<axis2placement3d *>;
 	      (yyval.val23)->push_back(0);
 	      axis2placement3d_refs.push_back(&((yyval.val23)->back()));
-	      axis2placement3d_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -8672,7 +8672,7 @@ yyreduce:
     { (yyval.val23) = (yyvsp[(1) - (3)].val23);
 	      (yyval.val23)->push_back(0);
 	      axis2placement3d_refs.push_back(&((yyval.val23)->back()));
-	      axis2placement3d_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -8685,24 +8685,24 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (18)].val396));
 		  (yyval.val24)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val24)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (18)].val396);
 		}
 	      if ((yyvsp[(9) - (18)].val222))
 		{
 		  (yyval.val24)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val24)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (18)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (18)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (18)].val222)->iId->val);
+		  delete (yyvsp[(9) - (18)].val222)->iId;
 		  delete (yyvsp[(9) - (18)].val222);
 		}
 	      if ((yyvsp[(11) - (18)].val221))
 		{
 		  (yyval.val24)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val24)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (18)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (18)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (18)].val221)->iId->val);
+		  delete (yyvsp[(11) - (18)].val221)->iId;
 		  delete (yyvsp[(11) - (18)].val221);
 		}
 	    ;}
@@ -8715,41 +8715,41 @@ yyreduce:
 		{
 		  (yyval.val25)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val25)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val25)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val25)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val25)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val25)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val25)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val25)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val25)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(29) - (30)].val140))
 		{
 		  (yyval.val25)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val25)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (30)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->iId->val);
+		  delete (yyvsp[(29) - (30)].val140)->iId;
 		  delete (yyvsp[(29) - (30)].val140);
 		}
 	    ;}
@@ -8759,7 +8759,7 @@ yyreduce:
 
     { (yyval.val26) = new backsideCounterbore(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val26)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -8768,7 +8768,7 @@ yyreduce:
 
     { (yyval.val27) = new backsideCountersink(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val27)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -8777,7 +8777,7 @@ yyreduce:
 
     { (yyval.val28) = new ballEndmill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val28)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -8799,8 +8799,8 @@ yyreduce:
 		{
 		  (yyval.val31)->feedDirection = 0;
 		  direction_refs.push_back(&((yyval.val31)->feedDirection));
-		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (12)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->iId->val);
+		  delete (yyvsp[(7) - (12)].val136)->iId;
 		  delete (yyvsp[(7) - (12)].val136);
 		}
 	    ;}
@@ -8813,8 +8813,8 @@ yyreduce:
 		{
 		  (yyval.val32)->feedDirection = 0;
 		  direction_refs.push_back(&((yyval.val32)->feedDirection));
-		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (12)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->iId->val);
+		  delete (yyvsp[(7) - (12)].val136)->iId;
 		  delete (yyvsp[(7) - (12)].val136);
 		}
 	    ;}
@@ -8824,7 +8824,7 @@ yyreduce:
 
     { (yyval.val33) = new block((yyvsp[(3) - (12)].sval), 0, (yyvsp[(7) - (12)].rval), (yyvsp[(9) - (12)].rval), (yyvsp[(11) - (12)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val33)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	    ;}
     break;
@@ -8844,7 +8844,7 @@ yyreduce:
     { (yyval.val35) = new std::list<booleanExpression *>;
 	      (yyval.val35)->push_back(0);
 	      booleanExpression_refs.push_back(&((yyval.val35)->back()));
-	      booleanExpression_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -8853,7 +8853,7 @@ yyreduce:
     { (yyval.val35) = (yyvsp[(1) - (3)].val35);
 	      (yyval.val35)->push_back(0);
 	      booleanExpression_refs.push_back(&((yyval.val35)->back()));
-	      booleanExpression_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -8874,49 +8874,49 @@ yyreduce:
 		{
 		  (yyval.val38)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val38)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (36)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (36)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (36)].val393)->iId->val);
+		  delete (yyvsp[(3) - (36)].val393)->iId;
 		  delete (yyvsp[(3) - (36)].val393);
 		}
 	      if ((yyvsp[(5) - (36)].val384))
 		{
 		  (yyval.val38)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val38)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (36)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (36)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (36)].val384)->iId->val);
+		  delete (yyvsp[(5) - (36)].val384)->iId;
 		  delete (yyvsp[(5) - (36)].val384);
 		}
 	      if ((yyvsp[(11) - (36)].val74))
 		{
 		  (yyval.val38)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val38)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (36)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (36)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (36)].val74)->iId->val);
+		  delete (yyvsp[(11) - (36)].val74)->iId;
 		  delete (yyvsp[(11) - (36)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val38)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (36)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (36)].val189)->val);
 	      delete (yyvsp[(13) - (36)].val189);
 	      technology_refs.push_back(&((yyval.val38)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (36)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (36)].val189)->val);
 	      delete (yyvsp[(15) - (36)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val38)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (36)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (36)].val189)->val);
 	      delete (yyvsp[(17) - (36)].val189);
 	      if ((yyvsp[(29) - (36)].val140))
 		{
 		  (yyval.val38)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val38)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (36)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (36)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (36)].val140)->iId->val);
+		  delete (yyvsp[(29) - (36)].val140)->iId;
 		  delete (yyvsp[(29) - (36)].val140);
 		}
 	      if ((yyvsp[(35) - (36)].val74))
 		{
 		  (yyval.val38)->waitingPosition = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val38)->waitingPosition));
-		  cartesianPoint_nums.push_back((yyvsp[(35) - (36)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(35) - (36)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(35) - (36)].val74)->iId->val);
+		  delete (yyvsp[(35) - (36)].val74)->iId;
 		  delete (yyvsp[(35) - (36)].val74);
 		}
 	    ;}
@@ -8926,7 +8926,7 @@ yyreduce:
 
     { (yyval.val39) = new boringTool(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val39)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -8935,16 +8935,16 @@ yyreduce:
 
     { (yyval.val40) = new boss((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), 0, 0, 0, (yyvsp[(15) - (16)].val322));
 	      workpiece_refs.push_back(&((yyval.val40)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val40)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->val);
 	      delete (yyvsp[(9) - (16)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val40)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      closedProfile_refs.push_back(&((yyval.val40)->itsBoundary));
-	      closedProfile_nums.push_back((yyvsp[(13) - (16)].val189)->get_val());
+	      closedProfile_nums.push_back((yyvsp[(13) - (16)].val189)->val);
 	      delete (yyvsp[(13) - (16)].val189);
 	    ;}
     break;
@@ -8954,7 +8954,7 @@ yyreduce:
     { (yyval.val41) = new std::list<boss *>;
 	      (yyval.val41)->push_back(0);
 	      boss_refs.push_back(&((yyval.val41)->back()));
-	      boss_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      boss_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -8963,7 +8963,7 @@ yyreduce:
     { (yyval.val41) = (yyvsp[(1) - (3)].val41);
 	      (yyval.val41)->push_back(0);
 	      boss_refs.push_back(&((yyval.val41)->back()));
-	      boss_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      boss_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -8974,57 +8974,57 @@ yyreduce:
 		{
 		  (yyval.val42)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val42)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (34)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (34)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (34)].val393)->iId->val);
+		  delete (yyvsp[(3) - (34)].val393)->iId;
 		  delete (yyvsp[(3) - (34)].val393);
 		}
 	      if ((yyvsp[(5) - (34)].val384))
 		{
 		  (yyval.val42)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val42)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (34)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (34)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (34)].val384)->iId->val);
+		  delete (yyvsp[(5) - (34)].val384)->iId;
 		  delete (yyvsp[(5) - (34)].val384);
 		}
 	      if ((yyvsp[(11) - (34)].val74))
 		{
 		  (yyval.val42)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val42)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (34)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (34)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (34)].val74)->iId->val);
+		  delete (yyvsp[(11) - (34)].val74)->iId;
 		  delete (yyvsp[(11) - (34)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val42)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (34)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (34)].val189)->val);
 	      delete (yyvsp[(13) - (34)].val189);
 	      technology_refs.push_back(&((yyval.val42)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (34)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (34)].val189)->val);
 	      delete (yyvsp[(15) - (34)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val42)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (34)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (34)].val189)->val);
 	      delete (yyvsp[(17) - (34)].val189);
 	      if ((yyvsp[(21) - (34)].val10))
 		{
 		  (yyval.val42)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val42)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (34)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (34)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (34)].val10)->iId->val);
+		  delete (yyvsp[(21) - (34)].val10)->iId;
 		  delete (yyvsp[(21) - (34)].val10);
 		}
 	      if ((yyvsp[(23) - (34)].val10))
 		{
 		  (yyval.val42)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val42)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (34)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (34)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (34)].val10)->iId->val);
+		  delete (yyvsp[(23) - (34)].val10)->iId;
 		  delete (yyvsp[(23) - (34)].val10);
 		}
 	      if ((yyvsp[(25) - (34)].val31))
 		{
 		  (yyval.val42)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val42)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (34)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (34)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (34)].val31)->iId->val);
+		  delete (yyvsp[(25) - (34)].val31)->iId;
 		  delete (yyvsp[(25) - (34)].val31);
 		}
 	    ;}
@@ -9037,57 +9037,57 @@ yyreduce:
 		{
 		  (yyval.val43)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val43)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (34)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (34)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (34)].val393)->iId->val);
+		  delete (yyvsp[(3) - (34)].val393)->iId;
 		  delete (yyvsp[(3) - (34)].val393);
 		}
 	      if ((yyvsp[(5) - (34)].val384))
 		{
 		  (yyval.val43)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val43)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (34)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (34)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (34)].val384)->iId->val);
+		  delete (yyvsp[(5) - (34)].val384)->iId;
 		  delete (yyvsp[(5) - (34)].val384);
 		}
 	      if ((yyvsp[(11) - (34)].val74))
 		{
 		  (yyval.val43)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val43)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (34)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (34)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (34)].val74)->iId->val);
+		  delete (yyvsp[(11) - (34)].val74)->iId;
 		  delete (yyvsp[(11) - (34)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val43)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (34)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (34)].val189)->val);
 	      delete (yyvsp[(13) - (34)].val189);
 	      technology_refs.push_back(&((yyval.val43)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (34)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (34)].val189)->val);
 	      delete (yyvsp[(15) - (34)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val43)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (34)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (34)].val189)->val);
 	      delete (yyvsp[(17) - (34)].val189);
 	      if ((yyvsp[(21) - (34)].val10))
 		{
 		  (yyval.val43)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val43)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (34)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (34)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (34)].val10)->iId->val);
+		  delete (yyvsp[(21) - (34)].val10)->iId;
 		  delete (yyvsp[(21) - (34)].val10);
 		}
 	      if ((yyvsp[(23) - (34)].val10))
 		{
 		  (yyval.val43)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val43)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (34)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (34)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (34)].val10)->iId->val);
+		  delete (yyvsp[(23) - (34)].val10)->iId;
 		  delete (yyvsp[(23) - (34)].val10);
 		}
 	      if ((yyvsp[(25) - (34)].val31))
 		{
 		  (yyval.val43)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val43)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (34)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (34)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (34)].val31)->iId->val);
+		  delete (yyvsp[(25) - (34)].val31)->iId;
 		  delete (yyvsp[(25) - (34)].val31);
 		}
 	    ;}
@@ -9128,7 +9128,7 @@ yyreduce:
     { (yyval.val48) = new std::list<boundedCurve *>;
 	      (yyval.val48)->push_back(0);
 	      boundedCurve_refs.push_back(&((yyval.val48)->back()));
-	      boundedCurve_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9137,7 +9137,7 @@ yyreduce:
     { (yyval.val48) = (yyvsp[(1) - (3)].val48);
 	      (yyval.val48)->push_back(0);
 	      boundedCurve_refs.push_back(&((yyval.val48)->back()));
-	      boundedCurve_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9145,10 +9145,10 @@ yyreduce:
 
     { (yyval.val49) = new boundedPCurve((yyvsp[(3) - (8)].sval), 0, 0);
 	      surface_refs.push_back(&((yyval.val49)->basisSurface));
-	      surface_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      surface_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      definitionalRepresentation_refs.push_back(&((yyval.val49)->referenceToCurve));
-	      definitionalRepresentation_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      definitionalRepresentation_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -9158,7 +9158,7 @@ yyreduce:
     { (yyval.val50) = new std::list<boundedSurface *>;
 	      (yyval.val50)->push_back(0);
 	      boundedSurface_refs.push_back(&((yyval.val50)->back()));
-	      boundedSurface_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      boundedSurface_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9167,7 +9167,7 @@ yyreduce:
     { (yyval.val50) = (yyvsp[(1) - (3)].val50);
 	      (yyval.val50)->push_back(0);
 	      boundedSurface_refs.push_back(&((yyval.val50)->back()));
-	      boundedSurface_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      boundedSurface_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9355,7 +9355,7 @@ yyreduce:
 
     { (yyval.val72) = new bullnoseEndmill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val72)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -9375,7 +9375,7 @@ yyreduce:
     { (yyval.val75) = new std::list<cartesianPoint *>;
 	      (yyval.val75)->push_back(0);
 	      cartesianPoint_refs.push_back(&((yyval.val75)->back()));
-	      cartesianPoint_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9384,7 +9384,7 @@ yyreduce:
     { (yyval.val75) = (yyvsp[(1) - (3)].val75);
 	      (yyval.val75)->push_back(0);
 	      cartesianPoint_refs.push_back(&((yyval.val75)->back()));
-	      cartesianPoint_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9392,39 +9392,39 @@ yyreduce:
 
     { (yyval.val76) = new catalogueThread((yyvsp[(3) - (32)].sval), 0, (yyvsp[(7) - (32)].val264), 0, 0, 0, (yyvsp[(15) - (32)].val263), (yyvsp[(17) - (32)].val34), (yyvsp[(19) - (32)].val134), 0, 0, (yyvsp[(25) - (32)].rval), 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val76)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (32)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (32)].val189)->val);
 	      delete (yyvsp[(5) - (32)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val76)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (32)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (32)].val189)->val);
 	      delete (yyvsp[(9) - (32)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val76)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (32)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (32)].val189)->val);
 	      delete (yyvsp[(11) - (32)].val189);
 	      partialAreaDefinition_refs.push_back(&((yyval.val76)->partialProfile));
-	      partialAreaDefinition_nums.push_back((yyvsp[(13) - (32)].val189)->get_val());
+	      partialAreaDefinition_nums.push_back((yyvsp[(13) - (32)].val189)->val);
 	      delete (yyvsp[(13) - (32)].val189);
 	      if ((yyvsp[(19) - (32)].val134))
 		{
 		  (yyval.val76)->qualifier = 0;
 		  descriptiveParameter_refs.push_back(&((yyval.val76)->qualifier));
-		  descriptiveParameter_nums.push_back((yyvsp[(19) - (32)].val134)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (32)].val134)->get_iId();
+		  descriptiveParameter_nums.push_back((yyvsp[(19) - (32)].val134)->iId->val);
+		  delete (yyvsp[(19) - (32)].val134)->iId;
 		  delete (yyvsp[(19) - (32)].val134);
 		}
 	      descriptiveParameter_refs.push_back(&((yyval.val76)->fitClass));
-	      descriptiveParameter_nums.push_back((yyvsp[(21) - (32)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(21) - (32)].val189)->val);
 	      delete (yyvsp[(21) - (32)].val189);
 	      descriptiveParameter_refs.push_back(&((yyval.val76)->form));
-	      descriptiveParameter_nums.push_back((yyvsp[(23) - (32)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(23) - (32)].val189)->val);
 	      delete (yyvsp[(23) - (32)].val189);
 	      numericParameter_refs.push_back(&((yyval.val76)->numberOfThreads));
-	      numericParameter_nums.push_back((yyvsp[(27) - (32)].val189)->get_val());
+	      numericParameter_nums.push_back((yyvsp[(27) - (32)].val189)->val);
 	      delete (yyvsp[(27) - (32)].val189);
 	      descriptiveParameter_refs.push_back(&((yyval.val76)->threadHand));
-	      descriptiveParameter_nums.push_back((yyvsp[(29) - (32)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(29) - (32)].val189)->val);
 	      delete (yyvsp[(29) - (32)].val189);
 	      specification_refs.push_back(&((yyval.val76)->documentation));
-	      specification_nums.push_back((yyvsp[(31) - (32)].val189)->get_val());
+	      specification_nums.push_back((yyvsp[(31) - (32)].val189)->val);
 	      delete (yyvsp[(31) - (32)].val189);
 	    ;}
     break;
@@ -9433,7 +9433,7 @@ yyreduce:
 
     { (yyval.val77) = new centerDrill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val77)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -9445,41 +9445,41 @@ yyreduce:
 		{
 		  (yyval.val78)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val78)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val78)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val78)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val78)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val78)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val78)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val78)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val78)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(29) - (30)].val140))
 		{
 		  (yyval.val78)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val78)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (30)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->iId->val);
+		  delete (yyvsp[(29) - (30)].val140)->iId;
 		  delete (yyvsp[(29) - (30)].val140);
 		}
 	    ;}
@@ -9494,16 +9494,16 @@ yyreduce:
 
     { (yyval.val80) = new chamfer((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), 0, 0, (yyvsp[(13) - (16)].rval), 0);
 	      workpiece_refs.push_back(&((yyval.val80)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      machiningFeature_refs.push_back(&((yyval.val80)->firstFeature));
-	      machiningFeature_nums.push_back((yyvsp[(9) - (16)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(9) - (16)].val189)->val);
 	      delete (yyvsp[(9) - (16)].val189);
 	      machiningFeature_refs.push_back(&((yyval.val80)->secondFeature));
-	      machiningFeature_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val80)->firstOffsetAmount));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (16)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (16)].val189)->val);
 	      delete (yyvsp[(15) - (16)].val189);
 	    ;}
     break;
@@ -9517,7 +9517,7 @@ yyreduce:
 
     { (yyval.val82) = new circle((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val82)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -9529,12 +9529,12 @@ yyreduce:
 		{
 		  (yyval.val83)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val83)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val83)->diameter));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9543,25 +9543,25 @@ yyreduce:
 
     { (yyval.val84) = new circularClosedShapeProfile((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val84)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val84)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val84)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val84)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      profileSelect_refs.push_back(&((yyval.val84)->floorCondition));
-	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      direction_refs.push_back(&((yyval.val84)->removalDirection));
-	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	      circularClosedProfile_refs.push_back(&((yyval.val84)->closedBoundary));
-	      circularClosedProfile_nums.push_back((yyvsp[(19) - (20)].val189)->get_val());
+	      circularClosedProfile_nums.push_back((yyvsp[(19) - (20)].val189)->val);
 	      delete (yyvsp[(19) - (20)].val189);
 	    ;}
     break;
@@ -9576,7 +9576,7 @@ yyreduce:
     { (yyval.val86) = new std::list<circularOffset *>;
 	      (yyval.val86)->push_back(0);
 	      circularOffset_refs.push_back(&((yyval.val86)->back()));
-	      circularOffset_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      circularOffset_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9585,7 +9585,7 @@ yyreduce:
     { (yyval.val86) = (yyvsp[(1) - (3)].val86);
 	      (yyval.val86)->push_back(0);
 	      circularOffset_refs.push_back(&((yyval.val86)->back()));
-	      circularOffset_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      circularOffset_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9599,7 +9599,7 @@ yyreduce:
     { (yyval.val88) = new std::list<circularOmit *>;
 	      (yyval.val88)->push_back(0);
 	      circularOmit_refs.push_back(&((yyval.val88)->back()));
-	      circularOmit_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      circularOmit_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9608,7 +9608,7 @@ yyreduce:
     { (yyval.val88) = (yyvsp[(1) - (3)].val88);
 	      (yyval.val88)->push_back(0);
 	      circularOmit_refs.push_back(&((yyval.val88)->back()));
-	      circularOmit_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      circularOmit_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9616,20 +9616,20 @@ yyreduce:
 
     { (yyval.val89) = new circularPattern((yyvsp[(3) - (24)].sval), 0, (yyvsp[(7) - (24)].val264), 0, 0, (yyvsp[(13) - (24)].rval), (yyvsp[(15) - (24)].ival), (yyvsp[(17) - (24)].val252), (yyvsp[(19) - (24)].val253), (yyvsp[(21) - (24)].val389), (yyvsp[(23) - (24)].rval));
 	      workpiece_refs.push_back(&((yyval.val89)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (24)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (24)].val189)->val);
 	      delete (yyvsp[(5) - (24)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val89)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (24)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (24)].val189)->val);
 	      delete (yyvsp[(9) - (24)].val189);
 	      two5DmanufacturingFeature_refs.push_back(&((yyval.val89)->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (24)].val189)->get_val());
+	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (24)].val189)->val);
 	      delete (yyvsp[(11) - (24)].val189);
 	      if ((yyvsp[(21) - (24)].val389))
 		{
 		  (yyval.val89)->baseFeatureDiameter = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val89)->baseFeatureDiameter));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (24)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (24)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (24)].val389)->iId->val);
+		  delete (yyvsp[(21) - (24)].val389)->iId;
 		  delete (yyvsp[(21) - (24)].val389);
 		}
 	    ;}
@@ -9639,35 +9639,35 @@ yyreduce:
 
     { (yyval.val90) = new closedPocket((yyvsp[(3) - (24)].sval), 0, (yyvsp[(7) - (24)].val264), 0, 0, (yyvsp[(13) - (24)].val246), (yyvsp[(15) - (24)].val322), 0, (yyvsp[(19) - (24)].val389), (yyvsp[(21) - (24)].val389), 0);
 	      workpiece_refs.push_back(&((yyval.val90)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (24)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (24)].val189)->val);
 	      delete (yyvsp[(5) - (24)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val90)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (24)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (24)].val189)->val);
 	      delete (yyvsp[(9) - (24)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val90)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (24)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (24)].val189)->val);
 	      delete (yyvsp[(11) - (24)].val189);
 	      pocketBottomCondition_refs.push_back(&((yyval.val90)->bottomCondition));
-	      pocketBottomCondition_nums.push_back((yyvsp[(17) - (24)].val189)->get_val());
+	      pocketBottomCondition_nums.push_back((yyvsp[(17) - (24)].val189)->val);
 	      delete (yyvsp[(17) - (24)].val189);
 	      if ((yyvsp[(19) - (24)].val389))
 		{
 		  (yyval.val90)->planarRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val90)->planarRadius));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (24)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (24)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (24)].val389)->iId->val);
+		  delete (yyvsp[(19) - (24)].val389)->iId;
 		  delete (yyvsp[(19) - (24)].val389);
 		}
 	      if ((yyvsp[(21) - (24)].val389))
 		{
 		  (yyval.val90)->orthogonalRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val90)->orthogonalRadius));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (24)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (24)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (24)].val389)->iId->val);
+		  delete (yyvsp[(21) - (24)].val389)->iId;
 		  delete (yyvsp[(21) - (24)].val389);
 		}
 	      closedProfile_refs.push_back(&((yyval.val90)->featureBoundary));
-	      closedProfile_nums.push_back((yyvsp[(23) - (24)].val189)->get_val());
+	      closedProfile_nums.push_back((yyvsp[(23) - (24)].val189)->val);
 	      delete (yyvsp[(23) - (24)].val189);
 	    ;}
     break;
@@ -9681,7 +9681,7 @@ yyreduce:
 
     { (yyval.val92) = new combinedDrillAndReamer(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val92)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -9690,7 +9690,7 @@ yyreduce:
 
     { (yyval.val93) = new combinedDrillAndTap(0, (yyvsp[(5) - (13)].val191), (yyvsp[(7) - (13)].val177), (yyvsp[(9) - (13)].val34), (yyvsp[(11) - (13)].val322), (yyvsp[(12) - (13)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val93)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (13)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (13)].val189)->val);
 	      delete (yyvsp[(3) - (13)].val189);
 	    ;}
     break;
@@ -9699,10 +9699,10 @@ yyreduce:
 
     { (yyval.val94) = new comparisonEqual(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val94)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val94)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9711,10 +9711,10 @@ yyreduce:
 
     { (yyval.val95) = new comparisonGreater(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val95)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val95)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9723,10 +9723,10 @@ yyreduce:
 
     { (yyval.val96) = new comparisonGreaterEqual(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val96)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val96)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9735,10 +9735,10 @@ yyreduce:
 
     { (yyval.val97) = new comparisonLess(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val97)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val97)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9747,10 +9747,10 @@ yyreduce:
 
     { (yyval.val98) = new comparisonLessEqual(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val98)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val98)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9759,10 +9759,10 @@ yyreduce:
 
     { (yyval.val99) = new comparisonNotEqual(0, 0);
 	      ncVariable_refs.push_back(&((yyval.val99)->operand1));
-	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      rvalue_refs.push_back(&((yyval.val99)->operand2));
-	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      rvalue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9774,12 +9774,12 @@ yyreduce:
 		{
 		  (yyval.val100)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val100)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val100)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -9793,7 +9793,7 @@ yyreduce:
 
     { (yyval.val102) = new compositeCurveSegment((yyvsp[(3) - (8)].val410), (yyvsp[(5) - (8)].val34), 0);
 	      curve_refs.push_back(&((yyval.val102)->parentCurve));
-	      curve_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      curve_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -9803,7 +9803,7 @@ yyreduce:
     { (yyval.val103) = new std::list<compositeCurveSegment *>;
 	      (yyval.val103)->push_back(0);
 	      compositeCurveSegment_refs.push_back(&((yyval.val103)->back()));
-	      compositeCurveSegment_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      compositeCurveSegment_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9812,7 +9812,7 @@ yyreduce:
     { (yyval.val103) = (yyvsp[(1) - (3)].val103);
 	      (yyval.val103)->push_back(0);
 	      compositeCurveSegment_refs.push_back(&((yyval.val103)->back()));
-	      compositeCurveSegment_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      compositeCurveSegment_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9821,7 +9821,7 @@ yyreduce:
     { (yyval.val104) = new std::list<compoundFeatureSelect *>;
 	      (yyval.val104)->push_back(0);
 	      compoundFeatureSelect_refs.push_back(&((yyval.val104)->back()));
-	      compoundFeatureSelect_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      compoundFeatureSelect_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -9830,7 +9830,7 @@ yyreduce:
     { (yyval.val104) = (yyvsp[(1) - (3)].val104);
 	      (yyval.val104)->push_back(0);
 	      compoundFeatureSelect_refs.push_back(&((yyval.val104)->back()));
-	      compoundFeatureSelect_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      compoundFeatureSelect_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -9841,8 +9841,8 @@ yyreduce:
 		{
 		  (yyval.val105)->tipRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val105)->tipRadius));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (6)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val389)->iId->val);
+		  delete (yyvsp[(5) - (6)].val389)->iId;
 		  delete (yyvsp[(5) - (6)].val389);
 		}
 	    ;}
@@ -9857,24 +9857,24 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (12)].val396));
 		  (yyval.val106)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val106)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (12)].val396);
 		}
 	      if ((yyvsp[(9) - (12)].val222))
 		{
 		  (yyval.val106)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val106)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (12)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (12)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (12)].val222)->iId->val);
+		  delete (yyvsp[(9) - (12)].val222)->iId;
 		  delete (yyvsp[(9) - (12)].val222);
 		}
 	      if ((yyvsp[(11) - (12)].val221))
 		{
 		  (yyval.val106)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val106)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (12)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (12)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (12)].val221)->iId->val);
+		  delete (yyvsp[(11) - (12)].val221)->iId;
 		  delete (yyvsp[(11) - (12)].val221);
 		}
 	    ;}
@@ -9889,40 +9889,40 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (16)].val396));
 		  (yyval.val107)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val107)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (16)].val396);
 		}
 	      if ((yyvsp[(9) - (16)].val222))
 		{
 		  (yyval.val107)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val107)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (16)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (16)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (16)].val222)->iId->val);
+		  delete (yyvsp[(9) - (16)].val222)->iId;
 		  delete (yyvsp[(9) - (16)].val222);
 		}
 	      if ((yyvsp[(11) - (16)].val221))
 		{
 		  (yyval.val107)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val107)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (16)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (16)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (16)].val221)->iId->val);
+		  delete (yyvsp[(11) - (16)].val221)->iId;
 		  delete (yyvsp[(11) - (16)].val221);
 		}
 	      if ((yyvsp[(13) - (16)].val136))
 		{
 		  (yyval.val107)->upDir = 0;
 		  direction_refs.push_back(&((yyval.val107)->upDir));
-		  direction_nums.push_back((yyvsp[(13) - (16)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(13) - (16)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(13) - (16)].val136)->iId->val);
+		  delete (yyvsp[(13) - (16)].val136)->iId;
 		  delete (yyvsp[(13) - (16)].val136);
 		}
 	      if ((yyvsp[(15) - (16)].val136))
 		{
 		  (yyval.val107)->downDir = 0;
 		  direction_refs.push_back(&((yyval.val107)->downDir));
-		  direction_nums.push_back((yyvsp[(15) - (16)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (16)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(15) - (16)].val136)->iId->val);
+		  delete (yyvsp[(15) - (16)].val136)->iId;
 		  delete (yyvsp[(15) - (16)].val136);
 		}
 	    ;}
@@ -9955,8 +9955,8 @@ yyreduce:
 		{
 		  (yyval.val111)->feedDirection = 0;
 		  direction_refs.push_back(&((yyval.val111)->feedDirection));
-		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (12)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(7) - (12)].val136)->iId->val);
+		  delete (yyvsp[(7) - (12)].val136)->iId;
 		  delete (yyvsp[(7) - (12)].val136);
 		}
 	    ;}
@@ -9981,7 +9981,7 @@ yyreduce:
 
     { (yyval.val115) = new counterbore(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val115)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -9990,10 +9990,10 @@ yyreduce:
 
     { (yyval.val116) = new counterboreHole((yyvsp[(3) - (12)].sval), 0, (yyvsp[(7) - (12)].val264), 0, (yyvsp[(11) - (12)].val255));
 	      workpiece_refs.push_back(&((yyval.val116)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val116)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	    ;}
     break;
@@ -10002,7 +10002,7 @@ yyreduce:
 
     { (yyval.val117) = new countersink(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val117)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -10014,41 +10014,41 @@ yyreduce:
 		{
 		  (yyval.val118)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val118)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val118)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val118)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val118)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val118)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val118)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val118)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val118)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(29) - (30)].val140))
 		{
 		  (yyval.val118)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val118)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (30)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->iId->val);
+		  delete (yyvsp[(29) - (30)].val140)->iId;
 		  delete (yyvsp[(29) - (30)].val140);
 		}
 	    ;}
@@ -10058,10 +10058,10 @@ yyreduce:
 
     { (yyval.val119) = new countersunkHole((yyvsp[(3) - (12)].sval), 0, (yyvsp[(7) - (12)].val264), 0, (yyvsp[(11) - (12)].val255));
 	      workpiece_refs.push_back(&((yyval.val119)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val119)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	    ;}
     break;
@@ -10070,10 +10070,10 @@ yyreduce:
 
     { (yyval.val120) = new curveWithNormalVector(0, 0);
 	      boundedCurve_refs.push_back(&((yyval.val120)->basiccurve));
-	      boundedCurve_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      boundedCurve_refs.push_back(&((yyval.val120)->surfaceNormal));
-	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10107,35 +10107,35 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (20)].val396));
 		  (yyval.val124)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val124)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (20)].val396);
 		}
 	      if ((yyvsp[(9) - (20)].val222))
 		{
 		  (yyval.val124)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val124)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (20)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->iId->val);
+		  delete (yyvsp[(9) - (20)].val222)->iId;
 		  delete (yyvsp[(9) - (20)].val222);
 		}
 	      if ((yyvsp[(11) - (20)].val221))
 		{
 		  (yyval.val124)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val124)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (20)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->iId->val);
+		  delete (yyvsp[(11) - (20)].val221)->iId;
 		  delete (yyvsp[(11) - (20)].val221);
 		}
 	      curveWithSurfaceNormalSelect_refs.push_back(&((yyval.val124)->basiccurve));
-	      curveWithSurfaceNormalSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      curveWithSurfaceNormalSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      if ((yyvsp[(17) - (20)].val29))
 		{
 		  (yyval.val124)->itsToolaxis = 0;
 		  boundedCurve_refs.push_back(&((yyval.val124)->itsToolaxis));
-		  boundedCurve_nums.push_back((yyvsp[(17) - (20)].val29)->get_iId()->get_val());
-		  delete (yyvsp[(17) - (20)].val29)->get_iId();
+		  boundedCurve_nums.push_back((yyvsp[(17) - (20)].val29)->iId->val);
+		  delete (yyvsp[(17) - (20)].val29)->iId;
 		  delete (yyvsp[(17) - (20)].val29);
 		}
 	    ;}
@@ -10150,43 +10150,43 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (20)].val396));
 		  (yyval.val125)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val125)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (20)].val396);
 		}
 	      if ((yyvsp[(9) - (20)].val222))
 		{
 		  (yyval.val125)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val125)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (20)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (20)].val222)->iId->val);
+		  delete (yyvsp[(9) - (20)].val222)->iId;
 		  delete (yyvsp[(9) - (20)].val222);
 		}
 	      if ((yyvsp[(11) - (20)].val221))
 		{
 		  (yyval.val125)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val125)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (20)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (20)].val221)->iId->val);
+		  delete (yyvsp[(11) - (20)].val221)->iId;
 		  delete (yyvsp[(11) - (20)].val221);
 		}
 	      boundedCurve_refs.push_back(&((yyval.val125)->basiccurve));
-	      boundedCurve_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      if ((yyvsp[(17) - (20)].val29))
 		{
 		  (yyval.val125)->itsToolaxis = 0;
 		  boundedCurve_refs.push_back(&((yyval.val125)->itsToolaxis));
-		  boundedCurve_nums.push_back((yyvsp[(17) - (20)].val29)->get_iId()->get_val());
-		  delete (yyvsp[(17) - (20)].val29)->get_iId();
+		  boundedCurve_nums.push_back((yyvsp[(17) - (20)].val29)->iId->val);
+		  delete (yyvsp[(17) - (20)].val29)->iId;
 		  delete (yyvsp[(17) - (20)].val29);
 		}
 	      if ((yyvsp[(19) - (20)].val29))
 		{
 		  (yyval.val125)->surfaceNormal = 0;
 		  boundedCurve_refs.push_back(&((yyval.val125)->surfaceNormal));
-		  boundedCurve_nums.push_back((yyvsp[(19) - (20)].val29)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (20)].val29)->get_iId();
+		  boundedCurve_nums.push_back((yyvsp[(19) - (20)].val29)->iId->val);
+		  delete (yyvsp[(19) - (20)].val29)->iId;
 		  delete (yyvsp[(19) - (20)].val29);
 		}
 	    ;}
@@ -10199,24 +10199,24 @@ yyreduce:
 		{
 		  (yyval.val126)->itsMaterial = 0;
 		  material_refs.push_back(&((yyval.val126)->itsMaterial));
-		  material_nums.push_back((yyvsp[(5) - (12)].val219)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (12)].val219)->get_iId();
+		  material_nums.push_back((yyvsp[(5) - (12)].val219)->iId->val);
+		  delete (yyvsp[(5) - (12)].val219)->iId;
 		  delete (yyvsp[(5) - (12)].val219);
 		}
 	      if ((yyvsp[(7) - (12)].val128))
 		{
 		  (yyval.val126)->technologicalData = 0;
 		  cuttingEdgeTechnologicalData_refs.push_back(&((yyval.val126)->technologicalData));
-		  cuttingEdgeTechnologicalData_nums.push_back((yyvsp[(7) - (12)].val128)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (12)].val128)->get_iId();
+		  cuttingEdgeTechnologicalData_nums.push_back((yyvsp[(7) - (12)].val128)->iId->val);
+		  delete (yyvsp[(7) - (12)].val128)->iId;
 		  delete (yyvsp[(7) - (12)].val128);
 		}
 	      if ((yyvsp[(11) - (12)].val222))
 		{
 		  (yyval.val126)->itsTechnology = 0;
 		  millingTechnology_refs.push_back(&((yyval.val126)->itsTechnology));
-		  millingTechnology_nums.push_back((yyvsp[(11) - (12)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (12)].val222)->get_iId();
+		  millingTechnology_nums.push_back((yyvsp[(11) - (12)].val222)->iId->val);
+		  delete (yyvsp[(11) - (12)].val222)->iId;
 		  delete (yyvsp[(11) - (12)].val222);
 		}
 	    ;}
@@ -10227,7 +10227,7 @@ yyreduce:
     { (yyval.val127) = new std::list<cuttingComponent *>;
 	      (yyval.val127)->push_back(0);
 	      cuttingComponent_refs.push_back(&((yyval.val127)->back()));
-	      cuttingComponent_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      cuttingComponent_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -10236,7 +10236,7 @@ yyreduce:
     { (yyval.val127) = (yyvsp[(1) - (3)].val127);
 	      (yyval.val127)->push_back(0);
 	      cuttingComponent_refs.push_back(&((yyval.val127)->back()));
-	      cuttingComponent_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      cuttingComponent_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -10259,10 +10259,10 @@ yyreduce:
 
     { (yyval.val131) = new dateAndTime(0, 0);
 	      date_refs.push_back(&((yyval.val131)->dateComponent));
-	      date_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      date_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      localTime_refs.push_back(&((yyval.val131)->timeComponent));
-	      localTime_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      localTime_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10271,36 +10271,36 @@ yyreduce:
 
     { (yyval.val132) = new definedThread((yyvsp[(3) - (36)].sval), 0, (yyvsp[(7) - (36)].val264), 0, 0, 0, (yyvsp[(15) - (36)].val263), (yyvsp[(17) - (36)].val34), (yyvsp[(19) - (36)].val134), 0, 0, (yyvsp[(25) - (36)].rval), 0, 0, (yyvsp[(31) - (36)].rval), (yyvsp[(33) - (36)].val322), (yyvsp[(35) - (36)].val322));
 	      workpiece_refs.push_back(&((yyval.val132)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (36)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (36)].val189)->val);
 	      delete (yyvsp[(5) - (36)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val132)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (36)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (36)].val189)->val);
 	      delete (yyvsp[(9) - (36)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val132)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (36)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (36)].val189)->val);
 	      delete (yyvsp[(11) - (36)].val189);
 	      partialAreaDefinition_refs.push_back(&((yyval.val132)->partialProfile));
-	      partialAreaDefinition_nums.push_back((yyvsp[(13) - (36)].val189)->get_val());
+	      partialAreaDefinition_nums.push_back((yyvsp[(13) - (36)].val189)->val);
 	      delete (yyvsp[(13) - (36)].val189);
 	      if ((yyvsp[(19) - (36)].val134))
 		{
 		  (yyval.val132)->qualifier = 0;
 		  descriptiveParameter_refs.push_back(&((yyval.val132)->qualifier));
-		  descriptiveParameter_nums.push_back((yyvsp[(19) - (36)].val134)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (36)].val134)->get_iId();
+		  descriptiveParameter_nums.push_back((yyvsp[(19) - (36)].val134)->iId->val);
+		  delete (yyvsp[(19) - (36)].val134)->iId;
 		  delete (yyvsp[(19) - (36)].val134);
 		}
 	      descriptiveParameter_refs.push_back(&((yyval.val132)->fitClass));
-	      descriptiveParameter_nums.push_back((yyvsp[(21) - (36)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(21) - (36)].val189)->val);
 	      delete (yyvsp[(21) - (36)].val189);
 	      descriptiveParameter_refs.push_back(&((yyval.val132)->form));
-	      descriptiveParameter_nums.push_back((yyvsp[(23) - (36)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(23) - (36)].val189)->val);
 	      delete (yyvsp[(23) - (36)].val189);
 	      numericParameter_refs.push_back(&((yyval.val132)->numberOfThreads));
-	      numericParameter_nums.push_back((yyvsp[(27) - (36)].val189)->get_val());
+	      numericParameter_nums.push_back((yyvsp[(27) - (36)].val189)->val);
 	      delete (yyvsp[(27) - (36)].val189);
 	      descriptiveParameter_refs.push_back(&((yyval.val132)->threadHand));
-	      descriptiveParameter_nums.push_back((yyvsp[(29) - (36)].val189)->get_val());
+	      descriptiveParameter_nums.push_back((yyvsp[(29) - (36)].val189)->val);
 	      delete (yyvsp[(29) - (36)].val189);
 	    ;}
     break;
@@ -10319,7 +10319,7 @@ yyreduce:
 
     { (yyval.val135) = new diameterTaper(0);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val135)->finalDiameter));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -10338,7 +10338,7 @@ yyreduce:
 
     { (yyval.val138) = new dovetailMill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val138)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -10350,41 +10350,41 @@ yyreduce:
 		{
 		  (yyval.val139)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val139)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val139)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val139)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val139)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val139)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val139)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val139)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val139)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(29) - (30)].val140))
 		{
 		  (yyval.val139)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val139)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (30)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (30)].val140)->iId->val);
+		  delete (yyvsp[(29) - (30)].val140)->iId;
 		  delete (yyvsp[(29) - (30)].val140);
 		}
 	    ;}
@@ -10399,13 +10399,13 @@ yyreduce:
 
     { (yyval.val141) = new edgeCurve((yyvsp[(3) - (12)].sval), 0, 0, 0, (yyvsp[(11) - (12)].val34));
 	      vertex_refs.push_back(&((yyval.val141)->edgeStart));
-	      vertex_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      vertex_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      vertex_refs.push_back(&((yyval.val141)->edgeEnd));
-	      vertex_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      vertex_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      curve_refs.push_back(&((yyval.val141)->edgeGeometry));
-	      curve_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      curve_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	    ;}
     break;
@@ -10419,31 +10419,31 @@ yyreduce:
 
     { (yyval.val143) = new edgeRound((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val264), 0, 0, 0, (yyvsp[(15) - (18)].val389), (yyvsp[(17) - (18)].val389));
 	      workpiece_refs.push_back(&((yyval.val143)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      machiningFeature_refs.push_back(&((yyval.val143)->firstFeature));
-	      machiningFeature_nums.push_back((yyvsp[(9) - (18)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(9) - (18)].val189)->val);
 	      delete (yyvsp[(9) - (18)].val189);
 	      machiningFeature_refs.push_back(&((yyval.val143)->secondFeature));
-	      machiningFeature_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val143)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      if ((yyvsp[(15) - (18)].val389))
 		{
 		  (yyval.val143)->firstOffsetAmount = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val143)->firstOffsetAmount));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (18)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (18)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (18)].val389)->iId->val);
+		  delete (yyvsp[(15) - (18)].val389)->iId;
 		  delete (yyvsp[(15) - (18)].val389);
 		}
 	      if ((yyvsp[(17) - (18)].val389))
 		{
 		  (yyval.val143)->secondOffsetAmount = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val143)->secondOffsetAmount));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(17) - (18)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(17) - (18)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(17) - (18)].val389)->iId->val);
+		  delete (yyvsp[(17) - (18)].val389)->iId;
 		  delete (yyvsp[(17) - (18)].val389);
 		}
 	    ;}
@@ -10453,7 +10453,7 @@ yyreduce:
 
     { (yyval.val144) = new ellipse((yyvsp[(3) - (10)].sval), 0, (yyvsp[(7) - (10)].rval), (yyvsp[(9) - (10)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val144)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -10473,7 +10473,7 @@ yyreduce:
     { (yyval.val147) = new std::list<executable *>;
 	      (yyval.val147)->push_back(0);
 	      executable_refs.push_back(&((yyval.val147)->back()));
-	      executable_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      executable_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -10482,7 +10482,7 @@ yyreduce:
     { (yyval.val147) = (yyvsp[(1) - (3)].val147);
 	      (yyval.val147)->push_back(0);
 	      executable_refs.push_back(&((yyval.val147)->back()));
-	      executable_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      executable_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -10496,7 +10496,7 @@ yyreduce:
     { (yyval.val149) = new std::list<face *>;
 	      (yyval.val149)->push_back(0);
 	      face_refs.push_back(&((yyval.val149)->back()));
-	      face_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      face_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -10505,7 +10505,7 @@ yyreduce:
     { (yyval.val149) = (yyvsp[(1) - (3)].val149);
 	      (yyval.val149)->push_back(0);
 	      face_refs.push_back(&((yyval.val149)->back()));
-	      face_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      face_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -10513,7 +10513,7 @@ yyreduce:
 
     { (yyval.val150) = new facemill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val150)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -10522,7 +10522,7 @@ yyreduce:
 
     { (yyval.val151) = new faceBound((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].val34));
 	      loop_refs.push_back(&((yyval.val151)->bound));
-	      loop_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      loop_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -10532,7 +10532,7 @@ yyreduce:
     { (yyval.val152) = new std::list<faceBound *>;
 	      (yyval.val152)->push_back(0);
 	      faceBound_refs.push_back(&((yyval.val152)->back()));
-	      faceBound_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      faceBound_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -10541,7 +10541,7 @@ yyreduce:
     { (yyval.val152) = (yyvsp[(1) - (3)].val152);
 	      (yyval.val152)->push_back(0);
 	      faceBound_refs.push_back(&((yyval.val152)->back()));
-	      faceBound_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      faceBound_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -10549,7 +10549,7 @@ yyreduce:
 
     { (yyval.val153) = new faceOuterBound((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].val34));
 	      loop_refs.push_back(&((yyval.val153)->bound));
-	      loop_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      loop_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -10563,24 +10563,24 @@ yyreduce:
 		  v = dynamic_cast<toolpathSpeed *>((yyvsp[(7) - (14)].val396));
 		  (yyval.val154)->itsSpeed = 0;
 		  toolpathSpeedprofile_refs.push_back(&((yyval.val154)->itsSpeed));
-		  toolpathSpeedprofile_nums.push_back(v->get_iId()->get_val());
-		  delete v->get_iId();
+		  toolpathSpeedprofile_nums.push_back(v->iId->val);
+		  delete v->iId;
 		  delete (yyvsp[(7) - (14)].val396);
 		}
 	      if ((yyvsp[(9) - (14)].val222))
 		{
 		  (yyval.val154)->itsTechnology = 0;
 		  technology_refs.push_back(&((yyval.val154)->itsTechnology));
-		  technology_nums.push_back((yyvsp[(9) - (14)].val222)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (14)].val222)->get_iId();
+		  technology_nums.push_back((yyvsp[(9) - (14)].val222)->iId->val);
+		  delete (yyvsp[(9) - (14)].val222)->iId;
 		  delete (yyvsp[(9) - (14)].val222);
 		}
 	      if ((yyvsp[(11) - (14)].val221))
 		{
 		  (yyval.val154)->itsMachineFunctions = 0;
 		  machineFunctions_refs.push_back(&((yyval.val154)->itsMachineFunctions));
-		  machineFunctions_nums.push_back((yyvsp[(11) - (14)].val221)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (14)].val221)->get_iId();
+		  machineFunctions_nums.push_back((yyvsp[(11) - (14)].val221)->iId->val);
+		  delete (yyvsp[(11) - (14)].val221)->iId;
 		  delete (yyvsp[(11) - (14)].val221);
 		}
 	    ;}
@@ -10690,10 +10690,10 @@ yyreduce:
 
     { (yyval.val166) = new flatSlotEndType(0, 0);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val166)->cornerRadius1));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val166)->cornerRadius2));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10702,7 +10702,7 @@ yyreduce:
 
     { (yyval.val167) = new flatWithRadiusHoleBottom(0);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val167)->cornerRadius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -10714,57 +10714,57 @@ yyreduce:
 		{
 		  (yyval.val168)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val168)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (26)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (26)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (26)].val393)->iId->val);
+		  delete (yyvsp[(3) - (26)].val393)->iId;
 		  delete (yyvsp[(3) - (26)].val393);
 		}
 	      if ((yyvsp[(5) - (26)].val384))
 		{
 		  (yyval.val168)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val168)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (26)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (26)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (26)].val384)->iId->val);
+		  delete (yyvsp[(5) - (26)].val384)->iId;
 		  delete (yyvsp[(5) - (26)].val384);
 		}
 	      if ((yyvsp[(11) - (26)].val74))
 		{
 		  (yyval.val168)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val168)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (26)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (26)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (26)].val74)->iId->val);
+		  delete (yyvsp[(11) - (26)].val74)->iId;
 		  delete (yyvsp[(11) - (26)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val168)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (26)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (26)].val189)->val);
 	      delete (yyvsp[(13) - (26)].val189);
 	      technology_refs.push_back(&((yyval.val168)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (26)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (26)].val189)->val);
 	      delete (yyvsp[(15) - (26)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val168)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (26)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (26)].val189)->val);
 	      delete (yyvsp[(17) - (26)].val189);
 	      if ((yyvsp[(21) - (26)].val10))
 		{
 		  (yyval.val168)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val168)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (26)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (26)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (26)].val10)->iId->val);
+		  delete (yyvsp[(21) - (26)].val10)->iId;
 		  delete (yyvsp[(21) - (26)].val10);
 		}
 	      if ((yyvsp[(23) - (26)].val10))
 		{
 		  (yyval.val168)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val168)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (26)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (26)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (26)].val10)->iId->val);
+		  delete (yyvsp[(23) - (26)].val10)->iId;
 		  delete (yyvsp[(23) - (26)].val10);
 		}
 	      if ((yyvsp[(25) - (26)].val198))
 		{
 		  (yyval.val168)->itsMachiningStrategy = 0;
 		  freeformStrategy_refs.push_back(&((yyval.val168)->itsMachiningStrategy));
-		  freeformStrategy_nums.push_back((yyvsp[(25) - (26)].val198)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (26)].val198)->get_iId();
+		  freeformStrategy_nums.push_back((yyvsp[(25) - (26)].val198)->iId->val);
+		  delete (yyvsp[(25) - (26)].val198)->iId;
 		  delete (yyvsp[(25) - (26)].val198);
 		}
 	    ;}
@@ -10777,12 +10777,12 @@ yyreduce:
 		{
 		  (yyval.val169)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val169)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      boundedCurve_refs.push_back(&((yyval.val169)->closedProfileShape));
-	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10791,19 +10791,19 @@ yyreduce:
 
     { (yyval.val170) = new generalOutsideProfile((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val170)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val170)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->val);
 	      delete (yyvsp[(9) - (16)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val170)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      linearPath_refs.push_back(&((yyval.val170)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (16)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (16)].val189)->val);
 	      delete (yyvsp[(13) - (16)].val189);
 	      profile_refs.push_back(&((yyval.val170)->featureBoundary));
-	      profile_nums.push_back((yyvsp[(15) - (16)].val189)->get_val());
+	      profile_nums.push_back((yyvsp[(15) - (16)].val189)->val);
 	      delete (yyvsp[(15) - (16)].val189);
 	    ;}
     break;
@@ -10815,12 +10815,12 @@ yyreduce:
 		{
 		  (yyval.val171)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val171)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      boundedCurve_refs.push_back(&((yyval.val171)->sweptPath));
-	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10829,13 +10829,13 @@ yyreduce:
 
     { (yyval.val172) = new generalPattern((yyvsp[(3) - (14)].sval), 0, (yyvsp[(7) - (14)].val264), 0, 0, (yyvsp[(13) - (14)].val244));
 	      workpiece_refs.push_back(&((yyval.val172)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val172)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (14)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (14)].val189)->val);
 	      delete (yyvsp[(9) - (14)].val189);
 	      two5DmanufacturingFeature_refs.push_back(&((yyval.val172)->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (14)].val189)->get_val());
+	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (14)].val189)->val);
 	      delete (yyvsp[(11) - (14)].val189);
 	    ;}
     break;
@@ -10844,7 +10844,7 @@ yyreduce:
 
     { (yyval.val173) = new generalPocketBottomCondition(0);
 	      region_refs.push_back(&((yyval.val173)->shape));
-	      region_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      region_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -10856,12 +10856,12 @@ yyreduce:
 		{
 		  (yyval.val174)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val174)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      boundedCurve_refs.push_back(&((yyval.val174)->itsProfile));
-	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -10870,7 +10870,7 @@ yyreduce:
 
     { (yyval.val175) = new generalProfileFloor((yyvsp[(3) - (8)].val322), (yyvsp[(5) - (8)].val34), 0);
 	      face_refs.push_back(&((yyval.val175)->floor));
-	      face_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      face_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -10879,25 +10879,25 @@ yyreduce:
 
     { (yyval.val176) = new generalShapeProfile((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val176)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val176)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val176)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val176)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      profileSelect_refs.push_back(&((yyval.val176)->floorCondition));
-	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      direction_refs.push_back(&((yyval.val176)->removalDirection));
-	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	      profile_refs.push_back(&((yyval.val176)->profileBoundary));
-	      profile_nums.push_back((yyvsp[(19) - (20)].val189)->get_val());
+	      profile_nums.push_back((yyvsp[(19) - (20)].val189)->val);
 	      delete (yyvsp[(19) - (20)].val189);
 	    ;}
     break;
@@ -10946,7 +10946,7 @@ yyreduce:
 
     { (yyval.val183) = new helix((yyvsp[(3) - (10)].sval), 0, (yyvsp[(7) - (10)].rval), (yyvsp[(9) - (10)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val183)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -10955,7 +10955,7 @@ yyreduce:
 
     { (yyval.val184) = new hyperbola((yyvsp[(3) - (10)].sval), 0, (yyvsp[(7) - (10)].rval), (yyvsp[(9) - (10)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val184)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -10964,17 +10964,17 @@ yyreduce:
 
     { (yyval.val185) = new ifStatement((yyvsp[(3) - (10)].sval), 0, 0, (yyvsp[(9) - (10)].val19));
 	      booleanExpression_refs.push_back(&((yyval.val185)->condition));
-	      booleanExpression_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	      executable_refs.push_back(&((yyval.val185)->trueBranch));
-	      executable_nums.push_back((yyvsp[(7) - (10)].val189)->get_val());
+	      executable_nums.push_back((yyvsp[(7) - (10)].val189)->val);
 	      delete (yyvsp[(7) - (10)].val189);
 	      if ((yyvsp[(9) - (10)].val19))
 		{
 		  (yyval.val185)->falseBranch = 0;
 		  executable_refs.push_back(&((yyval.val185)->falseBranch));
-		  executable_nums.push_back((yyvsp[(9) - (10)].val19)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (10)].val19)->get_iId();
+		  executable_nums.push_back((yyvsp[(9) - (10)].val19)->iId->val);
+		  delete (yyvsp[(9) - (10)].val19)->iId;
 		  delete (yyvsp[(9) - (10)].val19);
 		}
 	    ;}
@@ -10997,24 +10997,24 @@ yyreduce:
 		{
 		  (yyval.val188)->asIs = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&((yyval.val188)->asIs));
-		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(3) - (8)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val4)->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(3) - (8)].val4)->iId->val);
+		  delete (yyvsp[(3) - (8)].val4)->iId;
 		  delete (yyvsp[(3) - (8)].val4);
 		}
 	      if ((yyvsp[(5) - (8)].val4))
 		{
 		  (yyval.val188)->toBe = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&((yyval.val188)->toBe));
-		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(5) - (8)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (8)].val4)->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(5) - (8)].val4)->iId->val);
+		  delete (yyvsp[(5) - (8)].val4)->iId;
 		  delete (yyvsp[(5) - (8)].val4);
 		}
 	      if ((yyvsp[(7) - (8)].val4))
 		{
 		  (yyval.val188)->removal = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&((yyval.val188)->removal));
-		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(7) - (8)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (8)].val4)->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(7) - (8)].val4)->iId->val);
+		  delete (yyvsp[(7) - (8)].val4)->iId;
 		  delete (yyvsp[(7) - (8)].val4);
 		}
 	    ;}
@@ -11041,8 +11041,8 @@ yyreduce:
 
     { int n;
 	      (yyval.val2) = (yyvsp[(3) - (4)].val2);
-	      (yyvsp[(3) - (4)].val2)->set_iId((yyvsp[(1) - (4)].val189));
-	      n = (yyvsp[(1) - (4)].val189)->get_val();
+	      (yyvsp[(3) - (4)].val2)->iId = (yyvsp[(1) - (4)].val189);
+	      n = (yyvsp[(1) - (4)].val189)->val;
 	      if (n < INSTANCEMAX)
 		{
 		  if (instances[n])
@@ -11130,10 +11130,10 @@ yyreduce:
 
     { (yyval.val198) = new leadingLineStrategy((yyvsp[(3) - (12)].val289), (yyvsp[(5) - (12)].val121), 0, (yyvsp[(9) - (12)].val322), 0);
 	      tolerances_refs.push_back(&((yyval.val198)->itsMillingTolerances));
-	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      boundedCurve_refs.push_back(&((yyval.val198)->itsLine));
-	      boundedCurve_nums.push_back((yyvsp[(11) - (12)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(11) - (12)].val189)->val);
 	      delete (yyvsp[(11) - (12)].val189);
 	    ;}
     break;
@@ -11167,10 +11167,10 @@ yyreduce:
 
     { (yyval.val203) = new line((yyvsp[(3) - (8)].sval), 0, 0);
 	      cartesianPoint_refs.push_back(&((yyval.val203)->pnt));
-	      cartesianPoint_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      vector_refs.push_back(&((yyval.val203)->dir));
-	      vector_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      vector_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -11182,15 +11182,15 @@ yyreduce:
 		{
 		  (yyval.val204)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val204)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->iId->val);
+		  delete (yyvsp[(3) - (8)].val22)->iId;
 		  delete (yyvsp[(3) - (8)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val204)->distance));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      direction_refs.push_back(&((yyval.val204)->itsDirection));
-	      direction_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -11202,12 +11202,12 @@ yyreduce:
 		{
 		  (yyval.val205)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val205)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      numericParameter_refs.push_back(&((yyval.val205)->profileLength));
-	      numericParameter_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      numericParameter_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -11216,7 +11216,7 @@ yyreduce:
 
     { (yyval.val206) = new loadTool((yyvsp[(3) - (6)].sval), 0);
 	      machiningTool_refs.push_back(&((yyval.val206)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -11225,7 +11225,7 @@ yyreduce:
 
     { (yyval.val207) = new localTime((yyvsp[(3) - (7)].ival), (yyvsp[(4) - (7)].val191), (yyvsp[(5) - (7)].val322), 0);
 	      coordinatedUniversalTimeOffset_refs.push_back(&((yyval.val207)->zone));
-	      coordinatedUniversalTimeOffset_nums.push_back((yyvsp[(6) - (7)].val189)->get_val());
+	      coordinatedUniversalTimeOffset_nums.push_back((yyvsp[(6) - (7)].val189)->val);
 	      delete (yyvsp[(6) - (7)].val189);
 	    ;}
     break;
@@ -11269,7 +11269,7 @@ yyreduce:
 
     { (yyval.val213) = new machinedSurface(0, (yyvsp[(5) - (6)].val44));
 	      machiningFeature_refs.push_back(&((yyval.val213)->itsMachiningFeature));
-	      machiningFeature_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	    ;}
     break;
@@ -11279,7 +11279,7 @@ yyreduce:
     { (yyval.val214) = new std::list<machinedSurface *>;
 	      (yyval.val214)->push_back(0);
 	      machinedSurface_refs.push_back(&((yyval.val214)->back()));
-	      machinedSurface_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      machinedSurface_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -11288,7 +11288,7 @@ yyreduce:
     { (yyval.val214) = (yyvsp[(1) - (3)].val214);
 	      (yyval.val214)->push_back(0);
 	      machinedSurface_refs.push_back(&((yyval.val214)->back()));
-	      machinedSurface_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      machinedSurface_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -11297,7 +11297,7 @@ yyreduce:
     { (yyval.val215) = new std::list<machiningFeature *>;
 	      (yyval.val215)->push_back(0);
 	      machiningFeature_refs.push_back(&((yyval.val215)->back()));
-	      machiningFeature_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -11306,7 +11306,7 @@ yyreduce:
     { (yyval.val215) = (yyvsp[(1) - (3)].val215);
 	      (yyval.val215)->push_back(0);
 	      machiningFeature_refs.push_back(&((yyval.val215)->back()));
-	      machiningFeature_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      machiningFeature_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -11315,7 +11315,7 @@ yyreduce:
     { (yyval.val216) = new std::list<machiningOperation *>;
 	      (yyval.val216)->push_back(0);
 	      machiningOperation_refs.push_back(&((yyval.val216)->back()));
-	      machiningOperation_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      machiningOperation_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -11324,7 +11324,7 @@ yyreduce:
     { (yyval.val216) = (yyvsp[(1) - (3)].val216);
 	      (yyval.val216)->push_back(0);
 	      machiningOperation_refs.push_back(&((yyval.val216)->back()));
-	      machiningOperation_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      machiningOperation_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -11332,20 +11332,20 @@ yyreduce:
 
     { (yyval.val217) = new machiningWorkingstep((yyvsp[(3) - (12)].sval), 0, 0, 0, (yyvsp[(11) - (12)].val188));
 	      elementarySurface_refs.push_back(&((yyval.val217)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      manufacturingFeature_refs.push_back(&((yyval.val217)->itsFeature));
-	      manufacturingFeature_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      manufacturingFeature_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      machiningOperation_refs.push_back(&((yyval.val217)->itsOperation));
-	      machiningOperation_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      machiningOperation_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	      if ((yyvsp[(11) - (12)].val188))
 		{
 		  (yyval.val217)->itsEffect = 0;
 		  inProcessGeometry_refs.push_back(&((yyval.val217)->itsEffect));
-		  inProcessGeometry_nums.push_back((yyvsp[(11) - (12)].val188)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (12)].val188)->get_iId();
+		  inProcessGeometry_nums.push_back((yyvsp[(11) - (12)].val188)->iId->val);
+		  delete (yyvsp[(11) - (12)].val188)->iId;
 		  delete (yyvsp[(11) - (12)].val188);
 		}
 	    ;}
@@ -11355,7 +11355,7 @@ yyreduce:
 
     { (yyval.val218) = new manifoldSolidBrep((yyvsp[(3) - (6)].sval), 0);
 	      closedShell_refs.push_back(&((yyval.val218)->outer));
-	      closedShell_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      closedShell_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -11369,14 +11369,14 @@ yyreduce:
 
     { (yyval.val220) = new millingCuttingTool((yyvsp[(3) - (14)].sval), 0, (yyvsp[(7) - (14)].val256), (yyvsp[(9) - (14)].val322), (yyvsp[(11) - (14)].val136), (yyvsp[(13) - (14)].val322));
 	      toolBody_refs.push_back(&((yyval.val220)->itsToolBody));
-	      toolBody_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      toolBody_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	      if ((yyvsp[(11) - (14)].val136))
 		{
 		  (yyval.val220)->directionForSpindleOrientation = 0;
 		  direction_refs.push_back(&((yyval.val220)->directionForSpindleOrientation));
-		  direction_nums.push_back((yyvsp[(11) - (14)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (14)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(11) - (14)].val136)->iId->val);
+		  delete (yyvsp[(11) - (14)].val136)->iId;
 		  delete (yyvsp[(11) - (14)].val136);
 		}
 	    ;}
@@ -11389,16 +11389,16 @@ yyreduce:
 		{
 		  (yyval.val221)->orientedSpindleStop = 0;
 		  direction_refs.push_back(&((yyval.val221)->orientedSpindleStop));
-		  direction_nums.push_back((yyvsp[(17) - (22)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(17) - (22)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(17) - (22)].val136)->iId->val);
+		  delete (yyvsp[(17) - (22)].val136)->iId;
 		  delete (yyvsp[(17) - (22)].val136);
 		}
 	      if ((yyvsp[(19) - (22)].val310))
 		{
 		  (yyval.val221)->itsProcessModel = 0;
 		  processModelList_refs.push_back(&((yyval.val221)->itsProcessModel));
-		  processModelList_nums.push_back((yyvsp[(19) - (22)].val310)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (22)].val310)->get_iId();
+		  processModelList_nums.push_back((yyvsp[(19) - (22)].val310)->iId->val);
+		  delete (yyvsp[(19) - (22)].val310)->iId;
 		  delete (yyvsp[(19) - (22)].val310);
 		}
 	    ;}
@@ -11413,7 +11413,7 @@ yyreduce:
 
     { (yyval.val223) = new millingThreadingTool(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val223)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -11430,41 +11430,41 @@ yyreduce:
 		{
 		  (yyval.val225)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val225)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (38)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (38)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (38)].val393)->iId->val);
+		  delete (yyvsp[(3) - (38)].val393)->iId;
 		  delete (yyvsp[(3) - (38)].val393);
 		}
 	      if ((yyvsp[(5) - (38)].val384))
 		{
 		  (yyval.val225)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val225)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (38)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (38)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (38)].val384)->iId->val);
+		  delete (yyvsp[(5) - (38)].val384)->iId;
 		  delete (yyvsp[(5) - (38)].val384);
 		}
 	      if ((yyvsp[(11) - (38)].val74))
 		{
 		  (yyval.val225)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val225)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (38)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (38)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (38)].val74)->iId->val);
+		  delete (yyvsp[(11) - (38)].val74)->iId;
 		  delete (yyvsp[(11) - (38)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val225)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (38)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (38)].val189)->val);
 	      delete (yyvsp[(13) - (38)].val189);
 	      technology_refs.push_back(&((yyval.val225)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (38)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (38)].val189)->val);
 	      delete (yyvsp[(15) - (38)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val225)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (38)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (38)].val189)->val);
 	      delete (yyvsp[(17) - (38)].val189);
 	      if ((yyvsp[(29) - (38)].val140))
 		{
 		  (yyval.val225)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val225)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (38)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (38)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (38)].val140)->iId->val);
+		  delete (yyvsp[(29) - (38)].val140)->iId;
 		  delete (yyvsp[(29) - (38)].val140);
 		}
 	    ;}
@@ -11485,7 +11485,7 @@ yyreduce:
     { (yyval.val228) = new std::list<ncVariable *>;
 	      (yyval.val228)->push_back(0);
 	      ncVariable_refs.push_back(&((yyval.val228)->back()));
-	      ncVariable_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -11494,7 +11494,7 @@ yyreduce:
     { (yyval.val228) = (yyvsp[(1) - (3)].val228);
 	      (yyval.val228)->push_back(0);
 	      ncVariable_refs.push_back(&((yyval.val228)->back()));
-	      ncVariable_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -11505,12 +11505,12 @@ yyreduce:
 		{
 		  (yyval.val229)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val229)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (10)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (10)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (10)].val22)->iId->val);
+		  delete (yyvsp[(3) - (10)].val22)->iId;
 		  delete (yyvsp[(3) - (10)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val229)->diameter));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -11524,7 +11524,7 @@ yyreduce:
 
     { (yyval.val231) = new notExpression(0);
 	      booleanExpression_refs.push_back(&((yyval.val231)->operand));
-	      booleanExpression_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -11543,42 +11543,42 @@ yyreduce:
 
     { (yyval.val234) = new openPocket((yyvsp[(3) - (26)].sval), 0, (yyvsp[(7) - (26)].val264), 0, 0, (yyvsp[(13) - (26)].val246), (yyvsp[(15) - (26)].val322), 0, (yyvsp[(19) - (26)].val389), (yyvsp[(21) - (26)].val389), 0, (yyvsp[(25) - (26)].val174));
 	      workpiece_refs.push_back(&((yyval.val234)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (26)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (26)].val189)->val);
 	      delete (yyvsp[(5) - (26)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val234)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (26)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (26)].val189)->val);
 	      delete (yyvsp[(9) - (26)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val234)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (26)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (26)].val189)->val);
 	      delete (yyvsp[(11) - (26)].val189);
 	      pocketBottomCondition_refs.push_back(&((yyval.val234)->bottomCondition));
-	      pocketBottomCondition_nums.push_back((yyvsp[(17) - (26)].val189)->get_val());
+	      pocketBottomCondition_nums.push_back((yyvsp[(17) - (26)].val189)->val);
 	      delete (yyvsp[(17) - (26)].val189);
 	      if ((yyvsp[(19) - (26)].val389))
 		{
 		  (yyval.val234)->planarRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val234)->planarRadius));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (26)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(19) - (26)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (26)].val389)->iId->val);
+		  delete (yyvsp[(19) - (26)].val389)->iId;
 		  delete (yyvsp[(19) - (26)].val389);
 		}
 	      if ((yyvsp[(21) - (26)].val389))
 		{
 		  (yyval.val234)->orthogonalRadius = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val234)->orthogonalRadius));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (26)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (26)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(21) - (26)].val389)->iId->val);
+		  delete (yyvsp[(21) - (26)].val389)->iId;
 		  delete (yyvsp[(21) - (26)].val389);
 		}
 	      openProfile_refs.push_back(&((yyval.val234)->openBoundary));
-	      openProfile_nums.push_back((yyvsp[(23) - (26)].val189)->get_val());
+	      openProfile_nums.push_back((yyvsp[(23) - (26)].val189)->val);
 	      delete (yyvsp[(23) - (26)].val189);
 	      if ((yyvsp[(25) - (26)].val174))
 		{
 		  (yyval.val234)->wallBoundary = 0;
 		  openProfile_refs.push_back(&((yyval.val234)->wallBoundary));
-		  openProfile_nums.push_back((yyvsp[(25) - (26)].val174)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (26)].val174)->get_iId();
+		  openProfile_nums.push_back((yyvsp[(25) - (26)].val174)->iId->val);
+		  delete (yyvsp[(25) - (26)].val174)->iId;
 		  delete (yyvsp[(25) - (26)].val174);
 		}
 	    ;}
@@ -11597,7 +11597,7 @@ yyreduce:
   case 560:
 
     { (yyval.val3) = new address(0,0,0,0,0,0,0,0,0,0,0,0);
-	      (yyval.val3)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val3)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11609,7 +11609,7 @@ yyreduce:
   case 562:
 
     { (yyval.val4) = new advancedBrepShapeRepresentation(0,0,0);
-	      (yyval.val4)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val4)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11621,7 +11621,7 @@ yyreduce:
   case 564:
 
     { (yyval.val10) = new alongPath(0,0);
-	      (yyval.val10)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val10)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11633,7 +11633,7 @@ yyreduce:
   case 566:
 
     { (yyval.val15) = new approval(0,0);
-	      (yyval.val15)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val15)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11645,7 +11645,7 @@ yyreduce:
   case 568:
 
     { (yyval.val22) = new axis2placement3d(0,0,0,0);
-	      (yyval.val22)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val22)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11667,7 +11667,7 @@ yyreduce:
   case 572:
 
     { (yyval.val29) = new bezierCurve(0,0,0,0,0,0);
-	      (yyval.val29)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val29)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11679,7 +11679,7 @@ yyreduce:
   case 574:
 
     { (yyval.val4) = new advancedBrepShapeRepresentation(0,0,0);
-	      (yyval.val4)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val4)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11691,7 +11691,7 @@ yyreduce:
   case 576:
 
     { (yyval.val74) = new cartesianPoint(0,0);
-	      (yyval.val74)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val74)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11703,7 +11703,7 @@ yyreduce:
   case 578:
 
     { (yyval.val81) = new channel(0);
-	      (yyval.val81)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val81)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11715,7 +11715,7 @@ yyreduce:
   case 580:
 
     { (yyval.val83) = new circularClosedProfile(0,0);
-	      (yyval.val83)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val83)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11747,7 +11747,7 @@ yyreduce:
   case 586:
 
     { (yyval.val128) = new cuttingEdgeTechnologicalData(0,0,0);
-	      (yyval.val128)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val128)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11759,7 +11759,7 @@ yyreduce:
   case 588:
 
     { (yyval.val131) = new dateAndTime(0,0);
-	      (yyval.val131)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val131)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11771,7 +11771,7 @@ yyreduce:
   case 590:
 
     { (yyval.val134) = new descriptiveParameter(0,0);
-	      (yyval.val134)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val134)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11783,7 +11783,7 @@ yyreduce:
   case 592:
 
     { (yyval.val136) = new direction(0,0);
-	      (yyval.val136)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val136)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11795,7 +11795,7 @@ yyreduce:
   case 594:
 
     { (yyval.val140) = new drillingTypeStrategy(0,0,0,0,0,0);
-	      (yyval.val140)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val140)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11807,7 +11807,7 @@ yyreduce:
   case 596:
 
     { (yyval.val19) = new assignment(0,0,0);
-	      (yyval.val19)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val19)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11829,7 +11829,7 @@ yyreduce:
   case 600:
 
     { (yyval.val198) = new leadingLineStrategy(0,0,0,0,0);
-	      (yyval.val198)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val198)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11856,7 +11856,7 @@ yyreduce:
   case 605:
 
     { (yyval.val188) = new inProcessGeometry(0,0,0);
-	      (yyval.val188)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val188)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11888,7 +11888,7 @@ yyreduce:
   case 611:
 
     { (yyval.val221) = new millingMachineFunctions(0,0,0,0,0,0,0,0,0,0);
-	      (yyval.val221)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val221)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11900,7 +11900,7 @@ yyreduce:
   case 613:
 
     { (yyval.val220) = new millingCuttingTool(0,0,0,0,0,0);
-	      (yyval.val220)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val220)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11912,7 +11912,7 @@ yyreduce:
   case 615:
 
     { (yyval.val219) = new material(0,0,0);
-	      (yyval.val219)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val219)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11924,7 +11924,7 @@ yyreduce:
   case 617:
 
     { (yyval.val222) = new millingTechnology(0,0,0,0,0,0,0,0,0);
-	      (yyval.val222)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val222)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11946,7 +11946,7 @@ yyreduce:
   case 621:
 
     { (yyval.val174) = new generalProfile(0,0);
-	      (yyval.val174)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val174)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11978,7 +11978,7 @@ yyreduce:
   case 627:
 
     { (yyval.val294) = new personAndAddress(0,0);
-	      (yyval.val294)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val294)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -11990,7 +11990,7 @@ yyreduce:
   case 629:
 
     { (yyval.val310) = new processModelList(0);
-	      (yyval.val310)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val310)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12012,7 +12012,7 @@ yyreduce:
   case 633:
 
     { (yyval.val4) = new advancedBrepShapeRepresentation(0,0,0);
-	      (yyval.val4)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val4)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12034,7 +12034,7 @@ yyreduce:
   case 637:
 
     { (yyval.val347) = new setup(0,0,0,0);
-	      (yyval.val347)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val347)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12066,7 +12066,7 @@ yyreduce:
   case 643:
 
     { (yyval.val12) = new angleTaper(0);
-	      (yyval.val12)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val12)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12078,7 +12078,7 @@ yyreduce:
   case 645:
 
     { (yyval.val222) = new millingTechnology(0,0,0,0,0,0,0,0,0);
-	      (yyval.val222)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val222)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12090,7 +12090,7 @@ yyreduce:
   case 647:
 
     { (yyval.val389) = new tolerancedLengthMeasure(0,0);
-	      (yyval.val389)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val389)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12102,7 +12102,7 @@ yyreduce:
   case 649:
 
     { (yyval.val384) = new threeAxes();
-	      (yyval.val384)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val384)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12114,7 +12114,7 @@ yyreduce:
   case 651:
 
     { (yyval.val393) = new toolpathList(0);
-	      (yyval.val393)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val393)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12127,7 +12127,7 @@ yyreduce:
 
     { toolpathSpeed * v;
 	      v = new toolpathSpeed(0);
-	      v->set_iId((yyvsp[(1) - (1)].val189));
+	      v->iId = (yyvsp[(1) - (1)].val189);
 	      (yyval.val396) = v;
 	    ;}
     break;
@@ -12150,7 +12150,7 @@ yyreduce:
   case 657:
 
     { (yyval.val31) = new bidirectionalContour(0,0,0,0,0,0);
-	      (yyval.val31)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val31)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12162,7 +12162,7 @@ yyreduce:
   case 659:
 
     { (yyval.val432) = new veeProfile(0,0,0,0);
-	      (yyval.val432)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val432)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12174,7 +12174,7 @@ yyreduce:
   case 661:
 
     { (yyval.val440) = new workpiece(0,0,0,0,0,0,0);
-	      (yyval.val440)->set_iId((yyvsp[(1) - (1)].val189));
+	      (yyval.val440)->iId = (yyvsp[(1) - (1)].val189);
 	    ;}
     break;
 
@@ -12192,13 +12192,13 @@ yyreduce:
 
     { (yyval.val239) = new orientedEdge((yyvsp[(3) - (12)].sval), 0, 0, 0, (yyvsp[(11) - (12)].val34));
 	      vertex_refs.push_back(&((yyval.val239)->edgeStart));
-	      vertex_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      vertex_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      vertex_refs.push_back(&((yyval.val239)->edgeEnd));
-	      vertex_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      vertex_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      edge_refs.push_back(&((yyval.val239)->edgeElement));
-	      edge_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      edge_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	    ;}
     break;
@@ -12208,7 +12208,7 @@ yyreduce:
     { (yyval.val240) = new std::list<orientedEdge *>;
 	      (yyval.val240)->push_back(0);
 	      orientedEdge_refs.push_back(&((yyval.val240)->back()));
-	      orientedEdge_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      orientedEdge_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -12217,7 +12217,7 @@ yyreduce:
     { (yyval.val240) = (yyvsp[(1) - (3)].val240);
 	      (yyval.val240)->push_back(0);
 	      orientedEdge_refs.push_back(&((yyval.val240)->back()));
-	      orientedEdge_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      orientedEdge_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -12230,7 +12230,7 @@ yyreduce:
 
     { (yyval.val242) = new parabola((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val242)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -12538,7 +12538,7 @@ yyreduce:
 
     { (yyval.val285) = new partialAreaDefinition((yyvsp[(3) - (8)].rval), 0, (yyvsp[(7) - (8)].val322));
 	      axis2placement3d_refs.push_back(&((yyval.val285)->placement));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -12550,12 +12550,12 @@ yyreduce:
 		{
 		  (yyval.val286)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val286)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->iId->val);
+		  delete (yyvsp[(3) - (8)].val22)->iId;
 		  delete (yyvsp[(3) - (8)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val286)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -12567,12 +12567,12 @@ yyreduce:
 		{
 		  (yyval.val287)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val287)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->iId->val);
+		  delete (yyvsp[(3) - (8)].val22)->iId;
 		  delete (yyvsp[(3) - (8)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val287)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -12581,25 +12581,25 @@ yyreduce:
 
     { (yyval.val288) = new partialCircularShapeProfile((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val288)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val288)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val288)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val288)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      profileSelect_refs.push_back(&((yyval.val288)->floorCondition));
-	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      direction_refs.push_back(&((yyval.val288)->removalDirection));
-	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	      partialCircularProfile_refs.push_back(&((yyval.val288)->openBoundary));
-	      partialCircularProfile_nums.push_back((yyvsp[(19) - (20)].val189)->get_val());
+	      partialCircularProfile_nums.push_back((yyvsp[(19) - (20)].val189)->val);
 	      delete (yyvsp[(19) - (20)].val189);
 	    ;}
     break;
@@ -12628,10 +12628,10 @@ yyreduce:
 
     { (yyval.val292) = new pcurve((yyvsp[(3) - (8)].sval), 0, 0);
 	      surface_refs.push_back(&((yyval.val292)->basisSurface));
-	      surface_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      surface_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      definitionalRepresentation_refs.push_back(&((yyval.val292)->referenceToCurve));
-	      definitionalRepresentation_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      definitionalRepresentation_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -12645,14 +12645,14 @@ yyreduce:
 
     { (yyval.val294) = new personAndAddress(0, (yyvsp[(5) - (6)].val3));
 	      person_refs.push_back(&((yyval.val294)->itsPerson));
-	      person_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      person_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      if ((yyvsp[(5) - (6)].val3))
 		{
 		  (yyval.val294)->itsAddress = 0;
 		  address_refs.push_back(&((yyval.val294)->itsAddress));
-		  address_nums.push_back((yyvsp[(5) - (6)].val3)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (6)].val3)->get_iId();
+		  address_nums.push_back((yyvsp[(5) - (6)].val3)->iId->val);
+		  delete (yyvsp[(5) - (6)].val3)->iId;
 		  delete (yyvsp[(5) - (6)].val3);
 		}
 	    ;}
@@ -12662,26 +12662,26 @@ yyreduce:
 
     { (yyval.val295) = new planarFace((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, (yyvsp[(17) - (20)].val83), (yyvsp[(19) - (20)].val246));
 	      workpiece_refs.push_back(&((yyval.val295)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val295)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val295)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val295)->courseOfTravel));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      linearProfile_refs.push_back(&((yyval.val295)->removalBoundary));
-	      linearProfile_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      linearProfile_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      if ((yyvsp[(17) - (20)].val83))
 		{
 		  (yyval.val295)->faceBoundary = 0;
 		  closedProfile_refs.push_back(&((yyval.val295)->faceBoundary));
-		  closedProfile_nums.push_back((yyvsp[(17) - (20)].val83)->get_iId()->get_val());
-		  delete (yyvsp[(17) - (20)].val83)->get_iId();
+		  closedProfile_nums.push_back((yyvsp[(17) - (20)].val83)->iId->val);
+		  delete (yyvsp[(17) - (20)].val83)->iId;
 		  delete (yyvsp[(17) - (20)].val83);
 		}
 	    ;}
@@ -12696,7 +12696,7 @@ yyreduce:
 
     { (yyval.val297) = new planarProfileFloor((yyvsp[(3) - (8)].val322), (yyvsp[(5) - (8)].val34), 0);
 	      plane_refs.push_back(&((yyval.val297)->floor));
-	      plane_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      plane_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -12705,7 +12705,7 @@ yyreduce:
 
     { (yyval.val298) = new plane((yyvsp[(3) - (6)].sval), 0);
 	      axis2placement3d_refs.push_back(&((yyval.val298)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -12714,10 +12714,10 @@ yyreduce:
 
     { (yyval.val299) = new planeCcStrategy((yyvsp[(3) - (12)].val289), (yyvsp[(5) - (12)].val121), 0, (yyvsp[(9) - (12)].val322), 0);
 	      tolerances_refs.push_back(&((yyval.val299)->itsMillingTolerances));
-	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      direction_refs.push_back(&((yyval.val299)->itsPlaneNormal));
-	      direction_nums.push_back((yyvsp[(11) - (12)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(11) - (12)].val189)->val);
 	      delete (yyvsp[(11) - (12)].val189);
 	    ;}
     break;
@@ -12726,10 +12726,10 @@ yyreduce:
 
     { (yyval.val300) = new planeClStrategy((yyvsp[(3) - (12)].val289), (yyvsp[(5) - (12)].val121), 0, (yyvsp[(9) - (12)].val322), 0);
 	      tolerances_refs.push_back(&((yyval.val300)->itsMillingTolerances));
-	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      tolerances_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      direction_refs.push_back(&((yyval.val300)->itsPlaneNormal));
-	      direction_nums.push_back((yyvsp[(11) - (12)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(11) - (12)].val189)->val);
 	      delete (yyvsp[(11) - (12)].val189);
 	    ;}
     break;
@@ -12741,57 +12741,57 @@ yyreduce:
 		{
 		  (yyval.val301)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val301)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val301)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val301)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val301)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val301)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val301)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val301)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val301)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(21) - (30)].val10))
 		{
 		  (yyval.val301)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val301)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (30)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (30)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (30)].val10)->iId->val);
+		  delete (yyvsp[(21) - (30)].val10)->iId;
 		  delete (yyvsp[(21) - (30)].val10);
 		}
 	      if ((yyvsp[(23) - (30)].val10))
 		{
 		  (yyval.val301)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val301)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (30)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (30)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (30)].val10)->iId->val);
+		  delete (yyvsp[(23) - (30)].val10)->iId;
 		  delete (yyvsp[(23) - (30)].val10);
 		}
 	      if ((yyvsp[(25) - (30)].val31))
 		{
 		  (yyval.val301)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val301)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (30)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (30)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (30)].val31)->iId->val);
+		  delete (yyvsp[(25) - (30)].val31)->iId;
 		  delete (yyvsp[(25) - (30)].val31);
 		}
 	    ;}
@@ -12804,57 +12804,57 @@ yyreduce:
 		{
 		  (yyval.val302)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val302)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (30)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (30)].val393)->iId->val);
+		  delete (yyvsp[(3) - (30)].val393)->iId;
 		  delete (yyvsp[(3) - (30)].val393);
 		}
 	      if ((yyvsp[(5) - (30)].val384))
 		{
 		  (yyval.val302)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val302)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (30)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (30)].val384)->iId->val);
+		  delete (yyvsp[(5) - (30)].val384)->iId;
 		  delete (yyvsp[(5) - (30)].val384);
 		}
 	      if ((yyvsp[(11) - (30)].val74))
 		{
 		  (yyval.val302)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val302)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (30)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (30)].val74)->iId->val);
+		  delete (yyvsp[(11) - (30)].val74)->iId;
 		  delete (yyvsp[(11) - (30)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val302)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (30)].val189)->val);
 	      delete (yyvsp[(13) - (30)].val189);
 	      technology_refs.push_back(&((yyval.val302)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (30)].val189)->val);
 	      delete (yyvsp[(15) - (30)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val302)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (30)].val189)->val);
 	      delete (yyvsp[(17) - (30)].val189);
 	      if ((yyvsp[(21) - (30)].val10))
 		{
 		  (yyval.val302)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val302)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (30)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (30)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (30)].val10)->iId->val);
+		  delete (yyvsp[(21) - (30)].val10)->iId;
 		  delete (yyvsp[(21) - (30)].val10);
 		}
 	      if ((yyvsp[(23) - (30)].val10))
 		{
 		  (yyval.val302)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val302)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (30)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (30)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (30)].val10)->iId->val);
+		  delete (yyvsp[(23) - (30)].val10)->iId;
 		  delete (yyvsp[(23) - (30)].val10);
 		}
 	      if ((yyvsp[(25) - (30)].val31))
 		{
 		  (yyval.val302)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val302)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (30)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (30)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (30)].val31)->iId->val);
+		  delete (yyvsp[(25) - (30)].val31)->iId;
 		  delete (yyvsp[(25) - (30)].val31);
 		}
 	    ;}
@@ -12867,8 +12867,8 @@ yyreduce:
 		{
 		  (yyval.val303)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val303)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->iId->val);
+		  delete (yyvsp[(3) - (8)].val136)->iId;
 		  delete (yyvsp[(3) - (8)].val136);
 		}
 	    ;}
@@ -12881,8 +12881,8 @@ yyreduce:
 		{
 		  (yyval.val304)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val304)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (6)].val136)->iId->val);
+		  delete (yyvsp[(3) - (6)].val136)->iId;
 		  delete (yyvsp[(3) - (6)].val136);
 		}
 	    ;}
@@ -12895,8 +12895,8 @@ yyreduce:
 		{
 		  (yyval.val305)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val305)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (4)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (4)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (4)].val136)->iId->val);
+		  delete (yyvsp[(3) - (4)].val136)->iId;
 		  delete (yyvsp[(3) - (4)].val136);
 		}
 	    ;}
@@ -12909,8 +12909,8 @@ yyreduce:
 		{
 		  (yyval.val306)->toolOrientation = 0;
 		  direction_refs.push_back(&((yyval.val306)->toolOrientation));
-		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(3) - (8)].val136)->iId->val);
+		  delete (yyvsp[(3) - (8)].val136)->iId;
 		  delete (yyvsp[(3) - (8)].val136);
 		}
 	    ;}
@@ -12941,7 +12941,7 @@ yyreduce:
     { (yyval.val311) = new std::list<processModel *>;
 	      (yyval.val311)->push_back(0);
 	      processModel_refs.push_back(&((yyval.val311)->back()));
-	      processModel_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      processModel_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -12950,7 +12950,7 @@ yyreduce:
     { (yyval.val311) = (yyvsp[(1) - (3)].val311);
 	      (yyval.val311)->push_back(0);
 	      processModel_refs.push_back(&((yyval.val311)->back()));
-	      processModel_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      processModel_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -12963,30 +12963,30 @@ yyreduce:
 
     { (yyval.val313) = new project((yyvsp[(3) - (14)].sval), 0, (yyvsp[(7) - (14)].val283), (yyvsp[(9) - (14)].val294), (yyvsp[(11) - (14)].val131), (yyvsp[(13) - (14)].val15));
 	      workplan_refs.push_back(&((yyval.val313)->mainWorkplan));
-	      workplan_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      workplan_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	      if ((yyvsp[(9) - (14)].val294))
 		{
 		  (yyval.val313)->itsOwner = 0;
 		  personAndAddress_refs.push_back(&((yyval.val313)->itsOwner));
-		  personAndAddress_nums.push_back((yyvsp[(9) - (14)].val294)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (14)].val294)->get_iId();
+		  personAndAddress_nums.push_back((yyvsp[(9) - (14)].val294)->iId->val);
+		  delete (yyvsp[(9) - (14)].val294)->iId;
 		  delete (yyvsp[(9) - (14)].val294);
 		}
 	      if ((yyvsp[(11) - (14)].val131))
 		{
 		  (yyval.val313)->itsRelease = 0;
 		  dateAndTime_refs.push_back(&((yyval.val313)->itsRelease));
-		  dateAndTime_nums.push_back((yyvsp[(11) - (14)].val131)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (14)].val131)->get_iId();
+		  dateAndTime_nums.push_back((yyvsp[(11) - (14)].val131)->iId->val);
+		  delete (yyvsp[(11) - (14)].val131)->iId;
 		  delete (yyvsp[(11) - (14)].val131);
 		}
 	      if ((yyvsp[(13) - (14)].val15))
 		{
 		  (yyval.val313)->itsStatus = 0;
 		  approval_refs.push_back(&((yyval.val313)->itsStatus));
-		  approval_nums.push_back((yyvsp[(13) - (14)].val15)->get_iId()->get_val());
-		  delete (yyvsp[(13) - (14)].val15)->get_iId();
+		  approval_nums.push_back((yyvsp[(13) - (14)].val15)->iId->val);
+		  delete (yyvsp[(13) - (14)].val15)->iId;
 		  delete (yyvsp[(13) - (14)].val15);
 		}
 	    ;}
@@ -12997,7 +12997,7 @@ yyreduce:
     { (yyval.val314) = new std::list<propertyParameter *>;
 	      (yyval.val314)->push_back(0);
 	      propertyParameter_refs.push_back(&((yyval.val314)->back()));
-	      propertyParameter_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      propertyParameter_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13006,7 +13006,7 @@ yyreduce:
     { (yyval.val314) = (yyvsp[(1) - (3)].val314);
 	      (yyval.val314)->push_back(0);
 	      propertyParameter_refs.push_back(&((yyval.val314)->back()));
-	      propertyParameter_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      propertyParameter_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13024,10 +13024,10 @@ yyreduce:
 
     { (yyval.val317) = new radiusedPocketBottomCondition(0, 0);
 	      cartesianPoint_refs.push_back(&((yyval.val317)->floorRadiusCenter));
-	      cartesianPoint_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val317)->floorRadius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -13041,22 +13041,22 @@ yyreduce:
 
     { (yyval.val319) = new rapidMovement((yyvsp[(3) - (10)].sval), 0, (yyvsp[(7) - (10)].val393), (yyvsp[(9) - (10)].val384));
 	      elementarySurface_refs.push_back(&((yyval.val319)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	      if ((yyvsp[(7) - (10)].val393))
 		{
 		  (yyval.val319)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val319)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(7) - (10)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (10)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(7) - (10)].val393)->iId->val);
+		  delete (yyvsp[(7) - (10)].val393)->iId;
 		  delete (yyvsp[(7) - (10)].val393);
 		}
 	      if ((yyvsp[(9) - (10)].val384))
 		{
 		  (yyval.val319)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val319)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(9) - (10)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (10)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(9) - (10)].val384)->iId->val);
+		  delete (yyvsp[(9) - (10)].val384)->iId;
 		  delete (yyvsp[(9) - (10)].val384);
 		}
 	    ;}
@@ -13096,49 +13096,49 @@ yyreduce:
 		{
 		  (yyval.val324)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val324)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (36)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (36)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (36)].val393)->iId->val);
+		  delete (yyvsp[(3) - (36)].val393)->iId;
 		  delete (yyvsp[(3) - (36)].val393);
 		}
 	      if ((yyvsp[(5) - (36)].val384))
 		{
 		  (yyval.val324)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val324)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (36)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (36)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (36)].val384)->iId->val);
+		  delete (yyvsp[(5) - (36)].val384)->iId;
 		  delete (yyvsp[(5) - (36)].val384);
 		}
 	      if ((yyvsp[(11) - (36)].val74))
 		{
 		  (yyval.val324)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val324)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (36)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (36)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (36)].val74)->iId->val);
+		  delete (yyvsp[(11) - (36)].val74)->iId;
 		  delete (yyvsp[(11) - (36)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val324)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (36)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (36)].val189)->val);
 	      delete (yyvsp[(13) - (36)].val189);
 	      technology_refs.push_back(&((yyval.val324)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (36)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (36)].val189)->val);
 	      delete (yyvsp[(15) - (36)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val324)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (36)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (36)].val189)->val);
 	      delete (yyvsp[(17) - (36)].val189);
 	      if ((yyvsp[(29) - (36)].val140))
 		{
 		  (yyval.val324)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val324)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (36)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (36)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (36)].val140)->iId->val);
+		  delete (yyvsp[(29) - (36)].val140)->iId;
 		  delete (yyvsp[(29) - (36)].val140);
 		}
 	      if ((yyvsp[(35) - (36)].val74))
 		{
 		  (yyval.val324)->waitingPosition = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val324)->waitingPosition));
-		  cartesianPoint_nums.push_back((yyvsp[(35) - (36)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(35) - (36)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(35) - (36)].val74)->iId->val);
+		  delete (yyvsp[(35) - (36)].val74)->iId;
 		  delete (yyvsp[(35) - (36)].val74);
 		}
 	    ;}
@@ -13151,15 +13151,15 @@ yyreduce:
 		{
 		  (yyval.val325)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val325)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (8)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (8)].val22)->iId->val);
+		  delete (yyvsp[(3) - (8)].val22)->iId;
 		  delete (yyvsp[(3) - (8)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val325)->profileWidth));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val325)->profileLength));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -13168,25 +13168,25 @@ yyreduce:
 
     { (yyval.val326) = new rectangularClosedShapeProfile((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val326)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val326)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val326)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val326)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      profileSelect_refs.push_back(&((yyval.val326)->floorCondition));
-	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      direction_refs.push_back(&((yyval.val326)->removalDirection));
-	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	      rectangularClosedProfile_refs.push_back(&((yyval.val326)->closedBoundary));
-	      rectangularClosedProfile_nums.push_back((yyvsp[(19) - (20)].val189)->get_val());
+	      rectangularClosedProfile_nums.push_back((yyvsp[(19) - (20)].val189)->val);
 	      delete (yyvsp[(19) - (20)].val189);
 	    ;}
     break;
@@ -13195,7 +13195,7 @@ yyreduce:
 
     { (yyval.val327) = new rectangularOffset(0, (yyvsp[(5) - (10)].rval), (yyvsp[(7) - (10)].ival), (yyvsp[(9) - (10)].ival));
 	      direction_refs.push_back(&((yyval.val327)->offsetDirection));
-	      direction_nums.push_back((yyvsp[(3) - (10)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(3) - (10)].val189)->val);
 	      delete (yyvsp[(3) - (10)].val189);
 	    ;}
     break;
@@ -13205,7 +13205,7 @@ yyreduce:
     { (yyval.val328) = new std::list<rectangularOffset *>;
 	      (yyval.val328)->push_back(0);
 	      rectangularOffset_refs.push_back(&((yyval.val328)->back()));
-	      rectangularOffset_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      rectangularOffset_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13214,7 +13214,7 @@ yyreduce:
     { (yyval.val328) = (yyvsp[(1) - (3)].val328);
 	      (yyval.val328)->push_back(0);
 	      rectangularOffset_refs.push_back(&((yyval.val328)->back()));
-	      rectangularOffset_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      rectangularOffset_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13228,7 +13228,7 @@ yyreduce:
     { (yyval.val330) = new std::list<rectangularOmit *>;
 	      (yyval.val330)->push_back(0);
 	      rectangularOmit_refs.push_back(&((yyval.val330)->back()));
-	      rectangularOmit_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      rectangularOmit_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13237,7 +13237,7 @@ yyreduce:
     { (yyval.val330) = (yyvsp[(1) - (3)].val330);
 	      (yyval.val330)->push_back(0);
 	      rectangularOmit_refs.push_back(&((yyval.val330)->back()));
-	      rectangularOmit_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      rectangularOmit_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13245,25 +13245,25 @@ yyreduce:
 
     { (yyval.val331) = new rectangularOpenShapeProfile((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val264), 0, 0, 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val331)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val331)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (20)].val189)->val);
 	      delete (yyvsp[(9) - (20)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val331)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      linearPath_refs.push_back(&((yyval.val331)->profileSweptShape));
-	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      profileSelect_refs.push_back(&((yyval.val331)->floorCondition));
-	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      profileSelect_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      direction_refs.push_back(&((yyval.val331)->removalDirection));
-	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	      squareUProfile_refs.push_back(&((yyval.val331)->openBoundary));
-	      squareUProfile_nums.push_back((yyvsp[(19) - (20)].val189)->get_val());
+	      squareUProfile_nums.push_back((yyvsp[(19) - (20)].val189)->val);
 	      delete (yyvsp[(19) - (20)].val189);
 	    ;}
     break;
@@ -13272,34 +13272,34 @@ yyreduce:
 
     { (yyval.val332) = new rectangularPattern((yyvsp[(3) - (27)].sval), 0, (yyvsp[(7) - (27)].val264), 0, 0, 0, 0, (yyvsp[(16) - (27)].val191), (yyvsp[(18) - (27)].ival), (yyvsp[(20) - (27)].val389), (yyvsp[(22) - (27)].val136), (yyvsp[(24) - (27)].val273), (yyvsp[(26) - (27)].val274));
 	      workpiece_refs.push_back(&((yyval.val332)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (27)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (27)].val189)->val);
 	      delete (yyvsp[(5) - (27)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val332)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (27)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (27)].val189)->val);
 	      delete (yyvsp[(9) - (27)].val189);
 	      two5DmanufacturingFeature_refs.push_back(&((yyval.val332)->replicateBaseFeature));
-	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (27)].val189)->get_val());
+	      two5DmanufacturingFeature_nums.push_back((yyvsp[(11) - (27)].val189)->val);
 	      delete (yyvsp[(11) - (27)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val332)->spacing));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(12) - (27)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(12) - (27)].val189)->val);
 	      delete (yyvsp[(12) - (27)].val189);
 	      direction_refs.push_back(&((yyval.val332)->itsDirection));
-	      direction_nums.push_back((yyvsp[(14) - (27)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(14) - (27)].val189)->val);
 	      delete (yyvsp[(14) - (27)].val189);
 	      if ((yyvsp[(20) - (27)].val389))
 		{
 		  (yyval.val332)->rowSpacing = 0;
 		  tolerancedLengthMeasure_refs.push_back(&((yyval.val332)->rowSpacing));
-		  tolerancedLengthMeasure_nums.push_back((yyvsp[(20) - (27)].val389)->get_iId()->get_val());
-		  delete (yyvsp[(20) - (27)].val389)->get_iId();
+		  tolerancedLengthMeasure_nums.push_back((yyvsp[(20) - (27)].val389)->iId->val);
+		  delete (yyvsp[(20) - (27)].val389)->iId;
 		  delete (yyvsp[(20) - (27)].val389);
 		}
 	      if ((yyvsp[(22) - (27)].val136))
 		{
 		  (yyval.val332)->rowLayoutDirection = 0;
 		  direction_refs.push_back(&((yyval.val332)->rowLayoutDirection));
-		  direction_nums.push_back((yyvsp[(22) - (27)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(22) - (27)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(22) - (27)].val136)->iId->val);
+		  delete (yyvsp[(22) - (27)].val136)->iId;
 		  delete (yyvsp[(22) - (27)].val136);
 		}
 	    ;}
@@ -13309,24 +13309,24 @@ yyreduce:
 
     { (yyval.val333) = new regionProjection((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), (yyvsp[(9) - (16)].val22), 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val333)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      if ((yyvsp[(9) - (16)].val22))
 		{
 		  (yyval.val333)->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val333)->featurePlacement));
-		  axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (16)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val22)->iId->val);
+		  delete (yyvsp[(9) - (16)].val22)->iId;
 		  delete (yyvsp[(9) - (16)].val22);
 		}
 	      boundedCurve_refs.push_back(&((yyval.val333)->projCurve));
-	      boundedCurve_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      boundedCurve_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      direction_refs.push_back(&((yyval.val333)->projDir));
-	      direction_nums.push_back((yyvsp[(13) - (16)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(13) - (16)].val189)->val);
 	      delete (yyvsp[(13) - (16)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val333)->depth));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (16)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (16)].val189)->val);
 	      delete (yyvsp[(15) - (16)].val189);
 	    ;}
     break;
@@ -13335,14 +13335,14 @@ yyreduce:
 
     { (yyval.val334) = new regionSurfaceList((yyvsp[(3) - (12)].sval), 0, (yyvsp[(7) - (12)].val264), (yyvsp[(9) - (12)].val22), (yyvsp[(11) - (12)].val248));
 	      workpiece_refs.push_back(&((yyval.val334)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      if ((yyvsp[(9) - (12)].val22))
 		{
 		  (yyval.val334)->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val334)->featurePlacement));
-		  axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (12)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val22)->iId->val);
+		  delete (yyvsp[(9) - (12)].val22)->iId;
 		  delete (yyvsp[(9) - (12)].val22);
 		}
 	    ;}
@@ -13363,7 +13363,7 @@ yyreduce:
     { (yyval.val337) = new std::list<representationItem *>;
 	      (yyval.val337)->push_back(0);
 	      representationItem_refs.push_back(&((yyval.val337)->back()));
-	      representationItem_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      representationItem_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13372,7 +13372,7 @@ yyreduce:
     { (yyval.val337) = (yyvsp[(1) - (3)].val337);
 	      (yyval.val337)->push_back(0);
 	      representationItem_refs.push_back(&((yyval.val337)->back()));
-	      representationItem_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      representationItem_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13380,7 +13380,7 @@ yyreduce:
 
     { (yyval.val338) = new rightCircularCylinder((yyvsp[(3) - (10)].sval), 0, (yyvsp[(7) - (10)].rval), (yyvsp[(9) - (10)].rval));
 	      axis1placement_refs.push_back(&((yyval.val338)->position));
-	      axis1placement_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      axis1placement_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -13409,19 +13409,19 @@ yyreduce:
 
     { (yyval.val342) = new roundedEnd((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val342)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val342)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->val);
 	      delete (yyvsp[(9) - (16)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val342)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      linearPath_refs.push_back(&((yyval.val342)->courseOfTravel));
-	      linearPath_nums.push_back((yyvsp[(13) - (16)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (16)].val189)->val);
 	      delete (yyvsp[(13) - (16)].val189);
 	      partialCircularProfile_refs.push_back(&((yyval.val342)->partialCircularBoundary));
-	      partialCircularProfile_nums.push_back((yyvsp[(15) - (16)].val189)->get_val());
+	      partialCircularProfile_nums.push_back((yyvsp[(15) - (16)].val189)->val);
 	      delete (yyvsp[(15) - (16)].val189);
 	    ;}
     break;
@@ -13433,12 +13433,12 @@ yyreduce:
 		{
 		  (yyval.val343)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val343)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (6)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (6)].val22)->iId->val);
+		  delete (yyvsp[(3) - (6)].val22)->iId;
 		  delete (yyvsp[(3) - (6)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val343)->width));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -13447,27 +13447,27 @@ yyreduce:
 
     { (yyval.val344) = new roundHole((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val264), 0, 0, 0, (yyvsp[(15) - (18)].val12), 0);
 	      workpiece_refs.push_back(&((yyval.val344)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val344)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->val);
 	      delete (yyvsp[(9) - (18)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val344)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val344)->diameter));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      if ((yyvsp[(15) - (18)].val12))
 		{
 		  (yyval.val344)->changeInDiameter = 0;
 		  taperSelect_refs.push_back(&((yyval.val344)->changeInDiameter));
-		  taperSelect_nums.push_back((yyvsp[(15) - (18)].val12)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (18)].val12)->get_iId();
+		  taperSelect_nums.push_back((yyvsp[(15) - (18)].val12)->iId->val);
+		  delete (yyvsp[(15) - (18)].val12)->iId;
 		  delete (yyvsp[(15) - (18)].val12);
 		}
 	      holeBottomCondition_refs.push_back(&((yyval.val344)->bottomCondition));
-	      holeBottomCondition_nums.push_back((yyvsp[(17) - (18)].val189)->get_val());
+	      holeBottomCondition_nums.push_back((yyvsp[(17) - (18)].val189)->val);
 	      delete (yyvsp[(17) - (18)].val189);
 	    ;}
     break;
@@ -13489,12 +13489,12 @@ yyreduce:
 		{
 		  (yyval.val347)->itsOrigin = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val347)->itsOrigin));
-		  axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (10)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(5) - (10)].val22)->iId->val);
+		  delete (yyvsp[(5) - (10)].val22)->iId;
 		  delete (yyvsp[(5) - (10)].val22);
 		}
 	      elementarySurface_refs.push_back(&((yyval.val347)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(7) - (10)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(7) - (10)].val189)->val);
 	      delete (yyvsp[(7) - (10)].val189);
 	    ;}
     break;
@@ -13509,7 +13509,7 @@ yyreduce:
     { (yyval.val349) = new std::list<setupInstruction *>;
 	      (yyval.val349)->push_back(0);
 	      setupInstruction_refs.push_back(&((yyval.val349)->back()));
-	      setupInstruction_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      setupInstruction_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13518,7 +13518,7 @@ yyreduce:
     { (yyval.val349) = (yyvsp[(1) - (3)].val349);
 	      (yyval.val349)->push_back(0);
 	      setupInstruction_refs.push_back(&((yyval.val349)->back()));
-	      setupInstruction_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      setupInstruction_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13531,7 +13531,7 @@ yyreduce:
 
     { (yyval.val351) = new sideMill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val351)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -13543,57 +13543,57 @@ yyreduce:
 		{
 		  (yyval.val352)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val352)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (32)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (32)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (32)].val393)->iId->val);
+		  delete (yyvsp[(3) - (32)].val393)->iId;
 		  delete (yyvsp[(3) - (32)].val393);
 		}
 	      if ((yyvsp[(5) - (32)].val384))
 		{
 		  (yyval.val352)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val352)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (32)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (32)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (32)].val384)->iId->val);
+		  delete (yyvsp[(5) - (32)].val384)->iId;
 		  delete (yyvsp[(5) - (32)].val384);
 		}
 	      if ((yyvsp[(11) - (32)].val74))
 		{
 		  (yyval.val352)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val352)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (32)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (32)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (32)].val74)->iId->val);
+		  delete (yyvsp[(11) - (32)].val74)->iId;
 		  delete (yyvsp[(11) - (32)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val352)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (32)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (32)].val189)->val);
 	      delete (yyvsp[(13) - (32)].val189);
 	      technology_refs.push_back(&((yyval.val352)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (32)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (32)].val189)->val);
 	      delete (yyvsp[(15) - (32)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val352)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (32)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (32)].val189)->val);
 	      delete (yyvsp[(17) - (32)].val189);
 	      if ((yyvsp[(21) - (32)].val10))
 		{
 		  (yyval.val352)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val352)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (32)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (32)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (32)].val10)->iId->val);
+		  delete (yyvsp[(21) - (32)].val10)->iId;
 		  delete (yyvsp[(21) - (32)].val10);
 		}
 	      if ((yyvsp[(23) - (32)].val10))
 		{
 		  (yyval.val352)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val352)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (32)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (32)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (32)].val10)->iId->val);
+		  delete (yyvsp[(23) - (32)].val10)->iId;
 		  delete (yyvsp[(23) - (32)].val10);
 		}
 	      if ((yyvsp[(25) - (32)].val31))
 		{
 		  (yyval.val352)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val352)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (32)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (32)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (32)].val31)->iId->val);
+		  delete (yyvsp[(25) - (32)].val31)->iId;
 		  delete (yyvsp[(25) - (32)].val31);
 		}
 	    ;}
@@ -13606,57 +13606,57 @@ yyreduce:
 		{
 		  (yyval.val353)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val353)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (32)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (32)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (32)].val393)->iId->val);
+		  delete (yyvsp[(3) - (32)].val393)->iId;
 		  delete (yyvsp[(3) - (32)].val393);
 		}
 	      if ((yyvsp[(5) - (32)].val384))
 		{
 		  (yyval.val353)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val353)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (32)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (32)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (32)].val384)->iId->val);
+		  delete (yyvsp[(5) - (32)].val384)->iId;
 		  delete (yyvsp[(5) - (32)].val384);
 		}
 	      if ((yyvsp[(11) - (32)].val74))
 		{
 		  (yyval.val353)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val353)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (32)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (32)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (32)].val74)->iId->val);
+		  delete (yyvsp[(11) - (32)].val74)->iId;
 		  delete (yyvsp[(11) - (32)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val353)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (32)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (32)].val189)->val);
 	      delete (yyvsp[(13) - (32)].val189);
 	      technology_refs.push_back(&((yyval.val353)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (32)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (32)].val189)->val);
 	      delete (yyvsp[(15) - (32)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val353)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (32)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (32)].val189)->val);
 	      delete (yyvsp[(17) - (32)].val189);
 	      if ((yyvsp[(21) - (32)].val10))
 		{
 		  (yyval.val353)->approach = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val353)->approach));
-		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (32)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(21) - (32)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(21) - (32)].val10)->iId->val);
+		  delete (yyvsp[(21) - (32)].val10)->iId;
 		  delete (yyvsp[(21) - (32)].val10);
 		}
 	      if ((yyvsp[(23) - (32)].val10))
 		{
 		  (yyval.val353)->retract = 0;
 		  approachRetractStrategy_refs.push_back(&((yyval.val353)->retract));
-		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (32)].val10)->get_iId()->get_val());
-		  delete (yyvsp[(23) - (32)].val10)->get_iId();
+		  approachRetractStrategy_nums.push_back((yyvsp[(23) - (32)].val10)->iId->val);
+		  delete (yyvsp[(23) - (32)].val10)->iId;
 		  delete (yyvsp[(23) - (32)].val10);
 		}
 	      if ((yyvsp[(25) - (32)].val31))
 		{
 		  (yyval.val353)->itsMachiningStrategy = 0;
 		  two5DmillingStrategy_refs.push_back(&((yyval.val353)->itsMachiningStrategy));
-		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (32)].val31)->get_iId()->get_val());
-		  delete (yyvsp[(25) - (32)].val31)->get_iId();
+		  two5DmillingStrategy_nums.push_back((yyvsp[(25) - (32)].val31)->iId->val);
+		  delete (yyvsp[(25) - (32)].val31)->iId;
 		  delete (yyvsp[(25) - (32)].val31);
 		}
 	    ;}
@@ -13666,19 +13666,19 @@ yyreduce:
 
     { (yyval.val354) = new slot((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val264), 0, 0, 0, 0, (yyvsp[(17) - (18)].val277));
 	      workpiece_refs.push_back(&((yyval.val354)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val354)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->val);
 	      delete (yyvsp[(9) - (18)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val354)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      travelPath_refs.push_back(&((yyval.val354)->courseOfTravel));
-	      travelPath_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      travelPath_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      openProfile_refs.push_back(&((yyval.val354)->sweptShape));
-	      openProfile_nums.push_back((yyvsp[(15) - (18)].val189)->get_val());
+	      openProfile_nums.push_back((yyvsp[(15) - (18)].val189)->val);
 	      delete (yyvsp[(15) - (18)].val189);
 	    ;}
     break;
@@ -13688,7 +13688,7 @@ yyreduce:
     { (yyval.val355) = new std::list<slotEndType *>;
 	      (yyval.val355)->push_back(0);
 	      slotEndType_refs.push_back(&((yyval.val355)->back()));
-	      slotEndType_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      slotEndType_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13697,7 +13697,7 @@ yyreduce:
     { (yyval.val355) = (yyvsp[(1) - (3)].val355);
 	      (yyval.val355)->push_back(0);
 	      slotEndType_refs.push_back(&((yyval.val355)->back()));
-	      slotEndType_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      slotEndType_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13705,7 +13705,7 @@ yyreduce:
 
     { (yyval.val356) = new spadeDrill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val356)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -13725,7 +13725,7 @@ yyreduce:
     { (yyval.val359) = new std::list<specificationUsageConstraint *>;
 	      (yyval.val359)->push_back(0);
 	      specificationUsageConstraint_refs.push_back(&((yyval.val359)->back()));
-	      specificationUsageConstraint_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      specificationUsageConstraint_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -13734,7 +13734,7 @@ yyreduce:
     { (yyval.val359) = (yyvsp[(1) - (3)].val359);
 	      (yyval.val359)->push_back(0);
 	      specificationUsageConstraint_refs.push_back(&((yyval.val359)->back()));
-	      specificationUsageConstraint_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      specificationUsageConstraint_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -13747,19 +13747,19 @@ yyreduce:
 
     { (yyval.val361) = new sphericalCap((yyvsp[(3) - (16)].sval), 0, (yyvsp[(7) - (16)].val264), 0, 0, 0, 0);
 	      workpiece_refs.push_back(&((yyval.val361)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (16)].val189)->val);
 	      delete (yyvsp[(5) - (16)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val361)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (16)].val189)->val);
 	      delete (yyvsp[(9) - (16)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val361)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (16)].val189)->val);
 	      delete (yyvsp[(11) - (16)].val189);
 	      numericParameter_refs.push_back(&((yyval.val361)->internalAngle));
-	      numericParameter_nums.push_back((yyvsp[(13) - (16)].val189)->get_val());
+	      numericParameter_nums.push_back((yyvsp[(13) - (16)].val189)->val);
 	      delete (yyvsp[(13) - (16)].val189);
 	      numericParameter_refs.push_back(&((yyval.val361)->radius));
-	      numericParameter_nums.push_back((yyvsp[(15) - (16)].val189)->get_val());
+	      numericParameter_nums.push_back((yyvsp[(15) - (16)].val189)->val);
 	      delete (yyvsp[(15) - (16)].val189);
 	    ;}
     break;
@@ -13768,7 +13768,7 @@ yyreduce:
 
     { (yyval.val362) = new sphericalHoleBottom(0);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val362)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -13777,7 +13777,7 @@ yyreduce:
 
     { (yyval.val363) = new sphericalSurface((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].rval));
 	      axis2placement3d_refs.push_back(&((yyval.val363)->position));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -13789,18 +13789,18 @@ yyreduce:
 		{
 		  (yyval.val364)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val364)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (14)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (14)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (14)].val22)->iId->val);
+		  delete (yyvsp[(3) - (14)].val22)->iId;
 		  delete (yyvsp[(3) - (14)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val364)->width));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val364)->firstRadius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (14)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (14)].val189)->val);
 	      delete (yyvsp[(7) - (14)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val364)->secondRadius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(11) - (14)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(11) - (14)].val189)->val);
 	      delete (yyvsp[(11) - (14)].val189);
 	    ;}
     break;
@@ -13809,23 +13809,23 @@ yyreduce:
 
     { (yyval.val365) = new step((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val264), 0, 0, 0, (yyvsp[(15) - (18)].val432), (yyvsp[(17) - (18)].val246));
 	      workpiece_refs.push_back(&((yyval.val365)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val365)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (18)].val189)->val);
 	      delete (yyvsp[(9) - (18)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val365)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      linearPath_refs.push_back(&((yyval.val365)->openBoundary));
-	      linearPath_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      linearPath_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      if ((yyvsp[(15) - (18)].val432))
 		{
 		  (yyval.val365)->wallBoundary = 0;
 		  veeProfile_refs.push_back(&((yyval.val365)->wallBoundary));
-		  veeProfile_nums.push_back((yyvsp[(15) - (18)].val432)->get_iId()->get_val());
-		  delete (yyvsp[(15) - (18)].val432)->get_iId();
+		  veeProfile_nums.push_back((yyvsp[(15) - (18)].val432)->iId->val);
+		  delete (yyvsp[(15) - (18)].val432)->iId;
 		  delete (yyvsp[(15) - (18)].val432);
 		}
 	    ;}
@@ -13887,10 +13887,10 @@ yyreduce:
 
     { (yyval.val372) = new surfaceOfLinearExtrusion((yyvsp[(3) - (8)].sval), 0, 0);
 	      curve_refs.push_back(&((yyval.val372)->sweptCurve));
-	      curve_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      curve_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      vector_refs.push_back(&((yyval.val372)->extrusionAxis));
-	      vector_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      vector_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -13899,10 +13899,10 @@ yyreduce:
 
     { (yyval.val373) = new surfaceOfRevolution((yyvsp[(3) - (8)].sval), 0, 0);
 	      curve_refs.push_back(&((yyval.val373)->sweptCurve));
-	      curve_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      curve_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      axis1placement_refs.push_back(&((yyval.val373)->axisPosition));
-	      axis1placement_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      axis1placement_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -13916,7 +13916,7 @@ yyreduce:
 
     { (yyval.val375) = new tap(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val375)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -13925,7 +13925,7 @@ yyreduce:
 
     { (yyval.val376) = new taperedTap(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val376)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -13934,7 +13934,7 @@ yyreduce:
 
     { (yyval.val377) = new taperedDrill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val377)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -13943,7 +13943,7 @@ yyreduce:
 
     { (yyval.val378) = new taperedEndmill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val378)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -13952,7 +13952,7 @@ yyreduce:
 
     { (yyval.val379) = new taperedReamer(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val379)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -13964,41 +13964,41 @@ yyreduce:
 		{
 		  (yyval.val380)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val380)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (31)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (31)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (31)].val393)->iId->val);
+		  delete (yyvsp[(3) - (31)].val393)->iId;
 		  delete (yyvsp[(3) - (31)].val393);
 		}
 	      if ((yyvsp[(5) - (31)].val384))
 		{
 		  (yyval.val380)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val380)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (31)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (31)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (31)].val384)->iId->val);
+		  delete (yyvsp[(5) - (31)].val384)->iId;
 		  delete (yyvsp[(5) - (31)].val384);
 		}
 	      if ((yyvsp[(11) - (31)].val74))
 		{
 		  (yyval.val380)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val380)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (31)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (31)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (31)].val74)->iId->val);
+		  delete (yyvsp[(11) - (31)].val74)->iId;
 		  delete (yyvsp[(11) - (31)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val380)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (31)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (31)].val189)->val);
 	      delete (yyvsp[(13) - (31)].val189);
 	      technology_refs.push_back(&((yyval.val380)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (31)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (31)].val189)->val);
 	      delete (yyvsp[(15) - (31)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val380)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (31)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (31)].val189)->val);
 	      delete (yyvsp[(17) - (31)].val189);
 	      if ((yyvsp[(29) - (31)].val140))
 		{
 		  (yyval.val380)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val380)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (31)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (31)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (31)].val140)->iId->val);
+		  delete (yyvsp[(29) - (31)].val140)->iId;
 		  delete (yyvsp[(29) - (31)].val140);
 		}
 	    ;}
@@ -14011,27 +14011,27 @@ yyreduce:
 		{
 		  (yyval.val381)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val381)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (12)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (12)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (12)].val22)->iId->val);
+		  delete (yyvsp[(3) - (12)].val22)->iId;
 		  delete (yyvsp[(3) - (12)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->crossBarWidth));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(6) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(6) - (12)].val189)->val);
 	      delete (yyvsp[(6) - (12)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->crossBarDepth));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(7) - (12)].val189)->val);
 	      delete (yyvsp[(7) - (12)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(8) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(8) - (12)].val189)->val);
 	      delete (yyvsp[(8) - (12)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->width));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->firstOffset));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(10) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(10) - (12)].val189)->val);
 	      delete (yyvsp[(10) - (12)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val381)->secondOffset));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(11) - (12)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(11) - (12)].val189)->val);
 	      delete (yyvsp[(11) - (12)].val189);
 	    ;}
     break;
@@ -14043,41 +14043,41 @@ yyreduce:
 		{
 		  (yyval.val382)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val382)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(3) - (31)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (31)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(3) - (31)].val393)->iId->val);
+		  delete (yyvsp[(3) - (31)].val393)->iId;
 		  delete (yyvsp[(3) - (31)].val393);
 		}
 	      if ((yyvsp[(5) - (31)].val384))
 		{
 		  (yyval.val382)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val382)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(5) - (31)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (31)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(5) - (31)].val384)->iId->val);
+		  delete (yyvsp[(5) - (31)].val384)->iId;
 		  delete (yyvsp[(5) - (31)].val384);
 		}
 	      if ((yyvsp[(11) - (31)].val74))
 		{
 		  (yyval.val382)->startPoint = 0;
 		  cartesianPoint_refs.push_back(&((yyval.val382)->startPoint));
-		  cartesianPoint_nums.push_back((yyvsp[(11) - (31)].val74)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (31)].val74)->get_iId();
+		  cartesianPoint_nums.push_back((yyvsp[(11) - (31)].val74)->iId->val);
+		  delete (yyvsp[(11) - (31)].val74)->iId;
 		  delete (yyvsp[(11) - (31)].val74);
 		}
 	      machiningTool_refs.push_back(&((yyval.val382)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(13) - (31)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(13) - (31)].val189)->val);
 	      delete (yyvsp[(13) - (31)].val189);
 	      technology_refs.push_back(&((yyval.val382)->itsTechnology));
-	      technology_nums.push_back((yyvsp[(15) - (31)].val189)->get_val());
+	      technology_nums.push_back((yyvsp[(15) - (31)].val189)->val);
 	      delete (yyvsp[(15) - (31)].val189);
 	      machineFunctions_refs.push_back(&((yyval.val382)->itsMachineFunctions));
-	      machineFunctions_nums.push_back((yyvsp[(17) - (31)].val189)->get_val());
+	      machineFunctions_nums.push_back((yyvsp[(17) - (31)].val189)->val);
 	      delete (yyvsp[(17) - (31)].val189);
 	      if ((yyvsp[(29) - (31)].val140))
 		{
 		  (yyval.val382)->itsMachiningStrategy = 0;
 		  drillingTypeStrategy_refs.push_back(&((yyval.val382)->itsMachiningStrategy));
-		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (31)].val140)->get_iId()->get_val());
-		  delete (yyvsp[(29) - (31)].val140)->get_iId();
+		  drillingTypeStrategy_nums.push_back((yyvsp[(29) - (31)].val140)->iId->val);
+		  delete (yyvsp[(29) - (31)].val140)->iId;
 		  delete (yyvsp[(29) - (31)].val140);
 		}
 	    ;}
@@ -14087,7 +14087,7 @@ yyreduce:
 
     { (yyval.val383) = new threadMill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val383)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -14101,7 +14101,7 @@ yyreduce:
 
     { (yyval.val385) = new threeAxesTiltedTool(0);
 	      direction_refs.push_back(&((yyval.val385)->itsToolDirection));
-	      direction_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -14125,7 +14125,7 @@ yyreduce:
 
     { (yyval.val389) = new tolerancedLengthMeasure((yyvsp[(3) - (6)].rval), 0);
 	      plusMinusValue_refs.push_back(&((yyval.val389)->implicitTolerance));
-	      plusMinusValue_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      plusMinusValue_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -14139,32 +14139,32 @@ yyreduce:
 
     { (yyval.val391) = new toolLengthProbing((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val393), (yyvsp[(9) - (18)].val384), 0, 0, (yyvsp[(15) - (18)].rval), 0);
 	      elementarySurface_refs.push_back(&((yyval.val391)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      if ((yyvsp[(7) - (18)].val393))
 		{
 		  (yyval.val391)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val391)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(7) - (18)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (18)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(7) - (18)].val393)->iId->val);
+		  delete (yyvsp[(7) - (18)].val393)->iId;
 		  delete (yyvsp[(7) - (18)].val393);
 		}
 	      if ((yyvsp[(9) - (18)].val384))
 		{
 		  (yyval.val391)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val391)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(9) - (18)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (18)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(9) - (18)].val384)->iId->val);
+		  delete (yyvsp[(9) - (18)].val384)->iId;
 		  delete (yyvsp[(9) - (18)].val384);
 		}
 	      ncVariable_refs.push_back(&((yyval.val391)->measuredOffset));
-	      ncVariable_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      cartesianPoint_refs.push_back(&((yyval.val391)->offset));
-	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      machiningTool_refs.push_back(&((yyval.val391)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(17) - (18)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(17) - (18)].val189)->val);
 	      delete (yyvsp[(17) - (18)].val189);
 	    ;}
     break;
@@ -14173,13 +14173,13 @@ yyreduce:
 
     { (yyval.val392) = new toolpathFeature((yyvsp[(3) - (12)].sval), 0, (yyvsp[(7) - (12)].val264), 0, 0);
 	      workpiece_refs.push_back(&((yyval.val392)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val392)->featurePlacement));
-	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(9) - (12)].val189)->val);
 	      delete (yyvsp[(9) - (12)].val189);
 	      elementarySurface_refs.push_back(&((yyval.val392)->depth));
-	      elementarySurface_nums.push_back((yyvsp[(11) - (12)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(11) - (12)].val189)->val);
 	      delete (yyvsp[(11) - (12)].val189);
 	    ;}
     break;
@@ -14194,7 +14194,7 @@ yyreduce:
     { (yyval.val394) = new std::list<toolpath *>;
 	      (yyval.val394)->push_back(0);
 	      toolpath_refs.push_back(&((yyval.val394)->back()));
-	      toolpath_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      toolpath_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -14203,7 +14203,7 @@ yyreduce:
     { (yyval.val394) = (yyvsp[(1) - (3)].val394);
 	      (yyval.val394)->push_back(0);
 	      toolpath_refs.push_back(&((yyval.val394)->back()));
-	      toolpath_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      toolpath_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -14211,7 +14211,7 @@ yyreduce:
 
     { (yyval.val395) = new toolpathSpeed(0);
 	      bSplineCurve_refs.push_back(&((yyval.val395)->speed));
-	      bSplineCurve_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      bSplineCurve_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -14280,32 +14280,32 @@ yyreduce:
 
     { (yyval.val404) = new toolRadiusProbing((yyvsp[(3) - (18)].sval), 0, (yyvsp[(7) - (18)].val393), (yyvsp[(9) - (18)].val384), 0, 0, (yyvsp[(15) - (18)].rval), 0);
 	      elementarySurface_refs.push_back(&((yyval.val404)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (18)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (18)].val189)->val);
 	      delete (yyvsp[(5) - (18)].val189);
 	      if ((yyvsp[(7) - (18)].val393))
 		{
 		  (yyval.val404)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val404)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(7) - (18)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (18)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(7) - (18)].val393)->iId->val);
+		  delete (yyvsp[(7) - (18)].val393)->iId;
 		  delete (yyvsp[(7) - (18)].val393);
 		}
 	      if ((yyvsp[(9) - (18)].val384))
 		{
 		  (yyval.val404)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val404)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(9) - (18)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (18)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(9) - (18)].val384)->iId->val);
+		  delete (yyvsp[(9) - (18)].val384)->iId;
 		  delete (yyvsp[(9) - (18)].val384);
 		}
 	      ncVariable_refs.push_back(&((yyval.val404)->measuredOffset));
-	      ncVariable_nums.push_back((yyvsp[(11) - (18)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(11) - (18)].val189)->val);
 	      delete (yyvsp[(11) - (18)].val189);
 	      cartesianPoint_refs.push_back(&((yyval.val404)->offset));
-	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->get_val());
+	      cartesianPoint_nums.push_back((yyvsp[(13) - (18)].val189)->val);
 	      delete (yyvsp[(13) - (18)].val189);
 	      machiningTool_refs.push_back(&((yyval.val404)->itsTool));
-	      machiningTool_nums.push_back((yyvsp[(17) - (18)].val189)->get_val());
+	      machiningTool_nums.push_back((yyvsp[(17) - (18)].val189)->val);
 	      delete (yyvsp[(17) - (18)].val189);
 	    ;}
     break;
@@ -14334,14 +14334,14 @@ yyreduce:
 
     { (yyval.val408) = new topologicalRegion((yyvsp[(3) - (14)].sval), 0, (yyvsp[(7) - (14)].val264), (yyvsp[(9) - (14)].val22), (yyvsp[(11) - (14)].sval), (yyvsp[(13) - (14)].val260));
 	      workpiece_refs.push_back(&((yyval.val408)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	      if ((yyvsp[(9) - (14)].val22))
 		{
 		  (yyval.val408)->featurePlacement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val408)->featurePlacement));
-		  axis2placement3d_nums.push_back((yyvsp[(9) - (14)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (14)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(9) - (14)].val22)->iId->val);
+		  delete (yyvsp[(9) - (14)].val22)->iId;
 		  delete (yyvsp[(9) - (14)].val22);
 		}
 	    ;}
@@ -14396,7 +14396,7 @@ yyreduce:
 
     { (yyval.val415) = new trimmedCurve((yyvsp[(3) - (14)].sval), 0, (yyvsp[(7) - (14)].val282), (yyvsp[(9) - (14)].val282), (yyvsp[(11) - (14)].val34), (yyvsp[(13) - (14)].val416));
 	      curve_refs.push_back(&((yyval.val415)->basisCurve));
-	      curve_nums.push_back((yyvsp[(5) - (14)].val189)->get_val());
+	      curve_nums.push_back((yyvsp[(5) - (14)].val189)->val);
 	      delete (yyvsp[(5) - (14)].val189);
 	    ;}
     break;
@@ -14436,7 +14436,7 @@ yyreduce:
     { (yyval.val421) = new std::list<trimmingSelect *>;
 	      (yyval.val421)->push_back(0);
 	      trimmingSelect_refs.push_back(&((yyval.val421)->back()));
-	      trimmingSelect_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      trimmingSelect_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -14452,7 +14452,7 @@ yyreduce:
     { (yyval.val421) = (yyvsp[(1) - (3)].val421);
 	      (yyval.val421)->push_back(0);
 	      trimmingSelect_refs.push_back(&((yyval.val421)->back()));
-	      trimmingSelect_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      trimmingSelect_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -14467,7 +14467,7 @@ yyreduce:
 
     { (yyval.val422) = new tSlotMill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val422)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -14476,7 +14476,7 @@ yyreduce:
 
     { (yyval.val423) = new twistDrill(0, (yyvsp[(5) - (12)].val191), (yyvsp[(7) - (12)].val177), (yyvsp[(9) - (12)].val34), (yyvsp[(11) - (12)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val423)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	    ;}
     break;
@@ -14493,8 +14493,8 @@ yyreduce:
 		{
 		  (yyval.val425)->feedDirection = 0;
 		  direction_refs.push_back(&((yyval.val425)->feedDirection));
-		  direction_nums.push_back((yyvsp[(7) - (10)].val136)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (10)].val136)->get_iId();
+		  direction_nums.push_back((yyvsp[(7) - (10)].val136)->iId->val);
+		  delete (yyvsp[(7) - (10)].val136)->iId;
 		  delete (yyvsp[(7) - (10)].val136);
 		}
 	    ;}
@@ -14517,8 +14517,8 @@ yyreduce:
 		{
 		  (yyval.val428)->itsTool = 0;
 		  machiningTool_refs.push_back(&((yyval.val428)->itsTool));
-		  machiningTool_nums.push_back((yyvsp[(5) - (6)].val220)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (6)].val220)->get_iId();
+		  machiningTool_nums.push_back((yyvsp[(5) - (6)].val220)->iId->val);
+		  delete (yyvsp[(5) - (6)].val220)->iId;
 		  delete (yyvsp[(5) - (6)].val220);
 		}
 	    ;}
@@ -14528,7 +14528,7 @@ yyreduce:
 
     { (yyval.val429) = new userDefinedTool(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].sval));
 	      millingToolDimension_refs.push_back(&((yyval.val429)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -14537,13 +14537,13 @@ yyreduce:
 
     { (yyval.val430) = new uvStrategy((yyvsp[(3) - (14)].val289), (yyvsp[(5) - (14)].val121), 0, (yyvsp[(9) - (14)].val322), 0, 0);
 	      tolerances_refs.push_back(&((yyval.val430)->itsMillingTolerances));
-	      tolerances_nums.push_back((yyvsp[(7) - (14)].val189)->get_val());
+	      tolerances_nums.push_back((yyvsp[(7) - (14)].val189)->val);
 	      delete (yyvsp[(7) - (14)].val189);
 	      direction_refs.push_back(&((yyval.val430)->forwardDirection));
-	      direction_nums.push_back((yyvsp[(11) - (14)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(11) - (14)].val189)->val);
 	      delete (yyvsp[(11) - (14)].val189);
 	      direction_refs.push_back(&((yyval.val430)->sidewardDirection));
-	      direction_nums.push_back((yyvsp[(13) - (14)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(13) - (14)].val189)->val);
 	      delete (yyvsp[(13) - (14)].val189);
 	    ;}
     break;
@@ -14552,7 +14552,7 @@ yyreduce:
 
     { (yyval.val431) = new vector((yyvsp[(3) - (8)].sval), 0, (yyvsp[(7) - (8)].rval));
 	      direction_refs.push_back(&((yyval.val431)->orientation));
-	      direction_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	    ;}
     break;
@@ -14564,12 +14564,12 @@ yyreduce:
 		{
 		  (yyval.val432)->placement = 0;
 		  axis2placement3d_refs.push_back(&((yyval.val432)->placement));
-		  axis2placement3d_nums.push_back((yyvsp[(3) - (10)].val22)->get_iId()->get_val());
-		  delete (yyvsp[(3) - (10)].val22)->get_iId();
+		  axis2placement3d_nums.push_back((yyvsp[(3) - (10)].val22)->iId->val);
+		  delete (yyvsp[(3) - (10)].val22)->iId;
 		  delete (yyvsp[(3) - (10)].val22);
 		}
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val432)->profileRadius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (10)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(5) - (10)].val189)->val);
 	      delete (yyvsp[(5) - (10)].val189);
 	    ;}
     break;
@@ -14578,7 +14578,7 @@ yyreduce:
 
     { (yyval.val433) = new vertexLoop((yyvsp[(3) - (6)].sval), 0);
 	      vertex_refs.push_back(&((yyval.val433)->loopVertex));
-	      vertex_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      vertex_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -14587,7 +14587,7 @@ yyreduce:
 
     { (yyval.val434) = new vertexPoint((yyvsp[(3) - (6)].sval), 0);
 	      point_refs.push_back(&((yyval.val434)->vertexGeometry));
-	      point_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      point_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -14596,7 +14596,7 @@ yyreduce:
 
     { (yyval.val435) = new waitForMark((yyvsp[(3) - (6)].sval), 0);
 	      channel_refs.push_back(&((yyval.val435)->itsChannel));
-	      channel_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      channel_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;
@@ -14610,10 +14610,10 @@ yyreduce:
 
     { (yyval.val437) = new whileStatement((yyvsp[(3) - (8)].sval), 0, 0);
 	      booleanExpression_refs.push_back(&((yyval.val437)->condition));
-	      booleanExpression_nums.push_back((yyvsp[(5) - (8)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(5) - (8)].val189)->val);
 	      delete (yyvsp[(5) - (8)].val189);
 	      executable_refs.push_back(&((yyval.val437)->body));
-	      executable_nums.push_back((yyvsp[(7) - (8)].val189)->get_val());
+	      executable_nums.push_back((yyvsp[(7) - (8)].val189)->val);
 	      delete (yyvsp[(7) - (8)].val189);
 	    ;}
     break;
@@ -14622,7 +14622,7 @@ yyreduce:
 
     { (yyval.val438) = new woodruffKeyseatMill(0, (yyvsp[(5) - (14)].val191), (yyvsp[(7) - (14)].val177), (yyvsp[(9) - (14)].val34), (yyvsp[(11) - (14)].val322), (yyvsp[(13) - (14)].val322));
 	      millingToolDimension_refs.push_back(&((yyval.val438)->dimension));
-	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->get_val());
+	      millingToolDimension_nums.push_back((yyvsp[(3) - (14)].val189)->val);
 	      delete (yyvsp[(3) - (14)].val189);
 	    ;}
     break;
@@ -14631,7 +14631,7 @@ yyreduce:
 
     { (yyval.val439) = new woodruffSlotEndType(0);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val439)->radius));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(3) - (4)].val189)->val);
 	      delete (yyvsp[(3) - (4)].val189);
 	    ;}
     break;
@@ -14643,32 +14643,32 @@ yyreduce:
 		{
 		  (yyval.val440)->itsMaterial = 0;
 		  material_refs.push_back(&((yyval.val440)->itsMaterial));
-		  material_nums.push_back((yyvsp[(5) - (16)].val219)->get_iId()->get_val());
-		  delete (yyvsp[(5) - (16)].val219)->get_iId();
+		  material_nums.push_back((yyvsp[(5) - (16)].val219)->iId->val);
+		  delete (yyvsp[(5) - (16)].val219)->iId;
 		  delete (yyvsp[(5) - (16)].val219);
 		}
 	      if ((yyvsp[(9) - (16)].val440))
 		{
 		  (yyval.val440)->itsRawpiece = 0;
 		  workpiece_refs.push_back(&((yyval.val440)->itsRawpiece));
-		  workpiece_nums.push_back((yyvsp[(9) - (16)].val440)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (16)].val440)->get_iId();
+		  workpiece_nums.push_back((yyvsp[(9) - (16)].val440)->iId->val);
+		  delete (yyvsp[(9) - (16)].val440)->iId;
 		  delete (yyvsp[(9) - (16)].val440);
 		}
 	      if ((yyvsp[(11) - (16)].val4))
 		{
 		  (yyval.val440)->itsGeometry = 0;
 		  advancedBrepShapeRepresentation_refs.push_back(&((yyval.val440)->itsGeometry));
-		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(11) - (16)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (16)].val4)->get_iId();
+		  advancedBrepShapeRepresentation_nums.push_back((yyvsp[(11) - (16)].val4)->iId->val);
+		  delete (yyvsp[(11) - (16)].val4)->iId;
 		  delete (yyvsp[(11) - (16)].val4);
 		}
 	      if ((yyvsp[(13) - (16)].val4))
 		{
 		  (yyval.val440)->itsBoundingGeometry = 0;
 		  boundingGeometrySelect_refs.push_back(&((yyval.val440)->itsBoundingGeometry));
-		  boundingGeometrySelect_nums.push_back((yyvsp[(13) - (16)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(13) - (16)].val4)->get_iId();
+		  boundingGeometrySelect_nums.push_back((yyvsp[(13) - (16)].val4)->iId->val);
+		  delete (yyvsp[(13) - (16)].val4)->iId;
 		  delete (yyvsp[(13) - (16)].val4);
 		}
 	    ;}
@@ -14678,35 +14678,35 @@ yyreduce:
 
     { (yyval.val441) = new workpieceCompleteProbing((yyvsp[(3) - (20)].sval), 0, (yyvsp[(7) - (20)].val393), (yyvsp[(9) - (20)].val384), 0, 0, 0, 0, (yyvsp[(19) - (20)].val233));
 	      elementarySurface_refs.push_back(&((yyval.val441)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (20)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (20)].val189)->val);
 	      delete (yyvsp[(5) - (20)].val189);
 	      if ((yyvsp[(7) - (20)].val393))
 		{
 		  (yyval.val441)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val441)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(7) - (20)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (20)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(7) - (20)].val393)->iId->val);
+		  delete (yyvsp[(7) - (20)].val393)->iId;
 		  delete (yyvsp[(7) - (20)].val393);
 		}
 	      if ((yyvsp[(9) - (20)].val384))
 		{
 		  (yyval.val441)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val441)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(9) - (20)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (20)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(9) - (20)].val384)->iId->val);
+		  delete (yyvsp[(9) - (20)].val384)->iId;
 		  delete (yyvsp[(9) - (20)].val384);
 		}
 	      ncVariable_refs.push_back(&((yyval.val441)->measuredOffset));
-	      ncVariable_nums.push_back((yyvsp[(11) - (20)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(11) - (20)].val189)->val);
 	      delete (yyvsp[(11) - (20)].val189);
 	      workpiece_refs.push_back(&((yyval.val441)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(13) - (20)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(13) - (20)].val189)->val);
 	      delete (yyvsp[(13) - (20)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val441)->probingDistance));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (20)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(15) - (20)].val189)->val);
 	      delete (yyvsp[(15) - (20)].val189);
 	      touchProbe_refs.push_back(&((yyval.val441)->itsProbe));
-	      touchProbe_nums.push_back((yyvsp[(17) - (20)].val189)->get_val());
+	      touchProbe_nums.push_back((yyvsp[(17) - (20)].val189)->val);
 	      delete (yyvsp[(17) - (20)].val189);
 	    ;}
     break;
@@ -14716,7 +14716,7 @@ yyreduce:
     { (yyval.val442) = new std::list<workpiece *>;
 	      (yyval.val442)->push_back(0);
 	      workpiece_refs.push_back(&((yyval.val442)->back()));
-	      workpiece_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -14725,7 +14725,7 @@ yyreduce:
     { (yyval.val442) = (yyvsp[(1) - (3)].val442);
 	      (yyval.val442)->push_back(0);
 	      workpiece_refs.push_back(&((yyval.val442)->back()));
-	      workpiece_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -14733,41 +14733,41 @@ yyreduce:
 
     { (yyval.val443) = new workpieceProbing((yyvsp[(3) - (22)].sval), 0, (yyvsp[(7) - (22)].val393), (yyvsp[(9) - (22)].val384), 0, 0, 0, 0, 0, 0);
 	      elementarySurface_refs.push_back(&((yyval.val443)->itsSecplane));
-	      elementarySurface_nums.push_back((yyvsp[(5) - (22)].val189)->get_val());
+	      elementarySurface_nums.push_back((yyvsp[(5) - (22)].val189)->val);
 	      delete (yyvsp[(5) - (22)].val189);
 	      if ((yyvsp[(7) - (22)].val393))
 		{
 		  (yyval.val443)->itsToolpath = 0;
 		  toolpathList_refs.push_back(&((yyval.val443)->itsToolpath));
-		  toolpathList_nums.push_back((yyvsp[(7) - (22)].val393)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (22)].val393)->get_iId();
+		  toolpathList_nums.push_back((yyvsp[(7) - (22)].val393)->iId->val);
+		  delete (yyvsp[(7) - (22)].val393)->iId;
 		  delete (yyvsp[(7) - (22)].val393);
 		}
 	      if ((yyvsp[(9) - (22)].val384))
 		{
 		  (yyval.val443)->itsToolDirection = 0;
 		  toolDirection_refs.push_back(&((yyval.val443)->itsToolDirection));
-		  toolDirection_nums.push_back((yyvsp[(9) - (22)].val384)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (22)].val384)->get_iId();
+		  toolDirection_nums.push_back((yyvsp[(9) - (22)].val384)->iId->val);
+		  delete (yyvsp[(9) - (22)].val384)->iId;
 		  delete (yyvsp[(9) - (22)].val384);
 		}
 	      ncVariable_refs.push_back(&((yyval.val443)->measuredOffset));
-	      ncVariable_nums.push_back((yyvsp[(11) - (22)].val189)->get_val());
+	      ncVariable_nums.push_back((yyvsp[(11) - (22)].val189)->val);
 	      delete (yyvsp[(11) - (22)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val443)->startPosition));
-	      axis2placement3d_nums.push_back((yyvsp[(13) - (22)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(13) - (22)].val189)->val);
 	      delete (yyvsp[(13) - (22)].val189);
 	      workpiece_refs.push_back(&((yyval.val443)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(15) - (22)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(15) - (22)].val189)->val);
 	      delete (yyvsp[(15) - (22)].val189);
 	      direction_refs.push_back(&((yyval.val443)->itsDirection));
-	      direction_nums.push_back((yyvsp[(17) - (22)].val189)->get_val());
+	      direction_nums.push_back((yyvsp[(17) - (22)].val189)->val);
 	      delete (yyvsp[(17) - (22)].val189);
 	      tolerancedLengthMeasure_refs.push_back(&((yyval.val443)->expectedValue));
-	      tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (22)].val189)->get_val());
+	      tolerancedLengthMeasure_nums.push_back((yyvsp[(19) - (22)].val189)->val);
 	      delete (yyvsp[(19) - (22)].val189);
 	      touchProbe_refs.push_back(&((yyval.val443)->itsProbe));
-	      touchProbe_nums.push_back((yyvsp[(21) - (22)].val189)->get_val());
+	      touchProbe_nums.push_back((yyvsp[(21) - (22)].val189)->val);
 	      delete (yyvsp[(21) - (22)].val189);
 	    ;}
     break;
@@ -14776,17 +14776,17 @@ yyreduce:
 
     { (yyval.val444) = new workpieceSetup(0, 0, (yyvsp[(7) - (12)].val233), (yyvsp[(9) - (12)].val4), (yyvsp[(11) - (12)].val276));
 	      workpiece_refs.push_back(&((yyval.val444)->itsWorkpiece));
-	      workpiece_nums.push_back((yyvsp[(3) - (12)].val189)->get_val());
+	      workpiece_nums.push_back((yyvsp[(3) - (12)].val189)->val);
 	      delete (yyvsp[(3) - (12)].val189);
 	      axis2placement3d_refs.push_back(&((yyval.val444)->itsOrigin));
-	      axis2placement3d_nums.push_back((yyvsp[(5) - (12)].val189)->get_val());
+	      axis2placement3d_nums.push_back((yyvsp[(5) - (12)].val189)->val);
 	      delete (yyvsp[(5) - (12)].val189);
 	      if ((yyvsp[(9) - (12)].val4))
 		{
 		  (yyval.val444)->itsRestrictedArea = 0;
 		  restrictedAreaSelect_refs.push_back(&((yyval.val444)->itsRestrictedArea));
-		  restrictedAreaSelect_nums.push_back((yyvsp[(9) - (12)].val4)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (12)].val4)->get_iId();
+		  restrictedAreaSelect_nums.push_back((yyvsp[(9) - (12)].val4)->iId->val);
+		  delete (yyvsp[(9) - (12)].val4)->iId;
 		  delete (yyvsp[(9) - (12)].val4);
 		}
 	    ;}
@@ -14797,7 +14797,7 @@ yyreduce:
     { (yyval.val445) = new std::list<workpieceSetup *>;
 	      (yyval.val445)->push_back(0);
 	      workpieceSetup_refs.push_back(&((yyval.val445)->back()));
-	      workpieceSetup_nums.push_back((yyvsp[(1) - (1)].val189)->get_val());
+	      workpieceSetup_nums.push_back((yyvsp[(1) - (1)].val189)->val);
 	    ;}
     break;
 
@@ -14806,7 +14806,7 @@ yyreduce:
     { (yyval.val445) = (yyvsp[(1) - (3)].val445);
 	      (yyval.val445)->push_back(0);
 	      workpieceSetup_refs.push_back(&((yyval.val445)->back()));
-	      workpieceSetup_nums.push_back((yyvsp[(3) - (3)].val189)->get_val());
+	      workpieceSetup_nums.push_back((yyvsp[(3) - (3)].val189)->val);
 	    ;}
     break;
 
@@ -14817,24 +14817,24 @@ yyreduce:
 		{
 		  (yyval.val446)->itsChannel = 0;
 		  channel_refs.push_back(&((yyval.val446)->itsChannel));
-		  channel_nums.push_back((yyvsp[(7) - (12)].val81)->get_iId()->get_val());
-		  delete (yyvsp[(7) - (12)].val81)->get_iId();
+		  channel_nums.push_back((yyvsp[(7) - (12)].val81)->iId->val);
+		  delete (yyvsp[(7) - (12)].val81)->iId;
 		  delete (yyvsp[(7) - (12)].val81);
 		}
 	      if ((yyvsp[(9) - (12)].val347))
 		{
 		  (yyval.val446)->itsSetup = 0;
 		  setup_refs.push_back(&((yyval.val446)->itsSetup));
-		  setup_nums.push_back((yyvsp[(9) - (12)].val347)->get_iId()->get_val());
-		  delete (yyvsp[(9) - (12)].val347)->get_iId();
+		  setup_nums.push_back((yyvsp[(9) - (12)].val347)->iId->val);
+		  delete (yyvsp[(9) - (12)].val347)->iId;
 		  delete (yyvsp[(9) - (12)].val347);
 		}
 	      if ((yyvsp[(11) - (12)].val188))
 		{
 		  (yyval.val446)->itsEffect = 0;
 		  inProcessGeometry_refs.push_back(&((yyval.val446)->itsEffect));
-		  inProcessGeometry_nums.push_back((yyvsp[(11) - (12)].val188)->get_iId()->get_val());
-		  delete (yyvsp[(11) - (12)].val188)->get_iId();
+		  inProcessGeometry_nums.push_back((yyvsp[(11) - (12)].val188)->iId->val);
+		  delete (yyvsp[(11) - (12)].val188)->iId;
 		  delete (yyvsp[(11) - (12)].val188);
 		}
 	    ;}
@@ -14844,10 +14844,10 @@ yyreduce:
 
     { (yyval.val447) = new xorExpression(0, 0);
 	      booleanExpression_refs.push_back(&((yyval.val447)->operand1));
-	      booleanExpression_nums.push_back((yyvsp[(3) - (6)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(3) - (6)].val189)->val);
 	      delete (yyvsp[(3) - (6)].val189);
 	      booleanExpression_refs.push_back(&((yyval.val447)->operand2));
-	      booleanExpression_nums.push_back((yyvsp[(5) - (6)].val189)->get_val());
+	      booleanExpression_nums.push_back((yyvsp[(5) - (6)].val189)->val);
 	      delete (yyvsp[(5) - (6)].val189);
 	    ;}
     break;

@@ -1,34 +1,9 @@
-(*=============================================================*)
-
-(* This EBNF file represents STEP Part 21 files based on       *)
-(* Parts 10 and 11 of ISO 14649. About three-quarters of Parts *)
-(* 10 and 11 is covered.                                       *)
-
-(* The following things in Parts 10 and 11 of ISO 14649 have   *)
-(* been omitted:                                               *)
-(* booleanExpression                                           *)
-(* programStructures other than workplan                       *)
-(* splines of all sorts                                        *)
-(* surfaceTextureParameter                                     *)
-(* toolDirectionForMilling                                     *)
-(* topology of all sorts                                       *)
-
-(* The following things in Parts 10 and 11 of ISO 14649 have   *)
-(* been abbreviated:                                           *)
-(* advancedBrepShapeRepresentation                             *)
-(* approachRetractStrategy                                     *)
-(* date                                                        *)
-(* drill                                                       *)
-(* drillingTypeOperation                                       *)
-(* machiningFeature                                            *)
-(* millingCutter                                               *)
-(* millingToolBody                                             *)
-(* personAndAddress                                            *)
-(* region                                                      *)
-(* representations                                             *)
-(* toolpath                                                    *)
-(* trajectory                                                  *)
-(* two5DmillingStrategy                                        *)
+(* This EBNF file represents STEP Part 21 files based on Parts *)
+(* 10, 11, and 111 of ISO 14649. Everything in those Parts is  *)
+(* covered. The portions of ISO 10303 (STEP) Parts referenced  *)
+(* by Part 10 of ISO 14649 are also included here. Comments at *)
+(* the bottom of this file provide the names of attributes.    *)
+(* This file may be used as input to the sebnf2pars generator. *)
 
 (*=============================================================*)
 (*                                                             *)
@@ -54,13 +29,12 @@
 (*                                                             *)
 (* Meanings of the standard EBNF symbols used here are:        *)
 (*   |        ... alternative expression                       *)
-(*   (  )     ... group (the usual meaning of parentheses)     *)
 (*   '  '     ... literal text (one or more characters)        *)
 (*   =        ... assignment                                   *)
 (*   ,        ... separates terms not otherwise separated      *)
 (*   ;        ... end of statement                             *)
 (*                                                             *)
-(* Since EBNF and part 21 both use commas profusely, the Part  *)
+(* Since EBNF and Part 21 both use commas profusely, the Part  *)
 (* 21 comma is defined here as "c" rather than shown as ',' .  *)
 (*                                                             *)
 (*=============================================================*)
@@ -70,125 +44,7 @@
 (*=============================================================*)
 
 inputFile =
-	  fileStart , headerSection , dataSection , fileEnd
-	;
-
-(*=============================================================*)
-(* comma *)
-(*=============================================================*)
-
-c = ','
-	;
-
-(*=============================================================*)
-(* nonterminals for all Part 21 files                          *)
-(*=============================================================*)
-
-dataSection =
-	  dataStarter , instanceList , endSection
-	;
-
-dataStarter =
-	  DATA , ';'
-	;
-
-endSection =
-	  ENDSEC , ';'
-	;
-
-fileDescription =
-	  FILEDESCRIPTION , '(' , parenStringListFull , c ,
-          CharString , ')' , ';'
-	;
-
-FILEDESCRIPTION =
-	  'F','I','L','E','_','D','E','S','C','R','I','P','T','I','O','N'
-	;
-
-fileEnd =
-	  FILEEND , ';'
-	;
-
-FILEEND =
-	  'E','N','D','-','I','S','O','-','1','0','3','0','3','-','2','1'
-	;
-
-fileName =
-	  FILENAME , '(' , CharString , c , CharString , c ,
-	  parenStringListFull , c , parenStringListFull , c ,
-	  CharString , c , CharString , c , CharString , ')' , ';'
-	;
-
-FILENAME =
-	  'F','I','L','E','_','N','A','M','E'
-	;
-
-fileSchema = FILESCHEMA , '(' , parenStringList , ')' , ';'
-	;
-
-FILESCHEMA =
-	  'F','I','L','E','_','S','C','H','E','M','A'
-	;
-
-fileStart =
-	  FILESTART , ';'
-	;
-
-FILESTART =
-	  'I','S','O','-','1','0','3','0','3','-','2','1'
-	;
-
-headerSection =
-	  headerStarter , fileDescription , fileName , fileSchema , endSection
-	;
-
-headerStarter =
-	  HEADER , ';'
-	;
-
-instanceId =
-	  '#' , IntString
-	;
-
-instanceList =
-	  instancePlus
-	| instanceList , instancePlus
-	;
-
-instancePlus =
-	  instanceId , '=' , instance , ';'
-	;
-
-optReal =
-	  real
-	| '$'
-	;
-
-parenRealListFull =
-	  '(' , realList , ')'
-	;
-
-parenStringList =
-	  '(' , stringList , ')'
-	| '(' , ')'
-	;
-
-parenStringListFull =
-	  '(' , stringList , ')'
-	;
-
-real =
-	  RealString
-	;
-
-realList =
-	  real
-	| realList , c , real
-	;
-
-stringList =
-	  CharString
-	| stringList , c , CharString
+	  fileStart, headerSection, dataSection, fileEnd
 	;
 
 (*=============================================================*)
@@ -205,11 +61,10 @@ IntString = 'Not defined here'
 	;
 
 RealString = 'Not defined here' 
-
 	;
 
 (*=============================================================*)
-(* schema-specific spellings                                   *)
+(* spellings (in alphabetical order)                           *)
 (*=============================================================*)
 
 ADVANCEDBREPSHAPEREPRESENTATION =
@@ -218,16 +73,55 @@ ADVANCEDBREPSHAPEREPRESENTATION =
 	  'R','E','P','R','E','S','E','N','T','A','T','I','O','N'
 	;
 
+ADVANCEDFACE =
+	  'A','D','V','A','N','C','E','D','_','F','A','C','E'
+	;
+
+AHEADORBEHINDAHEAD =
+	  '.','A','H','E','A','D','.'
+	;
+
+AHEADORBEHINDBEHIND =
+	  '.','B','E','H','I','N','D','.'
+	;
+
+AHEADORBEHINDEXACT =
+	  '.','E','X','A','C','T','.'
+	;
+
+ALONGPATH =
+	  'A','L','O','N','G','_','P','A','T','H'
+	;
+
+ANDEXPRESSION =
+	  'A','N','D','_','E','X','P','R','E','S','S','I','O','N'
+	;
+
 ANGLETAPER =
 	  'A','N','G','L','E','_','T','A','P','E','R'
 	;
 
-APPROACH =
-	  '.','A','P','P','R','O','A','C','H','.'
+APLIFTPATHANGLE =
+	  'A','P','_','L','I','F','T','_','P','A','T','H','_',
+	  'A','N','G','L','E'
+	;
+
+APLIFTPATHTANGENT =
+	  'A','P','_','L','I','F','T','_','P','A','T','H','_',
+	  'T','A','N','G','E','N','T'
 	;
 
 APPROVALSTATUS =
 	  'A','P','P','R','O','V','A','L','_','S','T','A','T','U','S'
+	;
+
+APRETRACTANGLE =
+	  'A','P','_','R','E','T','R','A','C','T','_','A','N','G','L','E'
+	;
+
+APRETRACTTANGENT =
+	  'A','P','_','R','E','T','R','A','C','T','_',
+          'T','A','N','G','E','N','T'
 	;
 
 AXIS1PLACEMENT =
@@ -237,6 +131,10 @@ AXIS1PLACEMENT =
 AXIS2PLACEMENT3D =
 	  'A','X','I','S','2','_','P','L','A','C','E','M','E','N','T','_',
 	  '3','D'
+	;
+
+AXISTRAJECTORY =
+	  'A','X','I','S','_','T','R','A','J','E','C','T','O','R','Y'
 	;
 
 BACKBORING =
@@ -257,9 +155,26 @@ BALLENDMILL =
 	  'B','A','L','L','_','E','N','D','M','I','L','L'
 	;
 
+BEZIERCURVE = 
+	  'B','E','Z','I','E','R','_','C','U','R','V','E'
+	;
+
+BEZIERSURFACE = 
+	  'B','E','Z','I','E','R','_','S','U','R','F','A','C','E'
+	;
+
+BIDIRECTIONALCONTOUR =
+	  'B','I','D','I','R','E','C','T','I','O','N','A','L','_',
+	  'C','O','N','T','O','U','R'
+	  ;
+	
 BIDIRECTIONALMILLING =
 	  'B','I','D','I','R','E','C','T','I','O','N','A','L','_',
 	  'M','I','L','L','I','N','G'
+	;
+
+BORINGTOOL =
+	  'B', 'O', 'R', 'I', 'N', 'G', '_', 'T', 'O', 'O', 'L'
 	;
 
 BOTTOMANDSIDEFINISHMILLING =
@@ -272,6 +187,104 @@ BOTTOMANDSIDEROUGHMILLING =
 	  'R','O','U','G','H','_','M','I','L','L','I','N','G'
 	;
 
+BOTTOMORSIDEBOTTOM =
+	  '.','B','O','T','T','O','M','.'
+	;
+
+BOTTOMORSIDESIDE =
+	  '.','S','I','D','E','.'
+	;
+
+BOTTOMORSIDEBOTTOMANDSIDE =
+	  '.','B','O','T','T','O','M','_','A','N','D','_','S','I','D','E','.'
+	;
+
+BOUNDEDPCURVE =
+	  'B','O','U','N','D','E','D','_','P','C','U','R','V','E'
+	;
+
+BSPLINECURVEFORMCIRCULARARC =
+	  '.','C','I','R','C','U','L','A','R','_','A','R','C','.'
+	;
+
+BSPLINECURVEFORMELLIPTICARC =
+	  '.','E','L','L','I','P','T','I','C','_','A','R','C','.'
+	;
+
+BSPLINECURVEFORMHYPERBOLICARC = 
+	  '.','H','Y','P','E','R','B','O','L','I','C','_','A','R','C','.'
+	;
+
+BSPLINECURVEFORMPARABOLICARC = 
+	  '.','P','A','R','A','B','O','L','I','C','_','A','R','C','.'
+	;
+
+BSPLINECURVEFORMPOLYLINEFORM =
+	  '.','P','O','L','Y','L','I','N','E','_','F','O','R','M','.'
+	;
+
+BSPLINECURVEFORMUNSPECIFIED = 
+	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+	;
+
+BSPLINECURVEWITHKNOTS =
+	  'B','_','S','P','L','I','N','E','_','C','U','R','V','E','_',
+	  'W','I','T','H','_','K','N','O','T','S'
+	;
+
+BSPLINESURFACEFORMCONICALSURF =
+	  '.','C','O','N','I','C','A','L','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMCYLINDRICALSURF =
+	  '.','C','Y','L','I','N','D','R','I','C','A','L','_',
+          'S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMGENERALIZEDCONE =
+	  '.','G','E','N','E','R','A','L','I','Z','E','D','_',
+          'C','O','N','E','.'
+	;
+
+BSPLINESURFACEFORMPLANESURF =
+	  '.','P','L','A','N','E','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMQUADRICSURF = 
+	  '.','Q','U','A','D','R','I','C','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMRULEDSURF = 
+	  '.','R','U','L','E','D','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMSPHERICALSURF =
+	  '.','S','P','H','E','R','I','C','A','L','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMSURFOFLINEAREXTRUSION = 
+	  '.','S','U','R','F','_','O','F','_','L','I','N','E','A','R','_',
+	  'E','X','T','R','U','S','I','O','N','.'
+	;
+
+BSPLINESURFACEFORMSURFOFREVOLUTION =
+	  '.','S','U','R','F','_','O','F','_',
+	  'R','E','V','O','L','U','T','I','O','N','.'
+	;
+
+BSPLINESURFACEFORMTOROIDALSURF =
+	  '.','T','O','R','O','I','D','A','L','_','S','U','R','F','.'
+	;
+
+BSPLINESURFACEFORMUNSPECIFIED = 
+	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+	;
+
+BSPLINESURFACEWITHKNOTS =
+	  'B','_','S','P','L','I','N','E','_','S','U','R','F','A','C','E','_',
+	  'W','I','T','H','_','K','N','O','T','S'
+	;
+
 BULLNOSEENDMILL =
 	  'B','U','L','L','N','O','S','E','_','E','N','D','M','I','L','L'
 	;
@@ -280,20 +293,12 @@ CALENDARDATE =
 	  'C','A','L','E','N','D','A','R','_','D','A','T','E'
 	;
 
-CARTESIAN =
-	  '.','C','A','R','T','E','S','I','A','N','.'
-	;
-
 CARTESIANPOINT =
 	  'C','A','R','T','E','S','I','A','N','_','P','O','I','N','T'
 	;
 
-CCP =
-	  '.','C','C','P','.'
-	;
-
-CCW =
-	  '.','C','C','W','.'
+CATALOGUETHREAD =
+	  'C','A','T','A','L','O','G','U','E','_','T','H','R','E','A','D'
 	;
 
 CENTERDRILL =
@@ -302,6 +307,20 @@ CENTERDRILL =
 
 CENTERDRILLING =
 	  'C','E','N','T','E','R','_','D','R','I','L','L','I','N','G'
+	;
+
+CENTERMILLING =
+	  'C','E','N','T','E','R','_','M','I','L','L','I','N','G'
+	;
+
+CIRCULARCLOSEDPROFILE =
+	  'C','I','R','C','U','L','A','R','_','C','L','O','S','E','D','_',
+          'P','R','O','F','I','L','E'
+	;
+
+CIRCULARCLOSEDSHAPEPROFILE =
+	  'C','I','R','C','U','L','A','R','_','C','L','O','S','E','D','_',
+          'S','H','A','P','E','_','P','R','O','F','I','L','E'
 	;
 
 CIRCULAROFFSET =
@@ -316,17 +335,49 @@ CIRCULARPATTERN =
 	  'C','I','R','C','U','L','A','R','_','P','A','T','T','E','R','N'
 	;
 
-CLIMB =
-	  '.','C','L','I','M','B','.'
-	;
-
 CLOSEDPOCKET =
 	  'C','L','O','S','E','D','_','P','O','C','K','E','T'
+	;
+
+CLOSEDSHELL =
+	  'C','L','O','S','E','D','_','S','H','E','L','L'
 	;
 
 COMBINEDDRILLANDREAMER =
 	  'C','O','M','B','I','N','E','D','_','D','R','I','L','L','_',
 	  'A','N','D','_','R','E','A','M','E','R'
+	;
+
+COMBINEDDRILLANDTAP = 
+	'C','O','M','B','I','N','E','D','_','D','R','I','L','L','_',
+	'A','N','D','_','T','A','P';
+
+COMPARISONEQUAL =
+	  'C','O','M','P','A','R','I','S','O','N','_','E','Q','U','A','L'
+	;
+
+COMPARISONGREATER =
+	  'C','O','M','P','A','R','I','S','O','N','_',
+          'G','R','E','A','T','E','R'
+	;
+
+COMPARISONGREATEREQUAL =
+	  'C','O','M','P','A','R','I','S','O','N','_',
+	  'G','R','E','A','T','E','R','_','E','Q','U','A','L'
+	;
+
+COMPARISONLESS =
+	  'C','O','M','P','A','R','I','S','O','N','_','L','E','S','S'
+	;
+
+COMPARISONLESSEQUAL =
+	  'C','O','M','P','A','R','I','S','O','N','_','L','E','S','S','_',
+	  'E','Q','U','A','L'
+	;
+
+COMPARISONNOTEQUAL =
+	  'C','O','M','P','A','R','I','S','O','N','_','N','O','T','_',
+	  'E','Q','U','A','L'
 	;
 
 COMPLETECIRCULARPATH =
@@ -348,35 +399,39 @@ CONICALHOLEBOTTOM =
 	  'H','O','L','E','_','B','O','T','T','O','M'
 	;
 
-CONNECT =
-	  '.','C','O','N','N','E','C','T','.'
+CONNECTDIRECT =
+	  'C','O','N','N','E','C','T','_','D','I','R','E','C','T'
 	;
 
-CONTACT =
-	  '.','C','O','N','T','A','C','T','.'
+CONNECTSECPLANE =
+	  'C','O','N','N','E','C','T','_','S','E','C','P','L','A','N','E'
 	;
 
-CONTINUOUS =
-	  '.','C','O','N','T','I','N','U','O','U','S','.'
+CONTACTTYPEFRONT =
+	  '.','F','R','O','N','T','.'
 	;
+
+CONTACTTYPESIDE =
+	  '.','S','I','D','E','.'
+	;
+
+CONTOURBIDIRECTIONAL =
+	  'C','O','N','T','O','U','R','_',
+	  'B','I','D','I','R','E','C','T','I','O','N','A','L'
+	  ;
 
 CONTOURPARALLEL =
 	  'C','O','N','T','O','U','R','_','P','A','R','A','L','L','E','L'
 	;
 
-CONTSAMEGRADIENT =
-	  '.','C','O','N','T','_','S','A','M','E','_',
-          'G','R','A','D','I','E','N','T','.'
+CONTOURSPIRAL =
+	  'C','O','N','T','O','U','R','_','S','P','I','R','A','L'
 	;
 
-CONTSAMEGRADIENTSAMECURVATURE =
-	  '.','C','O','N','T','_','S','A','M','E','_',
-          'G','R','A','D','I','E','N','T','_','S','A','M','E','_',
-          'C','U','R','V','A','T','U','R','E','.'
-	;
-
-CONVENTIONAL =
-	  '.','C','O','N','V','E','N','T','I','O','N','A','L','.'
+COORDINATEDUNIVERSALTIMEOFFSET =
+	  'C','O','O','R','D','I','N','A','T','E','D','_',
+          'U','N','I','V','E','R','S','A','L','_',
+          'T','I','M','E','_','O','F','F','S','E','T'
 	;
 
 COUNTERBOREHOLE =
@@ -391,12 +446,30 @@ COUNTERSUNKHOLE =
 	  'C','O','U','N','T','E','R','S','U','N','K','_','H','O','L','E'
 	;
 
+CURVEWITHNORMALVECTOR =
+	  'C','U','R','V','E','_','W','I','T','H','_',
+          'N','O','R','M','A','L','_','V','E','C','T','O','R'
+	;
+
+CUTMODETYPECLIMB =
+	  '.','C','L','I','M','B','.'
+	;
+
+CUTMODETYPECONVENTIONAL =
+	  '.','C','O','N','V','E','N','T','I','O','N','A','L','.'
+	;
+
+CUTTERCONTACTTRAJECTORY =
+	  'C','U','T','T','E','R','_','C','O','N','T','A','C','T','_',
+	  'T','R','A','J','E','C','T','O','R','Y'
+	;
+
 CUTTERLOCATIONTRAJECTORY =
 	  'C','U','T','T','E','R','_','L','O','C','A','T','I','O','N','_',
           'T','R','A','J','E','C','T','O','R','Y'
 	;
 
-CUTTINGCOMPONENT=
+CUTTINGCOMPONENT =
 	  'C','U','T','T','I','N','G','_','C','O','M','P','O','N','E','N','T'
 	;
 
@@ -406,12 +479,17 @@ CUTTINGEDGETECHNOLOGICALDATA =
 	  'D','A','T','A'
 	;
 
-CW =
-	  '.','C','W','.'
-	;
-
 DATEANDTIME =
 	  'D','A','T','E','_','A','N','D','_','T','I','M','E'
+	;
+
+DEFINEDTHREAD =
+	  'D','E','F','I','N','E','D','_','T','H','R','E','A','D'
+	;
+
+DEFINITIONALREPRESENTATION =
+	  'D','E','F','I','N','I','T','I','O','N','A','L','_',
+	  'R','E','P','R','E','S','E','N','T','A','T','I','O','N'
 	;
 
 DESCRIPTIVEPARAMETER =
@@ -423,17 +501,25 @@ DIAMETERTAPER =
 	  'D','I','A','M','E','T','E','R','_','T','A','P','E','R'
 	;
 
-DISCONTINUOUS =
-	  '.','D','I','S','C','O','N','T','I','N','U','O','U','S','.'
-	;
-
 DISPLAYMESSAGE =
 	  'D','I','S','P','L','A','Y','_','M','E','S','S','A','G','E'
+	;
+
+DOVETAILMILL =
+	  'D','O','V','E','T','A','I','L','_','M','I','L','L'
 	;
 
 DRILLINGTYPESTRATEGY =
 	  'D','R','I','L','L','I','N','G','_','T','Y','P','E','_',
 	  'S','T','R','A','T','E','G','Y'
+	;
+
+EDGECURVE =
+	  'E','D','G','E','_','C','U','R','V','E'
+	;
+
+EDGELOOP =
+	  'E','D','G','E','_','L','O','O','P'
 	;
 
 EDGEROUND =
@@ -444,8 +530,58 @@ EXCHANGEPALLET =
 	  'E','X','C','H','A','N','G','E','_','P','A','L','L','E','T'
 	;
 
+EXPLICITSTRATEGY =
+	  'E','X','P','L','I','C','I','T','_','S','T','R','A','T','E','G','Y'
+	;
+
+FACEBOUND =
+	  'F','A','C','E','_','B','O','U','N','D'
+	;
+
+FACEOUTERBOUND =
+	  'F','A','C','E','_','O','U','T','E','R','_','B','O','U','N','D'
+	;
+
 FALSE =
 	  '.','F','.'
+	;
+
+FILEDESCRIPTION =
+	  'F','I','L','E','_','D','E','S','C','R','I','P','T','I','O','N'
+	;
+
+FILEEND =
+	  'E','N','D','-','I','S','O','-','1','0','3','0','3','-','2','1'
+	;
+
+FILENAME =
+	  'F','I','L','E','_','N','A','M','E'
+	;
+
+FILESCHEMA =
+	  'F','I','L','E','_','S','C','H','E','M','A'
+	;
+
+FILESTART =
+	  'I','S','O','-','1','0','3','0','3','-','2','1'
+	;
+
+FITTINGTYPEHOLE =
+	  '.','H','O','L','E','.'
+	;
+
+FITTINGTYPESHAFT =
+	  '.','S','H','A','F','T','.'
+	;
+
+FIVEAXESCONSTTILTYAW =
+	  'F','I','V','E','_','A','X','E','S','_','C','O','N','S','T','_',
+	  'T','I','L','T','_','Y','A','W'
+	;
+
+FIVEAXESVARTILTYAW =
+	  'F','I','V','E','_','A','X','E','S','_','V','A','R','_',
+          'T','I','L','T','_','Y','A','W'
 	;
 
 FLATHOLEBOTTOM =
@@ -462,13 +598,19 @@ FLATWITHRADIUSHOLEBOTTOM =
 	  'H','O','L','E','_','B','O','T','T','O','M'
 	;
 
-FORWARD =
-	  '.','F','O','R','W','A','R','D','.'
-	;
-
 FREEFORMOPERATION =
 	  'F','R','E','E','F','O','R','M','_',
 	  'O','P','E','R','A','T','I','O','N'
+	;
+
+GENERALCLOSEDPROFILE =
+	  'G','E','N','E','R','A','L','_','C','L','O','S','E','D','_',
+          'P','R','O','F','I','L','E'
+	;
+
+GENERALOUTSIDEPROFILE =
+	  'G','E','N','E','R','A','L','_','O','U','T','S','I','D','E','_',
+          'P','R','O','F','I','L','E'
 	;
 
 GENERALPATH =
@@ -484,8 +626,22 @@ GENERALPOCKETBOTTOMCONDITION =
 	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
 	;
 
-HOLE =
-	  '.','H','O','L','E','.'
+GENERALPROFILE =
+	  'G','E','N','E','R','A','L','_','P','R','O','F','I','L','E'
+	;
+
+GENERALPROFILEFLOOR =
+	  'G','E','N','E','R','A','L','_','P','R','O','F','I','L','E','_',
+          'F','L','O','O','R'
+	;
+
+GENERALSHAPEPROFILE =
+	  'G','E','N','E','R','A','L','_','S','H','A','P','E','_',
+          'P','R','O','F','I','L','E'
+	;
+
+IFSTATEMENT =
+	  'I','F','_','S','T','A','T','E','M','E','N','T'
 	;
 
 INDEXPALLET =
@@ -501,6 +657,24 @@ INPROCESSGEOMETRY =
 	  'G','E','O','M','E','T','R','Y'
 	;
 
+KNOTTYPEPIECEWISEBEZIERKNOTS =
+	  '.','P','I','E','C','E','W','I','S','E','_',
+          'B','E','Z','I','E','R','_','K','N','O','T','S','.'
+	;
+
+KNOTTYPEQUASIUNIFORMKNOTS =
+	  '.','Q','U','A','S','I','_','U','N','I','F','O','R','M','_',
+	  'K','N','O','T','S','.'
+	;
+
+KNOTTYPEUNIFORMKNOTS = 
+	  '.','U','N','I','F','O','R','M','_','K','N','O','T','S','.'
+	;
+
+KNOTTYPEUNSPECIFIED =
+	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+	;
+
 LEADINGLINESTRATEGY =
 	  'L','E','A','D','I','N','G','_','L','I','N','E','_',
           'S','T','R','A','T','E','G','Y'
@@ -508,14 +682,6 @@ LEADINGLINESTRATEGY =
 
 LEFT =
 	  '.','L','E','F','T','.'
-	;
-
-LIFT =
-	  '.','L','I','F','T','.'
-	;
-
-LIFTSHIFTPLUNGE =
-	  'L','I','F','T','_','S','H','I','F','T','_','P','L','U','N','G','E'
 	;
 
 LINEARPATH =
@@ -530,8 +696,8 @@ LOADTOOL =
 	  'L','O','A','D','_','T','O','O','L'
 	;
 
-LOOPBACK =
-	  'L','O','O','P','_','B','A','C','K'
+LOCALTIME =
+	  'L','O','C','A','L','_','T','I','M','E'
 	;
 
 LOOPSLOTENDTYPE =
@@ -539,9 +705,18 @@ LOOPSLOTENDTYPE =
           'E','N','D','_','T','Y','P','E'
 	;
 
+MACHINEDSURFACE =
+	  'M','A','C','H','I','N','E','D','_','S','U','R','F','A','C','E'
+	;
+
 MACHININGWORKINGSTEP =
 	  'M','A','C','H','I','N','I','N','G','_',
 	  'W','O','R','K','I','N','G','S','T','E','P'
+	;
+
+MANIFOLDSOLIDBREP =
+	  'M','A','N','I','F','O','L','D','_',
+          'S','O','L','I','D','_','B','R','E','P'
 	;
 
 MILLINGCUTTINGTOOL =
@@ -569,12 +744,29 @@ MULTISTEPDRILLING =
 	  'D','R','I','L','L','I','N','G'
 	;
 
+NCCONSTANT =
+	  'N','C','_','C','O','N','S','T','A','N','T'
+	;
+
 NCVARIABLE =
 	  'N','C','_','V','A','R','I','A','B','L','E'
 	;
 
-NONCONTACT =
-	  '.','N','O','N','C','O','N','T','A','C','T','.'
+NEUTRAL =
+	  '.','N','E','U','T','R','A','L','.'
+	;
+
+NGONCLOSEDPROFILE =
+	  'N','G','O','N','_','C','L','O','S','E','D','_',
+          'P','R','O','F','I','L','E'
+	;
+
+NONSEQUENTIAL =
+	  'N','O','N','_','S','E','Q','U','E','N','T','I','A','L'
+	;
+
+NOTEXPRESSION =
+	  'N','O','T','_','E','X','P','R','E','S','S','I','O','N'
 	;
 
 NUMERICPARAMETER =
@@ -585,6 +777,14 @@ OFFSETVECTOR =
 	  'O','F','F','S','E','T','_','V','E','C','T','O','R'
 	;
 
+OPENPOCKET =
+	  'O','P','E','N','_','P','O','C','K','E','T'
+	 ;
+
+OPENSHELL =
+	  'O','P','E','N','_','S','H','E','L','L'
+	 ;
+
 OPENSLOTENDTYPE =
 	  'O','P','E','N','_','S','L','O','T','_',
           'E','N','D','_','T','Y','P','E'
@@ -594,13 +794,44 @@ OPTIONALSTOP =
 	  'O','P','T','I','O','N','A','L','_','S','T','O','P'
 	;
 
-PARAMETER =
-	  '.','P','A','R','A','M','E','T','E','R','.'
+ORDINALDATE =
+	  'O','R','D','I','N','A','L','_','D','A','T','E'
+	;
+
+OREXPRESSION = 
+	  'O','R','_','E','X','P','R','E','S','S','I','O','N'
+	;
+
+ORIENTEDEDGE =
+	  'O','R','I','E','N','T','E','D','_','E','D','G','E'
+	;
+
+PARTIALAREADEFINITION =
+	  'P','A','R','T','I','A','L','_','A','R','E','A','_',
+	  'D','E','F','I','N','I','T','I','O','N'
 	;
 
 PARTIALCIRCULARPATH =
 	  'P','A','R','T','I','A','L','_',
           'C','I','R','C','U','L','A','R','_','P','A','T','H'
+	;
+
+PARTIALCIRCULARPROFILE =
+	  'P','A','R','T','I','A','L','_',
+	  'C','I','R','C','U','L','A','R','_','P','R','O','F','I','L','E'
+	; 
+
+PARTIALCIRCULARSHAPEPROFILE =
+	  'P','A','R','T','I','A','L','_','C','I','R','C','U','L','A','R','_',
+          'S','H','A','P','E','_','P','R','O','F','I','L','E'
+	; 
+
+PATHMODETYPEFORWARD =
+	  '.','F','O','R','W','A','R','D','.'
+	;
+
+PATHMODETYPEZIGZAG =
+	  '.','Z','I','G','Z','A','G','.'
 	;
 
 PERSONANDADDRESS =
@@ -615,6 +846,11 @@ PLANARFACE =
 PLANARPOCKETBOTTOMCONDITION =
 	  'P','L','A','N','A','R','_','P','O','C','K','E','T','_',
 	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
+	;
+
+PLANARPROFILEFLOOR =
+	  'P','L','A','N','A','R','_','P','R','O','F','I','L','E','_',
+          'F','L','O','O','R'
 	;
 
 PLANECCSTRATEGY =
@@ -671,6 +907,16 @@ PROGRAMSTOP =
 	  'P','R','O','G','R','A','M','_','S','T','O','P'
 	;
 
+QUASIUNIFORMCURVE = 
+	  'Q','U','A','S','I','_','U','N','I','F','O','R','M','_',
+	  'C','U','R','V','E'
+	;
+
+QUASIUNIFORMSURFACE =
+	  'Q','U','A','S','I','_','U','N','I','F','O','R','M','_',
+	  'S','U','R','F','A','C','E'
+	;
+
 RADIUSEDPOCKETBOTTOMCONDITION =
 	  'R','A','D','I','U','S','E','D','_','P','O','C','K','E','T','_',
 	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
@@ -681,12 +927,18 @@ RADIUSEDSLOTENDTYPE =
           'E','N','D','_','T','Y','P','E'
 	;
 
-RAPID =
-	  '.','R','A','P','I','D','.'
-	;
-
 RAPIDMOVEMENT =
 	  'R','A','P','I','D','_','M','O','V','E','M','E','N','T'
+	;
+
+RATIONALBSPLINECURVE =
+	  'R','A','T','I','O','N','A','L','_','B','_',
+          'S','P','L','I','N','E','_','C','U','R','V','E'
+	;
+
+RATIONALBSPLINESURFACE =
+	  'R','A','T','I','O','N','A','L','_','B','_',
+          'S','P','L','I','N','E','_','S','U','R','F','A','C','E'
 	;
 
 RECTANGULARCLOSEDPROFILE =
@@ -694,9 +946,20 @@ RECTANGULARCLOSEDPROFILE =
 	  'C','L','O','S','E','D','_','P','R','O','F','I','L','E'
 	;
 
+RECTANGULARCLOSEDSHAPEPROFILE =
+	  'R','E','C','T','A','N','G','U','L','A','R','_',
+	  'C','L','O','S','E','D','_',
+          'S','H','A','P','E','_','P','R','O','F','I','L','E'
+	;
+
 RECTANGULAROFFSET =
 	  'R','E','C','T','A','N','G','U','L','A','R','_',
           'O','F','F','S','E','T'
+	;
+
+RECTANGULAROPENSHAPEPROFILE =
+	  'R','E','C','T','A','N','G','U','L','A','R','_','O','P','E','N','_',
+          'S','H','A','P','E','_','P','R','O','F','I','L','E'
 	;
 
 RECTANGULARPATTERN =
@@ -709,6 +972,11 @@ REGIONPROJECTION =
 	  'P','R','O','J','E','C','T','I','O','N'
 	;
 
+REGIONSURFACELIST =
+	  'R','E','G','I','O','N','_','S','U','R','F','A','C','E','_',
+	  'L','I','S','T'
+	;
+
 RIGHT =
 	  '.','R','I','G','H','T','.'
 	;
@@ -716,6 +984,18 @@ RIGHT =
 RIGHTCIRCULARCYLINDER =
 	  'R','I','G','H','T','_','C','I','R','C','U','L','A','R','_',
           'C','Y','L','I','N','D','E','R'
+	;
+
+ROTDIRECTIONCCW =
+	  '.','C','C','W','.'
+	;
+
+ROTDIRECTIONCW =
+	  '.','C','W','.'
+	;
+
+ROUNDEDEND =
+	  'R','O','U','N','D','E','D','_','E','N','D'
 	;
 
 ROUNDEDUPROFILE =
@@ -734,8 +1014,13 @@ SETUPINSTRUCTION =
 	  'S','E','T','U','P','_','I','N','S','T','R','U','C','T','I','O','N'
 	;
 
-SHAFT =
-	  '.','S','H','A','F','T','.'
+SHAPEREPRESENTATION =
+	  'S','H','A','P','E','_',
+	  'R','E','P','R','E','S','E','N','T','A','T','I','O','N'
+	;
+
+SIDEMILL =
+	  'S','I','D','E','_','M','I','L','L'
 	;
 
 SIDEFINISHMILLING =
@@ -746,6 +1031,19 @@ SIDEFINISHMILLING =
 SIDEROUGHMILLING =
 	  'S','I','D','E','_','R','O','U','G','H','_',
 	  'M','I','L','L','I','N','G'
+	;
+
+SPADEDRILL =
+	  'S','P','A','D','E','_','D','R','I','L','L'
+	;
+
+SPECIFICATIONUSAGECONSTRAINT =
+	  'S','P','E','C','I','F','I','C','A','T','I','O','N','_',
+          'U','S','A','G','E','_','C','O','N','S','T','R','A','I','N','T'
+	;
+
+SPEEDNAMERAPID =
+	  '.','R','A','P','I','D','.'
 	;
 
 SPHERICALCAP =
@@ -766,6 +1064,42 @@ SQUAREUPROFILE =
 	  'S','Q','U','A','R','E','_','U','_','P','R','O','F','I','L','E'
 	;
 
+STROKECONNECTIONSTRATEGYDEGOUGE =
+	  '.','D','E','G','O','U','G','E','.'
+	;
+
+STROKECONNECTIONSTRATEGYLIFTSHIFTPLUNGE =
+	  '.','L','I','F','T','_','S','H','I','F','T','_',
+          'P','L','U','N','G','E','.'
+	;
+
+STROKECONNECTIONSTRATEGYLOOPBACK =
+	  '.','L','O','O','P','_','B','A','C','K','.'
+	;
+
+STROKECONNECTIONSTRATEGYSTRAIGHTLINE =
+	 '.','S','T','R','A','I','G','H','T','L','I','N','E','.'
+	;
+
+SURFACEOFLINEAREXTRUSION =
+	  'S','U','R','F','A','C','E','_','O','F','_',
+          'L','I','N','E','A','R','_','E','X','T','R','U','S','I','O','N'
+	;
+
+SURFACEOFREVOLUTION =
+	  'S','U','R','F','A','C','E','_','O','F','_',
+	  'R','E','V','O','L','U','T','I','O','N'
+	;
+
+SURFACETEXTUREPARAMETER =
+	  'S','U','R','F','A','C','E','_','T','E','X','T','U','R','E','_',
+	  'P','A','R','A','M','E','T','E','R'
+	;
+
+TAPEREDDRILL =
+	  'T','A','P','E','R','E','D','_','D','R','I','L','L'
+	;
+
 TAPEREDENDMILL =
 	  'T','A','P','E','R','E','D','_','E','N','D','M','I','L','L'
 	;
@@ -774,16 +1108,29 @@ TAPEREDREAMER =
 	  'T','A','P','E','R','E','D','_','R','E','A','M','E','R'
 	;
 
-TCP =
-	  '.','T','C','P','.'
+TAPEREDTAP =
+	  'T','A','P','E','R','E','D','_','T','A','P'
+	;
+
+TEEPROFILE =
+	  'T','E','E','_','P','R','O','F','I','L','E'
 	;
 
 THREADDRILLING =
 	  'T','H','R','E','A','D','_','D','R','I','L','L','I','N','G'
 	;
 
+THREADMILL =
+	  'T','H','R','E','A','D','_','M','I','L','L'
+	;
+
 THREEAXES =
 	  'T','H','R','E','E','_','A','X','E','S'
+	;
+
+THREEAXESTILTEDTOOL =
+	  'T','H','R','E','E','_','A','X','E','S','_',
+          'T','I','L','T','E','D','_','T','O','O','L'
 	;
 
 THROUGHBOTTOMCONDITION =
@@ -796,9 +1143,19 @@ THROUGHPOCKETBOTTOMCONDITION =
 	  'B','O','T','T','O','M','_','C','O','N','D','I','T','I','O','N'
 	;
 
+THROUGHPROFILEFLOOR =
+	  'T','H','R','O','U','G','H','_',
+          'P','R','O','F','I','L','E','_','F','L','O','O','R'
+	;
+
 TOLERANCEDLENGTHMEASURE =
 	  'T','O','L','E','R','A','N','C','E','D','_',
 	  'L','E','N','G','T','H','_','M','E','A','S','U','R','E'
+	;
+
+TOOLLENGTHPROBING =
+	  'T','O','O','L','_','L','E','N','G','T','H','_',
+          'P','R','O','B','I','N','G'
 	;
 
 TOOLPATHFEATURE =
@@ -809,24 +1166,97 @@ TOOLPATHLIST =
 	  'T','O','O','L','P','A','T','H','_','L','I','S','T'
 	;
 
-TOOLPROBING =
-	  'T','O','O','L','_','P','R','O','B','I','N','G'
+TOOLPATHSPEED =
+	  'T','O','O','L','P','A','T','H','_','S','P','E','E','D'
+	;
+
+TOOLPATHTYPEAPPROACH =
+	  '.','A','P','P','R','O','A','C','H','.'
+	;
+
+TOOLPATHTYPECONNECT =
+	  '.','C','O','N','N','E','C','T','.'
+	;
+
+TOOLPATHTYPECONTACT =
+	  '.','C','O','N','T','A','C','T','.'
+	;
+
+TOOLPATHTYPELIFT =
+	  '.','L','I','F','T','.'
+	;
+
+TOOLPATHTYPENONCONTACT =
+	  '.','N','O','N','C','O','N','T','A','C','T','.'
+	;
+
+TOOLPATHTYPETRAJECTORYPATH =
+	  '.','T','R','A','J','E','C','T','O','R','Y','_','P','A','T','H','.'
+	;
+
+TOOLRADIUSPROBING =
+	  'T','O','O','L','_','R','A','D','I','U','S','_',
+          'P','R','O','B','I','N','G'
+	;
+
+TOOLREFERENCEPOINTCCP =
+	  '.','C','C','P','.'
+	;
+
+TOOLREFERENCEPOINTTCP =
+	  '.','T','C','P','.'
 	;
 
 TOUCHPROBE =
 	  'T','O','U','C','H','_','P','R','O','B','E'
 	;
 
-TRAJECTORYPATH =
-	  '.','T','R','A','J','E','C','T','O','R','Y','_','P','A','T','H','.'
+TOPOLOGICALREGION =
+	  'T','O','P','O','L','O','G','I','C','A','L','_',
+          'R','E','G','I','O','N'
+	;
+
+TRANSITIONCODECONTINUOUS =
+	  '.','C','O','N','T','I','N','U','O','U','S','.'
+	;
+
+TRANSITIONCODECONTSAMEGRADIENT =
+	  '.','C','O','N','T','_','S','A','M','E','_',
+          'G','R','A','D','I','E','N','T','.'
+	;
+
+TRANSITIONCODECONTSAMEGRADIENTSAMECURVATURE =
+	  '.','C','O','N','T','_','S','A','M','E','_',
+          'G','R','A','D','I','E','N','T','_','S','A','M','E','_',
+          'C','U','R','V','A','T','U','R','E','.'
+	;
+
+TRANSITIONCODEDISCONTINUOUS =
+	  '.','D','I','S','C','O','N','T','I','N','U','O','U','S','.'
 	;
 
 TRIMMEDCURVE =
 	  'T','R','I','M','M','E','D','_','C','U','R','V','E'
 	;
 
+TRIMMINGPREFERENCECARTESIAN =
+	  '.','C','A','R','T','E','S','I','A','N','.'
+	;
+
+TRIMMINGPREFERENCEPARAMETER =
+	  '.','P','A','R','A','M','E','T','E','R','.'
+	;
+
+TRIMMINGPREFERENCEUNSPECIFIED =
+	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+	;
+
 TRUE =
 	  '.','T','.'
+	;
+
+TSLOTMILL =
+	  'T','_','S','L','O','T','_','M','I','L','L'
 	;
 
 TWISTDRILL =
@@ -842,6 +1272,14 @@ UNIDIRECTIONALMILLING =
 	  'M','I','L','L','I','N','G'
 	;
 
+UNIFORMCURVE =
+	  'U','N','I','F','O','R','M','_','C','U','R','V','E'
+	;
+
+UNIFORMSURFACE =
+	  'U','N','I','F','O','R','M','_','S','U','R','F','A','C','E'
+	;
+
 UNKNOWN =
 	  '.','U','.'
 	;
@@ -850,8 +1288,8 @@ UNLOADTOOL =
 	  'U','N','L','O','A','D','_','T','O','O','L'
 	;
 
-UNSPECIFIED =
-	  '.','U','N','S','P','E','C','I','F','I','E','D','.'
+USERDEFINEDTOOL =
+	  'U','S','E','R','_','D','E','F','I','N','E','D','_','T','O','O','L'
 	;
 
 UVSTRATEGY =
@@ -862,8 +1300,30 @@ VEEPROFILE =
 	  'V','E','E','_','P','R','O','F','I','L','E'
 	;
 
+VERTEXLOOP =
+	  'V','E','R','T','E','X','_','L','O','O','P'
+	;
+
+VERTEXPOINT =
+	  'V','E','R','T','E','X','_','P','O','I','N','T'
+	;
+
 WAITFORMARK =
 	  'W','A','I','T','_','F','O','R','_','M','A','R','K'
+	;
+
+WEEKOFYEARANDDAYDATE  =
+	  'W','E','E','E','K','_','O','F','_','Y','E','A','R','_',
+          'A','N','D','_','D','A','Y','_','D','A','T','E'
+	;
+
+WHILESTATEMENT =
+	  'W','H','I','L','E','_','S','T','A','T','E','M','E','N','T'
+	;
+
+WOODRUFFKEYSEATMILL =
+	  'W','O','O','R','D','R','U','F','F','_',
+          'K','E','Y','S','E','A','T','_','M','I','L','L'
 	;
 
 WOODRUFFSLOTENDTYPE =
@@ -884,102 +1344,176 @@ WORKPIECESETUP =
 	  'W','O','R','K','P','I','E','C','E','_','S','E','T','U','P'
 	;
 
-ZIGZAG =
-	  '.','Z','I','G','Z','A','G','.'
+XOREXPRESSION =
+	  'X','O','R','_','E','X','P','R','E','S','S','I','O','N'
 	;
 
 (*=============================================================*)
-(* schema-specific nonterminals                                *)
+(* instance (a nonterminal)                                    *)
 (*=============================================================*)
 
 instance =
-	  angleTaper
+	  address
+	| advancedBrepShapeRepresentation
+	| advancedFace
+	| alongPath
+	| andExpression
+	| angleTaper
+	| apLiftPathAngle
+	| apLiftPathTangent
 	| approval
 	| approvalStatus
+	| apRetractAngle
+	| apRetractTangent
+	| assignment
 	| axis1placement
 	| axis2placement3d
+	| axisTrajectory
 	| backBoring
 	| backsideCounterbore
 	| backsideCountersink
 	| ballEndmill
+	| bezierCurve
+	| bezierSurface
+	| bidirectionalContour
 	| bidirectionalMilling
 	| block
 	| boring
+	| boringTool
 	| boss
 	| bottomAndSideFinishMilling
 	| bottomAndSideRoughMilling
+	| boundedPCurve
+	| bSplineCurveWithKnots
+	| bSplineSurfaceWithKnots
 	| bullnoseEndmill
 	| calendarDate
 	| cartesianPoint
+	| catalogueThread
 	| centerDrill
 	| centerDrilling
+	| centerMilling
 	| chamfer
 	| channel
 	| circle
+	| circularClosedProfile
+	| circularClosedShapeProfile
 	| circularOffset
 	| circularOmit
 	| circularPattern
 	| closedPocket
+	| closedShell
 	| combinedDrillAndReamer
+	| combinedDrillAndTap
 	| completeCircularPath
+	| comparisonEqual
+	| comparisonGreater
+	| comparisonGreaterEqual
+	| comparisonLess
+	| comparisonLessEqual
+	| comparisonNotEqual
 	| compositeCurve
 	| compositeCurveSegment
 	| conicalHoleBottom
+	| connectDirect
+	| connectSecplane
+	| contourBidirectional
 	| contourParallel
+	| contourSpiral
+	| coordinatedUniversalTimeOffset
 	| counterbore
 	| counterboreHole
 	| countersink
 	| counterSinking
 	| countersunkHole
+	| curveWithNormalVector
+	| cutterContactTrajectory
 	| cutterLocationTrajectory
 	| cuttingComponent
 	| cuttingEdgeTechnologicalData
 	| dateAndTime
+	| definedThread
+	| definitionalRepresentation
 	| descriptiveParameter
 	| diameterTaper
 	| displayMessage
+	| dovetailMill
 	| drilling
 	| drillingTypeStrategy
 	| direction
+	| edgeCurve
+	| edgeLoop
 	| edgeRound
 	| ellipse
 	| exchangePallet
+	| explicitStrategy
 	| feedstop
+	| faceBound
+	| faceOuterBound
 	| facemill
+	| fiveAxesConstTiltYaw
+	| fiveAxesVarTiltYaw
 	| flatHoleBottom
 	| flatSlotEndType
 	| flatWithRadiusHoleBottom
 	| freeformOperation
+	| generalClosedProfile
 	| generalPath
 	| generalPattern
 	| generalPocketBottomCondition
+	| generalOutsideProfile
+	| generalProfile
+	| generalProfileFloor
+	| generalShapeProfile
 	| helix
 	| hyperbola
+	| ifStatement
 	| indexPallet
 	| indexTable
+	| inProcessGeometry
 	| leadingLineStrategy
 	| limitsAndFits
 	| line
 	| linearPath
 	| linearProfile
 	| loadTool
+	| localTime
 	| loopSlotEndType
+	| machinedSurface
 	| machiningWorkingstep
+	| manifoldSolidBrep
 	| material
 	| millingCuttingTool
 	| millingMachineFunctions
 	| millingTechnology
+	| millingThreadingTool
 	| millingToolDimension
 	| multistepDrilling
+	| ncConstant
 	| ncVariable
+	| ngonClosedProfile
+	| nonSequential
+	| notExpression
 	| numericParameter
+	| openPocket
+	| openShell
 	| openSlotEndType
 	| optionalStop
+	| ordinalDate
+	| orExpression
+	| orientedEdge
 	| parabola
+	| parallel
+	| partialAreaDefinition
 	| partialCircularPath
+	| partialCircularProfile
+	| partialCircularShapeProfile
+	| pcurve
+	| person
 	| personAndAddress
 	| planarFace
 	| planarPocketBottomCondition
+	| planarProfileFloor
 	| plane
 	| planeCcStrategy
 	| planeClStrategy
@@ -995,127 +1529,271 @@ instance =
 	| processModelList
 	| programStop
 	| project
+	| quasiUniformCurve
+	| quasiUniformSurface
 	| radiusedPocketBottomCondition
 	| radiusedSlotEndType
 	| rapidMovement
+	| rationalBSplineCurve
+	| rationalBSplineSurface
 	| reaming
 	| rectangularClosedProfile
+	| rectangularClosedShapeProfile
+	| rectangularOpenShapeProfile
 	| rectangularPattern
 	| rectangularOffset
 	| rectangularOmit
 	| regionProjection
+	| regionSurfaceList
+	| representation
 	| rightCircularCylinder
+	| roundedEnd
 	| roundedUProfile
 	| roundHole
+	| selective
 	| setMark
 	| setup
 	| setupInstruction
+	| shapeRepresentation
 	| sideFinishMilling
+	| sideMill
 	| sideRoughMilling
 	| slot
+	| spadeDrill
+	| specification
+	| specificationUsageConstraint
 	| sphericalCap
 	| sphericalHoleBottom
 	| sphericalSurface
 	| squareUProfile
 	| step
+	| surfaceOfLinearExtrusion
+	| surfaceOfRevolution
+	| surfaceTextureParameter
+	| tap
+	| taperedDrill
 	| taperedEndmill
 	| taperedReamer
+	| taperedTap
 	| tapping
+	| teeProfile
 	| threadDrilling
+	| threadMill
 	| threeAxes
+	| threeAxesTiltedTool
 	| throughBottomCondition
 	| throughPocketBottomCondition
+	| throughProfileFloor
 	| tolerancedLengthMeasure
 	| tolerances
+	| toolLengthProbing
 	| toolpathFeature
 	| toolpathList
-	| toolProbing
+	| toolpathSpeed
+	| toolRadiusProbing
+	| topologicalRegion
 	| touchProbe
 	| trimmedCurve
+	| tSlotMill
 	| twistDrill
 	| twoAxes
 	| unidirectionalMilling
+	| uniformCurve
+	| uniformSurface
 	| unloadTool
+	| userDefinedTool
 	| uvStrategy
 	| vector
 	| veeProfile
+	| vertexLoop
+	| vertexPoint
 	| waitForMark
+	| weekOfYearAndDayDate
+	| whileStatement
+	| woodruffKeyseatMill
 	| woodruffSlotEndType
 	| workpiece
 	| workpieceCompleteProbing
 	| workpieceProbing
 	| workpieceSetup
 	| workplan
+	| xorExpression
 	;
 
-(* this is a stub *)
+(*=============================================================*)
+(* all other nonterminals (in alphabetical order)              *)
+(*=============================================================*)
+
+address =
+	  ADDRESS, '(', optString, c, optString, c, optString, c,
+	  optString, c, optString, c, optString, c, optString, c,
+	  optString, c, optString, c, optString, c, optString, c,
+	  optString, c, ')'
+	;
+
 advancedBrepShapeRepresentation =
-	  ADVANCEDBREPSHAPEREPRESENTATION , '(' , ')'
+	  ADVANCEDBREPSHAPEREPRESENTATION, '(', CharString, c,
+	  parenRepresentationItemListFull, c, representationContext, ')'
+	;
+
+advancedFace =
+	  ADVANCEDFACE, '(', CharString, c, parenFaceBoundListFull, c,
+	  surface, c, boolean, ')'
+	;
+
+(* enumeration *)
+aheadOrBehind =
+	  aheadOrBehindAhead
+	| aheadOrBehindExact
+	| aheadOrBehindBehind
+	;
+
+aheadOrBehindAhead =
+	  AHEADORBEHINDAHEAD
+	;
+
+aheadOrBehindBehind =
+	  AHEADORBEHINDBEHIND
+	;
+
+aheadOrBehindExact =
+	  AHEADORBEHINDEXACT
+	;
+
+airStrategy =
+	  apRetractAngle
+	| apRetractTangent
+	;
+
+alongPath =
+	  ALONGPATH, '(', optDirection, c, toolpathList, ')'
+	;
+
+andExpression =
+	  ANDEXPRESSION, '(', parenBooleanExpressionListFull, ')'
 	;
 
 angleTaper =
-	  ANGLETAPER , '(' , real , ')'
+	  ANGLETAPER, '(', real, ')'
 	;
 
-approach =
-	  APPROACH
+apLiftPathAngle =
+	  APLIFTPATHANGLE, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, c,
+	  cartesianPoint, c, optDirection, c, RealString, c, RealString, ')'
+	;
+
+apLiftPathTangent =
+	  APLIFTPATHTANGENT, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, c,
+	  cartesianPoint, c, optDirection, c, RealString, ')'
+	;
+
+approachLiftPath =
+	  apLiftPathAngle
+	| apLiftPathTangent
 	;
 
 approachRetractStrategy =
-	  plungeStrategy
+	  airStrategy
+	| alongPath
+	| plungeStrategy
 	;
 
 approval =
-	  APPROVAL , '(' , approvalStatus , c , CharString , ')'
+	  APPROVAL, '(', approvalStatus, c, CharString, ')'
 	;
 
 approvalStatus =
-	  APPROVALSTATUS , '(' , CharString , ')'
+	  APPROVALSTATUS, '(', CharString, ')'
+	;
+
+apRetractAngle =
+	  APRETRACTANGLE, '(', optDirection, c, RealString, c, RealString, ')'
+	;
+
+apRetractTangent =
+	  APRETRACTTANGENT, '(', optDirection, c, RealString, ')'
+	;
+
+assignment =
+	  ASSIGNMENT, '(', CharString, c, ncVariable, c, rvalue, ')'
+	;
+
+aString =
+	  CharString
 	;
 
 axis1placement =
-	  AXIS1PLACEMENT , '(' , CharString , c , 
-          cartesianPoint , c , direction , ')'
+	  AXIS1PLACEMENT, '(', CharString, c, 
+          cartesianPoint, c, direction, ')'
 	;
 
 axis2placement3d =
-	  AXIS2PLACEMENT3D , '(' , CharString , c , 
-          cartesianPoint , c , direction , c , optDirection , ')'
+	  AXIS2PLACEMENT3D, '(', CharString, c, 
+          cartesianPoint, c, direction, c, optDirection, ')'
 	;
 
 axis2placement3dList =
 	  axis2placement3d
-	| axis2placement3dList , c , axis2placement3d
+	| axis2placement3dList, c, axis2placement3d
+	;
+
+axisTrajectory =
+	  AXISTRAJECTORY, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, c,
+	  optBoolean, c, parenStringListFull, c, parenBoundedCurveListFull, ')'
 	;
 
 backBoring = 
-	  BACKBORING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , ')'
+	  BACKBORING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, ')'
 	;
 
 backsideCounterbore =
-	  BACKSIDECOUNTERBORE , '(' , millingToolDimension , c ,
-          optInteger , c , optHand , c , optBoolean , c , optReal , ')'
+	  BACKSIDECOUNTERBORE, '(', millingToolDimension, c,
+          optInteger, c, optHand, c, optBoolean, c, optReal, ')'
 	;
 
 backsideCountersink =
-	  BACKSIDECOUNTERSINK , '(' , millingToolDimension , c ,
-          optInteger , c , optHand , c , optBoolean , c , optReal , c ,
-          optReal , ')'
+	  BACKSIDECOUNTERSINK, '(', millingToolDimension, c,
+          optInteger, c, optHand, c, optBoolean, c, optReal, c,
+          optReal, ')'
 	;
 
 ballEndmill =
-	  BALLENDMILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  BALLENDMILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
+	;
+
+bezierCurve =
+	  BEZIERCURVE, '(', CharString, c, IntString, c, 
+	  parenCartesianPointList, c, bSplineCurveForm, c, logical, c,
+	  logical, ')'
+	;
+
+bezierSurface =
+	  BEZIERSURFACE, '(', CharString, c, integer, c, integer, c,
+	  parenParenCartesianPointListFullListFull, c, bSplineSurfaceForm, c,
+	  logical, c, logical, c, logical, ')'
+	;
+
+bidirectionalContour =
+	  BIDIRECTIONALCONTOUR, '(', optReal, c, optBoolean, c,
+	  optDirection, c, optLeftOrRight, optRotDirection, optCutmodeType, ')'
 	;
 
 bidirectionalMilling = 
-	  BIDIRECTIONALMILLING , '(' , optReal , c , optBoolean , c ,
-	  optDirection , c , optLeftOrRight , c ,
-	  optStrokeConnectionStrategy , ')'
+	  BIDIRECTIONALMILLING, '(', optReal, c, optBoolean, c,
+	  optDirection, c, optLeftOrRight, c,
+	  optStrokeConnectionStrategy, ')'
+	;
+
+binaryBooleanExpression =
+	  xorExpression
 	;
 
 blindBottomCondition =
@@ -1126,30 +1804,43 @@ blindBottomCondition =
 	;
 
 block =
-	  BLOCK , '(' , CharString , c , axis2placement3d , c ,
-          RealString , c , RealString , c , RealString , ')'
+	  BLOCK, '(', CharString, c, axis2placement3d, c,
+          RealString, c, RealString, c, RealString, ')'
 	;
 
+(* enumeration - shares true and false with logical enumeration *)
 boolean =
 	  booleanTrue
 	| booleanFalse
 	;
 
-booleanTrue =
-	  TRUE
+booleanExpression =
+	  unaryBooleanExpression
+	| binaryBooleanExpression
+	| multipleArityBooleanExpression
+	| comparisonExpression
+	;
+
+booleanExpressionList =
+	  booleanExpression
+	| booleanExpressionList, c, booleanExpression
 	;
 
 booleanFalse =
 	  FALSE
 	;
 
+booleanTrue =
+	  TRUE
+	;
+
 boring =
-	  BORING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , c , boolean , c ,
-	  optReal , c , optCartesianPoint , ')'
+	  BORING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, c, boolean, c,
+	  optReal, c, optCartesianPoint, ')'
 	;
 
 boringOperation =
@@ -1157,24 +1848,29 @@ boringOperation =
 	| reaming
 	;
 
+boringTool =
+	  BORINGTOOL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
+	;
+
 boss =
-	  BOSS , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , closedProfile , c , optReal , ')'
+	  BOSS, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, closedProfile, c, optReal, ')'
 	;
 
 bossList =
 	  boss
-	| bossList , c , boss
+	| bossList, c, boss
 	;
 
 bottomAndSideFinishMilling =
-	  BOTTOMANDSIDEFINISHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	  BOTTOMANDSIDEFINISHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, c, optReal, c, optReal, ')'
 	;
 
 bottomAndSideMilling =
@@ -1183,19 +1879,61 @@ bottomAndSideMilling =
 	;
 
 bottomAndSideRoughMilling =
-	  BOTTOMANDSIDEROUGHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	  BOTTOMANDSIDEROUGHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, c, optReal, c, optReal, ')'
 	;
 
-(* boundedCurve also has subtypes bSplineCurve and boundedPcurve *)
+(* enumeration *)
+bottomOrSide =
+	  bottomOrSideBottom
+	| bottomOrSideSide
+	| bottomOrSideBottomAndSide
+	;
+
+bottomOrSideBottom =
+	  BOTTOMORSIDEBOTTOM
+	;
+
+bottomOrSideSide =
+	  BOTTOMORSIDESIDE
+	;
+
+bottomOrSideBottomAndSide =
+	  BOTTOMORSIDEBOTTOMANDSIDE
+	;
+
+(* The EXPRESS file defines boundedPCurve as a subtype of both 
+   pCurveParent (corresponding to pcurve in the EXPRESS) and boundedCurve.
+   That causes a problem since both inherit "name" from representationItem.
+   Hence, boundedPCurve is not given here as a subtype of boundedCurve. *)
 boundedCurve =
-	  polyline
+	  bSplineCurve
+	| polyline
 	| trimmedCurve
 	| compositeCurve
+	;
+
+boundedCurveList =
+	  boundedCurve
+	| boundedCurveList, c, boundedCurve
+	;
+
+boundedPCurve =
+	  BOUNDEDPCURVE, '(', CharString, c, surface, c,
+	  definitionalRepresentation, ')'
+	;
+
+boundedSurface =
+	  bSplineSurface
+	;
+
+boundedSurfaceList =
+	  boundedSurface
+	| boundedSurfaceList, c, boundedSurface
 	;
 
 boundingGeometrySelect =
@@ -1204,72 +1942,224 @@ boundingGeometrySelect =
 	| rightCircularCylinder
 	;
 
+(* The EXPRESS uses ANDOR before rationalBSplineCurve. *)
+bSplineCurve =
+	  uniformCurve
+	| bSplineCurveWithKnots
+	| quasiUniformCurve
+	| bezierCurve
+	| rationalBSplineCurve
+	;
+
+(* enumeration *)
+bSplineCurveForm =
+	  bSplineCurveFormPolylineForm
+	| bSplineCurveFormCircularArc
+	| bSplineCurveFormEllipticArc
+	| bSplineCurveFormParabolicArc
+	| bSplineCurveFormHyperbolicArc
+	| bSplineCurveFormUnspecified
+	;
+
+bSplineCurveFormPolylineForm = 
+	  BSPLINECURVEFORMPOLYLINEFORM
+	  ;
+
+bSplineCurveFormCircularArc = 
+	  BSPLINECURVEFORMCIRCULARARC
+	;
+
+bSplineCurveFormEllipticArc = 
+	  BSPLINECURVEFORMELLIPTICARC
+	;
+
+bSplineCurveFormParabolicArc = 
+	  BSPLINECURVEFORMPARABOLICARC
+	;
+
+bSplineCurveFormHyperbolicArc = 
+	  BSPLINECURVEFORMHYPERBOLICARC
+	;
+
+bSplineCurveFormUnspecified = 
+	  BSPLINECURVEFORMUNSPECIFIED
+	;
+
+bSplineCurveWithKnots =
+	  BSPLINECURVEWITHKNOTS, '(', CharString, c, IntString, c, 
+	  parenCartesianPointList, c, bSplineCurveForm, c, logical, c, logical, 
+	  parenIntegerListFull, c, parenRealListFull, c, knotType, ')'
+	;
+
+(* The EXPRESS uses ANDOR before rationalBSplineSurface. *)
+bSplineSurface =
+	  bSplineSurfaceWithKnots
+	| uniformSurface
+	| quasiUniformSurface
+	| bezierSurface
+	| rationalBSplineSurface
+	;
+
+(* enumeration *)
+bSplineSurfaceForm =
+	  bSplineSurfaceFormPlaneSurf
+	| bSplineSurfaceFormCylindricalSurf
+	| bSplineSurfaceFormConicalSurf
+	| bSplineSurfaceFormSphericalSurf
+	| bSplineSurfaceFormToroidalSurf
+	| bSplineSurfaceFormSurfOfRevolution
+	| bSplineSurfaceFormRuledSurf
+	| bSplineSurfaceFormGeneralizedCone
+	| bSplineSurfaceFormQuadricSurf
+	| bSplineSurfaceFormSurfOfLinearExtrusion
+	| bSplineSurfaceFormUnspecified
+	;
+
+bSplineSurfaceFormConicalSurf =
+	  BSPLINESURFACEFORMCONICALSURF
+	;
+
+bSplineSurfaceFormCylindricalSurf =
+	  BSPLINESURFACEFORMCYLINDRICALSURF
+	;
+
+bSplineSurfaceFormGeneralizedCone =
+	  BSPLINESURFACEFORMGENERALIZEDCONE
+	;
+
+bSplineSurfaceFormPlaneSurf =
+	  BSPLINESURFACEFORMPLANESURF
+	;
+
+bSplineSurfaceFormQuadricSurf = 
+	  BSPLINESURFACEFORMQUADRICSURF
+	;
+
+bSplineSurfaceFormRuledSurf = 
+	  BSPLINESURFACEFORMRULEDSURF
+	;
+
+bSplineSurfaceFormSphericalSurf =
+	  BSPLINESURFACEFORMSPHERICALSURF
+	;
+
+bSplineSurfaceFormSurfOfLinearExtrusion = 
+	  BSPLINESURFACEFORMSURFOFLINEAREXTRUSION
+	;
+
+bSplineSurfaceFormSurfOfRevolution =
+	  BSPLINESURFACEFORMSURFOFREVOLUTION
+	;
+
+bSplineSurfaceFormToroidalSurf =
+	  BSPLINESURFACEFORMTOROIDALSURF
+	;
+
+bSplineSurfaceFormUnspecified = 
+	  BSPLINESURFACEFORMUNSPECIFIED
+	;
+
+bSplineSurfaceWithKnots =
+	BSPLINESURFACEWITHKNOTS, '(', CharString, c, integer, c, integer, c,
+	  parenParenCartesianPointListFullListFull, c, bSplineSurfaceForm, c,
+	  logical, c, logical, c, logical, c, parenIntegerListFull, c,
+	  parenIntegerListFull, c, parenRealListFull, c, parenRealListFull, c,
+	  knotType, ')'
+	;
+
+
 bullnoseEndmill =
-	  BULLNOSEENDMILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  BULLNOSEENDMILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
+	;
+
+c =
+	  ','
 	;
 
 calendarDate =
-	  CALENDARDATE , '(' , IntString , c , IntString , c , IntString , ')'
-	;
-
-cartesian =
-	  CARTESIAN
+	  CALENDARDATE, '(', IntString, c, IntString, c, IntString, ')'
 	;
 
 cartesianPoint =
-	  CARTESIANPOINT , '(' , CharString , c , parenRealListFull , ')'
+	  CARTESIANPOINT, '(', CharString, c, parenRealListFull, ')'
 	;
 
 cartesianPointList =
 	  cartesianPoint
-	| cartesianPointList , c , cartesianPoint
+	| cartesianPointList, c, cartesianPoint
+	;
+
+catalogueThread =
+	  CATALOGUETHREAD, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, partialAreaDefinition, c,
+	  parenMachiningFeatureListFull, c, boolean, c, 
+	  optDescriptiveParameter, c, descriptiveParameter, c, 
+	  descriptiveParameter, c, RealString, c, numericParameter, c,
+	  descriptiveParameter, c, specification, ')'
 	;
 
 centerDrill =
-	  CENTERDRILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  CENTERDRILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
 	;
 
 centerDrilling = 
-	  CENTERDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , ')'
+	  CENTERDRILLING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, ')'
+	;
+
+centerMilling =
+	  CENTERMILLING, '(', optReal, c, optBoolean, ')'
 	;
 
 chamfer =
-	  CHAMFER , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , machiningFeature , c ,
-	  machiningFeature , c , RealString , c , tolerancedLengthMeasure , ')'
+	  CHAMFER, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, machiningFeature, c,
+	  machiningFeature, c, RealString, c, tolerancedLengthMeasure, ')'
 	;
 
 channel =
-	  CHANNEL , '(' , CharString , ')'
+	  CHANNEL, '(', CharString, ')'
 	;
 
 circle =
-	  CIRCLE , '(' , CharString , c , axis2placement3d  , c ,
-          RealString , ')'
+	  CIRCLE, '(', CharString, c, axis2placement3d, c,
+          RealString, ')'
+	;
+
+circularClosedProfile =
+	  CIRCULARCLOSEDPROFILE, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, ')'
+	;
+
+circularClosedShapeProfile =
+	  CIRCULARCLOSEDSHAPEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profileSelect, c,
+	  direction, c, circularClosedProfile, ')'
 	;
 
 circularOffset =
-	  CIRCULAROFFSET , '(' , RealString , c , IntString , ')'
-	;
-
-circularOmit =
-	  CIRCULAROMIT , '(' , IntString , ')'
+	  CIRCULAROFFSET, '(', RealString, c, IntString, ')'
 	;
 
 circularOffsetList =
 	  circularOffset
-	| circularOffsetList , c , circularOffset
+	| circularOffsetList, c, circularOffset
+	;
+
+circularOmit =
+	  CIRCULAROMIT, '(', IntString, ')'
 	;
 
 circularOmitList =
 	  circularOmit
-	| circularOmitList , c , circularOmit
+	| circularOmitList, c, circularOmit
 	;
 
 circularPath =
@@ -1278,49 +2168,93 @@ circularPath =
 	;
 
 circularPattern =
-	  CIRCULARPATTERN , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  two5DmanufacturingFeature , c , RealString , c , IntString , c ,
-          parenCircularOffsetList , c , parenCircularOmitList , c ,
-          optTolerancedLengthMeasure , c , RealString , ')'
+	  CIRCULARPATTERN, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  two5DmanufacturingFeature, c, RealString, c, IntString, c,
+          parenCircularOffsetList, c, parenCircularOmitList, c,
+          optTolerancedLengthMeasure, c, RealString, ')'
 	;
 
 closedPocket =
-	  CLOSEDPOCKET , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , parenBossList , c , optReal , c , 
-	  pocketBottomCondition , c , optTolerancedLengthMeasure , c ,
-	  optTolerancedLengthMeasure , c , closedProfile , ')'
+	  CLOSEDPOCKET, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, parenBossList, c, optReal, c, 
+	  pocketBottomCondition, c, optTolerancedLengthMeasure, c,
+	  optTolerancedLengthMeasure, c, closedProfile, ')'
 	;
 
 closedProfile =
-	  rectangularClosedProfile
-	  ;
+	  circularClosedProfile
+	| generalClosedProfile
+	| ngonClosedProfile
+	| rectangularClosedProfile
+	;
+
+closedShell =
+	  CLOSEDSHELL, '(', CharString, c, parenFaceListFull, ')'
+	;
 
 combinedDrillAndReamer =
-	  COMBINEDDRILLANDREAMER , '(' , millingToolDimension , c ,
-	  optInteger , c , optHand , c , optBoolean , c , optReal , c ,
-	  optReal , ')'
+	  COMBINEDDRILLANDREAMER, '(', millingToolDimension, c,
+	  optInteger, c, optHand, c, optBoolean, c, optReal, c,
+	  optReal, ')'
+	;
+
+combinedDrillAndTap = COMBINEDDRILLANDTAP, '(', millingToolDimension, c,
+	  optInteger, c, optHand, c, optBoolean, c, optReal, optReal, ')'
+	;
+
+comparisonEqual =
+	  COMPARISONEQUAL, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonGreater =
+	  COMPARISONGREATER, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonGreaterEqual =
+	  COMPARISONGREATEREQUAL, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonLess =
+	  COMPARISONLESS, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonLessEqual =
+	  COMPARISONLESSEQUAL, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonNotEqual =
+	  COMPARISONNOTEQUAL, '(', ncVariable, c, rvalue, ')'
+	;
+
+comparisonExpression =
+	  comparisonEqual
+	| comparisonGreater
+	| comparisonGreaterEqual
+	| comparisonLess
+	| comparisonLessEqual
+	| comparisonNotEqual
 	;
 
 completeCircularPath =
-	  COMPLETECIRCULARPATH , '(' , optAxis2placement3d , c ,
-	  tolerancedLengthMeasure , ')'
+	  COMPLETECIRCULARPATH, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, ')'
 	;
 
 compositeCurve =
-	  COMPOSITECURVE , '(' , CharString , c ,
-          parenCompositeCurveSegmentListFull , c , logical , ')'
+	  COMPOSITECURVE, '(', CharString, c,
+          parenCompositeCurveSegmentListFull, c, logical, ')'
 	;
 
 compositeCurveSegment =
-	  COMPOSITECURVESEGMENT , '(' , transitionCode , c , boolean , c ,
-          curve , ')'
+	  COMPOSITECURVESEGMENT, '(', transitionCode, c, boolean, c,
+          curve, ')'
 	;
 
 compositeCurveSegmentList =
 	  compositeCurveSegment
-	| compositeCurveSegmentList , c , compositeCurveSegment
+	| compositeCurveSegmentList, c, compositeCurveSegment
 	;
 
 compoundFeature =
@@ -1335,7 +2269,7 @@ compoundFeatureSelect =
 
 compoundFeatureSelectList =
 	  compoundFeatureSelect
-	| compoundFeatureSelectList , c , compoundFeatureSelect
+	| compoundFeatureSelectList, c, compoundFeatureSelect
 	;
 
 conic =
@@ -1346,43 +2280,73 @@ conic =
 	;
 
 conicalHoleBottom =
-	  CONICALHOLEBOTTOM , '(' , real , c , optTolerancedLengthMeasure , ')'
+	  CONICALHOLEBOTTOM, '(', real, c, optTolerancedLengthMeasure, ')'
 	;
 
-connect =
-	  CONNECT
+connectDirect =
+	  CONNECTDIRECT, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, ')'
 	;
 
-contact =
-	  CONTACT
+connectedFaceSet =
+	  closedShell
+	| openShellParent
 	;
 
-continuous =
-	  CONTINUOUS
+connector =
+	  connectSecplane
+	| connectDirect
 	;
 
-contSameGradient =
-	  CONTSAMEGRADIENT
+connectSecplane =
+	  CONNECTSECPLANE, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, c,
+	  optDirection, c, optDirection, ')'
 	;
 
-contSameGradientSameCurvature =
-	  CONTSAMEGRADIENTSAMECURVATURE
+(* enumeration *)
+contactType =
+	  contactTypeSide
+	| contactTypeFront
+	;
+
+contactTypeSide =
+	  CONTACTTYPESIDE
+	;
+
+contactTypeFront =
+	  CONTACTTYPEFRONT
+	;
+
+contourBidirectional =
+	  CONTOURBIDIRECTIONAL, '(', optReal, c, optBoolean, c,
+	  optDirection, c, optLeftOrRight, optRotDirection, optCutmodeType, ')'
 	;
 
 contourParallel =
-	  CONTOURPARALLEL , '(' , optReal , c , optBoolean , c ,
-	  rotDirection , c , optCutmodeType , ')'
+	  CONTOURPARALLEL, '(', optReal, c, optBoolean, c,
+	  rotDirection, c, optCutmodeType, ')'
+	;
+
+contourSpiral =
+	  CONTOURSPIRAL, '(', optReal, c, optBoolean, c,
+	  rotDirection, c, optCutmodeType, ')'
+	;
+
+coordinatedUniversalTimeOffset =
+	  COORDINATEDUNIVERSALTIMEOFFSET, '(', IntString, optInteger,
+	  aheadOrBehind, ')'
 	;
 
 counterbore =
-	  COUNTERBORE , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  COUNTERBORE, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
 	;
 
 counterboreHole =
-	  COUNTERBOREHOLE , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  parenCompoundFeatureSelectListFull , ')'
+	  COUNTERBOREHOLE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  parenCompoundFeatureSelectListFull, ')'
 	;
 
 counterboreParent =
@@ -1391,16 +2355,16 @@ counterboreParent =
 	;
 
 countersink =
-	  COUNTERSINK , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	  COUNTERSINK, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
 	;
 
 counterSinking = 
-	  COUNTERSINKING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , ')'
+	  COUNTERSINKING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, ')'
 	;
 
 countersinkParent =
@@ -1409,104 +2373,142 @@ countersinkParent =
 	;
 
 countersunkHole =
-	  COUNTERSUNKHOLE , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  parenCompoundFeatureSelectListFull , ')'
+	  COUNTERSUNKHOLE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  parenCompoundFeatureSelectListFull, ')'
 	;
 
-(* curve also has subtype pcurve and helix has been added *)
 curve =
 	  line
 	| conic
 	| helix
 	| boundedCurve
+	| pcurveParent
 	;
 
+curveWithNormalVector =
+	  CURVEWITHNORMALVECTOR, '(', boundedCurve, c, boundedCurve, ')'
+	;
+
+curveWithSurfaceNormalSelect =
+	  boundedPCurve
+	| curveWithNormalVector
+	;
+
+(* enumeration *)
 cutmodeType =
 	  cutmodeTypeClimb
 	| cutmodeTypeConventional
 	;
 
 cutmodeTypeClimb =
-	  CLIMB
+	  CUTMODETYPECLIMB
 	;
 
 cutmodeTypeConventional =
-	  CONVENTIONAL
+	  CUTMODETYPECONVENTIONAL
+	;
+
+cutterContactTrajectory =
+	  CUTTERCONTACTTRAJECTORY, '(', boolean, c, toolpathType, c,
+	  optToolpathSpeedprofile, c, optTechnology, c, optMachineFunctions, c,
+	  optBoolean, c, curveWithSurfaceNormalSelect, c, optBoundedCurve, c,
+	  optContactType, ')'
 	;
 
 cutterLocationTrajectory =
-	  CUTTERLOCATIONTRAJECTORY , '(' , boolean , c , toolpathType , c ,
-          optToolpathSpeedprofile , c , optTechnology , c ,
-          optMachineFunctions , c , optBoolean , c , boundedCurve , c ,
-          optBoundedCurve , c , optBoundedCurve , ')'
+	  CUTTERLOCATIONTRAJECTORY, '(', boolean, c, toolpathType, c,
+          optToolpathSpeedprofile, c, optTechnology, c,
+          optMachineFunctions, c, optBoolean, c, boundedCurve, c,
+          optBoundedCurve, c, optBoundedCurve, ')'
 	;
 
 cuttingComponent =
-	  CUTTINGCOMPONENT , '(' , RealString , c , optMaterial , c ,
-          optCuttingEdgeTechnologicalData , c , optReal , c ,
-	  optMillingTechnology , ')'
+	  CUTTINGCOMPONENT, '(', RealString, c, optMaterial, c,
+          optCuttingEdgeTechnologicalData, c, optReal, c,
+	  optMillingTechnology, ')'
 	;
 
 cuttingComponentList =
 	  cuttingComponent
-	| cuttingComponentList , c , cuttingComponent
+	| cuttingComponentList, c, cuttingComponent
 	;
 
 cuttingEdgeTechnologicalData =
-	  CUTTINGEDGETECHNOLOGICALDATA ,
-	  '(' , optReal , c , optReal , c , optReal , ')'
+	  CUTTINGEDGETECHNOLOGICALDATA,
+	  '(', optReal, c, optReal, c, optReal, ')'
 	;
 
 cuttingTool =
 	  millingCuttingTool
 	;
 
-(* date also has subtypes ordinalDate and weekOfYearAndDayDate *)
+dataSection =
+	  dataStarter, instancePlusList, endSection
+	;
+
+dataStarter =
+	  DATA, ';'
+	;
+
 date =
-	  calendarDate
+	   calendarDate
+	 | ordinalDate
+	 | weekOfYearAndDayDate
 	;
 
-(* in dateAndTime, CHARSTRING should be local_time *)
 dateAndTime =
-	  DATEANDTIME , '(' , date , c , CharString , ')'
+	  DATEANDTIME, '(', date, c, localTime, ')'
 	;
 
-degouge =
-	  DEGOUGE
+definedThread =
+	  DEFINEDTHREAD, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, partialAreaDefinition, c,
+	  parenMachiningFeatureListFull, c, boolean, c, 
+	  optDescriptiveParameter, c, descriptiveParameter, c, 
+	  descriptiveParameter, c, RealString, c, numericParameter, c,
+	  descriptiveParameter, c, RealString, c, optReal, c,
+	  optReal, ')'
+	;
+
+definitionalRepresentation =
+	  DEFINITIONALREPRESENTATION, '(', CharString, c, 
+          parenRepresentationItemListFull, c, representationContext, ')'
 	;
 
 descriptiveParameter =
-	  DESCRIPTIVEPARAMETER , '(' , CharString , c , CharString , ')'
+	  DESCRIPTIVEPARAMETER, '(', CharString, c, CharString, ')'
 	;
 
 diameterTaper =
-	  DIAMETERTAPER , '(' , tolerancedLengthMeasure , ')'
+	  DIAMETERTAPER, '(', tolerancedLengthMeasure, ')'
 	;
 
 direction =
-	  DIRECTION , '(' , CharString , c , parenRealListFull , ')'
-	;
-
-discontinuous =
-	  DISCONTINUOUS
+	  DIRECTION, '(', CharString, c, parenRealListFull, ')'
 	;
 
 displayMessage =
-	  DISPLAYMESSAGE , '(' , CharString , c , CharString , ')'
+	  DISPLAYMESSAGE, '(', CharString, c, CharString, ')'
 	;
 
-(* drill also has subtype spadeDrill *)
+dovetailMill = 
+	  DOVETAILMILL, '(', millingToolDimension, c, optInteger, c, optHand, c,
+	  optBoolean, c, optReal, c, optReal, ')'
+	;
+
 drill =
-	  twistDrill
+	  spadeDrill
+	| twistDrillParent
 	;
 
 drilling = 
-	  DRILLING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , ')'
+	  DRILLING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, ')'
 	;
 
 drillingOperation =
@@ -1525,15 +2527,29 @@ drillingTypeOperation =
 	;
 
 drillingTypeStrategy =
-	  DRILLINGTYPESTRATEGY , '(' , optReal , c , optReal , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , ')'
+	  DRILLINGTYPESTRATEGY, '(', optReal, c, optReal, c,
+	  optReal, c, optReal, c, optReal, c, optReal, ')'
+	;
+
+edge =
+	  edgeCurve
+	| orientedEdge
+	;
+
+edgeCurve =
+	  EDGECURVE, '(', CharString, c, vertex, c, vertex, c, curve, c,
+	  boolean, ')'
+	;
+
+edgeLoop =
+	  EDGELOOP, '(', CharString, c, parenOrientedEdgeListFull, ')'
 	;
 
 edgeRound =
-	  EDGEROUND , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , machiningFeature , c ,
-	  machiningFeature , c , tolerancedLengthMeasure , c ,
-	  optTolerancedLengthMeasure , c , optTolerancedLengthMeasure , ')'
+	  EDGEROUND, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, machiningFeature, c,
+	  machiningFeature, c, tolerancedLengthMeasure, c,
+	  optTolerancedLengthMeasure, c, optTolerancedLengthMeasure, ')'
 	;
 
 elementarySurface =
@@ -1542,8 +2558,8 @@ elementarySurface =
 	;
 
 ellipse =
-	  ELLIPSE , '(' , CharString , c , axis2placement3d , c ,
-          RealString , c , RealString , ')'
+	  ELLIPSE, '(', CharString, c, axis2placement3d, c,
+          RealString, c, RealString, ')'
 	;
 
 endmill =
@@ -1552,8 +2568,12 @@ endmill =
 	| taperedEndmill
 	;
 
+endSection =
+	  ENDSEC, ';'
+	;
+
 exchangePallet =
-	  EXCHANGEPALLET , '(' , CharString ,  ')'
+	  EXCHANGEPALLET, '(', CharString,  ')'
 	;
 
 executable =
@@ -1564,54 +2584,123 @@ executable =
 
 executableList =
 	  executable
-	| executableList , c , executable
+	| executableList, c, executable
+	;
+
+explicitStrategy =
+	  EXPLICITSTRATEGY, '(', optReal, c, optBoolean, ')'
+	;
+
+(* The EXPRESS probably intends that face not be instantiable, but it *)
+(* does not make that explicit. Here, face is not instantiable.       *)
+(* This is requiring that every face be a faceSurface, so that every  *)
+(* face is on a known surface. Similarly, only the advancedFace       *)
+(* subtype of faceSurface is instantiable.                            *)
+face =
+	  faceSurface
+	;
+
+faceList =
+	  face
+	| faceList, c, face
 	;
 
 facemill =
-	  FACEMILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  FACEMILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
 	;
 
+faceBoundParent =
+	  faceBound
+	| faceOuterBound
+	;
 
+faceBound =
+	  FACEBOUND, '(', CharString, c, loop, c, boolean, ')'
+	;
+
+faceBoundList =
+	  faceBound
+	| faceBoundList, c, faceBound
+	;
+
+faceOuterBound =
+	  FACEOUTERBOUND, '(', CharString, c, loop, c, boolean, ')'
+	;
+
+faceSurface =
+	  advancedFace
+	;
 
 feedstop =
-	  FEEDSTOP , '(' , boolean , c , toolpathType , c ,
-          optToolpathSpeedprofile , c , optTechnology , c ,
-          optMachineFunctions , c , RealString , ')'
+	  FEEDSTOP, '(', boolean, c, toolpathType, c,
+          optToolpathSpeedprofile, c, optTechnology, c,
+          optMachineFunctions, c, RealString, ')'
 	;
 
+fileDescription =
+	  FILEDESCRIPTION, '(', parenStringListFull, c,
+          CharString, ')', ';'
+	;
+
+fileEnd =
+	  FILEEND, ';'
+	;
+
+fileName =
+	  FILENAME, '(', CharString, c, CharString, c,
+	  parenStringListFull, c, parenStringListFull, c,
+	  CharString, c, CharString, c, CharString, ')', ';'
+	;
+
+fileSchema = FILESCHEMA, '(', parenStringList, ')', ';'
+	;
+
+fileStart =
+	  FILESTART, ';'
+	;
+
+(* enumeration *)
 fittingType =
 	  fittingTypeShaft
 	| fittingTypeHole
 	;
 
 fittingTypeHole =
-	  HOLE
+	  FITTINGTYPEHOLE
 	;
 
 fittingTypeShaft =
-	  SHAFT
+	  FITTINGTYPESHAFT
+	;
+
+fiveAxesVarTiltYaw =
+	  FIVEAXESVARTILTYAW, '(', ')'
+	;
+
+fiveAxesConstTiltYaw =
+	  FIVEAXESCONSTTILTYAW, '(', RealString, c, RealString, ')'
 	;
 
 flatHoleBottom =
-	  FLATHOLEBOTTOM , '(' , ')'
+	  FLATHOLEBOTTOM, '(', ')'
 	;
 
 flatSlotEndType =
-	  FLATSLOTENDTYPE, '(' , tolerancedLengthMeasure , c ,
-          tolerancedLengthMeasure , ')'
+	  FLATSLOTENDTYPE, '(', tolerancedLengthMeasure, c,
+          tolerancedLengthMeasure, ')'
 	;
 
 flatWithRadiusHoleBottom =
-	  FLATWITHRADIUSHOLEBOTTOM , '(' , tolerancedLengthMeasure , ')'
+	  FLATWITHRADIUSHOLEBOTTOM, '(', tolerancedLengthMeasure, ')'
 	;
 
 freeformOperation =
-	  FREEFORMOPERATION , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optFreeformStrategy , ')'
+	  FREEFORMOPERATION, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optFreeformStrategy, ')'
 	;
 
 freeformStrategy =
@@ -1621,43 +2710,111 @@ freeformStrategy =
 	| leadingLineStrategy
 	;
 
+generalClosedProfile =
+	  GENERALCLOSEDPROFILE, '(', optAxis2placement3d, c, boundedCurve, ')'
+	;
+
+generalOutsideProfile =
+	  GENERALOUTSIDEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profile, ')'
+	;
+
 generalPath =
-	  GENERALPATH , '(' , optAxis2placement3d , c , boundedCurve , ')'
+	  GENERALPATH, '(', optAxis2placement3d, c, boundedCurve, ')'
 	;
 
 generalPattern =
-	  GENERALPATTERN , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  two5DmanufacturingFeature , c , parenAxis2placement3dListFull , ')'
+	  GENERALPATTERN, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  two5DmanufacturingFeature, c, parenAxis2placement3dListFull, ')'
 	;
 
 generalPocketBottomCondition =
-	  GENERALPOCKETBOTTOMCONDITION , '(' , region , ')'
+	  GENERALPOCKETBOTTOMCONDITION, '(', region, ')'
 	;
 
+generalProfile =
+	  GENERALPROFILE, '(', optAxis2placement3d, c, boundedCurve, ')'
+	;
+
+generalProfileFloor =
+	  GENERALPROFILEFLOOR, '(', optReal, c, boolean, c, face, ')'
+	;
+
+generalShapeProfile =
+	  GENERALSHAPEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profileSelect, c,
+	  direction, c, profile, ')'
+	;
+
+(* In the EXPRESS, vertex_point, edge_curve, and face_surface are each both *)
+(* a geometric_representation_item and a topological_representation_item.   *)
+(* The EXPRESS contradicts itself since the representation_item definition  *)
+(* says it must be ONEOF those two. Having both as supertypes also causes   *)
+(* the three subtypes to inherit "name" twice from representation_item,     *)
+(* which is undesirable. In EXPRESS, only one copy of a multiply inherited  *)
+(* attribute exists (per section 9.2.3.3 of the EXPRESS manual), but a      *)
+(* system that generates C++ from this EBNF may not be able to handle that. *)
+(* To deal with these problems, vertex_point, edge_curve, and face_surface  *)
+(* are only subtypes of topologicalRepresentationItem in this file.         *)
+(* It is expected that this will not make problems with reading Part 21     *)
+(* files, since the EXPRESS makes no direct references to                   *)
+(* geometricRepresentationItem, except (1) as a supertype, (2) in rules     *)
+(* and functions, and (3) in DERIVEd attributes.                            *)
+
+geometricRepresentationItem =
+	  block
+	| curve
+	| direction
+(*	| edgeCurve *)
+(*	| faceSurface *)
+	| placement
+	| point
+	| rightCircularCylinder
+	| solidModel
+	| surface
+	| vector
+(*	| vertexPoint *)
+	;
+
+(* enumeration - shares left and right with leftOrRight enumeration *)
 hand =
-	  handRight
-	| handLeft
-	;
-
-handRight =
-	  RIGHT
+	  handLeft
+	| handRight
+	| handNeutral
 	;
 
 handLeft =
 	  LEFT
 	;
 
-(* helix is added. The last RealString (pitch) is axial travel per     *)
-(* revolution. It is positive if the helix turns counterclockwise in   *)
-(* the direction of the axis of the axis2placement3d and negative      *)
-(* otherwise. The pitch must not be zero.                              *)
-(* A helix passes through the point on its refDirection axis that is   *)
-(* a distance radius from the origin, (radius,0,0) in the coordinate   *)
-(* system of the helix.                                                *)
+handNeutral =
+	  NEUTRAL
+	;
+
+handRight =
+	  RIGHT
+	;
+
+headerSection =
+	  headerStarter, fileDescription, fileName, fileSchema, endSection
+	;
+
+headerStarter =
+	  HEADER, ';'
+	;
+
+(* Helix is not in the EXPRESS model. The last RealString (pitch) is      *)
+(* axial travel per revolution. It is positive if the helix turns         *)
+(* counterclockwise in the direction of the axis of the axis2placement3d  *)
+(* and negative otherwise. The pitch must not be zero. A helix passes     *)
+(* through the point on its refDirection axis that is a distance radius   *)
+(* from the origin, (radius,0,0) in the coordinate system of the helix.   *)
 helix =
-	  HELIX , '(' , CharString , c , axis2placement3d  , c ,
-          RealString , c , RealString , ')'
+	  HELIX, '(', CharString, c, axis2placement3d, c,
+          RealString, c, RealString, ')'
 	;
 
 holeBottomCondition =
@@ -1666,33 +2823,81 @@ holeBottomCondition =
 	;
 
 hyperbola =
-	  HYPERBOLA , '(' , CharString , c , axis2placement3d , c ,
-          RealString , c , RealString , ')'
+	  HYPERBOLA, '(', CharString, c, axis2placement3d, c,
+          RealString, c, RealString, ')'
+	;
+
+ifStatement =
+	  IFSTATEMENT, '(', CharString, c, booleanExpression, c,
+	  executable, c, optExecutable, ')'
 	;
 
 indexPallet =
-	  INDEXPALLET , '(' , CharString , c , IntString , ')'
+	  INDEXPALLET, '(', CharString, c, IntString, ')'
 	;
 
 indexTable =
-	  INDEXTABLE , '(' , CharString , c , IntString , ')'
+	  INDEXTABLE, '(', CharString, c, IntString, ')'
 	;
 
 inProcessGeometry =
-	  INPROCESSGEOMETRY , '(' , optAdvancedBrepShapeRepresentation , c ,
-	  optAdvancedBrepShapeRepresentation , c ,
-	  optAdvancedBrepShapeRepresentation , ')'
+	  INPROCESSGEOMETRY, '(', optAdvancedBrepShapeRepresentation, c,
+	  optAdvancedBrepShapeRepresentation, c,
+	  optAdvancedBrepShapeRepresentation, ')'
+	;
+
+instanceId =
+	  '#', IntString
+	;
+
+instancePlusList =
+	  instancePlus
+	| instancePlusList, instancePlus
+	;
+
+instancePlus =
+	  instanceId, '=', instance, ';'
 	;
 
 integer =
 	  IntString
 	;
 
-leadingLineStrategy =
-	  LEADINGLINESTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
-          tolerances , c , optReal , c , boundedCurve , ')'
+integerList =
+	  integer
+	| integerList, c, integer
 	;
 
+(* enumeration *)
+knotType = 
+	  knotTypeUniformKnots
+	| knotTypeQuasiUniformKnots
+	| knotTypePiecewiseBezierKnots
+	| knotTypeUnspecified
+	;
+
+knotTypePiecewiseBezierKnots =
+	  KNOTTYPEPIECEWISEBEZIERKNOTS
+	;
+
+knotTypeQuasiUniformKnots =
+	  KNOTTYPEQUASIUNIFORMKNOTS
+	;
+
+knotTypeUniformKnots =
+	  KNOTTYPEUNIFORMKNOTS
+	;
+
+knotTypeUnspecified =
+	  KNOTTYPEUNSPECIFIED
+	;
+
+leadingLineStrategy =
+	  LEADINGLINESTRATEGY, '(', pathmodeType, c, cutmodeType, c,
+          tolerances, c, optReal, c, boundedCurve, ')'
+	;
+
+(* enumeration - shares left and right with hand enumeration *)
 leftOrRight =
 	  leftOrRightLeft
 	| leftOrRightRight
@@ -1706,70 +2911,93 @@ leftOrRightRight =
 	  RIGHT
 	;
 
-lift =
-	  LIFT
-	;
-
-liftShiftPlunge =
-	  LIFTSHIFTPLUNGE
-	;
-
 limitsAndFits =
-	  LIMITSANDFITS , '(' , RealString , c , RealString , c ,
-          optFittingType , ')'
+	  LIMITSANDFITS, '(', RealString, c, RealString, c,
+          optFittingType, ')'
 	;
 
 line =
-	  LINE , '(' , CharString , c , cartesianPoint , c , vector , ')'
+	  LINE, '(', CharString, c, cartesianPoint, c, vector, ')'
 	;
 
 linearPath =
-	  LINEARPATH , '(' , optAxis2placement3d , c ,
-	  tolerancedLengthMeasure , c , direction , ')'
+	  LINEARPATH, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, c, direction, ')'
 	;
 
 linearProfile =
-	  LINEARPROFILE ,
-	  '(' , optAxis2placement3d , c , numericParameter , ')'
+	  LINEARPROFILE,
+	  '(', optAxis2placement3d, c, numericParameter, ')'
 	;
 
 loadTool =
-	  LOADTOOL , '(' , CharString , c , machiningTool , ')'
+	  LOADTOOL, '(', CharString, c, machiningTool, ')'
 	;
 
+localTime =
+	  LOCALTIME, '(', IntString, optInteger, optReal,
+	  coordinatedUniversalTimeOffset, ')'
+	;
+
+(* enumeration - shares true and false with boolean enumeration *)
 logical =
-	  booleanTrue
-	| booleanFalse
+	  logicalTrue
+	| logicalFalse
 	| logicalUnknown
+	;
+
+logicalFalse =
+	  FALSE
+	;
+
+logicalTrue =
+	  TRUE
 	;
 
 logicalUnknown =
 	  UNKNOWN
 	;
 
-loopBack =
-	  LOOPBACK
+loop =
+	  edgeLoop
+	| vertexLoop
 	;
 
 loopSlotEndType =
-	  LOOPSLOTENDTYPE, '(' , ')'
+	  LOOPSLOTENDTYPE, '(', ')'
+	;
+
+machinedSurface =
+	  MACHINEDSURFACE, '(', machiningFeature, c, bottomOrSide, ')'
+	;
+
+machinedSurfaceList =
+	  machinedSurface
+	| machinedSurfaceList, c, machinedSurface
 	;
 
 machineFunctions =
 	  millingMachineFunctions
 	;	  
 
-(* machiningFeature also has subtypes profileFeature, roundedEnd, thread *)
 machiningFeature =
 	  boss
 	| planarFace
 	| pocket
+	| roundedEnd
+	| profileFeature
 	| roundHole
 	| slot
 	| sphericalCap
 	| step
+	| thread
  	| toolpathFeature
 	;	  
+
+machiningFeatureList =
+	  machiningFeature
+	| machiningFeatureList, c, machiningFeature
+	;
 
 machiningOperation =
 	  millingMachiningOperation
@@ -1777,7 +3005,7 @@ machiningOperation =
 
 machiningOperationList =
 	  machiningOperation
-	| machiningOperationList , c , machiningOperation
+	| machiningOperationList, c, machiningOperation
 	;	  
 
 machiningTool =
@@ -1785,9 +3013,13 @@ machiningTool =
 	;
 
 machiningWorkingstep =
-	  MACHININGWORKINGSTEP , '(' , CharString , c , elementarySurface , c ,
-	  manufacturingFeature , c , machiningOperation , c ,
-	  optInProcessGeometry , ')'
+	  MACHININGWORKINGSTEP, '(', CharString, c, elementarySurface, c,
+	  manufacturingFeature, c, machiningOperation, c,
+	  optInProcessGeometry, ')'
+	;
+
+manifoldSolidBrep =
+	  MANIFOLDSOLIDBREP, '(', CharString, c, closedShell, ')'
 	;
 
 manufacturingFeature =
@@ -1797,28 +3029,31 @@ manufacturingFeature =
 	;
 
 material =
-	  MATERIAL , '(' , CharString , c , CharString , c ,
-	  parenPropertyParameterList , ')'
+	  MATERIAL, '(', CharString, c, CharString, c,
+	  parenPropertyParameterList, ')'
 	;
 
-(* millingCutter also has subtypes tSlotMill, dovetailMill,  *)
-(* woodruffKeyseatMill, sideMill, threadMill                 *)
 millingCutter =
-	  endmill
+	  dovetailMill
+	| endmill
 	| facemill
+	| tSlotMill
+	| sideMill
+	| threadMill
+	| woodruffKeyseatMill
 	;
 
 millingCuttingTool =
-	  MILLINGCUTTINGTOOL , '(' , CharString , c , toolBody , c ,
-	  parenCuttingComponentListFull , c , optReal , c ,
-	  optDirection , c , optReal , ')'
+	  MILLINGCUTTINGTOOL, '(', CharString, c, toolBody, c,
+	  parenCuttingComponentListFull, c, optReal, c,
+	  optDirection, c, optReal, ')'
 	;
 
 millingMachineFunctions =
-	  MILLINGMACHINEFUNCTIONS , '(' , boolean , c , optReal , c ,
-	  optBoolean , c , boolean , c , optReal , c , parenStringList , c ,
-	  boolean , c , optDirection , c , optProcessModelList , c ,
-	  parenPropertyParameterList , ')'
+	  MILLINGMACHINEFUNCTIONS, '(', boolean, c, optReal, c,
+	  optBoolean, c, boolean, c, optReal, c, parenStringList, c,
+	  boolean, c, optDirection, c, optProcessModelList, c,
+	  parenPropertyParameterList, ')'
 	;
 
 millingMachiningOperation =
@@ -1827,25 +3062,31 @@ millingMachiningOperation =
 	;
 
 millingTechnology =
-	  MILLINGTECHNOLOGY , '(' , optReal , c , toolReferencePoint , c ,
-	  optReal , c , optReal , c , optReal , c , boolean , c ,
-	  boolean , c , boolean , c , optBoolean , ')'
+	  MILLINGTECHNOLOGY, '(', optReal, c, toolReferencePoint, c,
+	  optReal, c, optReal, c, optReal, c, boolean, c,
+	  boolean, c, boolean, c, optBoolean, ')'
 	;
 
-(* millingToolBody also has subtypes tap, millingThreadingTool, boringTool, *)
-(* and userDefinedTool *)
+millingThreadingTool = MILLINGTHREADINGTOOL, '(', millingToolDimension, c,
+	  optInteger, c, optHand, c, optBoolean, c, optReal, ')'
+	;
+
 millingToolBody =
-	  centerDrill
+	  boringTool
+	| centerDrill
 	| counterboreParent
 	| countersinkParent
 	| drill
 	| millingCutter
+	| millingThreadingTool
 	| reamer
+	| tapParent
+	| userDefinedTool
 	;
 
 millingToolDimension =
-	  MILLINGTOOLDIMENSION , '(' , RealString , c , optReal , c , optReal ,
-	  c , optReal , c , optReal , c , optReal , c , optReal , ')'
+	  MILLINGTOOLDIMENSION, '(', RealString, c, optReal, c, optReal,
+	  c, optReal, c, optReal, c, optReal, c, optReal, ')'
 	;
 
 millingTypeOperation =
@@ -1853,13 +3094,18 @@ millingTypeOperation =
 	| two5DmillingOperation
 	;
 
+multipleArityBooleanExpression =
+	  andExpression
+	| orExpression
+	;
+
 multistepDrilling =
-	  MULTISTEPDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , c , RealString , c ,
-	  RealString , c , RealString , c , optReal , ')'
+	  MULTISTEPDRILLING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, c, RealString, c,
+	  RealString, c, RealString, c, optReal, ')'
 	;
 
 ncFunction =
@@ -1875,46 +3121,82 @@ ncFunction =
 	| waitForMark
 	;
 
+ncConstant =
+	  NCCONSTANT, '(', CharString, c, optReal, ')'
+	;
+
 ncVariable =
-	  NCVARIABLE , '(' , CharString , c , optReal , ')'
+	  NCVARIABLE, '(', CharString, c, optReal, ')'
 	;
 
 ncVariableList =
 	  ncVariable
-	| ncVariableList , c , ncVariable
+	| ncVariableList, c, ncVariable
 	;
 
-nonContact =
-	  NONCONTACT
+ngonClosedProfile =
+	  NGONCLOSEDPROFILE, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, c, IntString, c, boolean, ')'
+	;
+
+nonSequential =
+	  NONSEQUENTIAL, '(', CharString, c, parenExecutableListFull, ')'
+	;
+
+notExpression =
+	  NOTEXPRESSION, '(', booleanExpression, ')'
 	;
 
 numericParameter =
 	  NUMERICPARAMETER,
-	  '(' , CharString , c , RealString , c , CharString , ')'
+	  '(', CharString, c, RealString, c, CharString, ')'
 	;
 
 offsetVector =
-	  OFFSETVECTOR ,
-	  '(' , parenNcVariableListFull , c , optParenNcVariableListFull , ')'
+	  OFFSETVECTOR,
+	  '(', parenNcVariableListFull, c, optParenNcVariableListFull, ')'
 	;
 
-(* openProfile also has subtypes partialCircularProfile, teeProfile,  *)
-(* and generalProfile.                                                *)
+openPocket =
+	  OPENPOCKET, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, parenBossList, c, optReal, c, 
+	  pocketBottomCondition, c, optTolerancedLengthMeasure, c,
+	  optTolerancedLengthMeasure, c, openProfile, c, optOpenProfile, ')'
+	;
+
 openProfile =
-	  linearProfile
+	  generalProfile
+	| linearProfile
+	| partialCircularProfile
 	| squareUProfile
+	| teeProfile
 	| roundedUProfile
 	| veeProfile
 	;
 
+openShellParent =
+	  openShell
+	| topologicalRegion
+	;
+
+openShell =
+	  OPENSHELL, '(', CharString, c, parenFaceListFull, ')'
+	;
+
 openSlotEndType =
-	  OPENSLOTENDTYPE, '(' , ')'
+	  OPENSLOTENDTYPE, '(', ')'
 	;
 
 operation =
 	  machiningOperation
 	| rapidMovement
 	| touchProbing
+	;
+
+optAddress =
+	  address
+	| '$'
 	;
 
 optAdvancedBrepShapeRepresentation =
@@ -1967,6 +3249,11 @@ optClosedProfile =
 	| '$'
 	;
 
+optContactType =
+	  contactType
+	| '$'
+	;
+
 optCutmodeType =
 	  cutmodeType
 	| '$'
@@ -1982,6 +3269,11 @@ optDateAndTime =
 	| '$'
 	;
 
+optDescriptiveParameter = 
+	  descriptiveParameter
+	| '$'
+	;
+
 optDirection = 
 	  direction
 	| '$'
@@ -1989,6 +3281,11 @@ optDirection =
 
 optDrillingTypeStrategy =
 	  drillingTypeStrategy
+	| '$'
+	;
+
+optExecutable =
+	  executable
 	| '$'
 	;
 
@@ -2007,6 +3304,10 @@ optHand =
 	| '$'
 	;
 
+optionalStop =
+	  OPTIONALSTOP, '(', CharString, ')'
+	;
+
 optInProcessGeometry =
 	  inProcessGeometry
 	| '$'
@@ -2015,10 +3316,6 @@ optInProcessGeometry =
 optInteger =
 	  integer
 	| '$'
-	;
-
-optionalStop =
-	  OPTIONALSTOP , '(' , CharString , ')'
 	;
 
 optLeftOrRight =
@@ -2051,8 +3348,18 @@ optOffsetVector =
 	| '$'
 	;
 
+optOpenProfile =
+	  openProfile
+	| '$'
+	;
+
 optParenNcVariableListFull =
 	  parenNcVariableListFull
+	| '$'
+	;
+
+optParenStringListFull =
+	  parenStringListFull
 	| '$'
 	;
 
@@ -2066,13 +3373,28 @@ optProcessModelList =
 	| '$'
 	;
 
+optReal =
+	  real
+	| '$'
+	;
+
 optRestrictedAreaSelect =
 	  restrictedAreaSelect
 	| '$'
 	;
 
+optRotDirection =
+	  rotDirection
+	| '$'
+	;
+
 optSetup =
 	  setup
+	| '$'
+	;
+
+optString =
+	  aString
 	| '$'
 	;
 
@@ -2126,143 +3448,295 @@ optWorkpiece =
 	| '$'
 	;
 
-parabola =
-	  PARABOLA , '(' , CharString , c , axis2placement3d , c ,
-          RealString , ')'
+orExpression =
+	  OREXPRESSION, '(', parenBooleanExpressionListFull, ')'
 	;
 
-parameter =
-	  PARAMETER
+orientedEdge =
+	  ORIENTEDEDGE, '(', CharString, c, vertex, c, vertex, c, edge, c,
+	  boolean, ')'
+	;
+
+orientedEdgeList =
+	  orientedEdge
+	| orientedEdgeList, c, orientedEdge
+	;
+
+ordinalDate =
+	  ORDINALDATE, '(', IntString, c, IntString, ')'
+	;
+
+parabola =
+	  PARABOLA, '(', CharString, c, axis2placement3d, c,
+          RealString, ')'
+	;
+
+parallel =
+	  PARALLEL, '(', CharString, c, parenExecutableListFull, ')'
+	;
+
+parameterisedPath =
+	  approachLiftPath
+	| connector
 	;
 
 parenAxis2placement3dListFull =
-	  '(' , axis2placement3dList , ')'
+	  '(', axis2placement3dList, ')'
+	;
+
+parenBooleanExpressionListFull =
+	  '(', booleanExpressionList, ')'
 	;
 
 parenBossList =
-	  '(' , bossList , ')'
-	| '('  , ')'
+	  '(', bossList, ')'
+	| '(', ')'
+	;
+
+parenBoundedCurveListFull =
+	  '(', boundedCurveList, ')'
+	;
+
+parenBoundedSurfaceListFull =
+	  '(', boundedSurfaceList, ')'
 	;
 
 parenCartesianPointList =
-	  '(' , cartesianPointList , ')'
-	| '('  , ')'
+	  '(', cartesianPointList, ')'
+	| '(', ')'
 	;
 
 parenCartesianPointListFull =
-	  '(' , cartesianPointList , ')'
+	  '(', cartesianPointList, ')'
+	;
+
+parenCartesianPointListFullList =
+	  parenCartesianPointListFull
+	| parenCartesianPointListFullList, c, parenCartesianPointListFull
 	;
 
 parenCircularOffsetList =
-	  '(' , circularOffsetList , ')'
-	| '('  , ')'
+	  '(', circularOffsetList, ')'
+	| '(', ')'
 	;
 
 parenCircularOmitList =
-	  '(' , circularOmitList , ')'
-	| '('  , ')'
+	  '(', circularOmitList, ')'
+	| '(', ')'
 	;
 
 parenCompositeCurveSegmentListFull =
-	  '(' , compositeCurveSegmentList , ')'
+	  '(', compositeCurveSegmentList, ')'
 	;
 
 parenCompoundFeatureSelectListFull =
-	  '(' , compoundFeatureSelectList , ')'
+	  '(', compoundFeatureSelectList, ')'
 	;
 
 parenCuttingComponentListFull =
-	  '(' , cuttingComponentList , ')'
+	  '(', cuttingComponentList, ')'
 	;
 
 parenExecutableList =
-	  '(' , executableList , ')'
-	| '('  , ')'
+	  '(', executableList, ')'
+	| '(', ')'
 	;
 
-(*
-parenMachiningFeatureListFull =
-	  '(' , machiningFeatureList , ')'
+parenExecutableListFull =
+	  '(', executableList, ')'
 	;
-*)
+
+parenFaceBoundListFull =
+	  '(', faceBoundList, ')'
+	;
+
+parenFaceListFull =
+	  '(', faceList, ')'
+	;
+
+parenIntegerListFull =
+	  '(', integerList, ')'
+	;
+
+parenMachinedSurfaceListFull =
+	  '(', machinedSurfaceList, ')'
+	;
+
+parenMachiningFeatureListFull =
+	  '(', machiningFeatureList, ')'
+	;
 
 parenMachiningOperationList =
-	  '(' , machiningOperationList , ')'
-	| '('  , ')'
+	  '(', machiningOperationList, ')'
+	| '(', ')'
 	;
 
 parenNcVariableListFull =
-	  '(' , ncVariableList , ')'
+	  '(', ncVariableList, ')'
+	;
+
+parenOrientedEdgeListFull =
+	  '(', orientedEdgeList, ')'
+	;
+
+parenParenCartesianPointListFullListFull =
+	  '(', parenCartesianPointListFullList, ')'
+	;
+
+parenParenRealListFullListFull =
+	  '(', parenRealListFullList, ')'
 	;
 
 parenProcessModelLiszt =
-	  '(' , processModelLiszt , ')'
+	  '(', processModelLiszt, ')'
 	;
 
 parenPropertyParameterList =
-	  '(' , propertyParameterList , ')'
-	| '('  , ')'
+	  '(', propertyParameterList, ')'
+	| '(', ')'
+	;
+
+parenRealListFull =
+	  '(', realList, ')'
+	;
+
+parenRealListFullList =
+	  parenRealListFull
+	| parenRealListFullList, c, parenRealListFull
 	;
 
 parenRectangularOffsetList =
-	  '(' , rectangularOffsetList , ')'
-	| '('  , ')'
+	  '(', rectangularOffsetList, ')'
+	| '(', ')'
 	;
 
 parenRectangularOmitList =
-	  '(' , rectangularOmitList , ')'
-	| '('  , ')'
+	  '(', rectangularOmitList, ')'
+	| '(', ')'
 	;
 
+parenRepresentationItemListFull =
+	  '(', representationItemList, ')'
+	  ;
+
 parenSetupInstructionList =
-	  '(' , setupInstructionList , ')'
-	| '('  , ')'
+	  '(', setupInstructionList, ')'
+	| '(', ')'
 	;
 
 parenSlotEndTypeList =
-	  '(' , slotEndTypeList , ')'
-	| '('  , ')'
+	  '(', slotEndTypeList, ')'
+	| '(', ')'
+	;
+
+parenSpecificationUsageConstraintList =
+	  '(', specificationUsageConstraintList, ')'
+	| '(', ')'
+	;
+
+parenStringList =
+	  '(', stringList, ')'
+	| '(', ')'
+	;
+
+parenStringListFull =
+	  '(', stringList, ')'
 	;
 
 parenToolpathLisztFull =
-	  '(' , toolpathLiszt , ')'
+	  '(', toolpathLiszt, ')'
 	;
 
 parenTrimmingSelectListFull =
-	  '(' , trimmingSelectList , ')'
+	  '(', trimmingSelectList, ')'
 	;
 
 parenWorkpieceList =
-	  '(' , workpieceList , ')'
-	| '('  , ')'
+	  '(', workpieceList, ')'
+	| '(', ')'
 	;
 
 parenWorkpieceSetupList =
-	  '(' , workpieceSetupList , ')'
-	| '('  , ')'
+	  '(', workpieceSetupList, ')'
+	| '(', ')'
+	;
+
+partialAreaDefinition =
+	  PARTIALAREADEFINITION, '(', RealString, c, axis2placement3d, c,
+	  optReal,
+	  ')'
 	;
 
 partialCircularPath =
-	  PARTIALCIRCULARPATH , '(' , optAxis2placement3d , c ,
-	  tolerancedLengthMeasure , c , RealString , ')'
+	  PARTIALCIRCULARPATH, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, c, RealString, ')'
 	;
 
+partialCircularProfile = 
+	  PARTIALCIRCULARPROFILE, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, c, RealString, ')'
+	;
+
+partialCircularShapeProfile =
+	  PARTIALCIRCULARSHAPEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profileSelect, c,
+	  direction, c, partialCircularProfile, ')'
+	;
+
+(*
+
+In the EXPRESS, path and loop are both subtypes of
+topologicalRepresentationItem and edgeLoop is a subtype of both path
+and loop. This makes edgeLoop be descended twice from
+topologicalRepresentationItem. That confuses the sebn2pars parser
+builder.  To fix this problem, path is commented out here, and
+edgeLoop is made a subtype of loop only. Path is never used in an
+attribute value, so it will not be missed by any access
+functions. However path has an attribute, edgeList, that is needed by
+edgeLoop, so that attribute is moved down to belong to edgeLoop. Loop
+has no attributes, but it is used as an attribute by faceBound, so the
+alternative of having edgeLoop be a subtype of path only would not
+work.
+
+path =
+	  edgeLoop
+	;
+
+*)
+
+(* enumeration *)
 pathmodeType =
 	  pathmodeTypeForward
 	| pathmodeTypeZigzag
 	;
 
 pathmodeTypeForward =
-	  FORWARD
+	  PATHMODETYPEFORWARD
 	;
 
 pathmodeTypeZigzag =
-	  ZIGZAG
+	  PATHMODETYPEZIGZAG
 	;
 
-(* in personAndAddress the types should be person and optAddress *)
+pcurve =
+	  PCURVE, '(', CharString, c, surface, c, 
+	  definitionalRepresentation, ')'
+	;
+
+pcurveParent =
+	  pcurve
+	| boundedPCurve
+	;
+
+person =
+	  PERSON, '(', CharString, c, optString, c, optString, c,
+	  optParenStringListFull, c, optParenStringListFull, c,
+	  optParenStringListFull, c, ')'
+	;
+
 personAndAddress =
-	  PERSONANDADDRESS , '(' , CharString , c , CharString , ')'
+	  PERSONANDADDRESS, '(', person, c, optAddress, ')'
 	;
 
 placement =
@@ -2271,37 +3745,41 @@ placement =
 	;
 
 planarFace =
-	  PLANARFACE , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , linearPath , c , linearProfile , c ,
-	  optClosedProfile , c , parenBossList , ')'
+	  PLANARFACE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, linearProfile, c,
+	  optClosedProfile, c, parenBossList, ')'
 	;
 
 planarPocketBottomCondition =
-	  PLANARPOCKETBOTTOMCONDITION , '(' , ')'
+	  PLANARPOCKETBOTTOMCONDITION, '(', ')'
+	;
+
+planarProfileFloor =
+	  PLANARPROFILEFLOOR, '(', optReal,  c, boolean, c, plane, ')'
 	;
 
 plane =
-	  PLANE , '(' , CharString , c , axis2placement3d , ')'
+	  PLANE, '(', CharString, c, axis2placement3d, ')'
 	;
 
 planeCcStrategy =
-	  PLANECCSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
-          tolerances , c , optReal , c , direction , ')'
+	  PLANECCSTRATEGY, '(', pathmodeType, c, cutmodeType, c,
+          tolerances, c, optReal, c, direction, ')'
 	;
 
 planeClStrategy =
-	  PLANECLSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
-          tolerances , c , optReal , c , direction , ')'
+	  PLANECLSTRATEGY, '(', pathmodeType, c, cutmodeType, c,
+          tolerances, c, optReal, c, direction, ')'
 	;
 
 planeFinishMilling =
-	  PLANEFINISHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , ')'
+	  PLANEFINISHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, ')'
 	;
 
 planeMilling =
@@ -2310,12 +3788,12 @@ planeMilling =
 	;
 
 planeRoughMilling =
-	  PLANEROUGHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , ')'
+	  PLANEROUGHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, ')'
 	;
 
 plungeStrategy =
@@ -2326,30 +3804,31 @@ plungeStrategy =
 	;
 
 plungeHelix =
-	  PLUNGEHELIX , '(' , optDirection , c , RealString , c ,
-          RealString , ')'
+	  PLUNGEHELIX, '(', optDirection, c, RealString, c,
+          RealString, ')'
 	;
 
 plungeRamp =
-	  PLUNGERAMP , '(' , optDirection , c , RealString , ')'
+	  PLUNGERAMP, '(', optDirection, c, RealString, ')'
 	;
 
 plungeToolaxis =
-	  PLUNGETOOLAXIS , '(' , optDirection , ')'
+	  PLUNGETOOLAXIS, '(', optDirection, ')'
 	;
 
 plungeZigzag =
-	  PLUNGEZIGZAG , '(' , optDirection , c , RealString , c ,
-          RealString , ')'
+	  PLUNGEZIGZAG, '(', optDirection, c, RealString, c,
+          RealString, ')'
 	;
 
 plusMinusValue =
-	  PLUSMINUSVALUE ,
-          '(' , RealString , c , RealString , c , IntString , ')'
+	  PLUSMINUSVALUE,
+          '(', RealString, c, RealString, c, IntString, ')'
 	;
 
 pocket =
 	  closedPocket
+	| openPocket
 	;
 
 pocketBottomCondition =
@@ -2359,21 +3838,25 @@ pocketBottomCondition =
 	| generalPocketBottomCondition
 	;
 
+point =
+	  cartesianPoint
+	;
+
 polyline =
-	  POLYLINE , '(' , CharString , c , parenCartesianPointListFull , ')'
+	  POLYLINE, '(', CharString, c, parenCartesianPointListFull, ')'
 	;
 
 processModel =
-	  PROCESSMODEL , '(' , CharString , c , CharString , ')'
+	  PROCESSMODEL, '(', CharString, c, CharString, ')'
 	;
 
 processModelList =
-	  PROCESSMODELLIST , '(' , parenProcessModelLiszt , ')'
+	  PROCESSMODELLIST, '(', parenProcessModelLiszt, ')'
 	;
 
 processModelLiszt =
 	  processModel
-	| processModelLiszt , c , processModel
+	| processModelLiszt, c, processModel
 	;
 
 profile =
@@ -2381,18 +3864,39 @@ profile =
 	| openProfile 
 	;
 
+profileFeature =
+	  generalOutsideProfile
+	| shapeProfile
+	;
+
+profileFloor =
+	  generalProfileFloor
+	| planarProfileFloor
+	;
+
+profileSelect =
+	  throughProfileFloor
+	| profileFloor
+	;
+
 programStructure =
-	  workplan
+	  assignment
+	| ifStatement
+	| nonSequential
+	| parallel
+	| selective
+	| whileStatement
+	| workplan
 	;
 
 programStop =
-	  PROGRAMSTOP , '(' , CharString , ')'
+	  PROGRAMSTOP, '(', CharString, ')'
 	;
 
 project =
-	  PROJECT , '(' , CharString , c , workplan , c ,
-	  parenWorkpieceList , c , optPersonAndAddress , c ,
-	  optDateAndTime , c , optApproval , ')'
+	  PROJECT, '(', CharString, c, workplan, c,
+	  parenWorkpieceList, c, optPersonAndAddress, c,
+	  optDateAndTime, c, optApproval, ')'
 	;
 
 propertyParameter =
@@ -2402,21 +3906,54 @@ propertyParameter =
 
 propertyParameterList =
 	  propertyParameter
-	| propertyParameterList , c , propertyParameter
+	| propertyParameterList, c, propertyParameter
+	;
+
+quasiUniformCurve =
+	  QUASIUNIFORMCURVE, '(', CharString, c, IntString, c, 
+	  parenCartesianPointList, c, bSplineCurveForm, c, logical, c,
+	  logical, ')'
+	;
+
+quasiUniformSurface =
+	 QUASIUNIFORMSURFACE, '(', CharString, c, integer, c, integer, c,
+	  parenParenCartesianPointListFullListFull, c, bSplineSurfaceForm, c,
+	  logical, c, logical, c, logical, ')'
 	;
 
 radiusedPocketBottomCondition =
-	  RADIUSEDPOCKETBOTTOMCONDITION , '(' , cartesianPoint , c ,
-          tolerancedLengthMeasure , ')'
+	  RADIUSEDPOCKETBOTTOMCONDITION, '(', cartesianPoint, c,
+          tolerancedLengthMeasure, ')'
 	;
 
 radiusedSlotEndType =
-	  RADIUSEDSLOTENDTYPE , '(' , ')'
+	  RADIUSEDSLOTENDTYPE, '(', ')'
 	;
 
 rapidMovement =
-	  RAPIDMOVEMENT , '(' , CharString , c , elementarySurface , c ,
-	  optToolpathList , c , optToolDirection , ')'
+	  RAPIDMOVEMENT, '(', CharString, c, elementarySurface, c,
+	  optToolpathList, c, optToolDirection, ')'
+	;
+
+rationalBSplineCurve =
+	  RATIONALBSPLINECURVE, '(', CharString, c, IntString, c, 
+	  parenCartesianPointList, c, bSplineCurveForm, c, logical, c,
+	  logical, c, parenRealListFull, ')'
+	;
+
+rationalBSplineSurface =
+	  RATIONALBSPLINESURFACE, '(', CharString, c, integer, c, integer, c,
+	  parenParenCartesianPointListFullListFull, c, bSplineSurfaceForm, c,
+	  logical, c, logical, c, logical, parenParenRealListFullListFull, ')'
+	;
+
+real =
+	  RealString
+	;
+
+realList =
+	  real
+	| realList, c, real
 	;
 
 reamer =
@@ -2425,56 +3962,78 @@ reamer =
 	;
 
 reaming =
-	  REAMING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , c , boolean , c ,
-	  optReal , c , optCartesianPoint , ')'
+	  REAMING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, c, boolean, c,
+	  optReal, c, optCartesianPoint, ')'
 	;
 
 rectangularClosedProfile =
-	  RECTANGULARCLOSEDPROFILE , '(' , optAxis2placement3d , c ,
-	  tolerancedLengthMeasure , c , tolerancedLengthMeasure , ')'
+	  RECTANGULARCLOSEDPROFILE, '(', optAxis2placement3d, c,
+	  tolerancedLengthMeasure, c, tolerancedLengthMeasure, ')'
+	;
+
+rectangularClosedShapeProfile =
+	  RECTANGULARCLOSEDSHAPEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profileSelect, c,
+	  direction, c, rectangularClosedProfile, ')'
 	;
 
 rectangularOffset =
-	  RECTANGULAROFFSET , '(' , direction , c , RealString , c ,
-          IntString , c , IntString , ')'
+	  RECTANGULAROFFSET, '(', direction, c, RealString, c,
+          IntString, c, IntString, ')'
 	;
 
 rectangularOffsetList =
 	  rectangularOffset
-	| rectangularOffsetList , c , rectangularOffset
+	| rectangularOffsetList, c, rectangularOffset
 	;
 
 rectangularOmit =
-	  RECTANGULAROMIT , '(' , IntString , c , IntString , ')'
+	  RECTANGULAROMIT, '(', IntString, c, IntString, ')'
 	;
 
 rectangularOmitList =
 	  rectangularOmit
-	| rectangularOmitList , c , rectangularOmit
+	| rectangularOmitList, c, rectangularOmit
+	;
+
+rectangularOpenShapeProfile =
+	  RECTANGULAROPENSHAPEPROFILE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, profileSelect, c,
+	  direction, c, squareUProfile, ')'
 	;
 
 rectangularPattern =
-	  RECTANGULARPATTERN , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  two5DmanufacturingFeature , tolerancedLengthMeasure , c ,
-          direction , c , optInteger , c , IntString , c ,
-          optTolerancedLengthMeasure , c , optDirection , c ,
-	  parenRectangularOffsetList , c , parenRectangularOmitList , ')'
+	  RECTANGULARPATTERN, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  two5DmanufacturingFeature, tolerancedLengthMeasure, c,
+          direction, c, optInteger, c, IntString, c,
+          optTolerancedLengthMeasure, c, optDirection, c,
+	  parenRectangularOffsetList, c, parenRectangularOmitList, ')'
 	;
 
 region =
 	  regionProjection
+	| regionSurfaceList
+	| topologicalRegion
 	;
 
 regionProjection =
-	  REGIONPROJECTION , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , optAxis2placement3d , c ,
-	  boundedCurve , c , direction , c , tolerancedLengthMeasure , ')'
+	  REGIONPROJECTION, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, optAxis2placement3d, c,
+	  boundedCurve, c, direction, c, tolerancedLengthMeasure, ')'
 	;
+
+regionSurfaceList =
+	  REGIONSURFACELIST, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, optAxis2placement3d, c, 
+	  parenBoundedSurfaceListFull, ')'
+	  ;
 
 replicateFeature=
 	  rectangularPattern
@@ -2482,16 +4041,29 @@ replicateFeature=
 	| generalPattern
 	;
 
-(* subtypes here are a subset of subtypes of geometricRepresentationItem *)
+representationParent =
+	  definitionalRepresentation
+	| representation
+	| shapeRepresentationParent
+	;
+
+representation =
+	  REPRESENTATION, '(', CharString, c, parenRepresentationItemListFull,
+	  c, representationContext, ')'
+	;
+
+representationContext =
+	  REPRESENTATIONCONTEXT, '(', CharString, c, CharString, ')'
+	;
+
 representationItem =
-	  block
-	| cartesianPoint
-	| curve
-	| direction
-	| elementarySurface
-	| placement
-	| rightCircularCylinder
-	| vector
+	  geometricRepresentationItem
+	| topologicalRepresentationItem
+	;
+
+representationItemList =
+	  representationItem
+	| representationItemList, c, representationItem
 	;
 
 restrictedAreaSelect =
@@ -2499,51 +4071,90 @@ restrictedAreaSelect =
 	;
 
 rightCircularCylinder =
-	  RIGHTCIRCULARCYLINDER , '(' , CharString , c , axis1placement , c ,
-          RealString , c , RealString , ')'
+	  RIGHTCIRCULARCYLINDER, '(', CharString, c, axis1placement, c,
+          RealString, c, RealString, ')'
 	;
 
+(* enumeration *)
 rotDirection =
 	  rotDirectionCw
 	| rotDirectionCcw
 	;
 
 rotDirectionCw =
-	  CW
+	  ROTDIRECTIONCW
 	;
 
 rotDirectionCcw =
-	  CCW
+	  ROTDIRECTIONCCW
+	;
+
+roundedEnd =
+	  ROUNDEDEND, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, partialCircularProfile, ')'
 	;
 
 roundedUProfile =
-	  ROUNDEDUPROFILE , '(' , optAxis2placement3d , c ,
-          tolerancedLengthMeasure ,  ')'
+	  ROUNDEDUPROFILE, '(', optAxis2placement3d, c,
+          tolerancedLengthMeasure,  ')'
 	;
 
 roundHole =
-	  ROUNDHOLE , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , tolerancedLengthMeasure , c ,
-	  optTaperSelect , c , holeBottomCondition , ')'
+	  ROUNDHOLE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, tolerancedLengthMeasure, c,
+	  optTaperSelect, c, holeBottomCondition, ')'
+	;
+
+rvalue =
+	  ncConstant
+	| ncVariable
+	;
+
+selective =
+	  SELECTIVE, '(', CharString, c, parenExecutableListFull, ')'
 	;
 
 setMark =
-	  SETMARK , '(' , CharString , ')'
+	  SETMARK, '(', CharString, ')'
 	;
 
 setup =
-	  SETUP , '(' , CharString , c , optAxis2placement3d , c ,
-	  elementarySurface , c , parenWorkpieceSetupList , ')'
+	  SETUP, '(', CharString, c, optAxis2placement3d, c,
+	  elementarySurface, c, parenWorkpieceSetupList, ')'
 	;
 
 setupInstruction =
-	  SETUPINSTRUCTION , '(' , CharString , c , CharString , ')'
+	  SETUPINSTRUCTION, '(', optString, c, optString, ')'
 	;
 
 setupInstructionList =
 	  setupInstruction
-	| setupInstructionList , c , setupInstruction
+	| setupInstructionList, c, setupInstruction
+	;
+
+shapeProfile =
+	  circularClosedShapeProfile
+	| generalShapeProfile
+	| partialCircularShapeProfile
+	| rectangularClosedShapeProfile
+	| rectangularOpenShapeProfile
+	;
+
+shapeRepresentationParent =
+	  shapeRepresentation
+	| advancedBrepShapeRepresentation
+	;
+
+shapeRepresentation =
+	  SHAPEREPRESENTATION, '(', CharString, c, 
+	  parenRepresentationItemListFull, c, representationContext, ')'
+	;
+
+sideMill = 
+	  SIDEMILL, '(', millingToolDimension, c, optInteger, c, optHand, c,
+	  optBoolean, c, optReal, c, optReal, ')'
 	;
 
 sideMilling =
@@ -2552,28 +4163,28 @@ sideMilling =
 	;
 
 sideFinishMilling =
-	  SIDEFINISHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , c , optReal , ')'
+	  SIDEFINISHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, c, optReal, ')'
 	;
 
 sideRoughMilling =
-	  SIDEROUGHMILLING , '(' , optToolpathList , c ,
-          optToolDirection , c , CharString , c , optReal , c ,
-	  optCartesianPoint , c , machiningTool , c , technology , c ,
-	  machineFunctions , c , optReal , c , optApproachRetractStrategy , c ,
-	  optApproachRetractStrategy , c , optTwo5DmillingStrategy , c ,
-	  optReal , c , optReal , c , optReal , ')'
+	  SIDEROUGHMILLING, '(', optToolpathList, c,
+          optToolDirection, c, CharString, c, optReal, c,
+	  optCartesianPoint, c, machiningTool, c, technology, c,
+	  machineFunctions, c, optReal, c, optApproachRetractStrategy, c,
+	  optApproachRetractStrategy, c, optTwo5DmillingStrategy, c,
+	  optReal, c, optReal, c, optReal, ')'
 	;
 
 slot =
-	  SLOT , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , travelPath , c , openProfile , c ,
-          parenSlotEndTypeList , ')'
+	  SLOT, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, travelPath, c, openProfile, c,
+          parenSlotEndTypeList, ')'
 	;
 
 slotEndType =
@@ -2586,60 +4197,145 @@ slotEndType =
 
 slotEndTypeList =
 	  slotEndType
-	| slotEndTypeList , c , slotEndType
+	| slotEndTypeList, c, slotEndType
 	;
 
+solidModel =
+	  manifoldSolidBrep
+	;
+
+spadeDrill = 
+	  SPADEDRILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
+	;
+
+specification = 
+	  SPECIFICATION, '(', parenSpecificationUsageConstraintList, c,
+	  CharString, c, optString, c, optString, ')'
+	;
+
+specificationUsageConstraint = 
+	  SPECIFICATIONUSAGECONSTRAINT, '(', c, CharString, c, CharString, ')'
+	;
+
+specificationUsageConstraintList =
+	  specificationUsageConstraint
+	| specificationUsageConstraintList, c, specificationUsageConstraint
+	;
+
+(* enumeration of one item *)
 speedName =
-	  RAPID
+	  SPEEDNAMERAPID
 	;
 
 sphericalCap =
-	  SPHERICALCAP , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , numericParameter , c , numericParameter , ')'
+	  SPHERICALCAP, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, numericParameter, c, numericParameter, ')'
 	;
 
 sphericalHoleBottom =
-	  SPHERICALHOLEBOTTOM , '(' , tolerancedLengthMeasure , ')'
+	  SPHERICALHOLEBOTTOM, '(', tolerancedLengthMeasure, ')'
 	;
 
 sphericalSurface =
-	  SPHERICALSURFACE , '(' , CharString , c , axis2placement3d , c ,
-          RealString , ')'
+	  SPHERICALSURFACE, '(', CharString, c, axis2placement3d, c,
+          RealString, ')'
 	;
 
 squareUProfile =
-	  SQUAREUPROFILE , '(' , optAxis2placement3d , c ,
-          tolerancedLengthMeasure , c , tolerancedLengthMeasure , c ,
-          RealString , c , tolerancedLengthMeasure , c , RealString , ')'
+	  SQUAREUPROFILE, '(', optAxis2placement3d, c,
+          tolerancedLengthMeasure, c, tolerancedLengthMeasure, c,
+          RealString, c, tolerancedLengthMeasure, c, RealString, ')'
 	;
 
 step =
-	  STEP , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface , c , linearPath , c , optVeeProfile , c ,
-          parenBossList , ')'
+	  STEP, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface, c, linearPath, c, optVeeProfile, c,
+          parenBossList, ')'
 	;
 
-straightline =
-	  STRAIGHTLINE
+stringList =
+	  CharString
+	| stringList, c, CharString
 	;
 
+(* enumeration - straightline is misspelled "straghtline" in the EXPRESS *)
 strokeConnectionStrategy =
-	  straightline
-	| liftShiftPlunge
-	| degouge
-	| loopBack
+	  strokeConnectionStrategyStraightline
+	| strokeConnectionStrategyLiftShiftPlunge
+	| strokeConnectionStrategyDegouge
+	| strokeConnectionStrategyLoopBack
+	;
+
+strokeConnectionStrategyDegouge =
+	  STROKECONNECTIONSTRATEGYDEGOUGE
+	;
+
+strokeConnectionStrategyLiftShiftPlunge =
+	  STROKECONNECTIONSTRATEGYLIFTSHIFTPLUNGE
+	;
+
+strokeConnectionStrategyLoopBack =
+	  STROKECONNECTIONSTRATEGYLOOPBACK
+	;
+
+strokeConnectionStrategyStraightline =
+	  STROKECONNECTIONSTRATEGYSTRAIGHTLINE
+	;
+
+surface = 
+	  boundedSurface
+	| elementarySurface
+	| sweptSurface
+	;
+
+surfaceOfLinearExtrusion =
+	  SURFACEOFLINEAREXTRUSION, '(', CharString, c, curve, c, vector, ')'
+	;
+
+surfaceOfRevolution =
+	  SURFACEOFREVOLUTION, '(', CharString, c, curve, c, axis1placement, ')'
+	;
+
+surfaceTextureParameter =
+	  SURFACETEXTUREPARAMETER, '(', RealString, c, CharString, c,
+	  CharString, c, optString, c, parenMachinedSurfaceListFull, ')'
+	;
+
+sweptSurface =
+	  surfaceOfLinearExtrusion
+	| surfaceOfRevolution
+	;
+
+tap = TAP, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
+	;
+
+taperedTap = TAPEREDTAP, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
+	;
+
+tapParent = 
+	  tap
+	| taperedTap
+	| combinedDrillAndTap
+	;
+
+taperedDrill =
+	  TAPEREDDRILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
 	;
 
 taperedEndmill =
-	  TAPEREDENDMILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	  TAPEREDENDMILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
 	;
 
 taperedReamer =
-	  TAPEREDREAMER , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , c , optReal , ')'
+	  TAPEREDREAMER, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
 	;
 
 taperSelect =
@@ -2648,43 +4344,68 @@ taperSelect =
 	;
 
 tapping = 
-	  TAPPING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , boolean , ')'
+	  TAPPING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, boolean, ')'
 	;
 
 technology =
 	  millingTechnology
 	;
 
+teeProfile =
+	  TEEPROFILE, '(', optAxis2placement3d, RealString, RealString,
+	  tolerancedLengthMeasure, tolerancedLengthMeasure,
+	  tolerancedLengthMeasure, tolerancedLengthMeasure,
+	  tolerancedLengthMeasure, tolerancedLengthMeasure, ')'
+	;
+
+thread =
+	  catalogueThread
+	| definedThread
+	;
+
 threadDrilling = 
-	  THREADDRILLING , '(' , optToolpathList , c , optToolDirection , c ,
-	  CharString , c , optReal , c , optCartesianPoint , c ,
-	  machiningTool , c , technology , c , machineFunctions , c ,
-	  optReal , c , optReal , c , optReal , c , optReal , c ,
-	  optReal , c , optDrillingTypeStrategy , boolean , ')'
+	  THREADDRILLING, '(', optToolpathList, c, optToolDirection, c,
+	  CharString, c, optReal, c, optCartesianPoint, c,
+	  machiningTool, c, technology, c, machineFunctions, c,
+	  optReal, c, optReal, c, optReal, c, optReal, c,
+	  optReal, c, optDrillingTypeStrategy, boolean, ')'
+	;
+
+threadMill = 
+	  THREADMILL, '(', millingToolDimension, c, optInteger, c, optHand, c,
+	  optBoolean, c, optReal, ')'
 	;
 
 threeAxes =
-	  THREEAXES , '(' , ')'
+	  THREEAXES, '(', ')'
+	;
+
+threeAxesTiltedTool =
+	  THREEAXESTILTEDTOOL, '(', direction, ')'
 	;
 
 throughBottomCondition =
-	  THROUGHBOTTOMCONDITION , '(' , ')'
+	  THROUGHBOTTOMCONDITION, '(', ')'
 	;
 
 throughPocketBottomCondition =
-	  THROUGHPOCKETBOTTOMCONDITION , '(' , ')'
+	  THROUGHPOCKETBOTTOMCONDITION, '(', ')'
+	;
+
+throughProfileFloor =
+	  THROUGHPROFILEFLOOR, '(', ')'
 	;
 
 tolerancedLengthMeasure =
-	  TOLERANCEDLENGTHMEASURE , '(' , RealString , c , plusMinusValue , ')'
+	  TOLERANCEDLENGTHMEASURE, '(', RealString, c, plusMinusValue, ')'
 	;
 
 tolerances =
-	  TOLERANCES , '(' , RealString , c , RealString , ')'
+	  TOLERANCES, '(', RealString, c, RealString, ')'
 	;
 
 toleranceSelect=
@@ -2701,62 +4422,129 @@ toolDirection =
 	| threeAxes
 	;
 
+toolDirectionForMilling =
+	  threeAxesTiltedTool
+	| fiveAxesVarTiltYaw
+	| fiveAxesConstTiltYaw
+	;
+
+toolLengthProbing =
+	  TOOLLENGTHPROBING, '(', CharString, c, elementarySurface, c,
+	  optToolpathList, c, optToolDirection, c, ncVariable, c,
+          cartesianPoint, c, RealString, c, machiningTool, ')'
+	;
+
 toolpath =
 	  feedstop
+	| parameterisedPath
 	| trajectory
 	;
 
 toolpathFeature =
-	  TOOLPATHFEATURE , '(' , CharString , c , workpiece , c ,
-	  parenMachiningOperationList , c , axis2placement3d , c ,
-	  elementarySurface ,  ')'
+	  TOOLPATHFEATURE, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, axis2placement3d, c,
+	  elementarySurface,  ')'
 	;
 
 toolpathList =
-	  TOOLPATHLIST , '(' , parenToolpathLisztFull , ')'
+	  TOOLPATHLIST, '(', parenToolpathLisztFull, ')'
 	;
 
 toolpathLiszt =
 	  toolpath
-	| toolpathLiszt , c , toolpath
+	| toolpathLiszt, c, toolpath
 	;
 
-(* toolpathSpeedprofile also has toolpathSpeed *)
+
+toolpathSpeed =
+ 	  TOOLPATHSPEED, '(', bSplineCurve, ')'
+ 	;
+
+(* mixed supertype *)
 toolpathSpeedprofile =
 	  real
 	| speedName
+	| toolpathSpeed
 	;
 
+(* enumeration *)
 toolpathType =
-	  approach
-	| lift
-	| connect
-	| nonContact
-	| contact
-	| trajectoryPath
+	  toolpathTypeApproach
+	| toolpathTypeLift
+	| toolpathTypeConnect
+	| toolpathTypeNonContact
+	| toolpathTypeContact
+	| toolpathTypeTrajectoryPath
+	;
+
+toolpathTypeApproach =
+	  TOOLPATHTYPEAPPROACH
+	;
+
+toolpathTypeConnect =
+	  TOOLPATHTYPECONNECT
+	;
+
+toolpathTypeContact =
+	  TOOLPATHTYPECONTACT
+	;
+
+toolpathTypeLift =
+	  TOOLPATHTYPELIFT
+	;
+
+toolpathTypeNonContact =
+	  TOOLPATHTYPENONCONTACT
+	;
+
+toolpathTypeTrajectoryPath =
+	  TOOLPATHTYPETRAJECTORYPATH
 	;
 
 toolProbing =
-	  TOOLPROBING , '(' , CharString , c , elementarySurface , c ,
-	  optToolpathList , c , optToolDirection , c , ncVariable , c ,
-          cartesianPoint , c , RealString , c , machiningTool , ')'
+	  toolLengthProbing
+	| toolRadiusProbing
 	;
 
+toolRadiusProbing =
+	  TOOLRADIUSPROBING, '(', CharString, c, elementarySurface, c,
+	  optToolpathList, c, optToolDirection, c, ncVariable, c,
+          cartesianPoint, c, RealString, c, machiningTool, ')'
+	;
+
+(* enumeration *)
 toolReferencePoint =
-	  toolReferencePointCcp
-	| toolReferencePointTcp
+	  toolReferencePointTcp
+	| toolReferencePointCcp
 	;
 
 toolReferencePointCcp =
-	  CCP
+	  TOOLREFERENCEPOINTCCP
 	;
 
 toolReferencePointTcp =
-	  TCP
+	  TOOLREFERENCEPOINTTCP
+	;
+
+topologicalRegion =
+	  TOPOLOGICALREGION, '(', CharString, c, workpiece, c,
+	  parenMachiningOperationList, c, optAxis2placement3d, c,
+          CharString, c, parenFaceListFull, ')'
+	;
+
+(* See comment at definition of path *)
+topologicalRepresentationItem =
+	  faceBoundParent
+	| connectedFaceSet
+	| edge
+	| vertex
+	| face
+	| loop
+(*	| path *)
 	;
 
 touchProbe =
-	  TOUCHPROBE , '(' , CharString , ')'
+	  TOUCHPROBE, '(', CharString, ')'
 	;
 
 touchProbing =
@@ -2766,18 +4554,33 @@ touchProbing =
 	;
 
 trajectory =
-	  cutterLocationTrajectory
+	  axisTrajectory
+	(*| cutterContactTrajectory*)
+	| cutterLocationTrajectory
 	;
 
-trajectoryPath =
-	  TRAJECTORYPATH
-	;
-
+(* enumeration *)
 transitionCode =
-	  discontinuous
-	| continuous
-	| contSameGradient
-	| contSameGradientSameCurvature
+	  transitionCodeDiscontinuous
+	| transitionCodeContinuous
+	| transitionCodeContSameGradient
+	| transitionCodeContSameGradientSameCurvature
+	;
+
+transitionCodeContinuous =
+	  TRANSITIONCODECONTINUOUS
+	;
+
+transitionCodeContSameGradient =
+	  TRANSITIONCODECONTSAMEGRADIENT
+	;
+
+transitionCodeContSameGradientSameCurvature =
+	  TRANSITIONCODECONTSAMEGRADIENTSAMECURVATURE
+	;
+
+transitionCodeDiscontinuous =
+	  TRANSITIONCODEDISCONTINUOUS
 	;
 
 transitionFeature =
@@ -2792,17 +4595,31 @@ travelPath =
 	;
 
 trimmedCurve =
-	  TRIMMEDCURVE , '(' , CharString , c , curve  , c ,
-          parenTrimmingSelectListFull , c , parenTrimmingSelectListFull , c ,
-          boolean , c , trimmingPreference , ')'
+	  TRIMMEDCURVE, '(', CharString, c, curve, c,
+          parenTrimmingSelectListFull, c, parenTrimmingSelectListFull, c,
+          boolean, c, trimmingPreference, ')'
 	;
 
+(* enumeration *)
 trimmingPreference =
-	  cartesian
-	| parameter
-	| unspecified
+	  trimmingPreferenceCartesian
+	| trimmingPreferenceParameter
+	| trimmingPreferenceUnspecified
 	;
 
+trimmingPreferenceCartesian =
+	  TRIMMINGPREFERENCECARTESIAN
+	;
+
+trimmingPreferenceParameter =
+	  TRIMMINGPREFERENCEPARAMETER
+	;
+
+trimmingPreferenceUnspecified =
+	  TRIMMINGPREFERENCEUNSPECIFIED
+	;
+
+(* mixed supertype *)
 trimmingSelect =
 	  cartesianPoint
 	| real
@@ -2810,16 +4627,26 @@ trimmingSelect =
 
 trimmingSelectList =
 	  trimmingSelect
-	| trimmingSelectList , c , trimmingSelect
+	| trimmingSelectList, c, trimmingSelect
+	;
+
+tSlotMill = 
+	  TSLOTMILL, '(', millingToolDimension, c, optInteger, c, optHand, c,
+	  optBoolean, c, optReal, c, optReal, ')'
+	;
+
+twistDrillParent =
+	  taperedDrill
+	| twistDrill
 	;
 
 twistDrill =
-	  TWISTDRILL , '(' , millingToolDimension , c , optInteger , c ,
-	  optHand , c , optBoolean , c , optReal , ')'
+	  TWISTDRILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, ')'
 	;
 
 twoAxes =
-	  TWOAXES , '(' , ')'
+	  TWOAXES, '(', ')'
 	;
 
 two5DmanufacturingFeature =
@@ -2834,47 +4661,97 @@ two5DmillingOperation =
 	| sideMilling
 	;
 
-(* two5DmillingStrategy also has subtypes bidirectionalContour,         *)
-(* contourBidirectional, contourSpiral, centerMilling, explicitStrategy *)
 two5DmillingStrategy =
-	  contourParallel
+	  bidirectionalContour
 	| bidirectionalMilling
+	| centerMilling
+	| contourBidirectional
+	| contourParallel
+	| contourSpiral
+	| explicitStrategy
 	| unidirectionalMilling
 	;
 
+unaryBooleanExpression =
+	  notExpression
+	;
+
 unidirectionalMilling = 
-	  UNIDIRECTIONALMILLING , '(' , optReal , c , optBoolean , c ,
-	  optDirection , c , optCutmodeType , ')'
+	  UNIDIRECTIONALMILLING, '(', optReal, c, optBoolean, c,
+	  optDirection, c, optCutmodeType, ')'
+	;
+
+uniformCurve =
+	  UNIFORMCURVE, '(', CharString, c, IntString, c,
+	  parenCartesianPointList, c, bSplineCurveForm, c, logical, c,
+          logical, ')'
+	;
+
+uniformSurface =
+	  UNIFORMSURFACE, '(', CharString, c, integer, c, integer, c,
+	  parenParenCartesianPointListFullListFull, c, bSplineSurfaceForm, c,
+	  logical, c, logical, c, logical, ')'
 	;
 
 unloadTool =
-	  UNLOADTOOL , '(' , CharString , c , optMachiningTool , ')'
+	  UNLOADTOOL, '(', CharString, c, optMachiningTool, ')'
 	;
 
-unspecified =
-	  UNSPECIFIED
+userDefinedTool = USERDEFINEDTOOL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, CharString, ')'
 	;
 
 uvStrategy =
-	  UVSTRATEGY , '(' , pathmodeType , c , cutmodeType , c ,
-          tolerances , c , optReal , c , direction , c , direction , ')'
+	  UVSTRATEGY, '(', pathmodeType, c, cutmodeType, c,
+          tolerances, c, optReal, c, direction, c, direction, ')'
 	;
 
 vector =
-	  VECTOR , '(' , CharString , c , direction , c , RealString , ')'
+	  VECTOR, '(', CharString, c, direction, c, RealString, ')'
 	;
 
 veeProfile =
-	  VEEPROFILE , '(' , optAxis2placement3d , c ,
-          tolerancedLengthMeasure , c , RealString , c , RealString , ')'
+	  VEEPROFILE, '(', optAxis2placement3d, c,
+          tolerancedLengthMeasure, c, RealString, c, RealString, ')'
+	;
+
+(* The EXPRESS probably intends that vertex not be instantiable, but it *)
+(* does not make that explicit. Here, vertex is not instantiable.       *)
+(* This is requiring that every vertex be a vertexPoint, so that every  *)
+(* vertex has a known location.                                         *)
+vertex =
+	  vertexPoint
+	;
+
+vertexLoop =
+	  VERTEXLOOP, '(', CharString, c, vertex, ')'
+	;
+
+vertexPoint =
+	  VERTEXPOINT, '(', CharString, c, point, ')'
 	;
 
 waitForMark =
-	  WAITFORMARK , '(' , CharString , c , channel , ')'
+	  WAITFORMARK, '(', CharString, c, channel, ')'
 	;
 
+weekOfYearAndDayDate =
+	  WEEKOFYEARANDDAYDATE, '(', IntString, c, IntString, c, optInteger, ')'
+	;
+
+whileStatement =
+	  WHILESTATEMENT, '(', CharString, c, booleanExpression, c,
+	  executable, ')'
+	;
+
+woodruffKeyseatMill =
+	  WOODRUFFKEYSEATMILL, '(', millingToolDimension, c, optInteger, c,
+	  optHand, c, optBoolean, c, optReal, c, optReal, ')'
+	;
+
+
 woodruffSlotEndType =
-	  WOODRUFFSLOTENDTYPE, '(' , tolerancedLengthMeasure , ')'
+	  WOODRUFFSLOTENDTYPE, '(', tolerancedLengthMeasure, ')'
 	;
 
 workingstep =
@@ -2884,112 +4761,176 @@ workingstep =
 	;
 
 workpiece =
-	  WORKPIECE , '(' , CharString , c , optMaterial , c , optReal , c ,
-	  optWorkpiece , c , optAdvancedBrepShapeRepresentation , c ,
-	  optBoundingGeometrySelect , c , parenCartesianPointList , ')'
+	  WORKPIECE, '(', CharString, c, optMaterial, c, optReal, c,
+	  optWorkpiece, c, optAdvancedBrepShapeRepresentation, c,
+	  optBoundingGeometrySelect, c, parenCartesianPointList, ')'
 	;
 
 workpieceCompleteProbing =
-	  WORKPIECECOMPLETEPROBING , '(' , CharString , c ,
-          elementarySurface , c , optToolpathList , c , optToolDirection , c ,
-          ncVariable , c , workpiece , c , tolerancedLengthMeasure , c ,
-          touchProbe , c , offsetVector , ')'
+	  WORKPIECECOMPLETEPROBING, '(', CharString, c,
+          elementarySurface, c, optToolpathList, c, optToolDirection, c,
+          ncVariable, c, workpiece, c, tolerancedLengthMeasure, c,
+          touchProbe, c, offsetVector, ')'
 	;
 
 workpieceList =
 	  workpiece
-	| workpieceList , c , workpiece
+	| workpieceList, c, workpiece
 	;
 
 workpieceProbing =
-	  WORKPIECEPROBING , '(' , CharString , c , elementarySurface , c ,
-	  optToolpathList , c , optToolDirection , c , ncVariable , c ,
-          axis2placement3d , c , workpiece , c , direction , c ,
-          tolerancedLengthMeasure , c , touchProbe , ')'
+	  WORKPIECEPROBING, '(', CharString, c, elementarySurface, c,
+	  optToolpathList, c, optToolDirection, c, ncVariable, c,
+          axis2placement3d, c, workpiece, c, direction, c,
+          tolerancedLengthMeasure, c, touchProbe, ')'
 	;
 
 workpieceSetup =
-	  WORKPIECESETUP , '(' , workpiece , c , axis2placement3d , c ,
-	  optOffsetVector , c , optRestrictedAreaSelect , c , 
-	  parenSetupInstructionList , ')'
+	  WORKPIECESETUP, '(', workpiece, c, axis2placement3d, c,
+	  optOffsetVector, c, optRestrictedAreaSelect, c, 
+	  parenSetupInstructionList, ')'
 	;
 
 workpieceSetupList =
 	  workpieceSetup
-	| workpieceSetupList , c , workpieceSetup
+	| workpieceSetupList, c, workpieceSetup
 	;
 
 workplan =
-	  WORKPLAN , '(' , CharString , c , parenExecutableList , c ,
-	  optChannel , c , optSetup , c , optInProcessGeometry , ')'
+	  WORKPLAN, '(', CharString, c, parenExecutableList, c,
+	  optChannel, c, optSetup, c, optInProcessGeometry, ')'
+	;
+
+xorExpression =
+	  XOREXPRESSION, '(', booleanExpression, c, booleanExpression, ')'
 	;
 
 (*=============================================================*)
 (* End of productions                                          *)
 (*=============================================================*)
 
-(* Start attributes *)
+(* Start attribute names *)
+(* address : internalLocation streetNumber street postalBox town region
+   postalCode country facsimileNumber telephoneNumber electronicMailAddress
+   telexNumber *)
+(* alongPath : path *)
 (* angleTaper : angle *)
+(* apLiftPathAngle : angle benddist *)
+(* apLiftPathTangent : radius *)
+(* approachLiftPath : fixPoint fixPointDir *)
 (* approachRetractStrategy : toolOrientation *)
 (* approval : status level *)
 (* approvalStatus : name *)
+(* apRetractAngle : angle travelLength *)
+(* apRetractTangent : radius *)
+(* assignment : itsLvalue itsRvalue *)
+(* aString : theString *)
 (* axis1placement : axis *)
 (* axis2placement3d : axis refDirection *)
+(* axisTrajectory : axisList commands *)
 (* backsideCountersink : countersinkRadius *)
-(* bidirectionalMilling : feedDirection stepoverDirection itsStrokeConnectionStrategy *)
+(* bidirectionalContour : feedDirection stepoverDirection rotationDirection
+   spiralCutmode *)
+(* bidirectionalMilling : feedDirection stepoverDirection
+   itsStrokeConnectionStrategy *)
+(* binaryBooleanExpression : operand1 operand2 *)
 (* block : position x y z *)
 (* boringOperation : spindleStopAtBottom depthOfTestcut waitingPosition *)
 (* boss : itsBoundary slope *)
-(* bottomAndSideMilling : axialCuttingDepth radialCuttingDepth allowanceSide allowanceBottom *)
-(* calendarDate : yearComponent dayComponent monthComponent *)
+(* bottomAndSideMilling : axialCuttingDepth radialCuttingDepth allowanceSide
+   allowanceBottom *)
+(* bSplineCurve : degree controlPointsList curveForm closedCurve
+   selfIntersect *)
+(* bSplineCurveWithKnots : knotMultiplicites knots knotSpec *)
+(* bSplineSurface : uDegree vDegree controlPointsList surfaceForm uClosed
+   vClosed selfIntersect *)
+(* bSplineSurfaceWithKnots : uMultiplicities vMultiplicities uKnots vKnots
+   knotSpec *)
+(* calendarDate : dayComponent monthComponent *)
 (* cartesianPoint : coordinates *)
+(* catalogueThread : documentation *)
 (* chamfer : angleToPlane firstOffsetAmount *)
 (* channel : itsId *)
 (* circle : radius *)
+(* circularClosedProfile : diameter *)
+(* circularClosedShapeProfile : closedBoundary *)
 (* circularOffset : angularOffset index *)
 (* circularOmit : index *)
 (* circularPath : radius *)
-(* circularPattern : angleIncrement numberOfFeature relocatedBaseFeature missingBaseFeature baseFeatureDiameter baseFeatureRotation *)
+(* circularPattern : angleIncrement numberOfFeature relocatedBaseFeature
+   missingBaseFeature baseFeatureDiameter baseFeatureRotation *)
 (* closedPocket : featureBoundary *)
 (* combinedDrillAndReamer : drillLength *)
+(* combinedDrillAndTap : drillLength *)
+(* comparisonExpression : operand1 operand2 *)
 (* compositeCurve : segments selfIntersect *)
 (* compositeCurveSegment : transition sameSense parentCurve *)
 (* compoundFeature : elements *)
 (* conic : position *)
 (* conicalHoleBottom : tipAngle tipRadius *)
+(* connectedFaceSet : cfsFaces *)
+(* connectSecplane : upDir downDir *)
+(* contourBidirectional : feedDirection stepoverDirection rotationDirection
+   spiralCutmode *)
 (* contourParallel : rotationDirection cutmode *)
+(* contourSpiral : rotationDirection cutmode *)
+(* coordinatedUniversalTimeOffset : hourOffset minuteOffset sense *)
 (* countersink : countersinkRadius *)
+(* curveWithNormalVector : basiccurve surfaceNormal *)
 (* cutterLocationTrajectory : basiccurve itsToolaxis surfaceNormal *)
-(* cuttingComponent : toolOffsetLength itsMaterial technologicalData expectedToolLife itsTechnology *)
+(* cuttingComponent : toolOffsetLength itsMaterial technologicalData
+   expectedToolLife itsTechnology *)
+(* cutterContactTrajectory : itsPriority itsType itsSpeed itsTechnology
+   itsMachineFunctions itsDirection basiccurve itsToolaxis itsContactType *)
 (* cuttingEdgeTechnologicalData : cuttingAngle freeAngle auxAngle *)
 (* cuttingTool : itsToolBody itsCuttingEdge overallAssemblyLength *)
 (* dataSection : dataStart items sectionEnd *)
+(* date : yearComponent *)
 (* dateAndTime : dateComponent timeComponent *)
+(* definedThread : pitchDiameter minorDiameter crest *)
 (* descriptiveParameter : descriptiveString *)
 (* diameterTaper : finalDiameter *)
 (* direction : directionRatios *)
+(* dovetailMill : includedAngle *)
 (* displayMessage : itsText *)
-(* drillingTypeOperation : cuttingDepth previousDiameter dwellTimeBottom feedOnRetract itsMachiningStrategy *)
-(* drillingTypeStrategy : reducedCutAtStart reducedFeedAtStart depthOfStart reducedCutAtEnd reducedFeedAtEnd depthOfEnd *)
+(* drillingTypeOperation : cuttingDepth previousDiameter dwellTimeBottom
+   feedOnRetract itsMachiningStrategy *)
+(* drillingTypeStrategy : reducedCutAtStart reducedFeedAtStart depthOfStart
+   reducedCutAtEnd reducedFeedAtEnd depthOfEnd *)
+(* edge : edgeStart edgeEnd *)
+(* edgeCurve : edgeGeometry sameSense *)
+(* edgeLoop : edgeList *)
 (* edgeRound : radius firstOffsetAmount secondOffsetAmount *)
 (* elementarySurface : position *)
 (* ellipse : semiAxis1 semiAxis2 *)
 (* executable : itsId *)
+(* faceBoundParent : bound orientation *)
+(* face : bounds *)
+(* faceSurface : faceGeometry sameSense *)
 (* feedstop : dwell *)
 (* fileDescription : description implementationLevel *)
-(* fileName : name timeStamp author organization preprocessorVersion originatingSystem authorization *)
+(* fileName : name timeStamp author organization preprocessorVersion
+   originatingSystem authorization *)
 (* fileSchema : schemaIdentifiers *)
+(* fiveAxesConstTiltYaw : tiltAngle yawAngle *)
 (* flatSlotEndType : cornerRadius1 cornerRadius2 *)
 (* flatWithRadiusHoleBottom : cornerRadius *)
 (* freeformOperation : itsMachiningStrategy *)
 (* freeformStrategy : pathmode cutmode itsMillingTolerances stepover *)
+(* generalClosedProfile : closedProfileShape *)
+(* generalOutsideProfile : featureBoundary *)
 (* generalPath : sweptPath *)
 (* generalPattern : replicateLocations *)
+(* generalProfile : itsProfile *)
+(* generalProfileFloor : floor *)
 (* generalPocketBottomCondition : shape *)
-(* headerSection : headerStart headerDescription headerName headerSchema sectionEnd *)
+(* generalShapeProfile : profileBoundary *)
+(* headerSection : headerStart headerDescription headerName headerSchema
+   sectionEnd *)
 (* helix : position radius pitch *)
 (* hyperbola : semiAxis semiImagAxis *)
 (* indexPallet : its_index *)
+(* ifStatement : condition trueBranch falseBranch *)
 (* indexTable : its_index *)
 (* inProcessGeometry : asIs toBe removal *)
 (* inputFile : inputStart inputHeader inputData inputEnd *)
@@ -3001,54 +4942,95 @@ workplan =
 (* linearPath : distance itsDirection *)
 (* linearProfile : profileLength *)
 (* loadTool : itsTool *)
-(* machiningFeature : depth : itsId itsWorkpiece itsOperations featurePlacement depth *)
-(* machiningOperation : itsId retractPlane startPoint itsTool itsTechnology itsMachineFunctions *)
+(* localTime : hourComponent minuteComponent secondComponent zone *)
+(* machiningFeature : depth : itsId itsWorkpiece itsOperations
+   featurePlacement depth *)
+(* machinedSurface : itsMachiningFeature surfaceElement *)
+(* machiningOperation : itsId retractPlane startPoint itsTool itsTechnology
+   itsMachineFunctions *)
 (* machiningTool : itsId *)
 (* machiningWorkingstep : itsFeature itsOperation itsEffect *)
+(* manifoldSolidBrep : outer *)
 (* manufacturingFeature : itsId itsWorkpiece itsOperations *)
 (* material : standardIdentifier materialIdentifier materialProperty *)
-(* millingMachineFunctions : coolant coolantPressure mist throughSpindleCoolant throughPressure axisClamping chipRemoval orientedSpindleStop itsProcessModel otherFunctions *)
-(* millingCuttingTool : directionForSpindleOrientation toolHolderDiameterForSpindleOrientation *)
+(* millingMachineFunctions : coolant coolantPressure mist
+   throughSpindleCoolant throughPressure axisClamping chipRemoval
+   orientedSpindleStop itsProcessModel otherFunctions *)
+(* millingCuttingTool : directionForSpindleOrientation
+   toolHolderDiameterForSpindleOrientation *)
 (* millingMachiningOperation : overcutLength *)
-(* millingTechnology : cutspeed spindle feedratePerTooth synchronizeSpindleWithFeed inhibitFeedrateOverride inhibitSpindleOverride itsAdaptiveControl *)
-(* millingToolBody : dimension numberOfTeeth handOfCut coolantThroughTool pilotLength *)
-(* millingToolDimension : diameter toolTopAngle toolCircumferenceAngle cuttingEdgeLength edgeRadius edgeCenterVertical edgeCenterHorizontal *)
+(* millingTechnology : cutspeed spindle feedratePerTooth
+   synchronizeSpindleWithFeed inhibitFeedrateOverride inhibitSpindleOverride
+   itsAdaptiveControl *)
+(* millingToolBody : dimension numberOfTeeth handOfCut coolantThroughTool
+   pilotLength *)
+(* millingToolDimension : diameter toolTopAngle toolCircumferenceAngle
+   cuttingEdgeLength edgeRadius edgeCenterVertical edgeCenterHorizontal *)
 (* millingTypeOperation : approach retract *)
+(* multipleArityBooleanExpression : operands *)
 (* multistepDrilling : retractDistance firstDepth depthOfStep dwellTimeStep *)
+(* ncConstant : itsName initialValue *)
 (* ncVariable : itsName initialValue *)
+(* ngonClosedProfile : diameter numberOfSides circumscribedOrAcrossFlats *)
+(* nonSequential : itsElements *)
 (* numericParameter : itsParameterValue itsParameterUnit *)
 (* offsetVector : translate rotate *)
+(* openPocket : openBoundary wallBoundary *)
 (* operation : itsToolpath itsToolDirection *)
+(* ordinalDate : dayComponent *)
+(* orientedEdge : edgeElement orientation *)
 (* parabola : focalDist *)
+(* parallel : branches *)
 (* parenAxis2placement3dListFull : theList *)
+(* parenBooleanExpressionListFull : theList *)
 (* parenBossList : theList *)
+(* parenBoundedCurveListFull : theList *)
+(* parenBoundedSurfaceListFull : theList *)
 (* parenCartesianPointList : theList *)
 (* parenCartesianPointListFull : theList *)
+(* parenParenCartesianPointListFullListFull : theList *)
 (* parenCircularOffsetList : theList *)
 (* parenCircularOmitList : theList *)
 (* parenCompositeCurveSegmentListFull : theList *)
 (* parenCompoundFeatureSelectListFull : theList *)
 (* parenCuttingComponentListFull : theList *)
 (* parenExecutableList : theList *)
+(* parenExecutableListFull : theList *)
+(* parenFaceBoundListFull : theList *)
+(* parenFaceListFull : theList *)
+(* parenIntegerListFull : theList *)
+(* parenMachinedSurfaceListFull : theList *)
+(* parenMachiningFeatureListFull : theList *)
 (* parenMachiningOperationList : theList *)
 (* parenNcVariableListFull : theList *)
+(* parenOrientedEdgeListFull : theList *)
 (* parenProcessModelLiszt : theList *)
 (* parenPropertyParameterList : theList *)
 (* parenRealListFull : theList *)
+(* parenRealListFullList : theList *)
+(* parenParenRealListFullListFull : theList *)
 (* parenRectangularOffsetList : theList *)
 (* parenRectangularOmitList : theList *)
+(* parenRepresentationItemListFull : theList *)
 (* parenSetupInstructionList : theList *)
 (* parenSlotEndTypeList : theList *)
+(* parenSpecificationUsageConstraintList : theList *)
 (* parenStringList : theList *)
 (* parenStringListFull : theList *)
 (* parenToolpathLisztFull : theList *)
 (* parenTrimmingSelectListFull : theList *)
 (* parenWorkpieceList : theList *)
 (* parenWorkpieceSetupList : theList *)
+(* partialAreaDefinition : effectiveLength placement maximumLength *)
 (* partialCircularPath : sweepAngle *)
+(* partialCircularProfile : radius sweepAngle *)
+(* partialCircularShapeProfile : openBoundary *)
+(* pcurveParent : basisSurface referenceToCurve *)
+(* person : id lastName firstName middleNames prefixTitles suffixTitles *)
 (* personAndAddress : itsPerson itsAddress *)
 (* placement : location *)
 (* planarFace : courseOfTravel removalBoundary faceBoundary itsBoss *)
+(* planarProfileFloor : floor *)
 (* planeCcStrategy : itsPlaneNormal *)
 (* planeClStrategy : itsPlaneNormal *)
 (* planeMilling : axialCuttingDepth allowanceBottom *)
@@ -3061,62 +5043,111 @@ workplan =
 (* processModel : iniDataFile itsType *)
 (* processModelList : itsList *)
 (* profile : placement *)
+(* profileFeature : profileSweptShape *)
+(* profileFloor : floorRadius startOrEnd *)
 (* project : itsId mainWorkplan itsWorkpieces itsOwner itsRelease itsStatus *)
 (* propertyParameter : parameterName *)
 (* radiusedPocketBottomCondition : floorRadiusCenter floorRadius *)
 (* rapidMovement : : itsId itsSecplane itsToolpath itsToolDirection *)
+(* rationalBSplineCurve : weightsData *)
+(* rationalBSplineSurface : weightsData *)
 (* real : val *)
 (* rectangularClosedProfile : profileWidth profileLength *)
+(* rectangularClosedShapeProfile : closedBoundary *)
 (* rectangularOffset : offsetDirection offsetDistance rowIndex columnIndex *)
-(* rectangularOmit :  rowIndex columnIndex *)
-(* rectangularPattern : spacing itsDirection numberOfRows numberOfColumns rowSpacing rowLayoutDirection relocatedBaseFeature missingBaseFeature *)
+(* rectangularOmit : rowIndex columnIndex *)
+(* rectangularOpenShapeProfile : openBoundary *)
+(* rectangularPattern : spacing itsDirection numberOfRows numberOfColumns
+   rowSpacing rowLayoutDirection relocatedBaseFeature missingBaseFeature *)
 (* region : featurePlacement *)
 (* regionProjection : projCurve projDir depth *)
+(* regionSurfaceList : surfaceList *)
 (* replicateFeature : replicateBaseFeature *)
+(* representationParent : name items contextOfItems *)
+(* representationContext : contextIdentifier contextType *)
 (* representationItem : name *)
 (* rightCircularCylinder : position height radius *)
+(* roundedEnd : courseOfTravel partialCircularBoundary *)
 (* roundedUProfile : width *)
 (* roundHole : diameter changeInDiameter bottomCondition *)
+(* selective : itsElements *)
 (* setup : itsId itsOrigin itsSecplane itsWorkpieceSetup *)
 (* setupInstruction : description externalDocument *)
+(* shapeProfile : floorCondition removalDirection *)
+(* sideMill : lengthMeasure *)
 (* sideMilling : axialCuttingDepth radialCuttingDepth allowanceSide *)
 (* slot : courseOfTravel sweptShape endConditions *)
+(* specification : constraint specificationId specificationDescription
+   specificationClass *)
+(* specificationUsageConstraint : element classId *)
 (* sphericalCap : internalAngle radius *)
 (* sphericalHoleBottom : radius *)
 (* sphericalSurface : radius *)
 (* squareUProfile : width firstRadius firstAngle secondRadius secondAngle *)
+(* surfaceOfLinearExtrusion : extrusionAxis *)
+(* surfaceOfRevolution : axisPosition *)
+(* surfaceTextureParameter : itsValue parameterName measuringMethod
+   parameterIndex appliedSurfaces *)
+(* sweptSurface : sweptCurve *)
 (* step : openBoundary wallBoundary itsBoss *)
+(* taperedDrill : taperAngle *)
 (* taperedEndmill : taperAngle *)
 (* taperedReamer : taperAngle *)
+(* taperedTap : taperAngle *)
 (* tapping : compensationChuck *)
+(* teeProfile : firstAngle secondAngle crossBarWidth crossBarDepth radius
+   width firstOffset secondOffset *)
+(* thread : partialProfile appliedShape innerOrOuterThread qualifier fitClass
+   form majorDiameter numberOfThreads threadHand *)
 (* threadDrilling : helicalMovementOnForward *)
+(* threeAxesTiltedTool : itsToolDirection *)
 (* technology : feedrate feedrateReference *)
 (* tolerancedLengthMeasure : theoreticalSize implicitTolerance *)
 (* tolerances : chordalTolerance scallopHeight *)
 (* toolpath : itsPriority itsType itsSpeed itsTechnology itsMachineFunctions *)
 (* toolpathList : itsList *)
-(* toolProbing : offset maxWear itsTool : itsId itsSecplane itsToolpath itsToolDirection measuredOffset offset maxWear itsTool *)
+(* toolProbing : offset maxWear itsTool : itsId itsSecplane itsToolpath
+   itsToolDirection measuredOffset offset maxWear itsTool *)
+(* toolpathSpeed : speed *)
+(* topologicalRegion : : itsId itsWorkpiece itsOperations featurePlacement
+   name cfsFaces *)
 (* touchProbe : itsId *)
-(* touchProbing : measuredOffset : itsId itsSecplane itsToolpath itsToolDirection measuredOffset *)
+(* touchProbing : measuredOffset : itsId itsSecplane itsToolpath
+   itsToolDirection measuredOffset *)
 (* trajectory : itsDirection *)
-(* transitionFeature : firstFeature secondFeature : itsId itsWorkpiece itsOperations firstFeature secondFeature *)
+(* transitionFeature : firstFeature secondFeature : itsId itsWorkpiece
+   itsOperations firstFeature secondFeature *)
 (* travelPath : placement *)
 (* trimmedCurve : basisCurve trim1 trim2 senseAgreement masterRepresentation *)
+(* tSlotMill : cuttingThickness *)
 (* two5DmanufacturingFeature : featurePlacement *)
 (* two5DmillingOperation : itsMachiningStrategy *)
 (* two5DmillingStrategy : overlap allowMultiplePasses *)
+(* unaryBooleanExpression : operand *)
 (* unidirectionalMilling : feedDirection cutmode *)
 (* unloadTool : itsTool *)
+(* userDefinedTool : identifier *)
 (* uvStrategy : forwardDirection sidewardDirection *)
 (* vector : orientation magnitude *)
 (* veeProfile : profileRadius profileAngle tiltAngle *)
+(* vertexLoop : loopVertex *)
+(* vertexPoint : vertexGeometry *)
 (* waitForMark : itsChannel *)
+(* weekOfYearAndDayDate : weekComponent dayComponent *)
+(* whileStatement : condition body *)
+(* woodruffKeyseatMill : cutterWidth *)
 (* woodruffSlotEndType : radius *)
 (* workingstep : itsSecplane *)
-(* workpiece : itsId itsMaterial globalTolerance itsRawpiece itsGeometry itsBoundingGeometry clampingPositions *)
-(* workpieceCompleteProbing : itsWorkpiece probingDistance itsProbe computedOffset : itsId itsSecplane itsToolpath itsToolDirection measuredOffset itsWorkpiece probingDistance itsProbe computedOffset *)
-(* workpieceProbing : startPosition itsWorkpiece itsDirection expectedValue itsProbe : itsId itsSecplane itsToolpath itsToolDirection measuredOffset startPosition itsWorkpiece itsDirection expectedValue itsProbe *)
-(* workpieceSetup : itsWorkpiece itsOrigin itsOffset itsRestrictedArea itsInstructions *)
+(* workpiece : itsId itsMaterial globalTolerance itsRawpiece itsGeometry
+   itsBoundingGeometry clampingPositions *)
+(* workpieceCompleteProbing : itsWorkpiece probingDistance itsProbe
+   computedOffset : itsId itsSecplane itsToolpath itsToolDirection
+   measuredOffset itsWorkpiece probingDistance itsProbe computedOffset *)
+(* workpieceProbing : startPosition itsWorkpiece itsDirection expectedValue
+   itsProbe : itsId itsSecplane itsToolpath itsToolDirection measuredOffset
+   startPosition itsWorkpiece itsDirection expectedValue itsProbe *)
+(* workpieceSetup : itsWorkpiece itsOrigin itsOffset itsRestrictedArea
+   itsInstructions *)
 (* workplan : itsElements itsChannel itsSetup itsEffect *)
 (* End attributes *)
 

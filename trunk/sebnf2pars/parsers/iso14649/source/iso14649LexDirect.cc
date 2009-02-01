@@ -3243,8 +3243,8 @@ char *yytext;
 
 #include <string.h>          // for strdup, etc.
 #include <ctype.h>           // for isalpha
-#include "iso14649classes.hh"
-#include "iso14649YACC.hh"
+#include "iso14649classesDirect.hh"
+#include "iso14649YACCDirect.hh"
 
 #define ECH  for (k=0; ((k < yyleng) && (lineTextIndex < 4095));)\
     lineText[lineTextIndex++] = yytext[k++];\

@@ -11,7 +11,7 @@
 
 #include <stdio.h>            // for fopen, etc.
 #include <stdlib.h>           // for exit
-#include "iso14649classes.hh" // for inputFile, etc.
+#include "iso14649classesDirect.hh" // for inputFile, etc.
 
 extern int parseOneFile(const char * fileName, char * report, bool quiet);
 extern void parseManyFiles(char * fileName, char * report);
@@ -155,7 +155,7 @@ void printApproval(  /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   if (approve)
-    printf("approval #%d\n", approve->get_iId()->get_val());
+    printf("approval #%d\n", approve->iId->val);
   else
     printf("approval NONE\n");
 }
@@ -182,10 +182,10 @@ void printAxis2(         /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("axis2placement3d #%d '%s'\n",
-	 sys->get_iId()->get_val(), sys->get_name());
-  printCartPoint(sys->get_location(), (spaces+2));
-  printDirection(sys->get_axis(), (spaces+2));
-  printDirection(sys->get_refDirection(), (spaces+2));
+	 sys->iId->val, sys->name);
+  printCartPoint(sys->location, (spaces+2));
+  printDirection(sys->axis, (spaces+2));
+  printDirection(sys->refDirection, (spaces+2));
 }
 
 /********************************************************************/
@@ -207,7 +207,7 @@ void printBoss( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("boss #%d '%s'\n",
-	 feat->get_iId()->get_val(), feat->get_itsId());
+	 feat->iId->val, feat->itsId);
 }
 
 /********************************************************************/
@@ -258,13 +258,13 @@ void printCartPoint(  /* ARGUMENTS                      */
   std::list<real *>::iterator iter;
   int n;
   
-  coords = pt->get_coordinates()->get_theList();
+  coords = pt->coordinates->theList;
   for (n=0; n < spaces; n++)
     putchar(' ');
-  printf("cartesianPoint #%d '%s' (", pt->get_iId()->get_val(), pt->get_name());
+  printf("cartesianPoint #%d '%s' (", pt->iId->val, pt->name);
   for (iter = coords->begin(); ; )
     {
-      printDouble((*iter)->get_val());
+      printDouble((*iter)->val);
       if (++iter == coords->end())
 	break;
       printf(",");
@@ -316,7 +316,7 @@ void printClosedPocket( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("closedPocket #%d '%s'\n",
-	 feat->get_iId()->get_val(), feat->get_itsId());
+	 feat->iId->val, feat->itsId);
 }
 
 /********************************************************************/
@@ -338,7 +338,7 @@ void printDateAndTime( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   if (dat)
-    printf("date and time #%d\n", dat->get_iId()->get_val());
+    printf("date and time #%d\n", dat->iId->val);
   else
     printf("date and time NONE\n");
 }
@@ -361,13 +361,13 @@ void printDirection( /* ARGUMENTS                      */
   std::list<real *>::iterator iter;
   int n;
   
-  coords = dir->get_directionRatios()->get_theList();
+  coords = dir->directionRatios->theList;
   for (n=0; n < spaces; n++)
     putchar(' ');
-  printf("direction #%d '%s' (", dir->get_iId()->get_val(), dir->get_name());
+  printf("direction #%d '%s' (", dir->iId->val, dir->name);
   for (iter = coords->begin(); ; )
     {
-      printDouble((*iter)->get_val());
+      printDouble((*iter)->val);
       if (++iter == coords->end())
 	break;
       printf(",");
@@ -394,8 +394,8 @@ void printDrillingTypeOp(    /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("drilling operation #%d '%s'\n", 
-	 (dynamic_cast<instance *>(op))->get_iId()->get_val(),
-	 op->get_itsId());
+	 (dynamic_cast<instance *>(op))->iId->val,
+	 op->itsId);
 }
 
 /********************************************************************/
@@ -471,7 +471,7 @@ void printElements(         /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("elements");
-  theList = liz->get_theList();
+  theList = liz->theList;
   if (theList->begin() == theList->end())
     printf(" NONE\n");
   else
@@ -529,19 +529,19 @@ void printMachiningWorkingstep( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("machiningWorkingstep #%d '%s'\n", 
-	 step->get_iId()->get_val(), step->get_itsId());
-  if (step->get_itsSecplane()->isA(plane_E))
+	 step->iId->val, step->itsId);
+  if (step->itsSecplane->isA(plane_E))
     printPlane("security",
-	       dynamic_cast<plane *>(step->get_itsSecplane()), (spaces+2));
+	       dynamic_cast<plane *>(step->itsSecplane), (spaces+2));
   else
     {
       for (n=0; n < spaces; n++)
 	putchar(' ');
       printf("security plane is not a plane\n");
     }
-  printManufacturingFeature(step->get_itsFeature(), (spaces+2));
-  printOperation(step->get_itsOperation(), (spaces+2));
-  printEffect(step->get_itsEffect(), (spaces+2));
+  printManufacturingFeature(step->itsFeature, (spaces+2));
+  printOperation(step->itsOperation, (spaces+2));
+  printEffect(step->itsEffect, (spaces+2));
 }
 
 /********************************************************************/
@@ -565,8 +565,8 @@ void printManufacturingFeature( /* ARGUMENTS                      */
       for (n=0; n < spaces; n++)
 	putchar(' ');
       printf("region #%d '%s' CANNOT HANDLE REGION\n", 
-	     (dynamic_cast<instance *>(feat))->get_iId()->get_val(),
-	     feat->get_itsId());
+	     (dynamic_cast<instance *>(feat))->iId->val,
+	     feat->itsId);
     }
   else if (feat->isA(two5DmanufacturingFeature_E))
     printTwo5Feature(dynamic_cast<two5DmanufacturingFeature *>(feat),
@@ -576,8 +576,8 @@ void printManufacturingFeature( /* ARGUMENTS                      */
       for (n=0; n < spaces; n++)
 	putchar(' ');
       printf("transitionFeature #%d '%s' CANNOT HANDLE TRANSITION FEATURE\n", 
-	     (dynamic_cast<instance *>(feat))->get_iId()->get_val(),
-	     feat->get_itsId());
+	     (dynamic_cast<instance *>(feat))->iId->val,
+	     feat->itsId);
     }
 }
 
@@ -600,8 +600,8 @@ void printMillingTypeOp(    /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("milling operation #%d '%s'\n", 
-	 (dynamic_cast<instance *>(op))->get_iId()->get_val(),
-	 op->get_itsId());
+	 (dynamic_cast<instance *>(op))->iId->val,
+	 op->itsId);
 }
 
 /********************************************************************/
@@ -623,7 +623,7 @@ void printNcFunction( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("ncFunction #%d \n", 
-	 (dynamic_cast<instance *>(func))->get_iId()->get_val());
+	 (dynamic_cast<instance *>(func))->iId->val);
 }
 
 /********************************************************************/
@@ -670,8 +670,8 @@ void printOwner(           /* ARGUMENTS                      */
     putchar(' ');
   printf("owner ");
   if (owner)
-    printf("#%d '%s'\n", owner->get_iId()->get_val(),
-	   owner->get_itsPerson()->get_id());
+    printf("#%d '%s'\n", owner->iId->val,
+	   owner->itsPerson->id);
   else
     printf(" NONE\n");
 }
@@ -695,7 +695,7 @@ void printPlanarFace( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("planarFace #%d '%s'\n",
-	 feat->get_iId()->get_val(), feat->get_itsId());
+	 feat->iId->val, feat->itsId);
 }
 
 /********************************************************************/
@@ -721,8 +721,8 @@ void printPlane( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("%s plane #%d '%s'\n", use,
-	 plain->get_iId()->get_val(), plain->get_name());
-  printAxis2(plain->get_position(), (spaces+2));
+	 plain->iId->val, plain->name);
+  printAxis2(plain->position, (spaces+2));
 }
 
 /********************************************************************/
@@ -764,7 +764,7 @@ void printProgramStructure( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("programStructure #%d \n", 
-	 (dynamic_cast<instance *>(struc))->get_iId()->get_val());
+	 (dynamic_cast<instance *>(struc))->iId->val);
 }
 
 /********************************************************************/
@@ -780,12 +780,12 @@ Side Effects: This prints a project.
 void printProject( /* ARGUMENTS            */
  project * proj)   /* the project to print */
 {
-  printf("project #%d '%s'\n", proj->get_iId()->get_val(), proj->get_itsId());
-  printWorkplan(proj->get_mainWorkplan(), 2);
-  printWorkpieces(proj->get_itsWorkpieces(), 2);
-  printOwner(proj->get_itsOwner(), 2);
-  printDateAndTime(proj->get_itsRelease(), 2);
-  printApproval(proj->get_itsStatus(), 2);
+  printf("project #%d '%s'\n", proj->iId->val, proj->itsId);
+  printWorkplan(proj->mainWorkplan, 2);
+  printWorkpieces(proj->itsWorkpieces, 2);
+  printOwner(proj->itsOwner, 2);
+  printDateAndTime(proj->itsRelease, 2);
+  printApproval(proj->itsStatus, 2);
 }
 
 /********************************************************************/
@@ -807,7 +807,7 @@ void printRapidMovement( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("rapidMovement #%d '%s'\n", 
-	 step->get_iId()->get_val(), step->get_itsId());
+	 step->iId->val, step->itsId);
 }
 
 /********************************************************************/
@@ -829,17 +829,17 @@ void printRoundHole( /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("roundHole #%d '%s'\n",
-	 feat->get_iId()->get_val(), feat->get_itsId());
+	 feat->iId->val, feat->itsId);
   spaces = (spaces+2);
-  printAxis2(feat->get_featurePlacement(), spaces);
+  printAxis2(feat->featurePlacement, spaces);
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("diameter ");
-  printDouble(feat->get_diameter()->get_theoreticalSize());
+  printDouble(feat->diameter->theoreticalSize);
   printf("\n");
-  if (feat->get_depth()->isA(plane_E))
-    printPlane("depth", dynamic_cast<plane *>(feat->get_depth()), spaces);
-  printBottomCondition(feat->get_bottomCondition(), spaces);
+  if (feat->depth->isA(plane_E))
+    printPlane("depth", dynamic_cast<plane *>(feat->depth), spaces);
+  printBottomCondition(feat->bottomCondition, spaces);
 }
 
 /********************************************************************/
@@ -861,9 +861,9 @@ void printSetup( /* ARGUMENTS                      */
   
   for (n=0; n < spaces; n++)
     putchar(' ');
-  printf("setup #%d '%s'\n", set->get_iId()->get_val(), set->get_itsId());
-  printAxis2(set->get_itsOrigin(), (spaces+2));
-  surf = dynamic_cast<elementarySurface *>(set->get_itsSecplane());
+  printf("setup #%d '%s'\n", set->iId->val, set->itsId);
+  printAxis2(set->itsOrigin, (spaces+2));
+  surf = dynamic_cast<elementarySurface *>(set->itsSecplane);
   if (surf->isA(plane_E))
     printPlane("security", dynamic_cast<plane *>(surf), (spaces+2));
   else
@@ -894,8 +894,8 @@ void printTree() /* NO ARGUMENTS */
   dataSection * input;
   std::list<instance *> * items;
 
-  input = tree->get_inputData();
-  items = input->get_items();
+  input = tree->inputData;
+  items = input->items;
   if (items->front()->isA(project_E))
     {
       printProject(dynamic_cast<project *>(items->front()));
@@ -999,7 +999,7 @@ void printWorkpiece( /* ARGUMENTS                      */
   int n;
   for (n=0; n < spaces; n++)
     putchar(' ');
-  printf("workpiece #%d '%s'\n", work->get_iId()->get_val(), work->get_itsId());
+  printf("workpiece #%d '%s'\n", work->iId->val, work->itsId);
 }
 
 /********************************************************************/
@@ -1023,7 +1023,7 @@ void printWorkpieces(             /* ARGUMENTS                      */
   for (n=0; n < spaces; n++)
     putchar(' ');
   printf("workpieces");
-  theList = workpieces->get_theList();
+  theList = workpieces->theList;
   if (theList->begin() == theList->end())
     printf(" NONE\n");
   else
@@ -1054,11 +1054,11 @@ void printWorkplan( /* ARGUMENTS                      */
   
   for (n=0; n < spaces; n++)
     putchar(' ');
-  printf("workplan #%d '%s'\n", plan->get_iId()->get_val(), plan->get_itsId());
-  printElements(plan->get_itsElements(), (spaces+2));
-  printChannel(plan->get_itsChannel(), (spaces+2));
-  printSetup(dynamic_cast<setup *>(plan->get_itsSetup()), (spaces+2));
-  printEffect(plan->get_itsEffect(), (spaces+2));
+  printf("workplan #%d '%s'\n", plan->iId->val, plan->itsId);
+  printElements(plan->itsElements, (spaces+2));
+  printChannel(plan->itsChannel, (spaces+2));
+  printSetup(dynamic_cast<setup *>(plan->itsSetup), (spaces+2));
+  printEffect(plan->itsEffect, (spaces+2));
 }
 
 /********************************************************************/

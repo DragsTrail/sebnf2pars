@@ -1805,6 +1805,8 @@ DATA;
 
 #4872= COMPOSITE_CURVE_SEGMENT(.CONTINUOUS., .T., #4873);
 #4873= TRIMMED_CURVE('path A segment2', #4875,(#4870),(#4874),.F.,.CARTESIAN.);
+/*#4873= TRIMMED_CURVE('path A segment2', #4875,(3.5,#4870,-1.6),
+         (#4874),.F.,.CARTESIAN.);*/
 #4874= CARTESIAN_POINT('end A2 arc', (-31.0, -15.0, -30.0));
 #4875= CIRCLE('A2 arc', #4876, 1.0);
 #4876= AXIS2_PLACEMENT_3D('A2 arc placement',#4877,#909,#910);
