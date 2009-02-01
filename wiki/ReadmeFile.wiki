@@ -1,6 +1,7 @@
 #summary v1.0 README file
 #labels Featured,Phase-Requirements,Phase-Design
 
+*Note that this is from revision 3, so it is somewhat outdated.  Here's the [http://code.google.com/p/sebnf2pars/source/browse/trunk/sebnf2pars/README latest version].*
 == OVERVIEW ==
 --------
 
