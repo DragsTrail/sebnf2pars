@@ -1,0 +1,147 @@
+**Note that this is from [revision 3](https://code.google.com/p/sebnf2pars/source/detail?r=3), so it is somewhat outdated.  Here's the [latest version](http://code.google.com/p/sebnf2pars/source/browse/trunk/sebnf2pars/README).**
+## OVERVIEW ##
+
+---
+
+
+This sebnf2pars directory contains a tool for automatically generating
+C++ classes and a parser for STEP Part 21 files. The directory also
+contains one example of applying the tool.
+
+The tool, named sebnf2pars, reads an annotated EBNF file, expected to
+be prepared by the tool user.
+
+The tool writes:
+
+1. a C++ header file defining classes.
+
+2. a C++ code file implementing the classes further.
+
+3. a YACC file defining a parser for STEP Part 21 files.
+
+4. a Lex file for the lexical scanner needed by the YACC file.
+
+No license is required to use the software. The software is all in standard
+C++, so it may be compiled and run on any computer for which a standard C++
+compiler is available.
+
+
+## INPUT EBNF FILE ##
+
+---
+
+
+An EBNF file corresponding to a particular EXPRESS schema (or schemas)
+needs to be created in order to use the tool. The file should be written in
+ISO standard EBNF (except that a keyword written in all uppercase letters does
+not need to be spelled out in the EBNF files unless its spelling in a
+Part 21 file differs from its spelling as a keyword). Preparing the
+EBNF file is a substantial piece of work for a non-trivial EXPRESS
+schema. Moreover, sebnf2pars supports only a limited number of the
+supertype/subtype relationships that are possible in EXPRESS, so sebnf2pars
+is expected to be useful only for handling ARM-type models which do not use
+complex relationships.
+
+The EBNF file must include a section that gives the names of attributes of
+the EXPRESS entities. The section is composed of EBNF comments.
+
+## C++ CLASSES ##
+
+---
+
+
+The C++ classes are covered by two files:
+
+1. a C++ header file defining classes. The header file includes
+> declarations and implementations of constructors, identifying
+> functions, and access functions. It also includes declarations
+> of destructors and printing functions. The class names and the
+> names of attributes in the classes are the same as the names
+> given in the EBNF file.
+
+2. a C++ code file implementing the classes further. The code file
+> includes destructors and printing functions that enable printing
+> a Part 21 file back out again.
+
+## YACC FILE ##
+
+---
+
+
+The YACC file defines a parser for STEP Part 21 files of the sort defined
+in the EBNF file. It is expected that the YACC file will be processed by
+bison in order to generate a C++ header file and a C++ code file for the
+parser, which will then be compiled by a C++ compiler. When the parser
+built from the YACC file parses a Part 21 file, it builds a parse tree
+using the C++ classes.
+
+
+## LEX FILE ##
+
+---
+
+
+The Lex file defines a lexical scanner needed by the YACC file. It is
+expected the Lex file will be processed by flex in order to generate a C++
+code file for the scanner. The code file will then be compiled by a C++
+compiler.
+
+
+## EXAMPLE - ISO 14649 ##
+
+---
+
+
+This directory contains one example of using sebnf2pars. The example
+implements Parts 10 and 11 of ISO 14649 (defining an information model for
+controlling a machining center). The example includes a simple test program
+named iso14649parser that will read in a Part 21 file, print it back out
+again, and print the skeleton of the parse tree built by the parser.
+
+The files generated automatically for this example have been used to build
+an ISO 14649 interpreter. It is available at
+http://code.google.com/p/iso-14649-toolkit
+
+
+## DIRECTORY STRUCTURE ##
+
+---
+
+
+The directory structure of this directory is as follows; indentation levels
+indicate subdirectories. Parenthetical comments say what is included.
+
+  * ebnf (only one file: iso14649.ebnf)
+  * generator
+    * Makefile
+    * bin (empty - intended for binary files)
+    * ofiles (empty - intended for object files)
+    * source (seven files in C++, YACC, and Lex)
+  * parsers
+    * iso14649 (only one example)
+      * Makefile
+      * bin (empty - intended for binary files)
+      * data (four test files)
+      * include (two header files)
+      * ofiles (empty - intended for object files)
+      * source (six files in C++, YACC, and Lex)
+
+
+
+## COMPILING ##
+
+---
+
+
+If you have a Linux or Unix system, to compile everything, change the the definitions of COMPILE and LINK in the Makefiles to use your C++ compiler and give the following commands.
+
+1. from the generator directory:
+> make bin/sebnf2pars
+
+2. from the parsers/iso14649 directory:
+> make bin/iso14649parser
+
+**If you have a Windows system you are on your own.**
+
+If you want to use sebnf2pars, you will need bison and flex. Those
+are both free GNU software available on the web.
